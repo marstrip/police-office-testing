@@ -40,7 +40,7 @@ span.form-control-feedback {
 }
 
 .mastbody {
-	min-height: 522px;
+	min-height: 544px;
 	background: #f5f5f5;
 }
 
@@ -126,10 +126,10 @@ ul.no-style {
 }
 
 .classes {
-	padding: 0 30px;
-	display: inline-block;
+	padding: 0px 25px;
+    display: inline-block;
     text-align: center;
-    width: 1010px;
+    width: 1000px;
 }
 .class-item {
 	border: 1px solid #999;
@@ -174,4 +174,12 @@ ul.no-style {
 }
 .modal-footer {
 	text-align: center;
+}
+
+
+.exam-header-item + .exam-header-item {
+	border-left: 1px solid #ddd;
+}
+.exam-area {
+	padding: 0 20px;
 }
