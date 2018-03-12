@@ -12,6 +12,7 @@
 
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/demo.js"></script>
     <!-- <script src="vendor/Chart.js/Chart.js"></script> -->
     <!-- <script src="assets/js/mysite.js"></script> -->
 
@@ -39,26 +40,68 @@
 
 			<div class="row">
 			    <ol class="breadcrumb">
-				    <li><a href="#">首页</a></li>
+				    <li><a href="demo-index.html">首页</a></li>
 				    <li>考试</li>
 				</ol>
 			</div>
 		</div>
-		<div class="container">
-	        <div class="row">
-                <div class="panel panel-white">
+
+		<div>
+            <!-- 面板区域 -->
+            <div style="width: 90px; margin-right: 25px; float: right;">
+                <div class="panel panel-white" style="display: block; position: relative; overflow: hidden;">
+                    <div class="panel-body" style="text-align: center; background: #f5f5f5; display: block;">
+                        <div class="icon">
+                            <i class="fa fa-clock-o fa-4x"></i>
+                        </div>
+                        <div class="icon-description">
+                            96分16秒
+                        </div>
+                        <div class="weak small">
+                            共1题
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="text-align: center; background: #fff;">
+                        <div class="icon">
+                            <i class="fa fa-arrow-circle-o-left fa-2x"></i>
+                        </div>
+                        <div class="icon-description">
+                            返回首页
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="text-align: center; background: #fff;">
+                        <div class="icon">
+                            <i class="fa fa-pause-circle-o fa-2x"></i>
+                        </div>
+                        <div class="icon-description">
+                            暂停
+                        </div>
+                    </div>
+                    <div class="panel-footer btn-success" style="margin-left: -1px; text-align: center; background: #449d44;">
+                        <div class="icon">
+                            <i class="fa fa-check-circle-o fa-2x"></i>
+                        </div>
+                        <div class="icon-description">
+                            提交
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 答题区域 -->
+	        <div style="margin: 0 15px; min-width: 780px; width: calc(100% - 150px); white-space: initial;">
+                <div class="panel panel-white" style="display: block;">
                     <!-- <div class="panel-heading">
                         <h3 class="panel-title">
                             个人信息
                         </h3>
                     </div> -->
-                    <div class="panel-body">
+                    <div class="panel-body" style="display: block;">
                     	<!-- 试卷头 -->
-                    	<div class="row text-center">
+                    	<div class="text-center">
                     		<h1>gl试卷</h1>
                     		<div class="col-sm-8 col-sm-offset-2">
                     			<hr>
-                    			<div class="row">
+                    			<div>
                     				<div class="col-sm-4 text-center exam-header-item">
                     					<p>本试卷共有</p>
                     					<p><strong>1</strong> 题目</p>
@@ -73,33 +116,67 @@
                     				</div>
                     			</div>
                     		</div>
-                    		<div class="row">
+                    		<div style="clear: left;">
                     			<div class="col-sm-12">
-		                   			<hr style="clear: both;">
+		                   			<hr>
 		                   		</div>
                     		</div>
                     	</div>
                     	<!-- 题目 -->
                         <div class="q-select exam-area">
                         	<h2>一、选择题</h2>
-                        	<div class="row">
+                        	<div class="q-select-items">
                         		<div class="col-sm-12">
 	                        		<h3>1.中国国庆日是哪天？ [20分]</h3>
-	                        		<ul class="no-style">
-	                        			<li>
-	                        				<input type="radio"> A. 10月1日
-	                        			</li>
-	                        			<li>
-	                        				<input type="radio"> A. 10月1日
-	                        			</li>
-	                        			<li>
-	                        				<input type="radio"> A. 10月1日
-	                        			</li>
-	                        		</ul>
+                                    <div class="q-select-answer">
+    	                        		<ul class="no-style">
+    	                        			<li>
+    	                        				<input type="radio"> A. 10月1日
+    	                        			</li>
+    	                        			<li>
+    	                        				<input type="radio"> A. 10月1日
+    	                        			</li>
+    	                        			<li>
+    	                        				<input type="radio"> A. 10月1日
+    	                        			</li>
+    	                        		</ul>
+                                    </div>
                         		</div>
+                                <div class="col-sm-12">
+                                    <h3>1.中国国庆日是哪天？ [20分]</h3>
+                                    <div class="q-select-answer">
+                                        <ul class="no-style">
+                                            <li>
+                                                <input type="radio"> A. 10月1日
+                                            </li>
+                                            <li>
+                                                <input type="radio"> A. 10月1日
+                                            </li>
+                                            <li>
+                                                <input type="radio"> A. 10月1日
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h3>1.中国国庆日是哪天？ [20分]</h3>
+                                    <div class="q-select-answer">
+                                        <ul class="no-style">
+                                            <li>
+                                                <input type="radio"> A. 10月1日
+                                            </li>
+                                            <li>
+                                                <input type="radio"> A. 10月1日
+                                            </li>
+                                            <li>
+                                                <input type="radio"> A. 10月1日
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                         	</div>
                         </div>
-                    </div>
+                    </div><!-- end of .panel-body -->
                 </div>
 	        </div>
 	    </div>

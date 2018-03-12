@@ -9,12 +9,30 @@ span.form-control-feedback {
 	line-height: 34px;
 	right: -4px;
 }
+.weak {
+	color: #999;
+}
+.paint strong {
+	color: orange;
+}
+.judge.fa {
+	display: block;
+}
+.judge.fa.right:after {
+	content: "    \f00c";
+	color: green;
+}
+.judge.fa.wrong:after {
+	content: "    \f00d";
+	color: red;
+}
 
 .masthead {
     overflow: hidden;
-    height: 350px;
+    height: 250px;
+	min-width: 1024px;
     position: relative;
-    padding: 120px 0;
+    padding: 60px 0;
     color: #fff;
     text-align: center;
     /* text-shadow: 0 1px 3px rgba(0,0,0,.4),0 0 30px rgba(0,0,0,.075); */
@@ -32,7 +50,19 @@ span.form-control-feedback {
     box-shadow: inset 0 3px 7px rgba(0,0,0,.2),inset 0 -3px 7px rgba(0,0,0,.2); */
 
     background: url(../img/BackGround.png) no-repeat;
-    background-size: 100% 390px;
+    background-size: 100%;
+    background-position: 50% 60%;
+}
+.extra-link {
+	position: absolute;
+	top: 0;
+	right: 100px;
+	width: 100px;
+	height: 24px;
+	background: rgba(0, 0, 0, 0.2);
+}
+.extra-link a {
+	color: #fff;
 }
 
 .breadcrumb {
@@ -41,7 +71,9 @@ span.form-control-feedback {
 
 .mastbody {
 	min-height: 544px;
+	min-width: 1024px;
 	background: #f5f5f5;
+	padding-bottom: 15px;
 }
 
 .panel-white {
@@ -76,9 +108,19 @@ ul.no-style {
 	list-style-type: none;
 	-webkit-padding-start: 0px;
 }
+.fix-text a {
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+	width: 280px;
+	display: block;
+}
 
 .avatar {
 	width: 70px;
+}
+.police-name:before {
+	content: "姓名：";
 }
 .police-id:before {
 	content: "警号：";
@@ -94,8 +136,17 @@ ul.no-style {
 	margin-left: 10px;
 	margin-bottom: 10px;
 }
+.func-item:hover {
+	background: #eee;
+}
+.func-item:active {
+	background: #ddd;
+}
 .func-item.func-item-2x {
 	width: 180px;
+}
+.func-item.func-item-2x:hover {
+	background: #fff;
 }
 .func-item .info {
 	margin-top: 20px;
@@ -170,7 +221,10 @@ ul.no-style {
 
 .modal-dialog {
 	width: 700px;
-	margin-top: 25%;
+	height: 300px;
+	position: fixed;
+	top: calc(50% - 150px);
+	left: calc(50% - 350px);
 }
 .modal-footer {
 	text-align: center;
@@ -181,5 +235,16 @@ ul.no-style {
 	border-left: 1px solid #ddd;
 }
 .exam-area {
-	padding: 0 20px;
+	padding: 0 40px;
+}
+
+.q-select-items {
+	padding-left: 20px;
+}
+.q-select-answer {
+	padding-left: 40px;
+}
+
+.icon-description {
+	margin-top: 3px;
 }

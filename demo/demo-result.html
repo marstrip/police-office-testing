@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/css/demo-all.css" rel="stylesheet">
+
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/demo.js"></script>
+	<!-- <script src="vendor/Chart.js/Chart.js"></script> -->
+	<!-- <script src="assets/js/mysite.js"></script> -->
+
+</head>
+
+<body>
+	<div class="masthead">
+		<div class="row">
+			<img src="assets/img/icon.png" alt="">
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 text-align-left">
+				<h2>
+					北京市东城分局在线自学自测考试系统
+				</h2>
+				<h5>
+					Beijing dongcheng public security bureau online self-study examination system.
+				</h5>
+			</div>
+		</div>
+	</div>
+
+	<div class="mastbody">
+		<div class="container" style="margin-left: 0; margin-right: 0; width: 100%!important;">
+
+			<div class="row">
+				<ol class="breadcrumb">
+					<li><a href="demo-index.html">首页</a></li>
+					<li>考试</li>
+				</ol>
+			</div>
+		</div>
+
+		<div>
+			<!-- 答题区域 -->
+			<div style="margin: 0 15px; white-space: initial;">
+				<div class="panel panel-white" style="display: block;">
+					<!-- <div class="panel-heading">
+						<h3 class="panel-title">
+							个人信息
+						</h3>
+					</div> -->
+					<div class="panel-body" style="display: block;">
+						<!-- 试卷头 -->
+						<div class="text-center">
+							<h1>gl试卷</h1>
+							<div class="col-sm-8 col-sm-offset-2">
+								<hr>
+								<div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">试卷总分</p>
+										<p class="paint"><strong>20</strong> 分</p>
+									</div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">主观题得分</p>
+										<p class="paint"><strong>0</strong> 分</p>
+									</div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">客观题得分</p>
+										<p class="paint"><strong>20</strong> 分</p>
+									</div>
+								</div>
+								<div style="clear: left; height: 30px;"></div>
+								<div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">最终得分</p>
+										<p class="paint"><strong>20</strong> 分</p>
+									</div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">总题数</p>
+										<p class="paint"><strong>1</strong></p>
+									</div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">答错题数</p>
+										<p class="paint"><strong>0</strong></p>
+									</div>
+								</div>
+							</div>
+							<div style="clear: left;">
+								<div class="col-sm-12">
+						   			<hr>
+						   		</div>
+							</div>
+						</div>
+						<!-- 题目 -->
+						<div class="q-select exam-area">
+							<h2>一、选择题</h2>
+							<div class="q-select-items">
+								<div class="col-sm-12">
+									<h3>1.中国国庆日是哪天？ [20分]</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												A. 10月1日
+											</li>
+											<li>
+												A. 10月1日
+											</li>
+											<li>
+												A. 10月1日
+											</li>
+										</ul>
+									</div>
+                                    <p class="correct-answer">正确答案：A</p>
+                                    <p class="judge right fa">我的回答：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+							</div>
+						</div>
+					</div><!-- end of .panel-body -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<ul class="text-center no-style" style="padding-top: 5px;">
+					<li><span>北京市公安局东城分局政治部教育训练处</span></li>
+					<li><span>建议使用IE8以上浏览器 &nbsp; 推荐分辨率：1024&times;768</span></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="q" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" style="padding-top: 20px;">
+					<div class="form-group">
+						<input type="text" name="title" class="form-control" placeholder="标题">
+					</div>
+					<div class="form-group">
+						<textarea name="detail" id="" cols="30" rows="10" class="form-control" placeholder="内容" style="resize: none;"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">&nbsp;&nbsp;关闭&nbsp;&nbsp;</button>
+					<button type="button" class="btn btn-success">&nbsp;&nbsp;提问&nbsp;&nbsp;</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<div class="modal fade" id="qa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" style="padding-left: 30px; padding-top: 20px;">
+					<h1>问题</h1>
+					<p>问题标题</p>
+					<p>问题内容</p>
+					<h1>回答</h1>
+					<p>回答内容</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">&nbsp;&nbsp;确定&nbsp;&nbsp;</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<script>
+		$('.show-qa').on('click', function() {
+			$('#qa').modal('show');
+		});
+		$('.show-q').on('click', function() {
+			$('#q').modal('show');
+		});
+	</script>
+
+</body>
+
+</html>
