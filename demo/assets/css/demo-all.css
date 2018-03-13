@@ -27,6 +27,10 @@ span.form-control-feedback {
 	color: red;
 }
 
+.hover:hover {
+	opacity: 0.8;
+}
+
 .masthead {
     overflow: hidden;
     height: 250px;
@@ -107,6 +111,13 @@ span.form-control-feedback {
 ul.no-style {
 	list-style-type: none;
 	-webkit-padding-start: 0px;
+}
+.fix-text-330 {
+	display: block;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+	width: 330px;
 }
 .fix-text a {
 	white-space: nowrap;
