@@ -10,17 +10,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>Document</title>
+	<title>在线考试系统后台</title>
 	
 	<!-- 插件css部分 -->
-	<link rel="stylesheet" href="styles/vendors/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="styles/vendors/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
 
 	<!-- 基于bootstrap的菜单，自制 -->
-	<link rel="stylesheet" href="styles/assets/plugins/bootstrap-sidebar/css/bootstrap-sidebar.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/assets/plugins/bootstrap-sidebar/css/bootstrap-sidebar.css">
 
 	<!-- 本站自用css -->
-	<link rel="stylesheet" href="styles/assets/css/mysite.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/assets/css/mysite.css">
 
 </head>
 <body>
@@ -63,11 +63,11 @@
 	</div>
 
 	<!-- 插件js部分 -->
-	<script src="styles/vendors/jquery/jquery.min.js"></script>
-	<script src="styles/vendors/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/vendors/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap/js/bootstrap.min.js"></script>
 
 	<!-- 基于bootstrap的菜单，自制 -->
-	<script src="styles/assets/plugins/bootstrap-sidebar/js/bootstrap-sidebar.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/plugins/bootstrap-sidebar/js/bootstrap-sidebar.js"></script>
 
 	<!-- 渲染菜单方法 -->
 	<script>

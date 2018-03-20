@@ -26,6 +26,7 @@
 	    <property name="filterChainDefinitions">  
 	        <value>  
 	        	 /styles/**=anon
+	        	 /login/**=anon
 	             /**=authc
 	        </value>  
 	    </property>

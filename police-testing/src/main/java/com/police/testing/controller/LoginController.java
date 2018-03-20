@@ -12,7 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.police.testing.service.IUserService;
 
-@Controller 
+@Controller
+@RequestMapping("/login/")
 public class LoginController {
 	static Logger logger = LogManager.getLogger(LoginController.class.getName());
 	@Autowired
@@ -24,15 +25,23 @@ public class LoginController {
 	 * @param response
 	 * @param url
 	 */
-	@RequestMapping(value = "/login/page")
+	@RequestMapping(value = "page")
 	public String loginPage(HttpServletRequest request, HttpServletResponse response) {
 		 return "login";
 	}
-	
+	/**
+	 * 用户登录
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("backgroundeSystem")
+	public String login(HttpServletRequest request){
+		return "background_system/index";
+	}
 	 /** 
      * 用户登出 
      */
-    @RequestMapping("/logout")  
+    @RequestMapping("logout")  
     public String logout(HttpServletRequest request, HttpServletResponse response){  
          Subject currentUser = SecurityUtils.getSubject();
  		 Session session = currentUser.getSession();

@@ -8,9 +8,6 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/login/style.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/login/animate-custom.css" />
 <script type="text/javascript">
-		function login(){
-			document.loginForm.submit();
-		}    	
 </script>
 </head>
 <body>
@@ -30,7 +27,7 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form action="${pageContext.request.contextPath}/login" autocomplete="on"> 
+                            <form action="${pageContext.request.contextPath}/login/backgroundeSystem" method="post"> 
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" > Your username </label>
@@ -79,9 +76,9 @@
                                 <!-- <p class="change_link">  
 									Already a member ?
 									<a href="#tologin" class="to_register"> Go and log in </a>
-								</p> -->
+								</p> 
                             </form>
-                        </div>
+                        </div>-->
 						
                     </div>
                 </div>  
