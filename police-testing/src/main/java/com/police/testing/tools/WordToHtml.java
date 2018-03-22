@@ -64,7 +64,7 @@ public class WordToHtml {
    public static String htmlTextArray[];
    public static boolean tblExist=false;
 
-   public static final String inputFile="D:\\需求资料\\公安局项目\\出入境管理法.doc";
+   public static final String inputFile="D:\\需求资料\\公安局项目\\办理刑事案件程序(含17年新增试题).doc";
    public static final String htmlFile="D:\\abc.html";
 
    public static void main(String argv[])
@@ -163,9 +163,15 @@ public class WordToHtml {
                CharacterRun cr2 = range2.getCharacterRun(0);
                char c = cr.text().charAt(0);
                int asciiInt = Integer.valueOf(c);
-               System.out.println("asciiInt" + asciiInt);
+//               System.out.println("asciiInt" + asciiInt);
                if(asciiInt == 11){
-            	   System.out.println(htmlText);
+//            	   System.out.println(htmlText);
+               }
+               if(cr.text().equals(")")){
+            	   System.out.println("(");
+               }
+               if(c == 160){
+            	   continue;
                }
                // 判断是否为空格符
                if (c == SPACE_ASCII)
@@ -175,24 +181,34 @@ public class WordToHtml {
                    tempString += "&nbsp;&nbsp;&nbsp;&nbsp;";
                // 比较前后2个字符是否具有相同的格式
                boolean flag = compareCharStyle(cr, cr2);
-               if (flag && c !=ENTER_ASCII && c!= 11)
-                   tempString += cr.text();
-               else {
+               if (flag && c !=ENTER_ASCII && c != 11){
+            	   tempString += cr.text();
+               }else {
                    String fontStyle = "<span style='font-family:" + cr.getFontName() + ";font-size:" + cr.getFontSize() / 2
                    + "pt;color:"+getHexColor(cr.getIco24())+";";
 
-                   if (cr.isBold())
-                       fontStyle += "font-weight:bold;";
-                   if (cr.isItalic() && asciiInt != 11)
+                   if (cr.isBold()){
+                	   fontStyle += "font-weight:bold;";
+                   }
+                   if (cr.isItalic()){
                        fontStyle += "font-style:italic;";
-
-                   htmlText += fontStyle + "' >" + tempString + cr.text();
-                   htmlText +="</span>";
-                   tempString = "";
+                   }
+                   if(c == 11){
+                	   htmlText += fontStyle + "'>" + tempString;
+                       htmlText +="</span>";
+                       tempString = "";
+                   }else {
+                	   htmlText += fontStyle + "'>" + tempString + cr.text();
+                       htmlText +="</span>";
+                       tempString = "";
+                   }
                }
                // 判断是否为回车符
-               if (c == ENTER_ASCII || c == 11){
+               if (c == ENTER_ASCII){
                    htmlText += "<br/>";
+               }
+               if(c == 11){
+            	   htmlText += "<br/>";
                }
            }
        }
