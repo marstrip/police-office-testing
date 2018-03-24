@@ -27,10 +27,9 @@ span.form-control-feedback {
 
 .masthead {
     overflow: hidden;
-    height: 380px;
-	min-width: 1024px;
+    height: 300px;
+	min-width: 1280px;
     position: relative;
-    padding: 60px 0;
     color: #fff;
     text-align: center;
     /* text-shadow: 0 1px 3px rgba(0,0,0,.4),0 0 30px rgba(0,0,0,.075); */
