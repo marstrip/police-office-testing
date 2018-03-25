@@ -1,12 +1,12 @@
 package com.police.testing.tools;
-import java.io.BufferedWriter;  
-import java.io.File;  
-import java.io.FileInputStream;  
-import java.io.FileNotFoundException;  
-import java.io.FileOutputStream;  
-import java.io.IOException;  
-import java.io.OutputStream;  
-import java.io.OutputStreamWriter;  
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,18 +18,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hwpf.HWPFDocument;  
-import org.apache.poi.hwpf.model.PicturesTable;  
-import org.apache.poi.hwpf.usermodel.CharacterRun;  
-import org.apache.poi.hwpf.usermodel.Picture;  
-import org.apache.poi.hwpf.usermodel.Range;  
-import org.apache.poi.hwpf.usermodel.Paragraph;     
-import org.apache.poi.hwpf.usermodel.Table;     
-import org.apache.poi.hwpf.usermodel.TableCell;     
-import org.apache.poi.hwpf.usermodel.TableIterator;     
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.model.PicturesTable;
+import org.apache.poi.hwpf.usermodel.CharacterRun;
+import org.apache.poi.hwpf.usermodel.Paragraph;
+import org.apache.poi.hwpf.usermodel.Picture;
+import org.apache.poi.hwpf.usermodel.Range;
+import org.apache.poi.hwpf.usermodel.Table;
+import org.apache.poi.hwpf.usermodel.TableCell;
+import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 
-import com.police.testing.pojo.Question;  
+import com.police.testing.pojo.Question;
+
 
 /**
 *
@@ -66,7 +67,7 @@ public class WordToHtml {
    public static String htmlTextArray[];
    public static boolean tblExist=false;
 
-   public static final String inputFile="E:\\workspace\\police-office-testing\\police-testing\\file\\办理刑事案件程序(含17年新增试题).doc";
+   public static final String inputFile="D:\\workspace\\police-office-testing\\police-testing\\file\\办理刑事案件程序(含17年新增试题).doc";
    public static final String htmlFile="D:\\abc.html";
 
    public static void main(String argv[])
@@ -109,7 +110,7 @@ public class WordToHtml {
        HWPFDocument doc = new HWPFDocument(in);
 
        String doc1 = doc.getDocumentText();
-       System.out.println(doc1);
+//       System.out.println(doc1);
        
        Range rangetbl = doc.getRange();//得到文档的读取范围   
        TableIterator it = new TableIterator(rangetbl); 
@@ -164,14 +165,6 @@ public class WordToHtml {
                // 第二个字符
                CharacterRun cr2 = range2.getCharacterRun(0);
                char c = cr.text().charAt(0);
-               int asciiInt = Integer.valueOf(c);
-//               System.out.println("asciiInt" + asciiInt);
-               if(asciiInt == 11){
-//            	   System.out.println(htmlText);
-               }
-               if(cr.text().equals(")")){
-            	   System.out.println("(");
-               }
                if(c == 160){
             	   continue;
                }
@@ -293,7 +286,7 @@ public class WordToHtml {
        String afileName = pic.suggestFullFileName();
 
        File file = new File(wordImageFilePath());
-       System.out.println(file.mkdirs());
+//       System.out.println(file.mkdirs());
        OutputStream out = new FileOutputStream(new File( wordImageFilePath()+ File.separator + afileName));
        pic.writeImageContent(out);
        htmlText += "<img src='"+wordImgeWebPath()+ afileName
@@ -395,116 +388,71 @@ public class WordToHtml {
        }
        String[] result = {};
        String ws[]=list.toArray(result);
-//       int singleScore = 0;
-//       int multipleScore = 0;
-//       int fillingScore = 0;
-//       int judgeScore = 0;
-//       int askScore = 0;
-//       int singleNum = 0;
-//       int multipleNum = 0;
-//       int fillingNum = 0;
-//       int judgeNum = 0;
-//       int askNum = 0;
        List<Question> questions = new ArrayList<>();
        /***********试卷基础数据赋值*********************/
        for (int i = 0; i < ws.length; i++) {
            String rowWord=ws[i].toString().replaceAll("</?[^>]+>","").trim();//去除html
-           if(rowWord.equals("295、李某涉嫌犯罪被公安机关立案侦查，委托律师何某作为辩护人")){
-        	   System.out.println("295、李某涉嫌犯罪被公安机关立案侦查，委托律师何某作为辩护人");
-           }
+           String lastSelects = null;
+    	   String questionType = null;
+    	   Question lastQuestion = null;
+    	   if(questions.size() > 0){
+    		   lastQuestion = questions.get(questions.size() - 1);
+    		   lastSelects = lastQuestion.getSelects();
+    		   questionType = lastQuestion.getQuestionType();
+    	   }
            //每行前两个字符为数据+顿号则为题干
            boolean numberFlag = isDigit2(rowWord.substring(0, 1));
            if(numberFlag){
-        	   String lastSelects = null;
-        	   if(questions.size() > 0){
-        		   Question lastQuestion = questions.get(questions.size() - 1);
-        		   lastSelects = lastQuestion.getSelects();
-        	   }
-        	   if(StringUtils.isNotBlank(lastSelects) || questions.size() == 0){
+        	   if(StringUtils.isNotBlank(lastSelects) || questions.size() == 0 || (StringUtils.isNotBlank(questionType)&&questionType.equals("2"))){
         		   Question question = new Question();
             	   question.setQuestion(rowWord);
             	   questions.add(question);
         	   }
            }
            //如果前两个字符为大写字母与.则为选项
-           boolean selectFlag = selectFlag(rowWord.substring(0, 1));
+           boolean selectFlag = answerFlag(rowWord.substring(0, 1));
            if(selectFlag){
-        	    Question question = questions.get(questions.size()-1);
-        	    String select = question.getSelects();
-        	    if(StringUtils.isNotBlank(select)){
-        	    	select += ";";
-        	    }
-        	    select += rowWord;
-        	    question.setSelects(select);
+        	   if(questions.size() > 0){
+        		   Question question = questions.get(questions.size()-1);
+        		   if(rowWord.length() > 1){
+	               	    String select = question.getSelects();
+	               	    if(StringUtils.isNotBlank(select)){
+	               	    	select += ";";
+	               	    }
+	               	    select += rowWord;
+	               	    question.setSelects(select);
+	               	    question.setQuestionType("1");
+           	    	}
+        	   }
+           }else {
+        	   if(lastQuestion != null && StringUtils.isBlank(lastSelects) &&StringUtils.isBlank(lastQuestion.getQuestion()) 
+        			   && StringUtils.isNotBlank(lastQuestion.getQuestion())){
+    			   String question = lastQuestion.getQuestion() + rowWord;
+    			   lastQuestion.setQuestion(question);
+    		   }
            }
-//           String[] rowHtmlSplit = rowHtml.split("、");//将每一行字符串用顿号分隔
-//           if(rowHtmlSplit.length > 0){
-//        	   if(isDigit2(rowHtmlSplit[0])){//顿号前一个字符串如果为数字则为一道题的开始
-//        		   questionNumber = Integer.valueOf(rowHtmlSplit[0]);
-//        		   question = rowHtml;
-//        	   }
-//           }
-           
-//           if(delHtml.contains("、单选题")){
-//               String numScore=numScore(delHtml);
-//               singleNum= Integer.parseInt(numScore.split(",")[0]) ;
-//               singleScore=Integer.parseInt(numScore.split(",")[1]) ;
-//           }else if(delHtml.contains("、多择题")){
-//               String numScore=numScore(delHtml);
-//               multipleNum= Integer.parseInt(numScore.split(",")[0]) ;
-//               multipleScore=Integer.parseInt(numScore.split(",")[1]) ;
-//           }else if(delHtml.contains("、填空题")){
-//               String numScore=numScore(delHtml);
-//               fillingNum= Integer.parseInt(numScore.split(",")[0]) ;
-//               fillingScore=Integer.parseInt(numScore.split(",")[1]) ;
-//           }else if(delHtml.contains("、判断题")){
-//               String numScore=numScore(delHtml);
-//               judgeNum= Integer.parseInt(numScore.split(",")[0]) ;
-//               judgeScore=Integer.parseInt(numScore.split(",")[1]) ;
-//           }else if(delHtml.contains("、问答题")){
-//               String numScore=numScore(delHtml);
-//               askNum= Integer.parseInt(numScore.split(",")[0]) ;
-//               askScore=Integer.parseInt(numScore.split(",")[1]) ;
-//           }
-
+           if(rowWord.contains("295、")){
+        	   System.out.println("");
+           }
+           //判断某一行是否为正确答案
+           if(rowWord.contains("【正确答案:】")){
+        	   String answer = null;
+        	   if(rowWord.length() > rowWord.indexOf("】")){
+        		  answer = rowWord.substring(rowWord.indexOf("】")+1, rowWord.length());
+//        		  boolean answerFlag = answerFlag(answer);
+        		  if(questions.size() > 0){
+        			  Question question = questions.get(questions.size()-1);
+        			  if(StringUtils.isBlank(question.getSelects())){
+	      	    			question.setQuestionType("2");
+	      	    	  }
+        			  question.setAnswerSelect(answer);
+	           	   }
+        	   }
+           }
        }
        for (Question question : questions) {
     	   System.out.println("question:" + question.getQuestion());
        }
-       /**************word试卷数据模型化****************/
-       List<Map<String, Object>> bigTiMaps = new ArrayList<Map<String,Object>>();
-       List<Map<String, Object>> smalMaps = new ArrayList<Map<String,Object>>();
-       List<Map<String, Object>> sleMaps = new ArrayList<Map<String,Object>>();
-       String htmlText="";
-       int smalScore=0;
-       for (int j = ws.length-1; j>=0; j--) {
-           String html= ws[j].toString().trim();//html格式
-           String delHtml=ws[j].toString().replaceAll("</?[^>]+>","").trim();//去除html
-           if(!isSelecteTitele(delHtml)&&!isTitele(delHtml)&&!isBigTilete(delHtml)){//无
-               if(isTitele(delHtml)){
-                   smalScore=itemNum(delHtml);
-               }
-               htmlText=html+htmlText;
-           }else if(isSelecteTitele(delHtml)){//选择题选择项
-               Map<String, Object> sleMap = new HashMap<String, Object>();//选择题选择项
-               sleMap.put("seleteItem", delHtml.substring(0, 1));
-               sleMap.put("seleteQuest", html+htmlText);
-               sleMaps.add(sleMap);
-           }else if(isTitele(delHtml)){//小标题
-               Map<String, Object> smalMap = new HashMap<String, Object>();//小标题
-               smalMap.put("smalTilete", html+htmlText);
-               smalMap.put("smalScore", smalScore>0?smalScore+"":itemNum(delHtml)+"");
-               smalMap.put("sleMaps", sleMaps);
-               smalMaps.add(smalMap);
-           }else if(isBigTilete(delHtml)){//大标题
-               Map<String, Object> bigTiMap = new HashMap<String, Object>();//大标题
-               bigTiMap.put("bigTilete", delHtml.substring(2, 5));
-               bigTiMap.put("smalMaps", smalMaps);
-               bigTiMaps.add(bigTiMap);
-           }    
-
-       }
-       //System.out.println(bigTiMaps.toString());
    }
    
    // 判断一个字符串是否都为数字  
@@ -514,76 +462,76 @@ public class WordToHtml {
        return matcher.matches();  
    }
    
-   public static boolean selectFlag(String word){
+   public static boolean answerFlag(String word){
 	   Pattern pattern = Pattern.compile("[A-Z]");  
-       Matcher matcher = pattern.matcher((CharSequence) word);  
-       return matcher.matches();  
+       Matcher matcher = pattern.matcher(word);  
+       return matcher.matches();
    }
-   //获取大题-题目数量以及题目总计分数
-   public static String numScore(String delHtml){
-
-       String regEx="[^0-9+，|,+^0-9]";   
-       Pattern p = Pattern.compile(regEx);   
-       Matcher m = p.matcher(delHtml);
-       String s=m.replaceAll("").trim();
-       if(StringUtils.isNotBlank(s)){
-           if(s.contains(",")){
-               return s;
-           }else if(s.contains("，")){
-               return s.replace("，", ",");
-           }else{
-               return "0,0";
-           }
-       }else{
-           return "0,0";
-       }
-
-   }
-   //获取每小题分数
-   public static int itemNum(String delHtml){
-       Pattern pattern = Pattern.compile("（(.*?)）"); //中文括号 
-       Matcher matcher = pattern.matcher(delHtml);
-       if (matcher.find()&&isNumeric(matcher.group(1))){
-           return Integer.parseInt(matcher.group(1));
-       }else {
-           return 0;
-       }
-   }
-   //判断Str是否是 数字
-   public static boolean isNumeric(String str){ 
-       Pattern pattern = Pattern.compile("[0-9]*"); 
-       return pattern.matcher(str).matches();    
-   } 
-   //判断Str是否存在小标题号
-   public static boolean isTitele(String str){
-       Pattern pattern = Pattern.compile("^([\\d]+[-\\、].*)"); 
-       return pattern.matcher(str).matches();
-   }
-   //判断Str是否是选择题选择项
-   public static boolean isSelecteTitele(String str){
-       Pattern pattern = Pattern.compile("^([a-zA-Z]+[-\\：].*)"); 
-       return pattern.matcher(str).matches();
-   }
-   //判断Str是否是大标题
-   public static boolean isBigTilete(String str){
-       boolean iso= false ;
-       if(str.contains("一、")){
-           iso=true;
-       }else if(str.contains("二、")){
-           iso=true;
-       }else if(str.contains("三、")){
-           iso=true;
-       }else if(str.contains("四、")){
-           iso=true;
-       }else if(str.contains("五、")){
-           iso=true;
-       }else if(str.contains("六、")){
-           iso=true;
-       }else if(str.contains("七、")){
-           iso=true;
-       }else if(str.contains("八、")){
-           iso=true;
-       }
-       return iso;
-   }
+//   //获取大题-题目数量以及题目总计分数
+//   public static String numScore(String delHtml){
+//
+//       String regEx="[^0-9+，|,+^0-9]";   
+//       Pattern p = Pattern.compile(regEx);   
+//       Matcher m = p.matcher(delHtml);
+//       String s=m.replaceAll("").trim();
+//       if(StringUtils.isNotBlank(s)){
+//           if(s.contains(",")){
+//               return s;
+//           }else if(s.contains("，")){
+//               return s.replace("，", ",");
+//           }else{
+//               return "0,0";
+//           }
+//       }else{
+//           return "0,0";
+//       }
+//
+//   }
+//   //获取每小题分数
+//   public static int itemNum(String delHtml){
+//       Pattern pattern = Pattern.compile("（(.*?)）"); //中文括号 
+//       Matcher matcher = pattern.matcher(delHtml);
+//       if (matcher.find()&&isNumeric(matcher.group(1))){
+//           return Integer.parseInt(matcher.group(1));
+//       }else {
+//           return 0;
+//       }
+//   }
+//   //判断Str是否是 数字
+//   public static boolean isNumeric(String str){ 
+//       Pattern pattern = Pattern.compile("[0-9]*"); 
+//       return pattern.matcher(str).matches();    
+//   } 
+//   //判断Str是否存在小标题号
+//   public static boolean isTitele(String str){
+//       Pattern pattern = Pattern.compile("^([\\d]+[-\\、].*)"); 
+//       return pattern.matcher(str).matches();
+//   }
+//   //判断Str是否是选择题选择项
+//   public static boolean isSelecteTitele(String str){
+//       Pattern pattern = Pattern.compile("^([a-zA-Z]+[-\\：].*)"); 
+//       return pattern.matcher(str).matches();
+//   }
+//   //判断Str是否是大标题
+//   public static boolean isBigTilete(String str){
+//       boolean iso= false ;
+//       if(str.contains("一、")){
+//           iso=true;
+//       }else if(str.contains("二、")){
+//           iso=true;
+//       }else if(str.contains("三、")){
+//           iso=true;
+//       }else if(str.contains("四、")){
+//           iso=true;
+//       }else if(str.contains("五、")){
+//           iso=true;
+//       }else if(str.contains("六、")){
+//           iso=true;
+//       }else if(str.contains("七、")){
+//           iso=true;
+//       }else if(str.contains("八、")){
+//           iso=true;
+//       }
+//       return iso;
+//   }
 }
