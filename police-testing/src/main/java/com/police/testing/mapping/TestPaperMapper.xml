@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.police.testing.dao.TestPaperMapper" >
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.TestPaper" >
+    <id column="test_paper_id" property="testPaperId" jdbcType="VARCHAR" />
+    <result column="test_paper_name" property="testPaperName" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
+    <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="enable" property="enable" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    test_paper_id, test_paper_name, creator_id, creator_name, create_date, update_date, 
+    enable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from test_paper
+    where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from test_paper
+    where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.TestPaper" >
+    insert into test_paper (test_paper_id, test_paper_name, creator_id, 
+      creator_name, create_date, update_date, 
+      enable)
+    values (#{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{enable,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.TestPaper" >
+    insert into test_paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testPaperId != null" >
+        test_paper_id,
+      </if>
+      <if test="testPaperName != null" >
+        test_paper_name,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="creatorName != null" >
+        creator_name,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testPaperId != null" >
+        #{testPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperName != null" >
+        #{testPaperName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.TestPaper" >
+    update test_paper
+    <set >
+      <if test="testPaperName != null" >
+        test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.TestPaper" >
+    update test_paper
+    set test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=VARCHAR}
+    where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.police.testing.dao.TestPaperQuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.TestPaperQuestion" >
+    <id column="auto_id" property="autoId" jdbcType="INTEGER" />
+    <result column="test_paper_id" property="testPaperId" jdbcType="VARCHAR" />
+    <result column="test_paper_name" property="testPaperName" jdbcType="VARCHAR" />
+    <result column="test_questions_id" property="testQuestionsId" jdbcType="INTEGER" />
+    <result column="test_questions_number" property="testQuestionsNumber" jdbcType="INTEGER" />
+    <result column="answer_count" property="answerCount" jdbcType="INTEGER" />
+    <result column="correct_answer_count" property="correctAnswerCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    auto_id, test_paper_id, test_paper_name, test_questions_id, test_questions_number, 
+    answer_count, correct_answer_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from test_paper_question
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from test_paper_question
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.TestPaperQuestion" >
+    insert into test_paper_question (auto_id, test_paper_id, test_paper_name, 
+      test_questions_id, test_questions_number, answer_count, 
+      correct_answer_count)
+    values (#{autoId,jdbcType=INTEGER}, #{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, 
+      #{testQuestionsId,jdbcType=INTEGER}, #{testQuestionsNumber,jdbcType=INTEGER}, #{answerCount,jdbcType=INTEGER}, 
+      #{correctAnswerCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.TestPaperQuestion" >
+    insert into test_paper_question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="autoId != null" >
+        auto_id,
+      </if>
+      <if test="testPaperId != null" >
+        test_paper_id,
+      </if>
+      <if test="testPaperName != null" >
+        test_paper_name,
+      </if>
+      <if test="testQuestionsId != null" >
+        test_questions_id,
+      </if>
+      <if test="testQuestionsNumber != null" >
+        test_questions_number,
+      </if>
+      <if test="answerCount != null" >
+        answer_count,
+      </if>
+      <if test="correctAnswerCount != null" >
+        correct_answer_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="autoId != null" >
+        #{autoId,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperId != null" >
+        #{testPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperName != null" >
+        #{testPaperName,jdbcType=VARCHAR},
+      </if>
+      <if test="testQuestionsId != null" >
+        #{testQuestionsId,jdbcType=INTEGER},
+      </if>
+      <if test="testQuestionsNumber != null" >
+        #{testQuestionsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="answerCount != null" >
+        #{answerCount,jdbcType=INTEGER},
+      </if>
+      <if test="correctAnswerCount != null" >
+        #{correctAnswerCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.TestPaperQuestion" >
+    update test_paper_question
+    <set >
+      <if test="testPaperId != null" >
+        test_paper_id = #{testPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperName != null" >
+        test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      </if>
+      <if test="testQuestionsId != null" >
+        test_questions_id = #{testQuestionsId,jdbcType=INTEGER},
+      </if>
+      <if test="testQuestionsNumber != null" >
+        test_questions_number = #{testQuestionsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="answerCount != null" >
+        answer_count = #{answerCount,jdbcType=INTEGER},
+      </if>
+      <if test="correctAnswerCount != null" >
+        correct_answer_count = #{correctAnswerCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.TestPaperQuestion" >
+    update test_paper_question
+    set test_paper_id = #{testPaperId,jdbcType=VARCHAR},
+      test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      test_questions_id = #{testQuestionsId,jdbcType=INTEGER},
+      test_questions_number = #{testQuestionsNumber,jdbcType=INTEGER},
+      answer_count = #{answerCount,jdbcType=INTEGER},
+      correct_answer_count = #{correctAnswerCount,jdbcType=INTEGER}
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+</mapper>
