@@ -1,3 +1,7 @@
+html {
+	min-height: 100%;			/* 背景图片撑开，否则窄屏下方有白边 */
+	padding: 0px!important;		/* PerfectScrollbar用，直接替换html的滚动条 */
+}
 body {
 	min-height: 100%;
     background: url(../img/bg1.jpg) no-repeat;
@@ -14,19 +18,20 @@ span.form-control-feedback {
 }*/
 
 .thin-body {
-	width: 1280px;
+	width: 1260px;
 	margin: 0 auto;
 }
 
 .masthead {
     overflow: hidden;
     height: 300px;
-	min-width: 1280px;
+	min-width: 1260px;
     position: relative;
     color: #fff;
     text-align: center;
     text-shadow: 0 1px 50px rgba(0,0,0,.9), 0 0 30px rgba(0,0,0,.5);
     background: url(../img/masthead2.png) no-repeat right top;
+    background-size: cover;
     padding-top: 40px;
 }
 .masthead-logo {
@@ -52,6 +57,20 @@ span.form-control-feedback {
 .masthead-name-sub {
 	text-shadow: 0 0 12px rgba(0, 0, 0, 1);
 	font-size: 14px;
+}
+@media screen and (max-height: 768px) {
+	.masthead {
+		height: 200px;
+	}
+	.masthead-logo {
+		margin-left: 320px;
+		width: 100px;
+		height: 111px;
+	}
+	.masthead-name {
+		margin-left: 20px;
+		margin-top: 5px;
+	}
 }
 
 .breadcrumb {
@@ -95,7 +114,7 @@ span.form-control-feedback {
 }*/
 
 .mastbody {
-	min-height: 544px;
+	/*min-height: 544px;*/
 	background: transparent;
 	padding-bottom: 15px;
 	margin-left: 0;
@@ -111,6 +130,24 @@ span.form-control-feedback {
 	/*border-bottom-color: #ddd;*/
     background-color: rgba(0,0,0,0.3);
     color: #fff;
+}
+.panel-white .input-group-addon {
+    background-color: rgba(0,0,0,0.3);
+    color: #ddd;
+    border-color: #ccc;
+}
+.panel-white .form-control {
+	background-color: transparent;
+    color: #fff;
+    border-color: #ccc;
+}
+.panel-white .form-control:active,
+.panel-white .form-control:focus {
+    border-color: #66afe9;
+    color: #86cff9;
+    text-shadow: 0 0 8px rgba(102,175,233, 0.9);
+    -webkit-box-shadow: inset 0 0 8px rgba(102,175,233, 0.9), 0 0 8px rgba(102,175,233, 0.9);
+    box-shadow: inset 0 0 8px rgba(102,175,233, 0.9), 0 0 8px rgba(102,175,233, 0.9);
 }
 
 .footer {
@@ -140,7 +177,7 @@ span.form-control-feedback {
 .left-area {
 	width: 400px;
 	float: left;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 /*.middle-area {
 	width: 250px;
