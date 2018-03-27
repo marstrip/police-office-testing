@@ -1,20 +1,6 @@
-/* body {
-	min-height: 100%;
-	filter: alpha(opacity=100 finishopacity=50 style=1 startx=0,starty=0,finishx=0,finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#19f,endcolorstr=#eee,gradientType=0);
-    -ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0,starty=0,finishx=0,finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#19f,endcolorstr=#eee,gradientType=0);IE8	
-    background: #19f; 一些不支持背景渐变的浏览器  
-    background: -moz-linear-gradient(top, #19f, rgba(0, 0, 0, 0.1));  
-    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#19f), to(rgba(0, 0, 0, 0.1)));  
-    background: -o-linear-gradient(top, #19f, rgba(0, 0, 0, 0.1)); 
-
-    background: url(../img/police6.jpg) no-repeat;
-    background-size: 100%;
-    background-position: 50% 20%;
-} */
-
 body {
 	min-height: 100%;
-    background: url(assets/img/bg1.jpg) no-repeat;
+    background: url(../img/bg1.jpg) no-repeat;
     background-size: cover;
 	background-position: 90% 20%;
 }
@@ -39,23 +25,33 @@ span.form-control-feedback {
     position: relative;
     color: #fff;
     text-align: center;
-    /* text-shadow: 0 1px 3px rgba(0,0,0,.4),0 0 30px rgba(0,0,0,.075); */
     text-shadow: 0 1px 50px rgba(0,0,0,.9), 0 0 30px rgba(0,0,0,.5);
-    /* background: #5bc0de;
-    background: -moz-linear-gradient(45deg,#5bc0de 0,#5cb85c 100%);
-    background: -webkit-gradient(linear,left bottom,right top,color-stop(0%,#5bc0de),color-stop(100%,#5cb85c));
-    background: -webkit-linear-gradient(45deg,#5bc0de 0,#5cb85c 100%);
-    background: -o-linear-gradient(45deg,#5bc0de 0,#5cb85c 100%);
-    background: -ms-linear-gradient(45deg,#5bc0de 0,#5cb85c 100%);
-    background: linear-gradient(45deg,#5bc0de 0,#5cb85c 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5bc0de', endColorstr='#5cb85c', GradientType=1);
-     *//* -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2),inset 0 -3px 7px rgba(0,0,0,.2);
-    -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2),inset 0 -3px 7px rgba(0,0,0,.2);
-    box-shadow: inset 0 3px 7px rgba(0,0,0,.2),inset 0 -3px 7px rgba(0,0,0,.2); */
-
-    /*background: url(../img/police6.jpg) no-repeat;
-    background-size: 100%;
-    background-position: 50% 20%;*/
+    background: url(../img/masthead2.png) no-repeat right top;
+    padding-top: 40px;
+}
+.masthead-logo {
+	float: left;
+	margin-left: 300px;
+	width: 150px;
+	height: 167px;
+	background: url(../img/icon3.png) no-repeat;
+	background-size: 100%;
+}
+.masthead-name {
+	float: left;
+	margin-left: 40px;
+	margin-top: 40px;
+}
+.masthead-name-main {
+	font-size: 40px;
+	text-shadow: 0 0 15px rgba(0, 0, 0, 1);
+	padding-bottom: 0px;
+	text-align: left;
+	padding-left: 10px;
+}
+.masthead-name-sub {
+	text-shadow: 0 0 12px rgba(0, 0, 0, 1);
+	font-size: 14px;
 }
 
 .breadcrumb {
@@ -100,9 +96,12 @@ span.form-control-feedback {
 
 .mastbody {
 	min-height: 544px;
-	min-width: 1024px;
 	background: transparent;
 	padding-bottom: 15px;
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%;
+	display: inline-block;
 }
 
 .panel-white {

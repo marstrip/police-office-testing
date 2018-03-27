@@ -18,31 +18,16 @@
 </head>
 
 <body>
-	<div class="masthead" style="background: url(assets/img/masthead2.png) no-repeat right top;">
-		<!-- <div class="row">
-			<img src="assets/img/icon3.png" alt="" style="width: 150px;">
-		</div>
-		<div class="row" style="">
-			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 text-align-left">
-				<h1 style="font-size: 40px; text-shadow: 0 0 10px rgba(0, 0, 0, 0.9); border-bottom: 3px solid rgba(0,0,0,0.5); padding-bottom: 10px;">
+	<div class="masthead">
+		<div class="thin-body">
+			<div class="masthead-logo">
+				<!-- <img src="assets/img/icon3.png" style="width: 150px;"> -->
+			</div>
+			<div class="masthead-name">
+				<h1 class="masthead-name-main">
 					东城分局在线考试系统
 				</h1>
-				<h5>
-					Beijing dongcheng public security bureau online self-study examination system.
-				</h5>
-			</div>
-		</div> -->
-
-		<!-- masthead Plan-B -->
-		<div class="thin-body" style="margin-top: 40px;">
-			<div class="pull-left" style="margin-left: 300px;">
-				<img src="assets/img/icon3.png" alt="" style="width: 150px;">
-			</div>
-			<div class="pull-left" style="margin-left: 40px; margin-top: 40px;">
-				<h1 style="font-size: 40px; text-shadow: 0 0 15px rgba(0, 0, 0, 1); /*border-bottom: 3px solid rgba(0,0,0,0.5);*/ padding-bottom: 0px; text-align: left; padding-left: 10px;">
-					东城分局在线考试系统
-				</h1>
-				<h5 style="text-shadow: 0 0 12px rgba(0, 0, 0, 1);">
+				<h5 class="masthead-name-sub">
 					Beijing dongcheng public security bureau online self-study examination system.
 				</h5>
 			</div>
@@ -50,464 +35,396 @@
 	</div>
 
 	<div class="thin-body">
-		
+		<div class="mastbody" style="">
+				<!-- <ol class="breadcrumb">
+					<li><a href="demo-index.html">首页</a></li>
+				</ol> -->
 
-		<div class="mastbody">
-			<div class="container" style="margin-left: 0; margin-right: 0; width: 100%!important;">
-
-				<div class="row">
-					<ol class="breadcrumb">
-						<!-- <li><a href="demo-index.html">首页</a></li> -->
-					</ol>
-				</div>
-				<div class="row">
-					<div class="left-area">
-						<div class="panel panel-white panel-static-height">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									个人信息
-								</h3>
-							</div>
-							<div class="panel-body">
-								<div class="row">
-									<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
-										<img src="assets/img/People.png" alt="" class="avatar">
-									</div> -->
-									<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
-										<ul class="no-style">
-											<li class="police-name">张三</li>
-											<li class="police-id">123456</li>
-										</ul>
-									</div>
-								</div>
-								<!-- 功能 -->
-								<div class="row">
-									<!-- <div class="col-lg-4 col-md-6"> -->
-									
-									<div class="func-item" onclick="go_examList();">
-										<div class="icon">
-											<i class="fa fa-3x fa-bars"></i>
-										</div>
-										<div class="desciption">
-											成绩查询
-										</div>
-									</div>
-									<div class="func-item" onclick="go_personalConfig();">
-										<div class="icon">
-											<i class="fa fa-3x fa-user"></i>
-										</div>
-										<div class="desciption">
-											个人设置
-										</div>
-									</div>
-									<div class="func-item" onclick="go_login();">
-										<div class="icon">
-											<i class="fa fa-3x fa-sign-out"></i>
-										</div>
-										<div class="desciption">
-											退出
-										</div>
-									</div>
-									<!-- <div class="func-item func-item-2x no-border">
-										<div class="info">
-											<ul class="no-style">
-												<li>已通过课程：10门</li>
-												<li>未通过课程：4门</li>
-											</ul>
-										</div>
-									</div> -->
-								</div>
-							</div>
+				<div class="left-area">
+					<div class="panel panel-white panel-static-height">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								个人信息
+							</h3>
 						</div>
-
-						<div class="panel panel-white panel-static-height">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									个人信息
-								</h3>
+						<div class="panel-body">
+							<div class="row">
+								<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
+									<img src="assets/img/People.png" alt="" class="avatar">
+								</div> -->
+								<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
+									<ul class="no-style">
+										<li class="police-name">张三</li>
+										<li class="police-id">123456</li>
+									</ul>
+								</div>
 							</div>
-							<div class="panel-body">
-								<div class="row">
-									<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
-										<img src="assets/img/People.png" alt="" class="avatar">
-									</div> -->
-									<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
+							<!-- 功能 -->
+							<div class="row">
+								<!-- <div class="col-lg-4 col-md-6"> -->
+								
+								<div class="func-item" onclick="go_examList();">
+									<div class="icon">
+										<i class="fa fa-3x fa-bars"></i>
+									</div>
+									<div class="desciption">
+										成绩查询
+									</div>
+								</div>
+								<div class="func-item" onclick="go_personalConfig();">
+									<div class="icon">
+										<i class="fa fa-3x fa-user"></i>
+									</div>
+									<div class="desciption">
+										个人设置
+									</div>
+								</div>
+								<div class="func-item" onclick="go_login();">
+									<div class="icon">
+										<i class="fa fa-3x fa-sign-out"></i>
+									</div>
+									<div class="desciption">
+										退出
+									</div>
+								</div>
+								<!-- <div class="func-item func-item-2x no-border">
+									<div class="info">
 										<ul class="no-style">
-											<li class="police-name">张三</li>
-											<li class="police-id">123456</li>
+											<li>已通过课程：10门</li>
+											<li>未通过课程：4门</li>
 										</ul>
 									</div>
-								</div>
-								<!-- 功能 -->
-								<div class="row">
-									<!-- <div class="col-lg-4 col-md-6"> -->
-									
-									<div class="func-item" onclick="go_examList();">
-										<div class="icon">
-											<i class="fa fa-3x fa-bars"></i>
-										</div>
-										<div class="desciption">
-											成绩查询
-										</div>
-									</div>
-									<div class="func-item" onclick="go_personalConfig();">
-										<div class="icon">
-											<i class="fa fa-3x fa-user"></i>
-										</div>
-										<div class="desciption">
-											个人设置
-										</div>
-									</div>
-									<div class="func-item" onclick="go_login();">
-										<div class="icon">
-											<i class="fa fa-3x fa-sign-out"></i>
-										</div>
-										<div class="desciption">
-											退出
-										</div>
-									</div>
-									<!-- <div class="func-item func-item-2x no-border">
-										<div class="info">
-											<ul class="no-style">
-												<li>已通过课程：10门</li>
-												<li>未通过课程：4门</li>
-											</ul>
-										</div>
-									</div> -->
-								</div>
-							</div>
-						</div>
-
-						<div class="panel panel-white panel-static-height">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									个人信息
-								</h3>
-							</div>
-							<div class="panel-body">
-								<div class="row">
-									<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
-										<img src="assets/img/People.png" alt="" class="avatar">
-									</div> -->
-									<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
-										<ul class="no-style">
-											<li class="police-name">张三</li>
-											<li class="police-id">123456</li>
-										</ul>
-									</div>
-								</div>
-								<!-- 功能 -->
-								<div class="row">
-									<!-- <div class="col-lg-4 col-md-6"> -->
-									
-									<div class="func-item" onclick="go_examList();">
-										<div class="icon">
-											<i class="fa fa-3x fa-bars"></i>
-										</div>
-										<div class="desciption">
-											成绩查询
-										</div>
-									</div>
-									<div class="func-item" onclick="go_personalConfig();">
-										<div class="icon">
-											<i class="fa fa-3x fa-user"></i>
-										</div>
-										<div class="desciption">
-											个人设置
-										</div>
-									</div>
-									<div class="func-item" onclick="go_login();">
-										<div class="icon">
-											<i class="fa fa-3x fa-sign-out"></i>
-										</div>
-										<div class="desciption">
-											退出
-										</div>
-									</div>
-									<!-- <div class="func-item func-item-2x no-border">
-										<div class="info">
-											<ul class="no-style">
-												<li>已通过课程：10门</li>
-												<li>未通过课程：4门</li>
-											</ul>
-										</div>
-									</div> -->
-								</div>
-							</div>
-						</div>
-
-						<div class="panel panel-white panel-static-height">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									个人信息
-								</h3>
-							</div>
-							<div class="panel-body">
-								<div class="row">
-									<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
-										<img src="assets/img/People.png" alt="" class="avatar">
-									</div> -->
-									<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
-										<ul class="no-style">
-											<li class="police-name">张三</li>
-											<li class="police-id">123456</li>
-										</ul>
-									</div>
-								</div>
-								<!-- 功能 -->
-								<div class="row">
-									<!-- <div class="col-lg-4 col-md-6"> -->
-									
-									<div class="func-item" onclick="go_examList();">
-										<div class="icon">
-											<i class="fa fa-3x fa-bars"></i>
-										</div>
-										<div class="desciption">
-											成绩查询
-										</div>
-									</div>
-									<div class="func-item" onclick="go_personalConfig();">
-										<div class="icon">
-											<i class="fa fa-3x fa-user"></i>
-										</div>
-										<div class="desciption">
-											个人设置
-										</div>
-									</div>
-									<div class="func-item" onclick="go_login();">
-										<div class="icon">
-											<i class="fa fa-3x fa-sign-out"></i>
-										</div>
-										<div class="desciption">
-											退出
-										</div>
-									</div>
-									<!-- <div class="func-item func-item-2x no-border">
-										<div class="info">
-											<ul class="no-style">
-												<li>已通过课程：10门</li>
-												<li>未通过课程：4门</li>
-											</ul>
-										</div>
-									</div> -->
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
 
-					<!-- <div class="middle-area">
-						<div class="panel panel-white panel-static-height">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									排行榜
-								</h3>
+					<div class="panel panel-white panel-static-height">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								个人信息
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
+									<img src="assets/img/People.png" alt="" class="avatar">
+								</div> -->
+								<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
+									<ul class="no-style">
+										<li class="police-name">张三</li>
+										<li class="police-id">123456</li>
+									</ul>
+								</div>
 							</div>
-							<div class="panel-body">
-								<div class="ranking-list">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>排名</th>
-												<th>部门</th>
-												<th>参与人数</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>XXX分局</td>
-												<td>40</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>XXX分局</td>
-												<td>34</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>XXX分局</td>
-												<td>11</td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td>XXX分局</td>
-												<td>9</td>
-											</tr>
-											<tr>
-												<td>5</td>
-												<td>XXX分局</td>
-												<td>6</td>
-											</tr>
-										</tbody>
-									</table>
-								</div><!- - end of .ranking-list - ->
+							<!-- 功能 -->
+							<div class="row">
+								<!-- <div class="col-lg-4 col-md-6"> -->
+								
+								<div class="func-item" onclick="go_examList();">
+									<div class="icon">
+										<i class="fa fa-3x fa-bars"></i>
+									</div>
+									<div class="desciption">
+										成绩查询
+									</div>
+								</div>
+								<div class="func-item" onclick="go_personalConfig();">
+									<div class="icon">
+										<i class="fa fa-3x fa-user"></i>
+									</div>
+									<div class="desciption">
+										个人设置
+									</div>
+								</div>
+								<div class="func-item" onclick="go_login();">
+									<div class="icon">
+										<i class="fa fa-3x fa-sign-out"></i>
+									</div>
+									<div class="desciption">
+										退出
+									</div>
+								</div>
+								<!-- <div class="func-item func-item-2x no-border">
+									<div class="info">
+										<ul class="no-style">
+											<li>已通过课程：10门</li>
+											<li>未通过课程：4门</li>
+										</ul>
+									</div>
+								</div> -->
 							</div>
 						</div>
-					</div> -->
+					</div>
 
-					<div class="right-area">
-						<div class="panel panel-white panel-static-height">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									公告栏
-								</h3>
+					<div class="panel panel-white panel-static-height">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								个人信息
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
+									<img src="assets/img/People.png" alt="" class="avatar">
+								</div> -->
+								<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
+									<ul class="no-style">
+										<li class="police-name">张三</li>
+										<li class="police-id">123456</li>
+									</ul>
+								</div>
 							</div>
-							<div class="panel-body" style="padding-top: 0;">
-								<div class="notice-list">
-									<table class="table">
-										<!-- <thead>
-											<tr>
-												<th>公告标题</th>
-												<th>发布时间</th>
-											</tr>
-										</thead> -->
-										<tbody>
-											<tr>
-												<td class="fix-text" style="border-top-color: transparent;">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
-												</td>
-												<td style="border-top-color: transparent;">2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-										</tbody>
-									</table>
-								</div><!-- end of .notice-list -->
+							<!-- 功能 -->
+							<div class="row">
+								<!-- <div class="col-lg-4 col-md-6"> -->
+								
+								<div class="func-item" onclick="go_examList();">
+									<div class="icon">
+										<i class="fa fa-3x fa-bars"></i>
+									</div>
+									<div class="desciption">
+										成绩查询
+									</div>
+								</div>
+								<div class="func-item" onclick="go_personalConfig();">
+									<div class="icon">
+										<i class="fa fa-3x fa-user"></i>
+									</div>
+									<div class="desciption">
+										个人设置
+									</div>
+								</div>
+								<div class="func-item" onclick="go_login();">
+									<div class="icon">
+										<i class="fa fa-3x fa-sign-out"></i>
+									</div>
+									<div class="desciption">
+										退出
+									</div>
+								</div>
+								<!-- <div class="func-item func-item-2x no-border">
+									<div class="info">
+										<ul class="no-style">
+											<li>已通过课程：10门</li>
+											<li>未通过课程：4门</li>
+										</ul>
+									</div>
+								</div> -->
 							</div>
 						</div>
+					</div>
 
-						<div class="panel panel-white panel-static-height" style="height: 460px;">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									公告栏
-								</h3>
-							</div>
-							<div class="panel-body" style="padding-top: 0;">
-								<div class="notice-list">
-									<table class="table">
-										<!-- <thead>
-											<tr>
-												<th>公告标题</th>
-												<th>发布时间</th>
-											</tr>
-										</thead> -->
-										<tbody>
-											<tr>
-												<td class="fix-text" style="border-top-color: transparent;">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
-												</td>
-												<td style="border-top-color: transparent;">2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-										</tbody>
-									</table>
-								</div><!-- end of .notice-list -->
-							</div>
+					<div class="panel panel-white panel-static-height">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								个人信息
+							</h3>
 						</div>
-
-						<div class="panel panel-white panel-static-height" style="height: 460px;">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									公告栏
-								</h3>
+						<div class="panel-body">
+							<div class="row">
+								<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
+									<img src="assets/img/People.png" alt="" class="avatar">
+								</div> -->
+								<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
+									<ul class="no-style">
+										<li class="police-name">张三</li>
+										<li class="police-id">123456</li>
+									</ul>
+								</div>
 							</div>
-							<div class="panel-body" style="padding-top: 0;">
-								<div class="notice-list">
-									<table class="table">
-										<!-- <thead>
-											<tr>
-												<th>公告标题</th>
-												<th>发布时间</th>
-											</tr>
-										</thead> -->
-										<tbody>
-											<tr>
-												<td class="fix-text" style="border-top-color: transparent;">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
-												</td>
-												<td style="border-top-color: transparent;">2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-										</tbody>
-									</table>
-								</div><!-- end of .notice-list -->
+							<!-- 功能 -->
+							<div class="row">
+								<!-- <div class="col-lg-4 col-md-6"> -->
+								
+								<div class="func-item" onclick="go_examList();">
+									<div class="icon">
+										<i class="fa fa-3x fa-bars"></i>
+									</div>
+									<div class="desciption">
+										成绩查询
+									</div>
+								</div>
+								<div class="func-item" onclick="go_personalConfig();">
+									<div class="icon">
+										<i class="fa fa-3x fa-user"></i>
+									</div>
+									<div class="desciption">
+										个人设置
+									</div>
+								</div>
+								<div class="func-item" onclick="go_login();">
+									<div class="icon">
+										<i class="fa fa-3x fa-sign-out"></i>
+									</div>
+									<div class="desciption">
+										退出
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				
+				<div class="right-area">
+					<div class="panel panel-white panel-static-height">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								公告栏
+							</h3>
+						</div>
+						<div class="panel-body" style="padding-top: 0;">
+							<div class="notice-list">
+								<table class="table">
+									<!-- <thead>
+										<tr>
+											<th>公告标题</th>
+											<th>发布时间</th>
+										</tr>
+									</thead> -->
+									<tbody>
+										<tr>
+											<td class="fix-text" style="border-top-color: transparent;">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
+											</td>
+											<td style="border-top-color: transparent;">2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+									</tbody>
+								</table>
+							</div><!-- end of .notice-list -->
+						</div>
+					</div>
+
+					<div class="panel panel-white panel-static-height" style="height: 460px;">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								公告栏
+							</h3>
+						</div>
+						<div class="panel-body" style="padding-top: 0;">
+							<div class="notice-list">
+								<table class="table">
+									<!-- <thead>
+										<tr>
+											<th>公告标题</th>
+											<th>发布时间</th>
+										</tr>
+									</thead> -->
+									<tbody>
+										<tr>
+											<td class="fix-text" style="border-top-color: transparent;">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
+											</td>
+											<td style="border-top-color: transparent;">2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+									</tbody>
+								</table>
+							</div><!-- end of .notice-list -->
+						</div>
+					</div>
+
+					<div class="panel panel-white panel-static-height" style="height: 460px;">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								公告栏
+							</h3>
+						</div>
+						<div class="panel-body" style="padding-top: 0;">
+							<div class="notice-list">
+								<table class="table">
+									<!-- <thead>
+										<tr>
+											<th>公告标题</th>
+											<th>发布时间</th>
+										</tr>
+									</thead> -->
+									<tbody>
+										<tr>
+											<td class="fix-text" style="border-top-color: transparent;">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
+											</td>
+											<td style="border-top-color: transparent;">2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+										<tr>
+											<td class="fix-text">
+												<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
+											</td>
+											<td>2005/07/09</td>
+										</tr>
+									</tbody>
+								</table>
+							</div><!-- end of .notice-list -->
+						</div>
+					</div>
+				</div>
 
 				<br>
-			</div>
 		</div>
 	</div>
 
