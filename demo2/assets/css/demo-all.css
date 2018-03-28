@@ -1,3 +1,11 @@
+:root {
+	--color-link: #69f;
+	--color-link-active: #9bf;
+	--bgcolor-panel-1: rgba(0,0,0,0.2);
+	--bgcolor-panel-2: rgba(0,0,0,0.3);
+	--bgcolor-modal-1: #012944;
+	--bgcolor-modal-2: #024f85;
+}
 html {
 	min-height: 100%;			/* 背景图片撑开，否则窄屏下方有白边 */
 	padding: 0px!important;		/* PerfectScrollbar用，直接替换html的滚动条 */
@@ -7,15 +15,25 @@ body {
     background: url(../img/bg1.jpg) no-repeat;
     background-size: cover;
 	background-position: 90% 20%;
+	color: #eee;
 }
-/*a[disabled], a.disabled {
+a[disabled], a.disabled {
 	text-decoration: none;
 	color: #aaa;
 }
 span.form-control-feedback {
 	line-height: 34px;
 	right: -4px;
-}*/
+}
+.form-control {
+	background: transparent;
+}
+a {
+	color: var(--color-link)!important;
+}
+a:focus, a:hover {
+    color: var(--color-link-active)!important;
+}
 
 .thin-body {
 	width: 1260px;
@@ -76,6 +94,11 @@ span.form-control-feedback {
 .breadcrumb {
     background-color: transparent;
 	margin-bottom: 0;
+	text-shadow: 0 2px 1px rgba(0, 0, 0, 0.5);
+	color: #ddd;
+}
+.breadcrumb>li+li:before {
+	content: "> ";
 }
 
 /*.weak {
@@ -128,11 +151,11 @@ span.form-control-feedback {
 }
 .panel-white .panel-heading {
 	/*border-bottom-color: #ddd;*/
-    background-color: rgba(0,0,0,0.3);
+    background-color: var(--bgcolor-panel-1);
     color: #fff;
 }
 .panel-white .input-group-addon {
-    background-color: rgba(0,0,0,0.3);
+    background-color: var(--bgcolor-panel-2);
     color: #ddd;
     border-color: #ccc;
 }
@@ -149,9 +172,13 @@ span.form-control-feedback {
     -webkit-box-shadow: inset 0 0 8px rgba(102,175,233, 0.9), 0 0 8px rgba(102,175,233, 0.9);
     box-shadow: inset 0 0 8px rgba(102,175,233, 0.9), 0 0 8px rgba(102,175,233, 0.9);
 }
+.panel-title .pull-right {
+	margin-left: 15px;
+	font-size: 14px;
+}
 
 .footer {
-    background-color: rgba(0,0,0,0.3);
+    background-color: var(--bgcolor-panel-2);
     color: #fff;
 }
 
@@ -161,7 +188,7 @@ span.form-control-feedback {
 .panel {
 	overflow: hidden;
     margin-bottom: 20px;
-    background-color: rgba(0,0,0,0.5);
+    background-color: var(--bgcolor-panel-2);
     /* border: 1px solid transparent; */
     border-width: 0px;
     border-radius: 10px;
@@ -179,6 +206,20 @@ span.form-control-feedback {
 	float: left;
 	margin-left: 10px;
 }
+
+.dropdown-preview > .dropdown-menu {
+    display: block;
+    position: static;
+    margin-bottom: 5px;
+    float: initial;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+}
+.dropdown-menu>li>a {
+	color: var(--color-link);
+}
+
 /*.middle-area {
 	width: 250px;
 	float: left;
@@ -212,13 +253,28 @@ ul.no-style {
 	text-overflow: ellipsis;
 	width: 330px;
 }
-.fix-text a {
+.fix-text a,
+.fix-text span {
 	white-space: nowrap;
 	overflow-x: hidden;
 	text-overflow: ellipsis;
-	width: 660px;
 	display: block;
-	color: #63aaff;
+}
+.fix-text-660 a,
+.fix-text-660 span {
+	width: 660px;
+}
+.fix-text-350 a,
+.fix-text-350 span {
+	width: 350px;
+}
+.fix-text-260 a,
+.fix-text-260 span {
+	width: 260px;
+}
+.fix-text-200 a,
+.fix-text-200 span {
+	width: 200px;
 }
 
 
@@ -328,6 +384,9 @@ ul.no-style {
 	text-align: center;
 }
 
+.modal-content {
+    background-color: var(--bgcolor-modal-1);
+}
 .modal-dialog {
 	width: 700px;
 	height: 300px;
@@ -337,8 +396,14 @@ ul.no-style {
 }
 .modal-footer {
 	text-align: center;
+	border-top: 1px solid var(--bgcolor-modal-2);
 }
-
+.btn-success,
+.btn-default {
+    background-color: var(--bgcolor-modal-1);
+    border-color: var(--bgcolor-modal-2);
+    color: #ddd;
+}
 
 .exam-header-item + .exam-header-item {
 	border-left: 1px solid #ddd;

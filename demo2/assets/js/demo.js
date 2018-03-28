@@ -38,11 +38,11 @@ function go_examList() {
 }
 
 function go_result() {
-	location.href = 'demo-result.html';
+	location.href = 'demo-exam-result.html';
 }
 
 function go_wrongList() {
-	location.href = 'demo-wrong-list.html';
+	location.href = 'demo-extra-fail-list.html';
 }
 
 function go_login() {
