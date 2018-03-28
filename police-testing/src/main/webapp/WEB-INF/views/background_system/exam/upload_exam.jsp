@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title></title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/styles/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/styles/js/jquery.form.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/styles/js/jquery-3.3.1.min"></script>
 
 </head>
 <script type="text/javascript">
@@ -23,15 +23,10 @@
 			if (d1 == ".doc") {
 				 
 				var value = $("#uploadForm").val();
-				console.log(value);
 	            var option = {
-	        		   url:'${pageContext.request.contextPath}/exam/uploadFile',//用于文件上传的服务器端请求地址
+	        		   url:'${pageContext.request.contextPath}/testPaper/uploadTestPaper',//用于文件上传的服务器端请求地址
 		               type : 'POST',
 		               dataType : 'json',
-		               data : {
-		            	   formId : formId,
-		            	   dataType : dataType
-		               },
 		               headers : {"ClientCallMode" : "ajax"}, //添加请求头部
 		               success : function(data) {
 		            	    
@@ -52,6 +47,7 @@
 		<tr>
 			<td>
 				上传试题：<input id="uploadFile" name="uploadFile" type="file">
+				 <a href="javascript:void(0);"  onclick="upload_file();">上传</a>
 			</td>
 		</tr>
 	</table>

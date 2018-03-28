@@ -7,7 +7,7 @@ public class TestPaperQuestion {
 
     private String testPaperName;
 
-    private Integer testQuestionsId;
+    private String testQuestionsId;
 
     private Integer testQuestionsNumber;
 
@@ -39,15 +39,16 @@ public class TestPaperQuestion {
         this.testPaperName = testPaperName == null ? null : testPaperName.trim();
     }
 
-    public Integer getTestQuestionsId() {
-        return testQuestionsId;
-    }
 
-    public void setTestQuestionsId(Integer testQuestionsId) {
-        this.testQuestionsId = testQuestionsId;
-    }
+    public String getTestQuestionsId() {
+		return testQuestionsId;
+	}
 
-    public Integer getTestQuestionsNumber() {
+	public void setTestQuestionsId(String testQuestionsId) {
+		this.testQuestionsId = testQuestionsId;
+	}
+
+	public Integer getTestQuestionsNumber() {
         return testQuestionsNumber;
     }
 

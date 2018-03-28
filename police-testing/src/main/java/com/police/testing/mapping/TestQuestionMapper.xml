@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.police.testing.dao.TestQuestionMapper" >
   <resultMap id="BaseResultMap" type="com.police.testing.pojo.TestQuestion" >
-    <id column="test_questions_id" property="testQuestionsId" jdbcType="INTEGER" />
+    <id column="test_questions_id" property="testQuestionsId" jdbcType="VARCHAR" />
     <result column="correct_answer" property="correctAnswer" jdbcType="VARCHAR" />
     <result column="test_question_type" property="testQuestionType" jdbcType="VARCHAR" />
     <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
@@ -22,24 +22,24 @@
   <sql id="Blob_Column_List" >
     test_questions_name, test_question_selects
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from test_question
-    where test_questions_id = #{testQuestionsId,jdbcType=INTEGER}
+    where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from test_question
-    where test_questions_id = #{testQuestionsId,jdbcType=INTEGER}
+    where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.police.testing.pojo.TestQuestionWithBLOBs" >
     insert into test_question (test_questions_id, correct_answer, test_question_type, 
       creator_id, creator_name, create_date, 
       update_date, enable, test_questions_name, 
       test_question_selects)
-    values (#{testQuestionsId,jdbcType=INTEGER}, #{correctAnswer,jdbcType=VARCHAR}, #{testQuestionType,jdbcType=VARCHAR}, 
+    values (#{testQuestionsId,jdbcType=VARCHAR}, #{correctAnswer,jdbcType=VARCHAR}, #{testQuestionType,jdbcType=VARCHAR}, 
       #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=VARCHAR}, #{testQuestionsName,jdbcType=LONGVARCHAR}, 
       #{testQuestionSelects,jdbcType=LONGVARCHAR})
@@ -80,7 +80,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="testQuestionsId != null" >
-        #{testQuestionsId,jdbcType=INTEGER},
+        #{testQuestionsId,jdbcType=VARCHAR},
       </if>
       <if test="correctAnswer != null" >
         #{correctAnswer,jdbcType=VARCHAR},
@@ -142,7 +142,7 @@
         test_question_selects = #{testQuestionSelects,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where test_questions_id = #{testQuestionsId,jdbcType=INTEGER}
+    where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.police.testing.pojo.TestQuestionWithBLOBs" >
     update test_question
@@ -155,7 +155,7 @@
       enable = #{enable,jdbcType=VARCHAR},
       test_questions_name = #{testQuestionsName,jdbcType=LONGVARCHAR},
       test_question_selects = #{testQuestionSelects,jdbcType=LONGVARCHAR}
-    where test_questions_id = #{testQuestionsId,jdbcType=INTEGER}
+    where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.TestQuestion" >
     update test_question
@@ -166,6 +166,6 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       enable = #{enable,jdbcType=VARCHAR}
-    where test_questions_id = #{testQuestionsId,jdbcType=INTEGER}
+    where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </update>
 </mapper>

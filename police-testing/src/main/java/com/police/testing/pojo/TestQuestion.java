@@ -3,7 +3,7 @@ package com.police.testing.pojo;
 import java.util.Date;
 
 public class TestQuestion {
-    private Integer testQuestionsId;
+    private String testQuestionsId;
 
     private String correctAnswer;
 
@@ -19,15 +19,17 @@ public class TestQuestion {
 
     private String enable;
 
-    public Integer getTestQuestionsId() {
-        return testQuestionsId;
-    }
+    private Integer number;
+    
+    public String getTestQuestionsId() {
+		return testQuestionsId;
+	}
 
-    public void setTestQuestionsId(Integer testQuestionsId) {
-        this.testQuestionsId = testQuestionsId;
-    }
+	public void setTestQuestionsId(String testQuestionsId) {
+		this.testQuestionsId = testQuestionsId;
+	}
 
-    public String getCorrectAnswer() {
+	public String getCorrectAnswer() {
         return correctAnswer;
     }
 
@@ -82,4 +84,12 @@ public class TestQuestion {
     public void setEnable(String enable) {
         this.enable = enable == null ? null : enable.trim();
     }
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
 }
