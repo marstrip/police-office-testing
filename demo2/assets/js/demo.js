@@ -1,7 +1,11 @@
 $(document).ready(function() {
 	console.log('ready');
 
-	new PerfectScrollbar('html');
+	window.gpsb = new PerfectScrollbar('.psb-here');
+	// resize触发更新滚动条数据
+	$(window).resize(function() {
+		window.gpsb.update();
+	});
 });
 
 //序列化表格元素为JSON  
