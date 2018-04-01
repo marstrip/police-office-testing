@@ -15,13 +15,13 @@
 	<!-- 插件css部分 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
-
+	
 	<!-- 基于bootstrap的菜单，自制 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/assets/plugins/bootstrap-sidebar/css/bootstrap-sidebar.css">
 
 	<!-- 本站自用css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/assets/css/mysite.css">
-
+	<script type="text/javascript" src="${pageContext.request.contextPath}/styles/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 	<div class="base-container">
@@ -71,19 +71,47 @@
 
 	<!-- 渲染菜单方法 -->
 	<script>
-		$('.side-menu').sidebar({
-			"iframeId": "mainFrame",
-			"data": [
-				{
-					"text": "考题管理",
-					"href": "<%=basePath %>subkinds/0/list"
-				},
-				{
-					"text": "成绩查询",
-					"href": "<%=basePath%>exampaper/admin/paper/list"
-				}
-			],
-		});
+	$(document).ready(function(){
+		$.ajax({
+			type : "post",
+		    url : "${pageContext.request.contextPath}/getMenu",
+            dataType : "json",
+            success: function(data){
+            	console.log(data);
+            	 $('.side-menu').sidebar({
+						"iframeId": "mainFrame",
+						"data": data
+					});
+           	}
+          });
+	});
+	
+	/* $('.side-menu').sidebar({
+		"iframeId": "mainFrame",
+		"data": [
+			{
+				"text": "着陆页",
+				"href": "landpage.html"
+			},
+			{
+				"text": "可展开菜单",
+				"href": "#",
+				"children": [
+					{
+						"text": "百度",
+						"href": "http://www.baidu.com"
+					}, {
+						"text": "新浪",
+						"href": "http://www.sina.com"
+					}
+				]
+			},
+			{
+				"text": "谷歌",
+				"href": "page-a.html"
+			}
+		],
+	}); */
 	</script>
 </body>
 </html>

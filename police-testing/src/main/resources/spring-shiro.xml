@@ -27,6 +27,7 @@
 	        <value>  
 	        	 /styles/**=anon
 	        	 /login/**=anon
+	        	 /getMenu/**=anon
 	        	 /testPaper/**=anon
 	             /**=authc
 	        </value>  

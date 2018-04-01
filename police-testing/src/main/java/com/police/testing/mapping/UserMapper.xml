@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.police.testing.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.User">
+    <id column="auto_id" jdbcType="INTEGER" property="autoId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_role" jdbcType="VARCHAR" property="userRole" />
+    <result column="user_status" jdbcType="VARCHAR" property="userStatus" />
+    <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
+    <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="school_id" jdbcType="VARCHAR" property="schoolId" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    auto_id, user_id, user_name, user_role, user_status, organization_id, organization_name, 
+    department_name, department_id, school_name, school_id, login_name, password,access_token,mail,salt, company_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="selectByDepartmentIdAndFormId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_user su
+    where 1=1
+    <if test="departmentId != null and departmentId != ''">
+    	and su.department_id = #{departmentId,jdbcType=VARCHAR}
+    </if>
+    <if test="formId != null and formId != ''">
+    	and su.user_id NOT IN (
+		SELECT
+			cs.receive_user_id
+		FROM
+			clue_send cs
+		WHERE
+			cs.form_id = #{formId,jdbcType=VARCHAR}
+			and cs.record_enable = '1'
+	)
+    </if>
+    and su.user_status = '1'
+  </select>
+  
+  
+  <select id="selectByAccessToken" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where access_token = #{accessToken,jdbcType=VARCHAR}
+  </select>
+  <select id="getUserByDepartmentId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where department_id = #{departmentId,jdbcType=VARCHAR}
+    and user_status = '1'
+    <if test="page != null and page !=''">
+    limit #{page.start},#{page.rows}
+    </if>
+  </select>
+  <select id="findByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+    	where login_name = #{loginName,jdbcType=VARCHAR} 
+    	and user_status = #{userStatus,jdbcType=VARCHAR}
+ </select>
+	
+	<select id="getMenuByUserId" resultType="com.police.testing.pojo.SysMenu">
+		SELECT m.id,m.name,m.parentid,m.iconCls,m.url,
+			(select count(1) from sys_menu s where s.parentId!=0 and s.parentId=m.id) countChildrens 
+		FROM sys_menu m
+		  LEFT JOIN role_menu rm
+		  ON m.id = rm.menu_id
+		  LEFT JOIN sys_role r
+		  ON rm.role_name = r.role_name
+		  LEFT JOIN user_role ur
+		  ON  r.role_name = ur.role_name
+		  LEFT JOIN sys_user u
+		  ON ur.user_id = u.login_name
+		  WHERE m.enable=1 AND u.user_id = #{userId} 
+		  <!-- AND m.id NOT IN(
+			SELECT tt.id
+			FROM
+				(SELECT m.id,
+					(SELECT COUNT(parentId) FROM sys_menu sp WHERE sp.enable=1 AND sp.parentId=m.id AND m.parentId=0 ) countch
+				 FROM sys_menu m WHERE m.parentId=0
+		  		) tt 
+		  	where countch =0
+		  ) -->
+		  ORDER BY m.sequence
+	</select>
+	<select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+    	where user_id = #{userId,jdbcType=VARCHAR} 
+	</select>
+  <select id="selectUserList" resultMap="BaseResultMap">
+  	SELECT
+		u.user_name AS userName,
+		u.mail AS mail,
+		ur.role_name AS userRole,
+	  	u.department_name AS departmentName,
+	  	u.user_status AS userStatus
+		FROM
+		sys_user u
+	LEFT JOIN (
+		SELECT
+			role_name,
+			user_id
+		FROM user_role
+	) ur ON ur.user_id = u.login_name
+	where 1=1
+	<if test="userName != null and userName != ''">
+		and u.user_name like '%${userName}%'
+	</if>
+	order by u.auto_id ASC
+	limit #{page.start},#{page.rows}
+  </select>
+  
+  <select id="selectUserByUserName" resultMap="BaseResultMap">
+  	select 
+  	 <include refid="Base_Column_List" />
+    from sys_user
+    where user_name = #{userName,jdbcType = VARCHAR}
+  </select>
+  
+  <select id="getCountUser" resultType="java.lang.Long">
+  	select count(*) from sys_user 
+  </select>
+  
+  <select id="selectDistByCompanyName" resultMap="BaseResultMap" resultType="java.lang.String">
+  	SELECT DISTINCT(s.department_name),s.department_id FROM sys_user s WHERE s.company_name = #{companyName,jdbcType=VARCHAR};
+  </select>
+  
+   <select id="selectUserByDepartmentId" resultMap="BaseResultMap" resultType="java.lang.String">
+  	SELECT 
+  	 <include refid="Base_Column_List" />
+  	FROM sys_user s 
+  	WHERE s.department_id = #{departmentId,jdbcType=VARCHAR};
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.User">
+    insert into sys_user (auto_id, user_id, user_name, 
+      user_role, user_status, organization_id, 
+      organization_name, department_name, department_id, 
+      school_name, school_id, login_name, 
+      password,access_token,mail,salt, company_name)
+    values (#{autoId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userRole,jdbcType=VARCHAR}, #{userStatus,jdbcType=VARCHAR}, #{organizationId,jdbcType=VARCHAR}, 
+      #{organizationName,jdbcType=VARCHAR}, #{departmentName,jdbcType=VARCHAR}, #{departmentId,jdbcType=VARCHAR}, 
+      #{schoolName,jdbcType=VARCHAR}, #{schoolId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{accessToken,jdbcType=VARCHAR},#{mail,jdbcType=VARCHAR},#{salt,jdbcType=VARCHAR},
+      #{companyName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.User">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="autoId != null">
+        auto_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userRole != null">
+        user_role,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="organizationName != null">
+        organization_name,
+      </if>
+      <if test="departmentName != null">
+        department_name,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="schoolName != null">
+        school_name,
+      </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="accessToken != null">
+        access_token,
+      </if>
+      <if test="mail != null">
+        mail,
+      </if>
+       <if test="salt != null">
+        salt,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="autoId != null">
+        #{autoId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null">
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolName != null">
+        #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null">
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.User">
+    update sys_user
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null">
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null">
+        organization_id = #{organizationId,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationName != null">
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null">
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolName != null">
+        school_name = #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null">
+        access_token = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.User">
+    update sys_user
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_role = #{userRole,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=VARCHAR},
+      organization_id = #{organizationId,jdbcType=VARCHAR},
+      organization_name = #{organizationName,jdbcType=VARCHAR},
+      department_name = #{departmentName,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      school_name = #{schoolName,jdbcType=VARCHAR},
+      school_id = #{schoolId,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      access_token = #{accessToken,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR}
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateUserByUserId" parameterType="java.lang.String">
+  	update sys_user set 
+  	user_status = #{userStatus,jdbcType=VARCHAR}
+  	where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="activateUserByUserId" parameterType="java.lang.String">
+  	update sys_user set 
+  	user_status = #{userStatus,jdbcType=VARCHAR},
+  	user_name = #{userName,jdbcType=VARCHAR},
+  	user_id = #{userId,jdbcType = VARCHAR},
+  	mail = #{userId,jdbcType = VARCHAR},
+  	login_name = #{userId,jdbcType=VARCHAR}
+  	where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByOrganizationId" parameterType="java.lang.String">
+  	delete from sys_user where organization_id = #{organizationId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

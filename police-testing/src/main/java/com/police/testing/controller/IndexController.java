@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.police.testing.pojo.SysMenu;
 import com.police.testing.pojo.Tree;
+import com.police.testing.service.ISystemService;
 import com.police.testing.service.IUserService;
 
 @Controller
@@ -23,6 +24,8 @@ import com.police.testing.service.IUserService;
 public class IndexController {
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private ISystemService systemService;
 	
 	@RequestMapping("index")
 	public String indexJsp(){
@@ -32,9 +35,9 @@ public class IndexController {
 	@ResponseBody
 	@RequestMapping(value="getMenu", method = RequestMethod.POST)
 	public List<Tree> getMeun(){
-		Subject currentUser = SecurityUtils.getSubject();
-		Session session = currentUser.getSession();
-		String userId =(String)session.getAttribute("currentUser");
+//		Subject currentUser = SecurityUtils.getSubject();
+//		Session session = currentUser.getSession();
+		String userId = "admin";
     	List<SysMenu> menuList = userService.getMenu(userId);
     	List<Tree> treeList = new ArrayList<Tree>();
     	for (SysMenu menu : menuList) {
@@ -42,16 +45,28 @@ public class IndexController {
 			node.setId(menu.getId());
 			node.setPid(menu.getParentid());
 			node.setText(menu.getName());
-			node.setIconCls(menu.getIconcls());
 			if(menu.getParentid()!=0){	// 有父节点
 				node.setPid(menu.getParentid());
 			}
 			if(menu.getCountChildrens() > 0){	//有子节点
-				node.setState("closed");
+				node.setHref("#");
+				List<Tree> childrens = new ArrayList<Tree>();
+				List<SysMenu> sysMenus = systemService.getChildByParentId(menu.getId());
+				for (SysMenu sysMenu : sysMenus) {
+					Tree children = new Tree();
+					children.setId(sysMenu.getId());
+					children.setPid(sysMenu.getParentid());
+					children.setText(sysMenu.getName());
+					children.setHref(sysMenu.getUrl());
+					childrens.add(children);
+				}
+				node.setChildren(childrens);
+			}else {
+				node.setHref(menu.getUrl());
 			}
-			Map<String, Object> attr = new HashMap<String, Object>();
-			attr.put("url", menu.getUrl());
-			node.setAttributes(attr);
+//			Map<String, Object> attr = new HashMap<String, Object>();
+//			attr.put("url", menu.getUrl());
+//			node.setAttributes(attr);
 			treeList.add(node);
         }
     	return treeList;
