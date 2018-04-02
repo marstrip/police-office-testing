@@ -14,6 +14,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.police.testing.pojo.SysUser;
 import com.police.testing.pojo.User;
 import com.police.testing.service.ISysLogService;
 import com.police.testing.service.IUserService;
@@ -58,7 +59,7 @@ public class MyRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
 			throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		User user = userService.findByLoginName(token.getUsername());
+		SysUser user = userService.findByLoginName(token.getUsername());
 		SimpleAuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getLoginName(), user.getPassword(),
 				this.getName());
 		SecurityUtils.getSubject().getSession().setAttribute("currentUser", user.getUserId());

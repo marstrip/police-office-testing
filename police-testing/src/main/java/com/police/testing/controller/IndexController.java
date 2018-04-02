@@ -1,9 +1,9 @@
 package com.police.testing.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -34,10 +34,14 @@ public class IndexController {
 	
 	@ResponseBody
 	@RequestMapping(value="getMenu", method = RequestMethod.POST)
-	public List<Tree> getMeun(){
-//		Subject currentUser = SecurityUtils.getSubject();
-//		Session session = currentUser.getSession();
-		String userId = "admin";
+	public List<Tree> getMeun(HttpServletRequest request){
+		String path = request.getContextPath();
+	 	String homePath = request.getScheme() + "://"
+	 				+ request.getServerName() ;
+	 	String basePath = homePath + path ;
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		String userId =(String)session.getAttribute("currentUser");
     	List<SysMenu> menuList = userService.getMenu(userId);
     	List<Tree> treeList = new ArrayList<Tree>();
     	for (SysMenu menu : menuList) {
@@ -57,12 +61,12 @@ public class IndexController {
 					children.setId(sysMenu.getId());
 					children.setPid(sysMenu.getParentid());
 					children.setText(sysMenu.getName());
-					children.setHref(sysMenu.getUrl());
+					children.setHref(basePath + sysMenu.getUrl());
 					childrens.add(children);
 				}
 				node.setChildren(childrens);
 			}else {
-				node.setHref(menu.getUrl());
+				node.setHref(basePath + menu.getUrl());
 			}
 //			Map<String, Object> attr = new HashMap<String, Object>();
 //			attr.put("url", menu.getUrl());

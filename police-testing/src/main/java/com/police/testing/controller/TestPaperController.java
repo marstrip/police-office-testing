@@ -22,8 +22,8 @@ public class TestPaperController {
 	
 	@RequestMapping("jsp")
 	public String jsp(){
-		return "background_system/exam/upload_exam";
-//		return "test_paper_list";
+//		return "background_system/exam/upload_exam";
+		return "background_system/exam/test_paper_list";
 	}
 	/**
 	 * 批量上传试卷

@@ -23,6 +23,31 @@
     from sys_user
     where auto_id = #{autoId,jdbcType=INTEGER}
   </select>
+  <select id="findByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+    	where login_name = #{loginName,jdbcType=VARCHAR} 
+    	and user_status = #{userStatus,jdbcType=VARCHAR}
+ </select>
+ 
+ <select id="getMenuByUserId" resultType="com.police.testing.pojo.SysMenu">
+		SELECT m.id,m.name,m.parentid,m.iconCls,m.url,
+			(select count(1) from sys_menu s where s.parentId!=0 and s.parentId=m.id) countChildrens 
+		FROM sys_menu m
+		  LEFT JOIN role_menu rm
+		  ON m.id = rm.menu_id
+		  LEFT JOIN sys_role r
+		  ON rm.role_name = r.role_name
+		  LEFT JOIN user_role ur
+		  ON  r.role_name = ur.role_name
+		  LEFT JOIN sys_user u
+		  ON ur.user_id = u.login_name
+		  WHERE m.enable=1 AND u.user_id = #{userId} 
+		  ORDER BY m.sequence
+	</select>
+	
+	
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_user
     where auto_id = #{autoId,jdbcType=INTEGER}

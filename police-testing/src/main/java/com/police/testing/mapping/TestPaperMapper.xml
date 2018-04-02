@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.police.testing.pojo.TestPaper" >
     <id column="test_paper_id" property="testPaperId" jdbcType="VARCHAR" />
     <result column="test_paper_name" property="testPaperName" jdbcType="VARCHAR" />
+    <result column="test_paper_type" property="testPaperType" jdbcType="VARCHAR" />
     <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
     <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
@@ -11,7 +12,7 @@
     <result column="enable" property="enable" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    test_paper_id, test_paper_name, creator_id, creator_name, create_date, update_date, 
+    test_paper_id, test_paper_name, test_paper_type, creator_id, creator_name, create_date, update_date, 
     enable
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -25,10 +26,10 @@
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.police.testing.pojo.TestPaper" >
-    insert into test_paper (test_paper_id, test_paper_name, creator_id, 
+    insert into test_paper (test_paper_id, test_paper_name, test_paper_type, creator_id, 
       creator_name, create_date, update_date, 
       enable)
-    values (#{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, 
+    values (#{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, #{testPaperType,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, 
       #{creatorName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{enable,jdbcType=VARCHAR})
   </insert>
@@ -40,6 +41,9 @@
       </if>
       <if test="testPaperName != null" >
         test_paper_name,
+      </if>
+      <if test="testPaperType != null" >
+        test_paper_type,
       </if>
       <if test="creatorId != null" >
         creator_id,
@@ -64,6 +68,9 @@
       <if test="testPaperName != null" >
         #{testPaperName,jdbcType=VARCHAR},
       </if>
+      <if test="testPaperType != null" >
+        #{testPaperType,jdbcType=VARCHAR},
+      </if>
       <if test="creatorId != null" >
         #{creatorId,jdbcType=VARCHAR},
       </if>
@@ -87,6 +94,9 @@
       <if test="testPaperName != null" >
         test_paper_name = #{testPaperName,jdbcType=VARCHAR},
       </if>
+      <if test="testPaperType != null" >
+        test_paper_type = #{testPaperType,jdbcType=VARCHAR},
+      </if>
       <if test="creatorId != null" >
         creator_id = #{creatorId,jdbcType=VARCHAR},
       </if>
@@ -108,6 +118,7 @@
   <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.TestPaper" >
     update test_paper
     set test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      test_paper_type = #{testPaperType,jdbcType=VARCHAR},
       creator_id = #{creatorId,jdbcType=VARCHAR},
       creator_name = #{creatorName,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},

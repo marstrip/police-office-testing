@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.police.testing.dao.SysLoginLogMapper;
 import com.police.testing.pojo.SysLoginLog;
+import com.police.testing.pojo.SysUser;
 import com.police.testing.pojo.User;
 import com.police.testing.service.ISysLogService;
 
@@ -18,7 +19,7 @@ public class SysLogServiceImpl implements ISysLogService{
 	
 	 
 	@Transactional
-	public void saveLoginLog(User user) {
+	public void saveLoginLog(SysUser user) {
 		SysLoginLog record = new SysLoginLog();
 		record.setDepartmentId(user.getDepartmentId());
 		record.setDepartmentName(user.getDepartmentName());
