@@ -316,4 +316,9 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		return (c >> 16) & 0XFF;
 	}
 
+	@Override
+	public List<TestPaper> getTestPaperList() {
+		return testPaperMapper.selectByTestPaperId(null);
+	}
+
 }

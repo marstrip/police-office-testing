@@ -21,6 +21,19 @@
     from test_paper
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectByTestPaperId" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from test_paper
+    where 1=1
+    <if test="testPaperIds != null and testPaperIds != ''">
+    and test_paper_id in
+    <foreach item="item" index="index" collection="testPaperIds" open="(" separator="," close=")">  
+  		#{item}
+ 	</foreach>
+    </if>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from test_paper
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}

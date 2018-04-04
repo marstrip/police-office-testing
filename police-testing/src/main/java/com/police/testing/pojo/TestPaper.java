@@ -7,6 +7,8 @@ public class TestPaper {
 
     private String testPaperName;
 
+    private String testPaperType;
+    
     private String creatorId;
 
     private String creatorName;
@@ -33,7 +35,15 @@ public class TestPaper {
         this.testPaperName = testPaperName == null ? null : testPaperName.trim();
     }
 
-    public String getCreatorId() {
+    public String getTestPaperType() {
+		return testPaperType;
+	}
+
+	public void setTestPaperType(String testPaperType) {
+		this.testPaperType = testPaperType;
+	}
+
+	public String getCreatorId() {
         return creatorId;
     }
 

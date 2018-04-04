@@ -1,5 +1,9 @@
 package com.police.testing.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.police.testing.pojo.TestPaper;
 
 public interface TestPaperMapper {
@@ -14,4 +18,10 @@ public interface TestPaperMapper {
     int updateByPrimaryKeySelective(TestPaper record);
 
     int updateByPrimaryKey(TestPaper record);
+    /**
+     * 根据试卷id获取数据
+     * @param testPaperId
+     * @return
+     */
+    List<TestPaper> selectByTestPaperId(@Param("testPaperIds") List<String> testPaperId);
 }
