@@ -21,7 +21,6 @@
 			//对文件格式进行校验
 			var d1 = /\.[^\.]+$/.exec(fileName);
 			if (d1 == ".doc") {
-				 
 				var value = $("#uploadForm").val();
 	            var option = {
 	        		   url:'${pageContext.request.contextPath}/testPaper/uploadTestPaper',//用于文件上传的服务器端请求地址
@@ -37,6 +36,7 @@
                $("#uploadForm").ajaxSubmit(option);
                return false; //最好返回false，因为如果按钮类型是submit,则表单自己又会提交一次;返回false阻止表单再次提交
 			}else {
+				alert("清上传文件后缀为.doc的word文件！");
 			}
 		}
 	}
@@ -44,6 +44,20 @@
 <body>
 <form id="uploadForm" method="post" enctype="multipart/form-data">
 	<table>
+		<tr>
+			<td>
+				试卷名称：
+				<input id="testPaperName" name="testPaperName" type="text"/>
+			</td>
+			<td>
+				试卷类型：
+				<select id="testPaperType" name="testPaperType" >
+					<option value="0">==请选择==</option>
+					<option value="1">党政建设</option>
+					<option value="2">普通考试</option>
+				</select>
+			</td>
+		</tr>
 		<tr>
 			<td>
 				上传试题：<input id="uploadFile" name="uploadFile" type="file">

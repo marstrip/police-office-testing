@@ -42,6 +42,8 @@ public class TestPaperController {
 	@ResponseBody
 	public JSONObject uploadTestPaper(HttpServletRequest request){
 		JSONObject result = new JSONObject();
+		//试卷名称
+		
 		MultipartHttpServletRequest mulRequest = (MultipartHttpServletRequest) request;  
         MultipartFile file = mulRequest.getFile("uploadFile");
         String fileName = file.getOriginalFilename();  
