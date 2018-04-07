@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.police.testing.dao.UploadFileLogMapper" >
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.UploadFileLog" >
+    <id column="upload_file_id" property="uploadFileId" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
+    <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
+    <result column="create_date" property="createdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.police.testing.pojo.UploadFileLog" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    upload_file_id, file_name, creator_id, creator_name, create_date
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from upload_file_log
+    where upload_file_id = #{uploadFileId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByFileName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from upload_file_log
+    where file_name = #{fileName,jdbcType = VARCHAR}
+  </select>
+  <select id="selectByCreateDate" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from upload_file_log
+    where 1=1 
+    <if beginDate != null and beginDate != '' and endDate != null and endDate !=''>
+    	and create_date between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
+    </if>
+    file_name = #{fileName,jdbcType = VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from upload_file_log
+    where upload_file_id = #{uploadFileId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.UploadFileLog" >
+    insert into upload_file_log (upload_file_id, file_name, creator_id, 
+      creator_name, create_date, remark
+      )
+    values (#{uploadFileId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, 
+      #{creatorName,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.UploadFileLog" >
+    insert into upload_file_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uploadFileId != null" >
+        upload_file_id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="creatorName != null" >
+        creator_name,
+      </if>
+      <if test="createdate != null" >
+        create_date,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uploadFileId != null" >
+        #{uploadFileId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.UploadFileLog" >
+    update upload_file_log
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        create_date = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where upload_file_id = #{uploadFileId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.police.testing.pojo.UploadFileLog" >
+    update upload_file_log
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      create_date = #{createdate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where upload_file_id = #{uploadFileId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.UploadFileLog" >
+    update upload_file_log
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      create_date = #{createdate,jdbcType=TIMESTAMP}
+    where upload_file_id = #{uploadFileId,jdbcType=VARCHAR}
+  </update>
+</mapper>
