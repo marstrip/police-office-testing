@@ -9,6 +9,8 @@ public class TestQuestion {
 
     private String testQuestionType;
 
+    private String uploadFileId;
+    
     private String creatorId;
 
     private String creatorName;
@@ -44,8 +46,16 @@ public class TestQuestion {
     public void setTestQuestionType(String testQuestionType) {
         this.testQuestionType = testQuestionType == null ? null : testQuestionType.trim();
     }
+    
+	public String getUploadFileId() {
+		return uploadFileId;
+	}
 
-    public String getCreatorId() {
+	public void setUploadFileId(String uploadFileId) {
+		this.uploadFileId = uploadFileId;
+	}
+
+	public String getCreatorId() {
         return creatorId;
     }
 

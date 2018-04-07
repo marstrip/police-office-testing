@@ -5,6 +5,7 @@
     <id column="test_questions_id" property="testQuestionsId" jdbcType="VARCHAR" />
     <result column="correct_answer" property="correctAnswer" jdbcType="VARCHAR" />
     <result column="test_question_type" property="testQuestionType" jdbcType="VARCHAR" />
+    <result column="upload_file_id" property="uploadFileId" jdbcType="VARCHAR" />
     <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
     <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
@@ -16,7 +17,7 @@
     <result column="test_question_selects" property="testQuestionSelects" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    test_questions_id, correct_answer, test_question_type, creator_id, creator_name, 
+    test_questions_id, correct_answer, upload_file_id, test_question_type, creator_id, creator_name, 
     create_date, update_date, enable
   </sql>
   <sql id="Blob_Column_List" >
@@ -35,12 +36,12 @@
     where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.police.testing.pojo.TestQuestionWithBLOBs" >
-    insert into test_question (test_questions_id, correct_answer, test_question_type, 
+    insert into test_question (test_questions_id, correct_answer, test_question_type, upload_file_id,
       creator_id, creator_name, create_date, 
       update_date, enable, test_questions_name, 
       test_question_selects)
     values (#{testQuestionsId,jdbcType=VARCHAR}, #{correctAnswer,jdbcType=VARCHAR}, #{testQuestionType,jdbcType=VARCHAR}, 
-      #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{uploadFileId,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=VARCHAR}, #{testQuestionsName,jdbcType=LONGVARCHAR}, 
       #{testQuestionSelects,jdbcType=LONGVARCHAR})
   </insert>
@@ -55,6 +56,9 @@
       </if>
       <if test="testQuestionType != null" >
         test_question_type,
+      </if>
+      <if test="uploadFileId != null" >
+        upload_file_id,
       </if>
       <if test="creatorId != null" >
         creator_id,
@@ -88,6 +92,11 @@
       <if test="testQuestionType != null" >
         #{testQuestionType,jdbcType=VARCHAR},
       </if>
+      
+      <if test="uploadFileId != null" >
+        #{uploadFileId,jdbcType=VARCHAR},
+      </if>
+      
       <if test="creatorId != null" >
         #{creatorId,jdbcType=VARCHAR},
       </if>
@@ -120,6 +129,11 @@
       <if test="testQuestionType != null" >
         test_question_type = #{testQuestionType,jdbcType=VARCHAR},
       </if>
+      
+      <if test="uploadFileId != null" >
+        upload_file_id = #{uploadFileId,jdbcType=VARCHAR},
+      </if>
+      
       <if test="creatorId != null" >
         creator_id = #{creatorId,jdbcType=VARCHAR},
       </if>
@@ -148,6 +162,7 @@
     update test_question
     set correct_answer = #{correctAnswer,jdbcType=VARCHAR},
       test_question_type = #{testQuestionType,jdbcType=VARCHAR},
+      upload_file_id = #{uploadFileId,jdbcType=VARCHAR},
       creator_id = #{creatorId,jdbcType=VARCHAR},
       creator_name = #{creatorName,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -161,6 +176,7 @@
     update test_question
     set correct_answer = #{correctAnswer,jdbcType=VARCHAR},
       test_question_type = #{testQuestionType,jdbcType=VARCHAR},
+      upload_file_id = #{uploadFileId,jdbcType=VARCHAR},
       creator_id = #{creatorId,jdbcType=VARCHAR},
       creator_name = #{creatorName,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
