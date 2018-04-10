@@ -115,8 +115,10 @@ public class QuestionServiceImpl implements IQuestionService{
 			// word试卷数据模型化
 			List<TestQuestionWithBLOBs> questions = analysisHtmlString(htmlText, fileName);
 			//----------------------------------------分析试题分类个数----------------------------------------------
-			//选择题个数
-			Integer selectCount = 0;
+			//单选题个数
+			Integer singleSelectCount = 0;
+			//多选题个数
+			Integer manySelectCount = 0;
 			//判断题个数
 			Integer judgeCount = 0;
 			//保存失败
@@ -129,8 +131,10 @@ public class QuestionServiceImpl implements IQuestionService{
 				TestQuestionWithBLOBs question = questions.get(i);
 				String questionType = question.getTestQuestionType();
 				if(questionType.equals("1")){
-					selectCount ++;
+					singleSelectCount ++;
 				}else if(questionType.equals("2")){
+					manySelectCount ++;
+				}else if(questionType.equals("3")){
 					judgeCount ++;
 				}else {
 					failCount ++;
@@ -143,9 +147,10 @@ public class QuestionServiceImpl implements IQuestionService{
 			}else {
 				message = "上传完成，错误信息：" + failMessage;
 			}
-			result.put("selectCount", selectCount);
+			result.put("singleSelectCount", singleSelectCount);
+			result.put("manySelectCount", manySelectCount);
 			result.put("judgeCount", judgeCount);
-			result.put("sum", selectCount + judgeCount);
+			result.put("sum", singleSelectCount + manySelectCount + judgeCount);
 			result.put("message", message);
 			//保存上传日志
 			Date createDate = new Date();
@@ -190,7 +195,7 @@ public class QuestionServiceImpl implements IQuestionService{
 	private List<TestQuestionWithBLOBs> analysisHtmlString(String htmlText, String testPaperName) {
 		String q[] = htmlText.split("<br/>");
 		LinkedList<String> list = new LinkedList<String>();
-		// 清除空字符
+		//清除空字符
 		for (int i = 0; i < q.length; i++) {
 			if (StringUtils.isNotBlank(q[i].toString().replaceAll("</?[^>]+>", "").trim())) {
 				list.add(q[i].toString().trim());
@@ -198,68 +203,84 @@ public class QuestionServiceImpl implements IQuestionService{
 		}
 		String[] result = {};
 		String ws[] = list.toArray(result);
+		//题目集合
 		List<TestQuestionWithBLOBs> questions = new ArrayList<>();
 		/*********** 试卷基础数据赋值 *********************/
 		for (int i = 0; i < ws.length; i++) {
 			String rowWord = ws[i].toString().replaceAll("</?[^>]+>", "").trim();// 去除html
 			String lastSelects = null;
-			String questionType = null;
+			String lastQuestionAnswer = null;
 			TestQuestionWithBLOBs lastQuestion = null;
+			//获取最近保存一道题的信息
 			if (questions.size() > 0) {
 				lastQuestion = questions.get(questions.size() - 1);
 				lastSelects = lastQuestion.getTestQuestionSelects();
-				questionType = lastQuestion.getTestQuestionType();
+				lastQuestionAnswer = lastQuestion.getCorrectAnswer();
 			}
-			String firstWord = rowWord.substring(0, 1);
-			// 每行前两个字符为数字+顿号则为题干
+			//每行前两个字符为数字和顿号则为题干
 			Map<String, Object> numberFlag = isDigit2(rowWord);
+			//判断每行第一个字符
+			String firstWord = rowWord.substring(0, 1);
 			// 如果前两个字符为大写字母.则为选项
 			boolean selectFlag = answerFlag(firstWord, rowWord.substring(1, 2));
 			if ((boolean)numberFlag.get("status")) {//此行为题干
-				if (StringUtils.isNotBlank(lastSelects) || questions.size() == 0
-						|| (StringUtils.isNotBlank(questionType) && questionType.equals("2"))) {
+				/**
+				 * 此行为题干时
+				 * 1.试题集合为空时，可以保存题干
+				 * 2.上一题的答案不为空时，可以保存新题干
+				 * 
+				 */
+				if (questions.size() == 0 || StringUtils.isNotBlank(lastQuestionAnswer)) {
 					TestQuestionWithBLOBs question = new TestQuestionWithBLOBs();
-					//word提高编号最后一个索引
+					//word编号最后一个索引
 					Integer numLastIndex = (Integer) numberFlag.get("numLastIndex");
-					//获取去除变好的题干
+					//获取去除编号的题干
 					String questionName = rowWord.substring(numLastIndex + 1, rowWord.length());
-					//判断题干是否存在
 					question.setTestQuestionsName(questionName);
+					//保存题干
 					questions.add(question);
 				}
-			}else if (selectFlag) {
-				if (questions.size() > 0) {
-					TestQuestionWithBLOBs question = questions.get(questions.size() - 1);
+			}else if (selectFlag) {//判断此行为选项时
+				if (lastQuestion != null) {
 					if (rowWord.length() > 1) {
-						String select = question.getTestQuestionSelects();
-						if (StringUtils.isNotBlank(select)) {
-							select += ";";
+						if (StringUtils.isNotBlank(lastSelects)) {
+							lastSelects += ";";
 						}else {
-							select = "";
+							lastSelects = "";
 						}
-						select += rowWord;
-						question.setTestQuestionSelects(select);
-						question.setTestQuestionType("1");
+						lastSelects += rowWord;
+						lastQuestion.setTestQuestionSelects(lastSelects);//保存选项
 					}
 				}
-			}else if (rowWord.contains("【正确答案:】")) {// 判断某一行是否为正确答案
+			}else if (rowWord.contains("【正确答案:】")) {// 判断某一行为正确答案时
 					String answer = null;
 					if (rowWord.length() > rowWord.indexOf("】")) {
-						answer = rowWord.substring(rowWord.indexOf("】") + 1, rowWord.length());
-						if (questions.size() > 0) {
-							TestQuestionWithBLOBs question = questions.get(questions.size() - 1);
-							if (StringUtils.isBlank(question.getTestQuestionSelects())) {
-								question.setTestQuestionType("2");
+						answer = rowWord.substring(rowWord.indexOf("】") + 1, rowWord.length());//正确答案
+						if(lastQuestion != null){
+							if (StringUtils.isBlank(lastQuestion.getTestQuestionSelects())) {
+								lastQuestion.setTestQuestionType("3");//判断题
+							}else {
+								Integer answerLength = answer.length();
+								if(answerLength == 1){//单选题
+									lastQuestion.setTestQuestionType("1");
+								}else if(answerLength > 1){
+									lastQuestion.setTestQuestionType("2");//为多选题
+								}else{
+									lastQuestion.setTestQuestionType("0");//未知
+								}
 							}
-							question.setCorrectAnswer(answer);
+							//保存正确答案
+							lastQuestion.setCorrectAnswer(answer);
 						}
 					}
 			}else if(rowWord.equals("&nbsp;")){//如果为空格符则下一行
 				continue;
 			}else {
-				//当题干为多行时，用于拼接题干使用
-				if (lastQuestion != null && StringUtils.isBlank(lastSelects) 
-						&& StringUtils.isNotBlank(lastQuestion.getTestQuestionsName()) 
+				/**
+				 * 当题干不为空，选项、正确答案均为空时，则认定此行依然是题干，需拼接题干
+				 */
+				if (lastQuestion != null && StringUtils.isNotBlank(lastQuestion.getTestQuestionsName()) 
+						&& StringUtils.isBlank(lastSelects)
 						&& StringUtils.isBlank(lastQuestion.getCorrectAnswer())) {
 					String question = lastQuestion.getTestQuestionsName() + rowWord;
 					lastQuestion.setTestQuestionsName(question);
@@ -343,5 +364,26 @@ public class QuestionServiceImpl implements IQuestionService{
 
 	private int blue(int c) {
 		return (c >> 16) & 0XFF;
+	}
+	
+	@Override
+	public List<TestQuestionWithBLOBs> getListByCreateAndUploadLogIds(String beginDate, String endDate,
+			String[] uploadLogIds) {
+		List<String> uploadFileLogs = new ArrayList<>();
+		for (int i = 0; i < uploadLogIds.length; i++) {
+			uploadFileLogs.add(uploadLogIds[i]);
+		}
+		List<TestQuestionWithBLOBs> fileLogs = testQuestionMapper.selectByCreateDateAndUploadFileIds(beginDate, endDate, uploadFileLogs);
+		return fileLogs;
+	}
+	@Override
+	public List<TestQuestionWithBLOBs> getListByQuestionTypeAndNumber(String beginDate, String endDate,
+			String[] uploadLogIds, Integer number, String questionType) {
+		List<String> uploadFileLogs = new ArrayList<>();
+		for (int i = 0; i < uploadLogIds.length; i++) {
+			uploadFileLogs.add(uploadLogIds[i]);
+		}
+		List<TestQuestionWithBLOBs> list = testQuestionMapper.selectRandomByQuestionTypeAndNumber(beginDate, endDate, uploadFileLogs, questionType, number);
+		return list;
 	}
 }

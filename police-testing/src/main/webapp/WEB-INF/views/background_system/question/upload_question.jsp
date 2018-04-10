@@ -31,7 +31,7 @@
 		            	   if(data.status == -1){
 		            		   alert(data.message);
 		            	   }else {
-			            	   alert("上传题目总数:" + data.sum + ";选择题个数：" + data.selectCount + ";判断题个数：" + data.judgeCount);
+			            	   alert("上传题目总数:" + data.sum + ";单选题个数：" + data.singleSelectCount + ";多选题个数："+ data.manySelectCount +";判断题个数：" + data.judgeCount);
 		            	   }
 		               },
 		               error: function(data) {

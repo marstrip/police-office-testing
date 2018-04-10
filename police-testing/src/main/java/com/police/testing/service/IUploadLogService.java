@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.police.testing.pojo.UploadFileLog;
 
+import net.sf.json.JSONObject;
+
 public interface IUploadLogService {
 	/**
 	 * 根据上传文件名称判断文件是否被上传过
@@ -19,4 +21,5 @@ public interface IUploadLogService {
 	 * @return
 	 */
 	public List<UploadFileLog> getList(String beginDate, String endDate);
+	
 }

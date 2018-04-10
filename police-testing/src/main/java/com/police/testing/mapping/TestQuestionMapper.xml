@@ -31,6 +31,47 @@
     from test_question
     where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </select>
+  
+   <select id="selectByCreateDateAndUploadFileIds" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from test_question
+    where 1=1 
+    <if test="beginDate != null and beginDate != '' and endDate != null and endDate !=''">
+    	and create_date between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
+    </if>
+    <if test="list != null">
+    and upload_file_id in 
+    	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  			#{item}
+ 		</foreach>
+    </if>
+  </select>
+  
+  <select if="selectRandomByQuestionTypeAndNumber" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from test_question
+    where 1=1 
+    <if test="beginDate != null and beginDate != '' and endDate != null and endDate !=''">
+    	and create_date between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
+    </if>
+    <if test="list != null">
+    and upload_file_id in 
+    	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  			#{item}
+ 		</foreach>
+    </if>
+    <if test="questionType != null and questionType != ''">
+    	and test_question_type = #{questionType,jdbcType=VARCHAR}
+    </if>
+    order by rand() LIMIT #{number,jdbcType=INTEGER}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from test_question
     where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}

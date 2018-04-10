@@ -21,12 +21,31 @@
 
 </head>
 <script type="text/javascript">
+//查询上传
+function search_log(){
+	var beginDate = "";
+	var endDate = "";
+	var uploadFileId = "";
+	$.ajax({
+		type: 'POST',
+        url: '${pageContext.request.contextPath}/allocation/save',
+        data : {
+        	beginDate : beginDate,
+        	endDate : endDate,
+        	uploadFileId : uploadFileId
+        },
+        dataType : 'json',
+        success: function(data){
+        	
+        } 
+	})
+}
 </script>
 <body>
 <div id="demo_pag1"></div>
 <form id="uploadForm" method="post">
 	  <table>
-			<tr>
+			<!-- <tr>
 				<td>
 					试卷名称：<input id="testPaperName" name="testPaperName" type="text"/>				
 				</td>
@@ -34,10 +53,41 @@
 			<tr>
 				<td>
 					组题范围选择：
-					按照上传数据时间组题：<input id="testCreateType" name="testCreateType" type="radio" value="1"/>
-					选择上传文件记录组题：<input id="testCreateType" name="testCreateType" type="radio" value="2"/>				
 				</td>
-			</tr>	  
+				<td>
+					按照上传数据时间组题：<input id="testCreateType" name="testCreateType" type="radio" value="1"/>
+				</td>
+				<td>
+					选择上传文件记录组题：<input id="testCreateType" name="testCreateType" type="radio" value="2"/>	
+				</td>
+			</tr> -->
+			<tr>
+				<td>
+					单选题个数：<input id="singleSelectCount" name="singleSelectCount" type="text" value="15"/>
+				</td>
+				<td>
+					多选题个数：<input id="manySelectCount" name="manySelectCount" type="text" value="20"/>
+				</td>
+				<td>
+					判断题个数：<input id="judgeCount" name="judgeCount" type="text" value="10"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					单选题分数：<input id="singleSelectScore" name="singleSelectScore" type="text" value="2"/>
+				</td>
+				<td>
+					多选题个数：<input id="manySelectScore" name="manySelectScore" type="text" value="3"/>
+				</td>
+				<td>
+					判断题个数：<input id="judgeScore" name="judgeScore" type="text" value="1"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					筛选：<input id="searchQuestion" name="searchQuestion" type="button" onclick="search_log();"/>
+				</td>
+			</tr>
 	  </table>	
 
 	  <table class="table table-striped">

@@ -1,7 +1,12 @@
 package com.police.testing.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.police.testing.pojo.TestQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
+import com.police.testing.pojo.UploadFileLog;
 
 public interface TestQuestionMapper {
     int deleteByPrimaryKey(Integer testQuestionsId);
@@ -17,4 +22,26 @@ public interface TestQuestionMapper {
     int updateByPrimaryKeyWithBLOBs(TestQuestionWithBLOBs record);
 
     int updateByPrimaryKey(TestQuestion record);
+    
+    /**
+     * 根据上传时间和id集合获取数据
+     * @param beginDate
+     * @param endDate
+     * @param uploadFileLogs
+     * @return
+     */
+    List<TestQuestionWithBLOBs> selectByCreateDateAndUploadFileIds(@Param("beginDate") String beginDate, @Param("endDate") String endDate,
+    		@Param("list") List<String> uploadFileLogs);
+    
+    /**
+     * 根据限定题库的范围随机获取指定数量和题目类型的试题
+     * @param beginDate
+     * @param endDate
+     * @param uploadFileLogs
+     * @param questionType
+     * @param number
+     * @return
+     */
+    List<TestQuestionWithBLOBs> selectRandomByQuestionTypeAndNumber(@Param("beginDate") String beginDate, @Param("endDate") String endDate,
+    		@Param("list") List<String> uploadFileLogs, @Param("questionType") String questionType, @Param("number")Integer number);
 }
