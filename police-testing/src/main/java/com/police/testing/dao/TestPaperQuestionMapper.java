@@ -1,5 +1,7 @@
 package com.police.testing.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.police.testing.pojo.TestPaperQuestion;
 
 public interface TestPaperQuestionMapper {
@@ -14,4 +16,6 @@ public interface TestPaperQuestionMapper {
     int updateByPrimaryKeySelective(TestPaperQuestion record);
 
     int updateByPrimaryKey(TestPaperQuestion record);
+    
+    int deleteByTestPaperId(@Param("testPaperId")String testPaperId);
 }

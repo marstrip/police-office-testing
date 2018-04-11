@@ -9,6 +9,10 @@ public class TestPaper {
 
     private String testPaperType;
     
+    private Date testDate;
+    
+    private Integer testTime;
+    
     private String creatorId;
 
     private String creatorName;
@@ -41,6 +45,21 @@ public class TestPaper {
 
 	public void setTestPaperType(String testPaperType) {
 		this.testPaperType = testPaperType;
+	}
+	public Date getTestDate() {
+		return testDate;
+	}
+
+	public void setTestDate(Date testDate) {
+		this.testDate = testDate;
+	}
+
+	public Integer getTestTime() {
+		return testTime;
+	}
+
+	public void setTestTime(Integer testTime) {
+		this.testTime = testTime;
 	}
 
 	public String getCreatorId() {

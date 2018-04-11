@@ -24,6 +24,12 @@
     delete from test_paper_question
     where auto_id = #{autoId,jdbcType=INTEGER}
   </delete>
+  
+  <delete id="deleteByTestPaperId" parameterType="java.lang.Integer">
+  	delete from test_paper_question
+    where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  
+  </delete>
   <insert id="insert" parameterType="com.police.testing.pojo.TestPaperQuestion" >
     insert into test_paper_question (auto_id, test_paper_id, test_paper_name, 
       test_questions_id, test_questions_number, answer_count, 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.pojo.UploadFileLog;
 import com.police.testing.service.IQuestionService;
+import com.police.testing.service.ITestPaperService;
 import com.police.testing.service.IUploadLogService;
 import com.police.testing.tools.GetEncode;
 
@@ -27,6 +28,9 @@ public class TestCreateController {
 	private IUploadLogService uploadLogService;
 	@Autowired
 	private IQuestionService questionService;
+	@Autowired
+	private ITestPaperService testPaperService;
+	
 	/**
 	 * 跳转组题页面
 	 * @param request
@@ -81,7 +85,7 @@ public class TestCreateController {
 	 */
 	@RequestMapping("randomGenerationTestPaper")
 	@ResponseBody
-	public JSONArray randomGenerationTestPaper(HttpServletRequest request){
+	public JSONObject randomGenerationTestPaper(HttpServletRequest request){
 		//获取题库范围
 		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
 		String endDate = GetEncode.transcode(request.getParameter("endDate"));
@@ -101,13 +105,40 @@ public class TestCreateController {
 		//判断题个数
 		Integer judgeCount = Integer.valueOf(GetEncode.transcode(request.getParameter("judgeCount")));
 		List<TestQuestionWithBLOBs> judgeList = questionService.getListByQuestionTypeAndNumber(beginDate, endDate, uploadFileIds, judgeCount, "3");
-		
 		//合并集合
 		list.addAll(singleSelectList);
 		list.addAll(manySelectList);
 		list.addAll(judgeList);
+		//生成待预览试卷
+		String testPaperId = testPaperService.createTempTestPaper(list, "0");
 		//封装jsonarray对象
-		JSONArray result = JSONArray.fromObject(list);
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		JSONObject result = new JSONObject();
+		//封装反馈对象
+		result.put("testPaperId", testPaperId);
+		result.put("list", jsonArray);
+		return result;
+	}
+	/**
+	 * 确认或者取消试卷预览
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("feedbackTestPaper")
+	@ResponseBody
+	public JSONObject feedbackTestPaper(HttpServletRequest request){
+		String operateFlag = GetEncode.transcode(request.getParameter("operateFlag"));
+		String testPaperId = GetEncode.transcode(request.getParameter("testPaperId"));
+		String testDate = GetEncode.transcode(request.getParameter("testDate"));
+		String testPaperName = GetEncode.transcode(request.getParameter("testPaperName"));
+		Integer testTime = Integer.valueOf(GetEncode.transcode(request.getParameter("testTime")));
+		JSONObject result = new JSONObject();
+		if(StringUtils.isNotBlank(operateFlag)){
+			result = testPaperService.updateTestPaper(testPaperId, operateFlag, testPaperName, testDate, testTime);
+		}else {
+			result.put("status", -1);
+			result.put("message", "无操作行为");
+		}
 		return result;
 	}
 }

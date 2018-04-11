@@ -2,24 +2,31 @@ package com.police.testing.service;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.police.testing.pojo.TestPaper;
+import com.police.testing.pojo.TestQuestionWithBLOBs;
 
 import net.sf.json.JSONObject;
 
 public interface ITestPaperService {
 	/**
-	 * 保存提交的文件数据
-	 * @param file
-	 * @param fileName
-	 * @return
-	 */
-	public JSONObject saveFileData(MultipartFile file, String fileName);
-	
-	/**
 	 * 获取全部试卷数据
 	 * @return
 	 */
 	public List<TestPaper> getTestPaperList();
+	
+	/**
+	 * 生成待预览的试卷及试卷类型
+	 * @param questionWithBLOBs
+	 * @param testPaperType
+	 */
+	public String createTempTestPaper(List<TestQuestionWithBLOBs> questionWithBLOBs, String testPaperType);
+	
+	
+	/**
+	 * 根据用户操作行为更新试卷状态
+	 * @param testPaperId
+	 * @param operateFlag
+	 * @return
+	 */
+	public JSONObject updateTestPaper(String testPaperId, String operateFlag, String testPaperName, String testDate, Integer testTime);
 }
