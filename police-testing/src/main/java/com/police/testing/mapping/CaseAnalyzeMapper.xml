@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.police.testing.dao.CaseAnalyzeMapper" >
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.CaseAnalyze" >
+    <id column="case_id" property="caseId" jdbcType="VARCHAR" />
+    <result column="case_name" property="caseName" jdbcType="VARCHAR" />
+    <result column="case_level" property="caseLevel" jdbcType="VARCHAR" />
+    <result column="case_type" property="caseType" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
+    <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="enable" property="enable" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.police.testing.pojo.CaseAnalyze" extends="BaseResultMap" >
+    <result column="case_content" property="caseContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    case_id, case_name, case_level, case_type, create_date, creator_id, creator_name, update_date, 
+    enable
+  </sql>
+  <sql id="Blob_Column_List" >
+    case_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from case_analyze
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByLikeCaseName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from case_analyze
+    where 1=1 
+    <if test="caseName != null and caseName != ''">
+    	 and case_name like '%${caseName}%'
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from case_analyze
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.CaseAnalyze" >
+    insert into case_analyze (case_id, case_name, case_level, case_type, 
+      create_date, creator_id, creator_name, 
+      update_date, enable, case_content
+      )
+    values (#{caseId,jdbcType=VARCHAR},#{caseName,jdbcType=VARCHAR}, #{caseLevel,jdbcType=VARCHAR}, #{caseType,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=VARCHAR}, #{caseContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.CaseAnalyze" >
+    insert into case_analyze
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caseId != null" >
+        case_id,
+      </if>
+      <if test="caseName != null" >
+        case_name,
+      </if>
+      <if test="caseLevel != null" >
+        case_level,
+      </if>
+      <if test="caseType != null" >
+        case_type,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="creatorName != null" >
+        creator_name,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="caseContent != null" >
+        case_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caseId != null" >
+        #{caseId,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="caseName != null" >
+        #{caseName,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="caseLevel != null" >
+        #{caseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null" >
+        #{caseType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="caseContent != null" >
+        #{caseContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.CaseAnalyze" >
+    update case_analyze
+    <set >
+    
+      <if test="caseName != null" >
+        case_name = #{caseName,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="caseLevel != null" >
+        case_level = #{caseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null" >
+        case_type = #{caseType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="caseContent != null" >
+        case_content = #{caseContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.police.testing.pojo.CaseAnalyze" >
+    update case_analyze
+    set case_name = #{caseName,jdbcType=VARCHAR},
+      case_level = #{caseLevel,jdbcType=VARCHAR},
+      case_type = #{caseType,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=VARCHAR},
+      case_content = #{caseContent,jdbcType=LONGVARCHAR}
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.CaseAnalyze" >
+    update case_analyze
+    set case_name = #{caseName,jdbcType=VARCHAR},
+      case_level = #{caseLevel,jdbcType=VARCHAR},
+      case_type = #{caseType,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=VARCHAR}
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </update>
+</mapper>

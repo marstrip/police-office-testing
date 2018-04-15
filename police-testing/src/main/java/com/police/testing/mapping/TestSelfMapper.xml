@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.police.testing.dao.TestSelfMapper" >
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.TestSelf" >
+    <id column="test_self_id" property="testSelfId" jdbcType="VARCHAR" />
+    <result column="test_self_level" property="testSelfLevel" jdbcType="VARCHAR" />
+    <result column="test_self_name" property="testSelfName" jdbcType="VARCHAR" />
+    <result column="test_self_type" property="testSelfType" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
+    <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="enable" property="enable" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.police.testing.pojo.TestSelf" extends="BaseResultMap" >
+    <result column="test_self_content" property="testSelfContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    test_self_id, test_self_name, test_self_level, test_self_type, create_date, creator_id, creator_name, 
+    update_date, enable
+  </sql>
+  <sql id="Blob_Column_List" >
+    test_self_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from test_self
+    where test_self_id = #{testSelfId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByLikeTestSelfName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from test_self
+    where 1=1 
+    <if test="testSelfContent != null and testSelfContent != ''">
+    	 and test_self_name like '%${testSelfName}%'
+    </if>
+  	
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from test_self
+    where test_self_id = #{testSelfId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.TestSelf" >
+    insert into test_self (test_self_id, test_self_name, test_self_level, test_self_type, 
+      create_date, creator_id, creator_name, 
+      update_date, enable, test_self_content
+      )
+    values (#{testSelfId,jdbcType=VARCHAR}, #{testSelfName,jdbcType=VARCHAR}, #{testSelfLevel,jdbcType=VARCHAR}, #{testSelfType,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=VARCHAR}, #{testSelfContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.TestSelf" >
+    insert into test_self
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testSelfId != null" >
+        test_self_id,
+      </if>
+      
+      <if test="testSelfName != null" >
+        test_self_name,
+      </if>
+      
+      <if test="testSelfLevel != null" >
+        test_self_level,
+      </if>
+      <if test="testSelfType != null" >
+        test_self_type,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="creatorName != null" >
+        creator_name,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="testSelfContent != null" >
+        test_self_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testSelfId != null" >
+        #{testSelfId,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="testSelfName != null" >
+        #{testSelfName,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="testSelfLevel != null" >
+        #{testSelfLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="testSelfType != null" >
+        #{testSelfType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="testSelfContent != null" >
+        #{testSelfContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.TestSelf" >
+    update test_self
+    <set>
+      <if test="testSelfName != null" >
+        test_self_name = #{testSelfName,jdbcType=VARCHAR},
+      </if>
+      <if test="testSelfLevel != null" >
+        test_self_level = #{testSelfLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="testSelfType != null" >
+        test_self_type = #{testSelfType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="testSelfContent != null" >
+        test_self_content = #{testSelfContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where test_self_id = #{testSelfId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.police.testing.pojo.TestSelf" >
+    update test_self
+    set test_self_name = #{testSelfName,jdbcType=VARCHAR},
+      test_self_level = #{testSelfLevel,jdbcType=VARCHAR},
+      test_self_type = #{testSelfType,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=VARCHAR},
+      test_self_content = #{testSelfContent,jdbcType=LONGVARCHAR}
+    where test_self_id = #{testSelfId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.TestSelf" >
+    update test_self
+    set test_self_name = #{testSelfName,jdbcType=VARCHAR},
+      test_self_level = #{testSelfLevel,jdbcType=VARCHAR},
+      test_self_type = #{testSelfType,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=VARCHAR}
+    where test_self_id = #{testSelfId,jdbcType=VARCHAR}
+  </update>
+</mapper>

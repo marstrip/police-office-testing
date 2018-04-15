@@ -6,7 +6,7 @@
     <result column="test_paper_name" property="testPaperName" jdbcType="VARCHAR" />
     <result column="test_paper_type" property="testPaperType" jdbcType="VARCHAR" />
     <result column="test_date" property="testDate" jdbcType="TIMESTAMP" />
-    <result column="test_time" property="testTime" jdbcType="Integer" />
+    <result column="test_time" property="testTime" jdbcType="INTEGER" />
     <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
     <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
@@ -45,7 +45,7 @@
       creator_name, create_date, update_date, 
       enable)
     values (#{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, #{testPaperType,jdbcType=VARCHAR}, 
-    	#{testDate,jdbcType=TIMESTAMP}, #{testTime,jdbcType=Integer}, #{creatorId,jdbcType=VARCHAR}, 
+    	#{testDate,jdbcType=TIMESTAMP}, #{testTime,jdbcType=INTEGER}, #{creatorId,jdbcType=VARCHAR}, 
       #{creatorName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{enable,jdbcType=VARCHAR})
   </insert>
@@ -101,7 +101,7 @@
         #{testDate,jdbcType=TIMESTAMP},
       </if>
       <if test="testTime != null" >
-        #{testTime,jdbcType=Integer},
+        #{testTime,jdbcType=INTEGER},
       </if>
       
       <if test="creatorId != null" >
@@ -135,7 +135,7 @@
         test_time = #{testDate,jdbcType=TIMESTAMP},
       </if>
       <if test="testTime != null" >
-        test_time = #{testTime,jdbcType=Integer},
+        test_time = #{testTime,jdbcType=INTEGER},
       </if>
       
       
@@ -163,7 +163,7 @@
       test_paper_type = #{testPaperType,jdbcType=VARCHAR},
       
       test_date = #{testDate,jdbcType=TIMESTAMP},
-      test_time = #{testTime,jdbcType=Integer},
+      test_time = #{testTime,jdbcType=INTEGER},
       
       creator_id = #{creatorId,jdbcType=VARCHAR},
       creator_name = #{creatorName,jdbcType=VARCHAR},

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.police.testing.dao.QaSheetMapper" >
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.QaSheet" >
+    <id column="qa_id" property="qaId" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
+    <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="qa_status" property="qaStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.police.testing.pojo.QaSheetWithBLOBs" extends="BaseResultMap" >
+    <result column="question_content" property="questionContent" jdbcType="LONGVARCHAR" />
+    <result column="question_answer" property="questionAnswer" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    qa_id, enable, create_date, creator_id, creator_name, update_date, qa_status
+  </sql>
+  <sql id="Blob_Column_List" >
+    question_content, question_answer
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qa_sheet
+    where qa_id = #{qaId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByLikeQuestionContent" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qa_sheet
+    where 1=1 
+    <if test="caseName != null and caseName != ''">
+    	 and question_content like '%${questionContent}%'
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from qa_sheet
+    where qa_id = #{qaId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.QaSheetWithBLOBs" >
+    insert into qa_sheet (qa_id, enable, create_date, 
+      creator_id, creator_name, update_date, 
+      qa_status, question_content, question_answer
+      )
+    values (#{qaId,jdbcType=VARCHAR}, #{enable,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{qaStatus,jdbcType=VARCHAR}, #{questionContent,jdbcType=LONGVARCHAR}, #{questionAnswer,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.QaSheetWithBLOBs" >
+    insert into qa_sheet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qaId != null" >
+        qa_id,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="creatorName != null" >
+        creator_name,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="qaStatus != null" >
+        qa_status,
+      </if>
+      <if test="questionContent != null" >
+        question_content,
+      </if>
+      <if test="questionAnswer != null" >
+        question_answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qaId != null" >
+        #{qaId,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qaStatus != null" >
+        #{qaStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="questionContent != null" >
+        #{questionContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="questionAnswer != null" >
+        #{questionAnswer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.QaSheetWithBLOBs" >
+    update qa_sheet
+    <set >
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qaStatus != null" >
+        qa_status = #{qaStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="questionContent != null" >
+        question_content = #{questionContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="questionAnswer != null" >
+        question_answer = #{questionAnswer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where qa_id = #{qaId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.police.testing.pojo.QaSheetWithBLOBs" >
+    update qa_sheet
+    set enable = #{enable,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      qa_status = #{qaStatus,jdbcType=VARCHAR},
+      question_content = #{questionContent,jdbcType=LONGVARCHAR},
+      question_answer = #{questionAnswer,jdbcType=LONGVARCHAR}
+    where qa_id = #{qaId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.QaSheet" >
+    update qa_sheet
+    set enable = #{enable,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      qa_status = #{qaStatus,jdbcType=VARCHAR}
+    where qa_id = #{qaId,jdbcType=VARCHAR}
+  </update>
+</mapper>
