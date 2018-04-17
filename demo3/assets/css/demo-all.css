@@ -108,8 +108,8 @@ a:focus, a:hover {
 }
 .masthead-name {
 	float: left;
-	margin-left: 40px;
-	margin-top: 40px;
+	margin-left: 20px;
+	margin-top: 51px;
 }
 .masthead-name-main {
 	font-size: 36px;
@@ -132,8 +132,8 @@ a:focus, a:hover {
 	text-shadow: 0 0 12px rgba(0, 0, 0, 1);
 	font-size: 14px;
 }
-/* @media screen and (max-height: 768px) {
-	.masthead {
+@media screen and (max-height: 768px) {
+	/* .masthead {
 		height: 200px;
 	}
 	.masthead-logo {
@@ -144,8 +144,11 @@ a:focus, a:hover {
 	.masthead-name {
 		margin-left: 20px;
 		margin-top: 5px;
-	}
-} */
+	} */
+	/* .mastbody {
+	    	min-height: 342px!important;
+	} */
+} 
 
 .breadcrumb {
     background-color: transparent;
@@ -192,13 +195,13 @@ a:focus, a:hover {
 	color: #fff;
 }*/
 .mastbody {
-	/*min-height: 544px;*/
 	background: transparent;
 	padding-bottom: 15px;
 	margin-left: 0;
 	margin-right: 0;
 	width: 100%;
 	display: inline-block;
+    min-height: 654px;
 }
 
 .panel-white {
@@ -237,8 +240,15 @@ a:focus, a:hover {
 }
 
 .footer {
-    background-color: var(--bgcolor-panel-2);
-    color: #fff;
+    background-color: var(--bgcolor-panel-1);
+    color: #333;
+}
+.footer .row {
+	margin-left: 0;
+	margin-right: 0;
+}
+.footer ul {
+	padding: 25px 0 10px 0;
 }
 
 /*.panel-white i {
