@@ -1,0 +1,46 @@
+{
+	"page": 1,
+	"rows": [{
+		"caseContent": "",
+		"caseId": "0001",
+		"caseLevel": "高级",
+		"caseName": "测试1",
+		"caseType": "职业",
+		"createDate": {
+			"date": 17,
+			"day": 2,
+			"hours": 22,
+			"minutes": 9,
+			"month": 3,
+			"seconds": 20,
+			"time": 1523974160000,
+			"timezoneOffset": -480,
+			"year": 118
+		},
+		"creatorId": "",
+		"creatorName": "王晨宇",
+		"enable": "1",
+		"updateDate": null
+	}, {
+		"caseContent": "",
+		"caseId": "0002",
+		"caseLevel": "中级",
+		"caseName": "测试2",
+		"caseType": "业务",
+		"createDate": {
+			"date": 10,
+			"day": 2,
+			"hours": 22,
+			"minutes": 9,
+			"month": 3,
+			"seconds": 48,
+			"time": 1523369388000,
+			"timezoneOffset": -480,
+			"year": 118
+		},
+		"creatorId": "",
+		"creatorName": "李四",
+		"enable": "1",
+		"updateDate": null
+	}]
+}

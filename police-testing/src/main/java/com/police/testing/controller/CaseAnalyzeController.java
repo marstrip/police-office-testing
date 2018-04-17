@@ -13,6 +13,7 @@ import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.tools.GetEncode;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -108,6 +109,10 @@ public class CaseAnalyzeController {
 		JSONObject result = new JSONObject();
 		String caseName = GetEncode.transcode(request.getParameter("caseName"));
 		List<CaseAnalyze> list = caseAnalyzeService.getList(caseName);
+		result.put("page", 1);
+		JSONArray array = JSONArray.fromObject(list);
+		result.put("rows", array);
+		System.out.println("json:" + result.toString());
 		return result;
 	}
 	

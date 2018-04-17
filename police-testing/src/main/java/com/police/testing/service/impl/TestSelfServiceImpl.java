@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,8 +18,7 @@ import com.police.testing.service.ITestSelfService;
 *@date 2018年4月14日-下午8:11:25
 *
 **/
-@RequestMapping("testSelfService")
-@ResponseBody
+@Component("testSelfService")
 public class TestSelfServiceImpl implements ITestSelfService{
 	@Autowired
 	private TestSelfMapper testSelfMapper;
