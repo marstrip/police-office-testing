@@ -52,15 +52,12 @@ public class CaseAnalyzeServiceImpl implements ICaseAnalyzeService{
 		caseAnalyze.setCaseName(caseName);
 		caseAnalyze.setCaseType(caseType);
 		caseAnalyze.setUpdateDate(new Date());
-		return caseAnaLyzeMapper.updateByPrimaryKeyWithBLOBs(caseAnalyze);
+		return caseAnaLyzeMapper.updateByPrimaryKeySelective(caseAnalyze);
 	}
 
 	@Override
 	public Integer deleteData(String caseId) {
-		CaseAnalyze caseAnalyze = new CaseAnalyze();
-		caseAnalyze.setCaseId(caseId);
-		caseAnalyze.setEnable("0");
-		return caseAnaLyzeMapper.updateByPrimaryKeySelective(caseAnalyze);
+		return caseAnaLyzeMapper.updateEnable(caseId);
 	}
 
 	@Override

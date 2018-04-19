@@ -176,9 +176,9 @@
 	</style>
 </head>
 <body>
-<div class="col-sm">
+<!-- <div class="col-sm">
 	<div class="panel panel-default">
-		<div class="panel-body">
+		<div class="panel-body"> -->
 			<div id="table_11_toolbar">
 				<button id="table_11_add" class="btn btn-success">
 					<i class="glyphicon glyphicon-plus"></i> 新增
@@ -189,11 +189,14 @@
 				<button id="table_11_delete" class="btn btn-danger" disabled>
 					<i class="glyphicon glyphicon-remove"></i> 删除
 				</button>
+				<button id="table_11_view" class="btn btn-primary" disabled>
+					<i class="glyphicon glyphicon-eye-open"></i> 预览
+				</button>
 			</div>
 			<table id="table_11"></table>
-		</div>
-	</div>
-</div>
+		<!-- </div>
+			</div>
+		</div> -->
   <!-- <table>
   	<tr>
   		<td>
@@ -213,6 +216,7 @@
 		var $btn_add = $('#table_11_add');
 		var $btn_edit = $('#table_11_edit');
 		var $btn_delete = $('#table_11_delete');
+		var $btn_view = $('#table_11_view');
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -232,6 +236,8 @@
 				detailOpen: 'glyphicon-plus icon-plus',
 				detailClose: 'glyphicon-minus icon-minus'
 			},
+
+			singleSelect: true,		// 即使是checkbox，也只能选中一个
 
 			// showToggle: true,			//是否显示 切换试图（table/card）按钮
 			showColumns: true,		//是否显示 内容列下拉框
@@ -324,6 +330,7 @@
 
 			$btn_delete.prop('disabled', !selections.length);
 			$btn_edit.prop('disabled', selections.length !== 1);
+			$btn_view.prop('disabled', selections.length !== 1);
 		});
 		
 		// 异步加载数据
@@ -394,19 +401,19 @@
 
 							// 确认提交框
 							var cfm = BootstrapDialog.confirm({
-					            title: '确认',
-					            message: '请确认是否提交？',
-					            type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
-					            // closable: true, // <-- Default value is false
-					            draggable: true, // <-- Default value is false
-					            btnCancelLabel: '取消', // <-- Default value is 'Cancel',
-					            btnOKLabel: '确认', // <-- Default value is 'OK',
-					            btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
-					            callback: function(result) {
-					                // result will be true if button was click, while it will be false if users close the dialog directly.
-					                if (result) {
-					                    
-					                    // 整合数据
+								title: '确认',
+								message: '请确认是否提交？',
+								type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+								// closable: true, // <-- Default value is false
+								draggable: true, // <-- Default value is false
+								btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+								btnOKLabel: '确认', // <-- Default value is 'OK',
+								btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
+								callback: function(isYes) {
+									// isYes will be true if button was click, while it will be false if users close the dialog directly.
+									if (isYes) {
+										
+										// 整合数据
 										var formData = $('#dataForm').serializeJson();
 										formData['caseContent'] = window.weditor.txt.html();
 										console.log('save formData', formData);
@@ -418,7 +425,9 @@
 												var result = $.parseJSON(d);
 												console.log('提交', d, result.message, result.status);
 
-												if (result.status == 1) {													
+												if (result.status == 1) {
+													$table.bootstrapTable('refresh', {silent: true});
+
 													dialog.enableButtons(false);
 													dialog.setClosable(false);
 													dialog.getModalBody().html(result.message);
@@ -429,8 +438,8 @@
 												} else {
 													BootstrapDialog.alert({
 														title: '结果',
-											            message: result.message,
-											            type: BootstrapDialog.TYPE_DANGER
+														message: result.message,
+														type: BootstrapDialog.TYPE_DANGER
 													});
 													$button.stopSpin();
 												}
@@ -440,13 +449,13 @@
 												$button.stopSpin();
 											}
 										});
-					                } else {
+									} else {
 										$button.stopSpin();
-					                }
-					            }
-					        });
-					        cfm.$modalDialog.css('width', '300px');
-					        // console.log(cfm);
+									}
+								}
+							});
+							cfm.$modalDialog.css('width', '300px');
+							// console.log(cfm);
 						} else {
 							$button.stopSpin();
 						}
@@ -514,8 +523,8 @@
 							var result = $.parseJSON(d);
 							console.log('查询详情成功>>>', d);
 
-		            		$('#dataForm').setFormValue(result.info);
-		            		weditor.txt.html(result.info.caseContent)
+							$('#dataForm').setFormValue(result.info);
+							weditor.txt.html(result.info.caseContent)
 						},
 						error: function(d) {
 							console.log('失败', d);
@@ -538,19 +547,19 @@
 
 							// 确认提交框
 							var cfm = BootstrapDialog.confirm({
-					            title: '确认',
-					            message: '请确认是否提交？',
-					            type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
-					            // closable: true, // <-- Default value is false
-					            draggable: true, // <-- Default value is false
-					            btnCancelLabel: '取消', // <-- Default value is 'Cancel',
-					            btnOKLabel: '确认', // <-- Default value is 'OK',
-					            btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
-					            callback: function(result) {
-					                // result will be true if button was click, while it will be false if users close the dialog directly.
-					                if (result) {
-					                    
-					                    // 整合数据
+								title: '确认',
+								message: '请确认是否提交？',
+								type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+								// closable: true, // <-- Default value is false
+								draggable: true, // <-- Default value is false
+								btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+								btnOKLabel: '确认', // <-- Default value is 'OK',
+								btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
+								callback: function(isYes) {
+									// isYes will be true if button was click, while it will be false if users close the dialog directly.
+									if (isYes) {
+										
+										// 整合数据
 										var formData = $('#dataForm').serializeJson();
 										formData['caseContent'] = window.weditor.txt.html();
 										formData['caseId'] = getIdSelections()[0];
@@ -563,7 +572,8 @@
 												var result = $.parseJSON(d);
 												console.log('提交', d, result.message, result.status);
 
-												if (result.status == 1) {													
+												if (result.status == 1) {
+													$table.bootstrapTable('refresh', {silent: true});
 													dialog.enableButtons(false);
 													dialog.setClosable(false);
 													dialog.getModalBody().html(result.message);
@@ -574,8 +584,8 @@
 												} else {
 													BootstrapDialog.alert({
 														title: '结果',
-											            message: result.message,
-											            type: BootstrapDialog.TYPE_DANGER
+														message: result.message,
+														type: BootstrapDialog.TYPE_DANGER
 													});
 													$button.stopSpin();
 												}
@@ -585,13 +595,13 @@
 												$button.stopSpin();
 											}
 										});
-					                } else {
+									} else {
 										$button.stopSpin();
-					                }
-					            }
-					        });
-					        cfm.$modalDialog.css('width', '300px');
-					        // console.log(cfm);
+									}
+								}
+							});
+							cfm.$modalDialog.css('width', '300px');
+							// console.log(cfm);
 						} else {
 							$button.stopSpin();
 						}
@@ -604,6 +614,92 @@
 				}]
 			});
 			$btn_edit.prop('disabled', false);
+		});
+
+		// 删
+		$btn_delete.click(function() {
+			// 确认框
+			var cfm = BootstrapDialog.confirm({
+				title: '确认',
+				message: '请确认是否删除？',
+				type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+				// closable: true, // <-- Default value is false
+				draggable: true, // <-- Default value is false
+				btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+				btnOKLabel: '确认', // <-- Default value is 'OK',
+				btnOKClass: 'btn-danger', // <-- If you didn't specify it, dialog type will be used,
+				callback: function(isYes) {
+					if (isYes) {
+						// 整合数据
+						var formData = {
+							caseId: getIdSelections()[0]
+						};
+
+						$.ajax({
+							url: '${pageContext.request.contextPath}/caseAnalyze/deleteCase',
+							data : formData,
+							success: function(d) {
+								var result = $.parseJSON(d);
+								console.log('提交', d, result.message, result.status);
+
+								if (result.status == 1) {
+									var alt = BootstrapDialog.alert({
+										title: '删除成功',
+										message: result.message,
+										type: BootstrapDialog.TYPE_SUCCESS
+									});
+									alt.$modalDialog.css('width', '100px');
+									$table.bootstrapTable('refresh', {silent: true});
+								} else {
+									var alt = BootstrapDialog.alert({
+										title: '删除失败',
+										message: result.message,
+										type: BootstrapDialog.TYPE_DANGER
+									});
+									alt.$modalDialog.css('width', '100px');
+									$table.bootstrapTable('refresh', {silent: true});
+								}
+							},
+							error: function(d) {
+								BootstrapDialog.alert('提交删除请求失败');
+							}
+						});
+					}
+					
+				}
+			});
+			cfm.$modalDialog.css('width', '300px');
+		});
+
+		// 查看详情
+		$btn_view.click(function() {
+			$.ajax({
+				url: '${pageContext.request.contextPath}/caseAnalyze/view',
+				data: {
+					caseId: getIdSelections()[0],
+				},
+				success: function(d) {
+					var result = $.parseJSON(d);
+					console.log('查询详情成功>>>', d);
+
+					BootstrapDialog.show({
+						title: '预览',
+						message: function() {
+							return result.info.caseContent;
+						},
+						draggable: true // <-- Default value is false
+					});
+				},
+				error: function(d) {
+					var result = $.parseJSON(d);
+					console.log('查询详情失败', d);
+					BootstrapDialog.alert({
+						title: '查看详情失败',
+						message: result.message,
+						type: BootstrapDialog.TYPE_DANGER
+					});
+				}
+			});
 		});
 	});
   </script>

@@ -20,6 +20,6 @@ public interface IUploadLogService {
 	 * @param endDate
 	 * @return
 	 */
-	public List<UploadFileLog> getList(String beginDate, String endDate);
+	public List<UploadFileLog> getList(String beginDate, String endDate, String fileName);
 	
 }

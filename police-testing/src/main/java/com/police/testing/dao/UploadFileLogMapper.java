@@ -33,5 +33,6 @@ public interface UploadFileLogMapper {
      * @param endDate
      * @return
      */
-    List<UploadFileLog> selectByCreateDate(@Param("beginDate") String beginDate, @Param("endDate") String endDate);
+    List<UploadFileLog> selectByCreateDate(@Param("beginDate") String beginDate, @Param("endDate") String endDate, 
+    		@Param("fileName") String fileName);
 }
