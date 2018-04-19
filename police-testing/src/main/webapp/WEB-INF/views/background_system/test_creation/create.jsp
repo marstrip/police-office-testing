@@ -165,12 +165,138 @@
 	</div>
 	<table id="table_11"></table>
 
+	<hr>
 
-	<script type="text/javascript">
-		$(document).ready(function(){
+	<div id="selected"></div>
 
-		});
-	</script>
+
 
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var $table = $('#table_11');
+		var selections = [];
+		$table.bootstrapTable({
+			url: '${pageContext.request.contextPath}/uploadLog/getList',
+			method: 'post',
+			dataType: "json",
+			striped: true,				//设置为 true 会有隔行变色效果  
+			undefinedText: "空",		//当数据为 undefined 时显示的字符  
+			pagination: true,			//分页  
+			// paginationLoop:true,		//设置为 true 启用分页条无限循环的功能。
+			icons: {
+				paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+				paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
+				refresh: 'glyphicon-refresh icon-refresh',
+				toggle: 'glyphicon-list-alt icon-list-alt',
+				columns: 'glyphicon-th icon-th',
+				detailOpen: 'glyphicon-plus icon-plus',
+				detailClose: 'glyphicon-minus icon-minus'
+			},
+
+			singleSelect: false,		// 即使是checkbox，也只能选中一个
+
+			// showToggle: true,			//是否显示 切换试图（table/card）按钮
+			showColumns: true,		//是否显示 内容列下拉框
+			showRefresh: true,
+			toolbar: '#table_11_toolbar',	// 指定了toolbar的选择器，会把toolbar加入到table的container里来
+			//buttonsToolbar				// 给toolbar外边再套一层，支持新建node
+
+			pageNumber: 1,				//如果设置了分页，首页页码
+			// showPaginationSwitch:true,		//是否显示 数据条数选择框
+			pageSize: 20,				//如果设置了分页，页面数据条数
+			pageList: [3, 5, 10, 20, 50],	//如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。数据不够，不显示
+			paginationPreText: '‹',		//指定分页条中上一页按钮的图标或文字,这里是<
+			paginationNextText: '›',	//指定分页条中下一页按钮的图标或文字,这里是>
+			// singleSelect: false,		//设置True 将禁止多选
+			search: true,				//显示搜索框
+			data_local: "zh-US",		//表格汉化
+			sidePagination: "server",	//服务端处理分页
+			queryParams: function (params) {
+				//自定义参数，这里的参数是传给后台的，我这是是分页用的
+				console.log('params:', params);
+				return {
+					//这里的params是table提供的
+					offset: params.offset,		//从数据库第几条记录开始
+					limit: params.limit,		//找多少条
+					search: params.search		//筛选
+				};
+			},
+			idField: "caseId",			//指定主键列
+			columns: [
+				{
+					field: 'state',
+					checkbox: true,
+					rowspan: 1,
+					align: 'center',
+					valign: 'middle'
+				},
+				{
+					title: 'ID',		// id
+					field: 'caseId',
+					align: 'center'
+				},
+				{
+					title: '案例名称',			//表的列名
+					field: 'caseName',	//json数据中rows数组中的属性名
+					align: 'center'		//水平居中
+				},
+				{
+					title: '案例级别',
+					field: 'caseLevel',
+					align: 'center'
+				},
+				{
+					title: '案例类型',
+					field: 'caseType',
+					align: 'center'
+				},
+				{
+					//EMAIL
+					title: '创建时间',
+					field: 'createDate',
+					align: 'center'
+				},
+				{
+					//部门名字
+					title: '创建人',
+					field: 'creatorName',		//可以直接取到属性里面的属性，赞
+					align: 'center'
+				}
+			]
+		});
+
+		// 获取选中的ids
+		function getIdSelections() {
+			return $.map($table.bootstrapTable('getSelections'), function (row) {
+				return row.caseId
+			});
+		}
+		// 获取选中的行
+		function getIdSelectionsRows() {
+			return $.map($table.bootstrapTable('getSelections'), function (row) {
+				return row
+			});
+		}
+		// 每次勾选更新已选中内容，更新按钮
+		$table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+			// save your data, here just save the current page
+			selections = getIdSelections();
+			console.log('selections:', selections);
+			// push or splice the selections if you want to save all data selections
+
+			$btn_delete.prop('disabled', !selections.length);
+			$btn_edit.prop('disabled', selections.length !== 1);
+			$btn_view.prop('disabled', selections.length !== 1);
+		});
+		
+		// 异步加载数据
+		$.ajax({
+			url: '${pageContext.request.contextPath}/styles/fb_data/makePaper_form.json',
+			success: function(d) {
+				window.caseFormConf = d;
+			}
+		});
+	});
+</script>
 </html>

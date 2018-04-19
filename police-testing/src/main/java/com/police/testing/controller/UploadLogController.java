@@ -34,6 +34,10 @@ public class UploadLogController {
 	@RequestMapping("getList")
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
+		StringBuffer url = request.getRequestURL();
+		String method = request.getMethod();
+		System.out.println("url: " + url.toString());
+		System.out.println("method:" + method);
 		//第几条记录开始
 		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
