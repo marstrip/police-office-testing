@@ -13,6 +13,7 @@ import com.police.testing.pojo.UploadFileLog;
 import com.police.testing.service.IUploadLogService;
 import com.police.testing.tools.GetEncode;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -33,10 +34,20 @@ public class UploadLogController {
 	@RequestMapping("getList")
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
-		String fileName = GetEncode.transcode(request.getParameter("fileName"));
-		List<UploadFileLog> list = uploadLogService.getList(null, null, fileName);
+		//第几条记录开始
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		String fileName = GetEncode.transcode(request.getParameter("search"));
+		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
+		String endDate = GetEncode.transcode(request.getParameter("endDate"));
+		List<UploadFileLog> list = uploadLogService.getList(beginDate, endDate, fileName, offset, limit);
+		long total = uploadLogService.getCount(beginDate, endDate, fileName);
 		JSONObject result = new JSONObject();
-		result.put("list", list);
+		JSONArray array = JSONArray.fromObject(list);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
 		return result;
 	}
 }

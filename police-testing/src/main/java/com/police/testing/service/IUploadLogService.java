@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.police.testing.pojo.UploadFileLog;
 
-import net.sf.json.JSONObject;
 
 public interface IUploadLogService {
 	/**
@@ -20,6 +19,13 @@ public interface IUploadLogService {
 	 * @param endDate
 	 * @return
 	 */
-	public List<UploadFileLog> getList(String beginDate, String endDate, String fileName);
-	
+	public List<UploadFileLog> getList(String beginDate, String endDate, String fileName, Integer offset, Integer limit);
+	/**
+	 * 获取数据总数
+	 * @param beginDate
+	 * @param endDate
+	 * @param fileName
+	 * @return
+	 */
+	public long getCount(String beginDate, String endDate, String fileName);
 }

@@ -24,9 +24,16 @@ public class UploadLogServiceImpl implements IUploadLogService{
 	}
 	
 	@Override
-	public List<UploadFileLog> getList(String beginDate, String endDate, String fileName) {
-		List<UploadFileLog> fileLogs = uploadFileLogMapper.selectByCreateDate(beginDate, endDate, fileName);
+	public List<UploadFileLog> getList(String beginDate, String endDate, String fileName, Integer offset, Integer limit) {
+		List<UploadFileLog> fileLogs = uploadFileLogMapper.selectByCreateDate(beginDate, endDate, fileName, offset, limit);
 		return fileLogs;
+	}
+
+	@Override
+	public long getCount(String beginDate, String endDate, String fileName) {
+		List<UploadFileLog> fileLogs = uploadFileLogMapper.selectByCreateDate(beginDate, endDate, fileName, null, null);
+		long total = fileLogs.size();
+		return total;
 	}
 
 }
