@@ -211,6 +211,8 @@
 
 	$(document).ready(function(){
 		var $btn_add = $('#table_11_add');
+		var $btn_edit = $('#table_11_edit');
+		var $btn_delete = $('#table_11_delete');
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -267,6 +269,11 @@
 					valign: 'middle'
 				},
 				{
+					title: 'ID',		// id
+					field: 'caseId',
+					align: 'center'
+				},
+				{
 					title: '案例名称',			//表的列名
 					field: 'caseName',	//json数据中rows数组中的属性名
 					align: 'center'		//水平居中
@@ -295,14 +302,39 @@
 				}
 			]
 		});
+
+		// 获取选中的ids
+		function getIdSelections() {
+			return $.map($table.bootstrapTable('getSelections'), function (row) {
+				return row.caseId
+			});
+		}
+		// 获取选中的行
+		function getIdSelectionsRows() {
+			return $.map($table.bootstrapTable('getSelections'), function (row) {
+				return row
+			});
+		}
+		// 每次勾选更新已选中内容，更新按钮
+		$table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+			// save your data, here just save the current page
+			selections = getIdSelections();
+			console.log('selections:', selections);
+			// push or splice the selections if you want to save all data selections
+
+			$btn_delete.prop('disabled', !selections.length);
+			$btn_edit.prop('disabled', selections.length !== 1);
+		});
 		
 		// 异步加载数据
 		$.ajax({
 			url: '${pageContext.request.contextPath}/styles/fb_data/case_form.json',
 			success: function(d) {
-				window.jsonConf_add = d;
+				window.caseFormConf = d;
 			}
 		});
+
+		// 增
 		$btn_add.click(function () {
 			$btn_add.prop('disabled', true);
 
@@ -313,19 +345,12 @@
 						'<form id="dataForm" style="display: inline-block; width: 100%;"></form>'
 					);
 
-					$message.renderForm(jsonConf_add);
+					$message.renderForm(caseFormConf);
 					return $message;
 				},
 				// 弹出显示，将使用um渲染
 				onshown: function(dialogReg) {
-					$('#dataForm [name=content]').replaceWith($('<div id="weditor"></div>'));
-			//	 	var ue = UE.getEditor('content', {
-			//	 		height: 500,
-			//	 		toolbars: [
-						//	 ['fullscreen', 'source', 'undo', 'redo', 'bold']
-						// ],
-			//	 	});
-			//	 	ue.setHeight(500);
+					$('#dataForm [name=caseContent]').replaceWith($('<div id="weditor"></div>'));
 
 					var we = window.wangEditor;
 					window.weditor = new we('#weditor');
@@ -383,8 +408,8 @@
 					                    
 					                    // 整合数据
 										var formData = $('#dataForm').serializeJson();
-										formData['content'] = window.weditor.txt.html();
-										console.log('formData', formData);
+										formData['caseContent'] = window.weditor.txt.html();
+										console.log('save formData', formData);
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/caseAnalyze/saveCase',
@@ -435,14 +460,151 @@
 			});
 			$btn_add.prop('disabled', false);
 		});
-	});
-		/* $(document).ready(function(){  
-			// 初始化内容
-			var ue = UM.getEditor('myEditor');
+
+		// 改
+		$btn_edit.click(function () {
+			$btn_edit.prop('disabled', true);
+
+			BootstrapDialog.show({
+				title: '编辑',
+				message: function() {
+					var $message = $(
+						'<form id="dataForm" style="display: inline-block; width: 100%;"></form>'
+					);
+
+					$message.renderForm(caseFormConf);
+					return $message;
+				},
+				// 弹出显示，将使用um渲染
+				onshown: function(dialogReg) {
+					$('#dataForm [name=caseContent]').replaceWith($('<div id="weditor"></div>'));
+
+					var we = window.wangEditor;
+					window.weditor = new we('#weditor');
+					weditor.customConfig.menus = [
+						'head',  // 标题
+						'bold',  // 粗体
+						'fontSize',  // 字号
+						'fontName',  // 字体
+						'italic',  // 斜体
+						'underline',  // 下划线
+						'strikeThrough',  // 删除线
+						'foreColor',  // 文字颜色
+						'backColor',  // 背景颜色
+						'link',  // 插入链接
+						'list',  // 列表
+						'justify',  // 对齐方式
+						'quote',  // 引用
+						// 'emoticon',  // 表情
+						// 'image',  // 插入图片
+						// 'table',  // 表格
+						// 'video',  // 插入视频
+						// 'code',  // 插入代码
+						'undo',  // 撤销
+						'redo'  // 重复
+					];
+					weditor.create();
+
+					$.ajax({
+						url: '${pageContext.request.contextPath}/caseAnalyze/view',
+						data: {
+							caseId: getIdSelections()[0],
+						},
+						success: function(d) {
+							var result = $.parseJSON(d);
+							console.log('查询详情成功>>>', d);
+
+		            		$('#dataForm').setFormValue(result.info);
+		            		weditor.txt.html(result.info.caseContent)
+						},
+						error: function(d) {
+							console.log('失败', d);
+						}
+					});	
+
+				},
+				buttons: [{
+					label: '提交',
+					icon: 'glyphicon glyphicon-send',
+					autospin: false,
+					cssClass: "btn-primary",
+					action: function(dialog, evt) {
+						var $button = this;
+						$button.spin();
+						
+						var isValid = $('#dataForm').valid();
+
+						if (isValid) {
+
+							// 确认提交框
+							var cfm = BootstrapDialog.confirm({
+					            title: '确认',
+					            message: '请确认是否提交？',
+					            type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+					            // closable: true, // <-- Default value is false
+					            draggable: true, // <-- Default value is false
+					            btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+					            btnOKLabel: '确认', // <-- Default value is 'OK',
+					            btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
+					            callback: function(result) {
+					                // result will be true if button was click, while it will be false if users close the dialog directly.
+					                if (result) {
+					                    
+					                    // 整合数据
+										var formData = $('#dataForm').serializeJson();
+										formData['caseContent'] = window.weditor.txt.html();
+										formData['caseId'] = getIdSelections()[0];
+										console.log('update formData', formData);
+
+										$.ajax({
+											url: '${pageContext.request.contextPath}/caseAnalyze/updateCase',
+											data : formData,
+											success: function(d) {
+												var result = $.parseJSON(d);
+												console.log('提交', d, result.message, result.status);
+
+												if (result.status == 1) {													
+													dialog.enableButtons(false);
+													dialog.setClosable(false);
+													dialog.getModalBody().html(result.message);
+
+													setTimeout(function(){
+														dialog.close();
+													}, 3000);
+												} else {
+													BootstrapDialog.alert({
+														title: '结果',
+											            message: result.message,
+											            type: BootstrapDialog.TYPE_DANGER
+													});
+													$button.stopSpin();
+												}
+											},
+											error: function(d) {
+												BootstrapDialog.alert('上传失败');
+												$button.stopSpin();
+											}
+										});
+					                } else {
+										$button.stopSpin();
+					                }
+					            }
+					        });
+					        cfm.$modalDialog.css('width', '300px');
+					        // console.log(cfm);
+						} else {
+							$button.stopSpin();
+						}
+					}
+				}, {
+					label: '取消',
+					action: function(dialog) {
+						dialog.close();
+					}
+				}]
+			});
+			$btn_edit.prop('disabled', false);
 		});
-		function getAllHtml() {
-			alert(UM.getEditor('myEditor').getAllHtml())
-		} */
-		// 增
+	});
   </script>
 </html>

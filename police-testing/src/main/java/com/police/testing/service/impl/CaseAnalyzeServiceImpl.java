@@ -52,7 +52,7 @@ public class CaseAnalyzeServiceImpl implements ICaseAnalyzeService{
 		caseAnalyze.setCaseName(caseName);
 		caseAnalyze.setCaseType(caseType);
 		caseAnalyze.setUpdateDate(new Date());
-		return caseAnaLyzeMapper.updateByPrimaryKey(caseAnalyze);
+		return caseAnaLyzeMapper.updateByPrimaryKeyWithBLOBs(caseAnalyze);
 	}
 
 	@Override
@@ -69,12 +69,9 @@ public class CaseAnalyzeServiceImpl implements ICaseAnalyzeService{
 	}
 
 	@Override
-	public String getContentById(String caseId) {
+	public CaseAnalyze getContentById(String caseId) {
 		CaseAnalyze caseAnalyze = caseAnaLyzeMapper.selectByPrimaryKey(caseId);
-		if(caseAnalyze != null){
-			return caseAnalyze.getCaseContent();
-		}
-		return null;
+		return caseAnalyze;
 	}
 }
 
