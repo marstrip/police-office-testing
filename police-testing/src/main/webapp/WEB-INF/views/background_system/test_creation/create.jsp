@@ -170,9 +170,9 @@
 				</button> -->
 				
 					<div class="input-group" style="width: 380px;">
-						<input type="text" class="form-control" placeholder="请点击以选择开始日期" name="beginDate" id="beginData">
+						<input type="text" class="form-control" placeholder="请点击以选择开始日期" name="beginDate" id="beginDate">
 						<span class="input-group-addon">-</span>
-						<input type="text" class="form-control" placeholder="请点击以选择开始日期" name="endDate" id="endData">
+						<input type="text" class="form-control" placeholder="请点击以选择开始日期" name="endDate" id="endDate">
 					</div>
 					<div class="input-group" style="width: 200px;">
 						<input type="text" class="form-control" placeholder="搜索" name="search" id="search">
@@ -243,7 +243,7 @@
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
-			url: '${pageContext.request.contextPath}/uploadLog/getList',
+			url: '${pageContext.request.contextPath}/uploadLog/getList?',
 			method: 'GET',
 			dataType: "json",
 			striped: true,				//设置为 true 会有隔行变色效果  
@@ -288,6 +288,7 @@
 					search: $('#search').val(),		//筛选
 					beginDate: $('#beginDate').val(),
 					endDate: $('#endDate').val()
+					// TODO: 加校验
 				};
 			},
 			idField: "uploadFileId",			//指定主键列
@@ -365,7 +366,7 @@
 			$.ajax({
 				url: '${pageContext.request.contextPath}/testCreate/searchLog',
 				data: {
-					uploadFileIds: selections
+					uploadFileIds: selections.join(',')
 				},
 				success: function(d) {
 					console.log('请求成功>', d);

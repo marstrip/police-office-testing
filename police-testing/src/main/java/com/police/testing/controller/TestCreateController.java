@@ -42,6 +42,7 @@ public class TestCreateController {
 	 * @return
 	 */
 	@RequestMapping("searchLog")
+	@ResponseBody
 	public JSONObject searchLog(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
