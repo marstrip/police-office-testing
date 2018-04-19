@@ -126,10 +126,10 @@ public class CaseAnalyzeController {
 	public JSONObject view(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String caseId = GetEncode.transcode(request.getParameter("caseId"));
-		String caseContent = caseAnalyzeService.getContentById(caseId);
+		CaseAnalyze caseAnalyze = caseAnalyzeService.getContentById(caseId);
 		result.put("status", 1);
 		result.put("message", "成功");
-		result.put("info", caseContent);
+		result.put("info", caseAnalyze);
 		return result;
 	}
 }

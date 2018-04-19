@@ -13,7 +13,7 @@
 
 			"items": [
 				{
-					"name": "name",
+					"name": "caseName",
 					"type": "text",
 					"placeholder": "请输入案例名称"
 				}
@@ -30,7 +30,7 @@
 
 			"items": [
 				{
-					"name": "content",
+					"name": "caseContent",
 					"type": "textarea",
 					"placeholder": ""
 				}

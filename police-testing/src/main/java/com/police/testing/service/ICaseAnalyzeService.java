@@ -19,6 +19,6 @@ public interface ICaseAnalyzeService {
 	
 	public List<CaseAnalyze> getList(String caseName);
 
-	public String getContentById(String caseId);
+	public CaseAnalyze getContentById(String caseId);
 }
 
