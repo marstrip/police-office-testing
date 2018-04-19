@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.GetEncode;
+import com.rabbitmq.client.AMQP.Basic.Get;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -63,6 +64,27 @@ public class TestPaperController {
 		result = testPaperService.getTestPaperById(testPaperId);
 		result.put("status", 1);
 		result.put("message", "成功！");
+		return result;
+	}
+	/**
+	 * 开始考试（模拟、正式）
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("doTesting")
+	@ResponseBody
+	public JSONObject doTesting(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		String testingType = GetEncode.transcode(request.getParameter("testingType"));
+		String testPaperId = GetEncode.transcode(request.getParameter("testPaperId"));
+		Integer flag = testPaperService.doTesting(testingType, testPaperId);
+		if(flag == 1){
+			result.put("status", flag);
+			result.put("message", "成功");
+		}else {
+			result.put("status", flag);
+			result.put("message", "失败");
+		}
 		return result;
 	}
 }

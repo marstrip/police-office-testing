@@ -12,13 +12,17 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.police.testing.dao.SysUserMapper;
 import com.police.testing.dao.TestPaperMapper;
 import com.police.testing.dao.TestPaperQuestionMapper;
 import com.police.testing.dao.TestQuestionMapper;
+import com.police.testing.dao.TestingLogMapper;
+import com.police.testing.pojo.SysUser;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestPaperQuestion;
 import com.police.testing.pojo.TestQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
+import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.SystemTools;
 
@@ -32,6 +36,11 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	private TestPaperQuestionMapper testPaperQuestionMapper;
 	@Autowired
 	private TestQuestionMapper testQuestionMapper;
+	@Autowired
+	private TestingLogMapper testingLogMapper;
+	@Autowired
+	private SysUserMapper sysUserMapper;
+	
 	@Override
 	public List<TestPaper> getTestPaperList() {
 		return testPaperMapper.selectByTestPaperId(null);
@@ -115,4 +124,22 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		return result;
 	}
 
+	@Override
+	public Integer doTesting(String testingType, String testPaperId) {
+		//获取当前考试用户信息
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		String userId = (String) session.getAttribute("currentUserId");
+		SysUser user = sysUserMapper.findByLoginName(userId, "1");
+		String departmentId = user.getDepartmentId();
+		String departmentName = user.getDepartmentName();
+		TestingLog testingLog = new TestingLog();
+		testingLog.setDepartmentId(departmentId);
+		testingLog.setDepartmentName(departmentName);
+		testingLog.setTestingType(testingType);
+		testingLog.setTestPaperId(testPaperId);
+		testingLog.setUserId(userId);
+		testingLog.setUserName(user.getUserName());
+		return testingLogMapper.insert(testingLog);
+	}
 }

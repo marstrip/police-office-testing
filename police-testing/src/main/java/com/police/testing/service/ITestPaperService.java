@@ -43,4 +43,11 @@ public interface ITestPaperService {
 	 * @return
 	 */
 	public JSONObject getTestPaperById(String testPaperId);
+	/**
+	 * 开始考试（模拟、正式）
+	 * @param testingType
+	 * @param testPaperId
+	 * @return
+	 */
+	public Integer doTesting(String testingType, String testPaperId);
 }

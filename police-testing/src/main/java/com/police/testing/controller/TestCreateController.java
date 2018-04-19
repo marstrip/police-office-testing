@@ -25,8 +25,6 @@ import net.sf.json.JSONObject;
 @RequestMapping("/testCreate/")
 public class TestCreateController {
 	@Autowired
-	private IUploadLogService uploadLogService;
-	@Autowired
 	private IQuestionService questionService;
 	@Autowired
 	private ITestPaperService testPaperService;
@@ -38,8 +36,8 @@ public class TestCreateController {
 	 */
 	@RequestMapping("jsp")
 	public String jsp(HttpServletRequest request){
-		List<UploadFileLog> list = uploadLogService.getList(null, null);
-		request.setAttribute("list", list);
+//		List<UploadFileLog> list = uploadLogService.getList(null, null);
+//		request.setAttribute("list", list);
 		return "background_system/test_creation/create";
 	}
 	/**
