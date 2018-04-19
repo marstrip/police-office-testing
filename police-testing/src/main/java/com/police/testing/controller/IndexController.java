@@ -41,7 +41,7 @@ public class IndexController {
 	 	String basePath = homePath + path ;
 		Subject currentUser = SecurityUtils.getSubject();
 		Session session = currentUser.getSession();
-		String userId =(String)session.getAttribute("currentUser");
+		String userId =(String)session.getAttribute("currentUserId");
     	List<SysMenu> menuList = userService.getMenu(userId);
     	List<Tree> treeList = new ArrayList<Tree>();
     	for (SysMenu menu : menuList) {

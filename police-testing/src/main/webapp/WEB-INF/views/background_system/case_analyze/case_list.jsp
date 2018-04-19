@@ -377,7 +377,8 @@
 							console.log('formData', formData);
 
 							$.ajax({
-								url: 'testURL',
+								url: '${pageContext.request.contextPath}/caseAnalyze/saveCase',
+								data : formData,
 								success: function(d) {
 									console.log('提交成功');
 									alert('OK !!');
