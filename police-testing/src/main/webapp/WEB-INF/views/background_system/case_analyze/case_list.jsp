@@ -367,33 +367,53 @@
 
 						if (isValid) {
 
-							// TODO: 确认提交框
+							// 确认提交框
+							var cfm = BootstrapDialog.confirm({
+					            title: '确认',
+					            message: '请确认是否提交？',
+					            type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+					            // closable: true, // <-- Default value is false
+					            draggable: true, // <-- Default value is false
+					            btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+					            btnOKLabel: '确认', // <-- Default value is 'OK',
+					            btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
+					            callback: function(result) {
+					                // result will be true if button was click, while it will be false if users close the dialog directly.
+					                if (result) {
+					                    
+					                    // 整合数据
+										var formData = $('#dataForm').serializeJson();
+										formData['content'] = window.weditor.txt.html();
+										console.log('formData', formData);
+
+										$.ajax({
+											url: 'http://localhost/caseAnalyze/jsp',
+											data: formData,
+											success: function(d) {
+												console.log('提交成功');
+												dialog.enableButtons(false);
+												dialog.setClosable(false);
+												dialog.getModalBody().html('上传成功！');
+										
+												setTimeout(function(){
+													dialog.close();
+												}, 3000);
+											},
+											error: function(d) {
+												BootstrapDialog.alert('上传失败');
+												$button.stopSpin();
+											}
+										});
+					                } else {
+										$button.stopSpin();
+					                }
+					            }
+					        });
+					        cfm.$modalDialog.css('width', '300px');
+					        // console.log(cfm);
 
 
-
-							// 整合数据
-							var formData = $('#dataForm').serializeJson();
-							formData['content'] = window.weditor.txt.html();
-							console.log('formData', formData);
-
-							$.ajax({
-								url: 'testURL',
-								success: function(d) {
-									console.log('提交成功');
-									alert('OK !!');
-								},
-								error: function(d) {
-									alert('ERR!!');
-								}
-							});
-
-						
-							dialog.enableButtons(false);
-							dialog.setClosable(false);
-							dialog.getModalBody().html('Dialog closes in 3 seconds.');
-							setTimeout(function(){
-								dialog.close();
-							}, 3000);
+							
 						} else {
 							$button.stopSpin();
 						}
