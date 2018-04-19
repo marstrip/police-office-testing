@@ -221,7 +221,7 @@
 		var selections = [];
 		$table.bootstrapTable({
 			url: '${pageContext.request.contextPath}/caseAnalyze/getList',
-			method: 'post',
+			method: 'GET',
 			dataType: "json",
 			striped: true,				//设置为 true 会有隔行变色效果  
 			undefinedText: "空",		//当数据为 undefined 时显示的字符  

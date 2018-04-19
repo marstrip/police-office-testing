@@ -19,7 +19,8 @@ public interface IUploadLogService {
 	 * @param endDate
 	 * @return
 	 */
-	public List<UploadFileLog> getList(String beginDate, String endDate, String fileName, Integer offset, Integer limit);
+	public List<UploadFileLog> getList(String beginDate, String endDate, 
+			String fileName, Integer offset, Integer limit);
 	/**
 	 * 获取数据总数
 	 * @param beginDate

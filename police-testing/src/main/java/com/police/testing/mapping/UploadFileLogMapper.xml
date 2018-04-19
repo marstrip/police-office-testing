@@ -47,6 +47,7 @@
     <if test="fileName != null and fileName != ''">
      	and file_name like '%${fileName}%'
     </if>
+    and enable = "1"
     <if test="offset != null and limit != null">
      limit ${offset},${limit}
     </if>

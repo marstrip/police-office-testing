@@ -26,7 +26,7 @@ public interface CaseAnalyzeMapper {
      * @param caseName
      * @return
      */
-    List<CaseAnalyze> selectByLikeCaseName(@Param("caseName") String caseName);
+    List<CaseAnalyze> selectByLikeCaseName(@Param("caseName") String caseName, @Param("offset") Integer offset, @Param("limit") Integer limit);
     
     int updateEnable(@Param("caseId") String caseId);
 }
