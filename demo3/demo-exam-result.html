@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" style="min-height: 100%; background: #f5f5f5;">
+
+<head>
+	<meta charset="UTF-8">
+	<title>结果解析</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link href="vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/demo-all-v1.css" rel="stylesheet">
+
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/demo.js"></script>
+	<!-- <script src="vendor/Chart.js/Chart.js"></script> -->
+	<!-- <script src="assets/js/mysite.js"></script> -->
+
+</head>
+
+<body style="background: transparent;">
+	<!-- <div class="masthead">
+		<div class="row">
+			<img src="assets/img/icon.png" alt="">
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 text-align-left">
+				<h2>
+					北京市东城分局在线自学自测考试系统
+				</h2>
+				<h5>
+					Beijing dongcheng public security bureau online self-study examination system.
+				</h5>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="mastbody" style="background: transparent;">
+		<div class="container" style="margin-left: 0; margin-right: 0;">
+
+			<!-- <div class="row">
+				<ol class="breadcrumb">
+					<li><a href="demo-index.html">首页</a></li>
+					<li>考试</li>
+				</ol>
+			</div> -->
+		</div>
+
+		<div>
+			<!-- 面板区域 -->
+            <div style="width: 90px; margin-right: 25px; float: right; position: fixed; right: calc(50% - 520px);">
+                <div class="panel panel-white" style="display: block; position: relative; overflow: hidden;">
+                    <!-- <div class="panel-body hover" style="text-align: center; background: #f5f5f5; display: block;">
+                        <div class="icon">
+                            <i class="fa fa-clock-o fa-4x"></i>
+                        </div>
+                        <div class="icon-description">
+                            96分16秒
+                        </div>
+                        <div class="weak small">
+                            共1题
+                        </div>
+                    </div> -->
+                    <div class="panel-footer hover" style="text-align: center; background: #fff;" onclick="go_index();">
+                        <div class="icon">
+                            <i class="fa fa-arrow-circle-o-left fa-2x"></i>
+                        </div>
+                        <div class="icon-description">
+                            返回首页
+                        </div>
+                    </div>
+                    <!-- <div class="panel-footer hover" style="text-align: center; background: #fff;">
+                        <div class="icon">
+                            <i class="fa fa-pause-circle-o fa-2x"></i>
+                        </div>
+                        <div class="icon-description">
+                            暂停
+                        </div>
+                    </div>
+                    <div class="panel-footer hover btn-success" style="margin-left: -1px; text-align: center; background: #449d44;" onclick="go_result();">
+                        <div class="icon">
+                            <i class="fa fa-check-circle-o fa-2x"></i>
+                        </div>
+                        <div class="icon-description">
+                            提交
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+			<!-- 答题区域 -->
+			<div style="margin: 0 15px; /*min-width: 780px; width: calc(100% - 150px);*/ width: 800px; margin: 20px auto; white-space: initial;">
+				<div class="panel panel-white" style="display: block;">
+					<!-- <div class="panel-heading">
+						<h3 class="panel-title">
+							个人信息
+						</h3>
+					</div> -->
+					<div class="panel-body" style="display: block; padding-bottom: 50px;">
+						<!-- 试卷头 -->
+						<div class="text-center">
+							<h1>2018年第一次月考</h1>
+							<div class="col-sm-8 col-sm-offset-2">
+								<hr>
+								<div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">试卷总分</p>
+										<p class="paint"><strong>100</strong> 分</p>
+									</div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">选择题得分</p>
+										<p class="paint"><strong>60</strong> 分</p>
+									</div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">判断题得分</p>
+										<p class="paint"><strong>20</strong> 分</p>
+									</div>
+								</div>
+								<div style="clear: left; height: 30px;"></div>
+								<div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">最终得分</p>
+										<p class="paint"><strong>80</strong> 分</p>
+									</div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">总题数</p>
+										<p class="paint"><strong>10</strong></p>
+									</div>
+									<div class="col-sm-4 text-center exam-header-item">
+										<p class="weak">答错题数</p>
+										<p class="paint"><strong>3</strong></p>
+									</div>
+								</div>
+							</div>
+							<div style="clear: left;">
+								<div class="col-sm-12">
+						   			<hr>
+						   		</div>
+							</div>
+						</div>
+						<!-- 题目 -->
+						<div class="q-select exam-area">
+							<h2>一、判断题</h2>
+							<div class="q-select-items">
+								<div class="col-sm-12">
+									<h3>1、(17年新增试题)吴某（聋哑人）涉嫌抢劫罪被逮捕，辩护律师孔某和翻译人员毛某到看守所要求会见，看守所查验了孔某的律师执业证书、律师事务所证明、委托书和毛某的身份证件后安排了会见，同时通知了办案部门。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> 正确
+											</li>
+											<li>
+												<input type="radio" name="q1"> 错误
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：正确</p>
+                                    <p class="judge right fa">我的回答：正确</p>
+								</div>
+								<div class="col-sm-12">
+									<h3>2、(17年新增试题)杨某涉嫌帮助恐怖活动罪被监视居住，辩护律师姜某要求会见杨某。公安机关应当在收到申请后5日内作出许可或不许可的决定。 </h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> 正确
+											</li>
+											<li>
+												<input type="radio" name="q1"> 错误
+											</li>
+										</ul>
+									</div>
+                                    <p class="correct-answer">正确答案：错误</p>
+                                    <p class="judge wrong fa">我的回答：正确</p>
+								</div>
+
+								<h2>二、选择题</h2>
+                        		<div class="q-select-items">
+
+								<div class="col-sm-12">
+									<h3>1、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+											</li>
+											<li>
+												<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+								<div class="col-sm-12">
+									<h3>2、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+											</li>
+											<li>
+												<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+								<div class="col-sm-12">
+									<h3>3、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+											</li>
+											<li>
+												<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+								<div class="col-sm-12">
+									<h3>3、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+											</li>
+											<li>
+												<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+								<div class="col-sm-12">
+									<h3>5、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+											</li>
+											<li>
+												<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+								<div class="col-sm-12">
+									<h3>6、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+											</li>
+											<li>
+												<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+								<div class="col-sm-12">
+									<h3>7、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+											</li>
+											<li>
+												<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+								<div class="col-sm-12">
+									<h3>8、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+									<div class="q-select-answer">
+										<ul class="no-style">
+											<li>
+												<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+											</li>
+											<li>
+												<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+											</li>
+											<li>
+												<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
+											</li>
+										</ul>
+									</div>
+									<p class="correct-answer">正确答案：A</p>
+                                    <p class="judge wrong fa">我的回答：B</p>
+								</div>
+
+
+							</div>
+						</div>
+					</div><!-- end of .panel-body -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<ul class="text-center no-style" style="padding: 25px 0;">
+					<li><span>北京市公安局东城分局政治部教育训练处</span></li>
+					<li><span>建议使用IE9以上浏览器 &nbsp; 推荐分辨率：1366&times;768</span></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="q" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" style="padding-top: 20px;">
+					<div class="form-group">
+						<input type="text" name="title" class="form-control" placeholder="标题">
+					</div>
+					<div class="form-group">
+						<textarea name="detail" id="" cols="30" rows="10" class="form-control" placeholder="内容" style="resize: none;"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">&nbsp;&nbsp;关闭&nbsp;&nbsp;</button>
+					<button type="button" class="btn btn-success">&nbsp;&nbsp;提问&nbsp;&nbsp;</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<div class="modal fade" id="qa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" style="padding-left: 30px; padding-top: 20px;">
+					<h1>问题</h1>
+					<p>问题标题</p>
+					<p>问题内容</p>
+					<h1>回答</h1>
+					<p>回答内容</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">&nbsp;&nbsp;确定&nbsp;&nbsp;</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<script>
+		$('.show-qa').on('click', function() {
+			$('#qa').modal('show');
+		});
+		$('.show-q').on('click', function() {
+			$('#q').modal('show');
+		});
+	</script>
+
+</body>
+
+</html>
