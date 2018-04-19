@@ -34,7 +34,9 @@ public class InFormNoticeServiceImpl implements IIFormNoticeService{
 		informNotice.setInformId(informId);
 		informNotice.setInformName(informName);
 		informNotice.setInformContent(informContent);
-		informNotice.setCreateDate(new Date());
+		Date d = new Date();
+		informNotice.setCreateDate(d);
+		informNotice.setUpdateDate(d);
 		informNotice.setCreatorId(userId);
 		informNotice.setCreatorName(userName);
 		informNotice.setEnable("1");
@@ -52,10 +54,7 @@ public class InFormNoticeServiceImpl implements IIFormNoticeService{
 
 	@Override
 	public Integer deleteData(String informId) {
-		InformNotice informNotice = new InformNotice();
-		informNotice.setInformId(informId);
-		informNotice.setEnable("0");
-		return informNoticeMapper.updateByPrimaryKeySelective(informNotice);
+		return informNoticeMapper.updateEnable(informId);
 	}
 
 	@Override
@@ -64,12 +63,9 @@ public class InFormNoticeServiceImpl implements IIFormNoticeService{
 	}
 
 	@Override
-	public String getContentById(String informId) {
+	public InformNotice getContentById(String informId) {
 		InformNotice informNotice = informNoticeMapper.selectByPrimaryKey(informId);
-		if(informNotice != null){
-			return informNotice.getInformContent();
-		}
-		return null;
+		return informNotice;
 	}
 
 	@Override

@@ -27,4 +27,6 @@ public interface InformNoticeMapper {
      */
     List<InformNotice> selectByLikeInformName(@Param("informName") String informName, 
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
+    
+    int updateEnable(@Param("informId") String informId);
 }

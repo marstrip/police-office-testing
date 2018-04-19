@@ -71,6 +71,11 @@ public class TestCreateController {
 		result.put("singleSelectCount", singleSelectCount);
 		result.put("manySelectCount", manySelectCount);
 		result.put("judgeCount", judgeCount);
+		if(singleSelectCount >= 15 && manySelectCount >= 20 && judgeCount >= 10){
+			result.put("status", 1);
+		}else {
+			result.put("status", -1);
+		}
 		return result;
 	}
 	/**

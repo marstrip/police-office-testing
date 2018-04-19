@@ -40,8 +40,8 @@ public class InFormNoticeController {
 	@ResponseBody
 	public JSONObject saveData(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		String inFormName = GetEncode.transcode(request.getParameter("inFormName"));
-		String inFormContent = GetEncode.transcode(request.getParameter("inFormContent"));
+		String inFormName = GetEncode.transcode(request.getParameter("informName"));
+		String inFormContent = GetEncode.transcode(request.getParameter("informContent"));
 		Integer flag = informNoticeService.saveData(inFormName, inFormContent);
 		if(flag == 1){
 			result.put("status", flag);
@@ -127,10 +127,10 @@ public class InFormNoticeController {
 	public JSONObject view(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String informId = GetEncode.transcode(request.getParameter("informId"));
-		String informContent = informNoticeService.getContentById(informId);
+		InformNotice informNotice = informNoticeService.getContentById(informId);
 		result.put("status", 1);
 		result.put("message", "成功");
-		result.put("info", informContent);
+		result.put("info", informNotice);
 		return result;
 	}
 }

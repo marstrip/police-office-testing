@@ -19,7 +19,7 @@ public interface IIFormNoticeService {
 	
 	public List<InformNotice> getList(String informName, Integer offset, Integer limit);
 	
-	public String getContentById(String informId);
+	public InformNotice getContentById(String informId);
 
 	public long getCount(String inFormName);
 

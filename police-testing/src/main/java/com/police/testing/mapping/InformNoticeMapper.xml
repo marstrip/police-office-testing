@@ -44,6 +44,12 @@
     </if>
   </select>
   
+  <update id="updateEnable"  parameterType="java.lang.String" >
+  	update inform_notice
+    set 
+     enable = '0'
+    where inform_id = #{informId,jdbcType=VARCHAR}
+  </update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from inform_notice
     where inform_id = #{informId,jdbcType=VARCHAR}
