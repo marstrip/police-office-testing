@@ -12,14 +12,18 @@
 
     var component_date = function (kargs) {
         baseComponent.apply(this, arguments);
-        this.template =  '<span class="form-control-feedback feedback-fix"><i class="fa fa-calendar"></i></span>' +
-            '<input type="text" class="form-control coreInput" />';
+        this.template = 
+            '<div class="component">'+
+                '<span class="form-control-feedback feedback-fix"><i class="fa fa-calendar"></i></span>' +
+                '<input type="text" class="form-control coreInput" name="{name}" />' +
+                '<div class="help-block-error"></div>'+
+            '</div>';
         var that = this ;
         
         this.__render = function() {
             
-            that.$node = $(that.template);
-            var $input = $(that.$node[1]);
+            that.$node = $(that.template.format(that.opts));
+            var $input = $(that.$node.find('input'));
             $input.attr('placeholder', that.opts.placeholder);
             
             $input.datetimepicker({

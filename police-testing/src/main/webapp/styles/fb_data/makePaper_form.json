@@ -1,0 +1,75 @@
+{
+	"label": "组卷信息",
+	"type": "form",
+	"items": [
+		{
+			"label": "考试名称(TODO:确定name)",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "testName",
+					"type": "text",
+					"placeholder": "请输入考试名称"
+				}
+			]
+		},
+		{
+			"label": "考试时长(TODO:单位?name?)",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "testTime",
+					"type": "text",
+					"placeholder": ""
+				}
+			]
+		},
+		{
+			"label": "考试开始时间(TODO:单位?name?)",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "testStartTime",
+					"type": "date",
+					"placeholder": ""
+				}
+			]
+		}
+	],
+	"rules": {
+		"testName":{
+			"required": true
+		},
+		"testTime":{
+			"required": true
+		},
+		"testStartTime":{
+			"required": true,
+			"isDate": true
+		}
+	},
+	"events": [
+	],
+	"values": {
+	},
+	"isRead": false,
+	"groupDefaultSplit": false
+}

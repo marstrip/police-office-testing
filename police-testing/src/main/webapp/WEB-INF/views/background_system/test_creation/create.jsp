@@ -33,6 +33,45 @@
 	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 
+	<!-- jquery-validation -->
+	<script src="${pageContext.request.contextPath}/styles/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/node_modules/jquery-validation/dist/localization/messages_zh.js"></script>
+
+	<!-- fb 组件 -->
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.baseContainer.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/containers/form.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/containers/form-group.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/containers/multimedia.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/containers/stream.js"></script>
+
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.baseComponent.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/textarea.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/text.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/select.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/audio.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/radio.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/checkbox.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/datetimepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/image.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/number.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/components/multiselect.js"></script>
+
+	<!-- fb 额外 -->
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/extra/qiniuCustomized.js"></script>
+	<link href="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/css/popup.css" rel="stylesheet" type="text/css"/>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/extra/popup.js"></script>
+
+	<!-- fb 核心文件 -->
+	<link href="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/css/form-builder-2.css" rel="stylesheet" type="text/css"/>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.eventBinds.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.core.js"></script>
+
+	<style>
+		.datetimepicker {
+			z-index: 9999!important;
+		}
+	</style>
+
 	<!--  PAGINATION plugin -->
 	<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/bs_pagination/jquery.bs_pagination.min.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/styles/bs_pagination/jquery.bs_pagination.min.js"></script>
@@ -207,10 +246,10 @@
 						<div class="panel-heading">检查结果</div>
 						<div class="panel-body">
 							<div class="" id="checked">
-								无结果
+								未检查
 							</div>
 							<hr>
-							<button class="btn btn-primary" id="btn_next" disabled>下一步</button>
+							<button class="btn btn-default" id="btn_next" disabled>下一步</button>
 						</div>
 					</div>
 				</div>
@@ -223,6 +262,19 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
+		// 日期 自定义校验 
+		jQuery.validator.addMethod("isDate", function(value, element){  
+		    var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;  
+		    var r = value.match(ereg);  
+		    if (r == null) {  
+		        return false;  
+		    }  
+		    var d = new Date(r[1], r[3] - 1, r[5]);  
+		    var result = (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[5]);  
+		      
+		    return this.optional(element) || (result);  
+		}, "请输入正确的日期");
+		  
 
 		$('input[name="beginDate"], input[name="endDate"]').datetimepicker({
             language: 'zh-CN',
@@ -239,7 +291,9 @@
 		var $btn_selected = $('#btn_selected');
 		var $btn_check = $('#btn_check');
 		var $btn_search = $('#btn_search');
+		var $btn_next = $('#btn_next');
 
+		var $checked = $('#checked');
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -347,6 +401,9 @@
 
 			$btn_check.prop('disabled', selections.length < 1);
 
+			$checked.html('未检查');
+			$btn_next.prop('disabled', true).removeClass('btn-success').addClass('btn-default');	// 每次改变，都需要重新检查
+
 			$btn_selected.html('');
 			$.map($table.bootstrapTable('getSelections'), function (row) {
 				$btn_selected.append(
@@ -370,9 +427,33 @@
 				},
 				success: function(d) {
 					console.log('请求成功>', d);
+					var result = $.parseJSON(d);
+					var checkedResult = 
+						'<div class="form-control-static">' +
+							'已选择单选题：' + result.singleSelectCount + '道' +
+						'</div>' +
+						'<div class="form-control-static">' +
+							'已选择多选题：' + result.manySelectCount + '道' +
+						'</div>' +
+						'<div class="form-control-static">' +
+							'已选择判断题：' + result.singleSelectCount + '道' +
+						'</div>' +
+						'<div class="form-control-static">' +
+							'检查结果：<span class="status ' + (result.status == 1 ? 'btn-success' : 'btn-danger') + '">' + (result.status == 1 ? '通过' : '未通过') + '</span>' +
+						'</div>'
+						;
+					$checked.html(checkedResult);
+
+					
+					if (result.status == 1) {
+						$btn_next.prop('disabled', false).removeClass('btn-default').addClass('btn-success');
+					} else {
+						$btn_next.prop('disabled', true).addClass('btn-default').removeClass('btn-success');
+					}
 				},
 				error: function(d) {
-					console.log('请求失败>', d);
+					console.log('请求失败>', d);					
+					$checked.html('请求失败');
 				},
 				complete: function(req, txtStatus) {
 					$btn_check.prop('disabled', selections.length < 1);
@@ -383,14 +464,115 @@
 		$btn_search.click(function() {
 			$table.bootstrapTable('refresh', {silent: true});
 		});
+
+
+
+
 		
-		/*// 异步加载数据
+		// 异步加载数据
 		$.ajax({
 			url: '${pageContext.request.contextPath}/styles/fb_data/makePaper_form.json',
 			success: function(d) {
-				window.caseFormConf = d;
+				window.paperFormConf = d;
+			},
+			error: function(req, txtStatus) {
+				console.error('加载fb数据失败', req, txtStatus);
 			}
-		});*/
+		});
+
+		$btn_next.click(function() {
+			BootstrapDialog.show({
+				title: '请输入以下信息',
+				message: function() {
+					var $message = $(
+						'<form id="dataForm" style="display: inline-block; width: 100%;"></form>'
+					);
+
+					$message.renderForm(paperFormConf);
+					return $message;
+				},
+				buttons: [{
+					label: '提交',
+					icon: 'glyphicon glyphicon-send',
+					autospin: false,
+					cssClass: "btn-primary",
+					action: function(dialog, evt) {
+						var $button = this;
+						$button.spin();
+						
+						var isValid = $('#dataForm').valid();
+
+						if (isValid) {
+
+							// 确认提交框
+							var cfm = BootstrapDialog.confirm({
+								title: '确认',
+								message: '请确认是否提交？',
+								type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+								// closable: true, // <-- Default value is false
+								draggable: true, // <-- Default value is false
+								btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+								btnOKLabel: '确认', // <-- Default value is 'OK',
+								btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
+								callback: function(isYes) {
+									// isYes will be true if button was click, while it will be false if users close the dialog directly.
+									if (isYes) {
+										
+										// 整合数据
+										var formData = $('#dataForm').serializeJson();
+										formData['caseContent'] = window.weditor.txt.html();
+										console.log('save formData', formData);
+
+										$.ajax({
+											url: '${pageContext.request.contextPath}/caseAnalyze/saveCase',
+											data : formData,
+											success: function(d) {
+												var result = $.parseJSON(d);
+												console.log('提交', d, result.message, result.status);
+
+												if (result.status == 1) {
+													$table.bootstrapTable('refresh', {silent: true});
+
+													dialog.enableButtons(false);
+													dialog.setClosable(false);
+													dialog.getModalBody().html(result.message);
+
+													setTimeout(function(){
+														dialog.close();
+													}, 3000);
+												} else {
+													BootstrapDialog.alert({
+														title: '结果',
+														message: result.message,
+														type: BootstrapDialog.TYPE_DANGER
+													});
+													$button.stopSpin();
+												}
+											},
+											error: function(d) {
+												BootstrapDialog.alert('上传失败');
+												$button.stopSpin();
+											}
+										});
+									} else {
+										$button.stopSpin();
+									}
+								}
+							});
+							cfm.$modalDialog.css('width', '300px');
+							// console.log(cfm);
+						} else {
+							$button.stopSpin();
+						}
+					}
+				}, {
+					label: '取消',
+					action: function(dialog) {
+						dialog.close();
+					}
+				}]
+			});
+		});
 	});
 </script>
 </html>

@@ -20,7 +20,7 @@
 		baseComponent.apply(this, arguments);
 
 		this.template =
-			'<div class = "component">'+
+			'<div class="component">'+
 				'<span class="text-group">'+
 					'<input type="text" name="{name}" width="{width}" height="{height}" ' +
 					'class="form-control coreInput" placeholder="{placeholder}"/>'+

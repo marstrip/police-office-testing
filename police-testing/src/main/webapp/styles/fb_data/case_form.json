@@ -38,7 +38,7 @@
 		}
 	],
 	"rules": {
-		"name":{
+		"caseName":{
 			"required": true
 		}
 	},
