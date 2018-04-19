@@ -1,0 +1,51 @@
+{
+	"label": "案例表单",
+	"type": "form",
+	"items": [
+		{
+			"label": "案例名称",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "name",
+					"type": "text",
+					"placeholder": "请输入案例名称"
+				}
+			]
+		},
+		{
+			"label": "内容",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "content",
+					"type": "textarea",
+					"placeholder": ""
+				}
+			]
+		}
+	],
+	"rules": {
+		"name":{
+			"required": true
+		}
+	},
+	"events": [
+	],
+	"values": {
+	},
+	"isRead": false,
+	"groupDefaultSplit": false
+}
