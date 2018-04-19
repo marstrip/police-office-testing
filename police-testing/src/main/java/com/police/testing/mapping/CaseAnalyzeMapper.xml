@@ -41,6 +41,7 @@
     <if test="caseName != null and caseName != ''">
     	 and case_name like '%${caseName}%'
     </if>
+    and enable = '1'
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -129,11 +130,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.CaseAnalyze" >
     update case_analyze
     <set >
-    
       <if test="caseName != null" >
         case_name = #{caseName,jdbcType=VARCHAR},
       </if>
-      
       <if test="caseLevel != null" >
         case_level = #{caseLevel,jdbcType=VARCHAR},
       </if>
@@ -159,6 +158,12 @@
         case_content = #{caseContent,jdbcType=LONGVARCHAR},
       </if>
     </set>
+    where case_id = #{caseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateEnable" parameterType="java.lang.String">
+  	update case_analyze
+    set 
+     enable = '0'
     where case_id = #{caseId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.police.testing.pojo.CaseAnalyze" >

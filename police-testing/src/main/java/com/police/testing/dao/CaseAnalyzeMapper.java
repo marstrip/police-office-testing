@@ -27,4 +27,6 @@ public interface CaseAnalyzeMapper {
      * @return
      */
     List<CaseAnalyze> selectByLikeCaseName(@Param("caseName") String caseName);
+    
+    int updateEnable(@Param("caseId") String caseId);
 }

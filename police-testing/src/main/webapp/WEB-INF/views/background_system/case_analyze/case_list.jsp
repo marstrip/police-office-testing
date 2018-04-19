@@ -189,6 +189,9 @@
 				<button id="table_11_delete" class="btn btn-danger" disabled>
 					<i class="glyphicon glyphicon-remove"></i> 删除
 				</button>
+				<button id="table_11_view" class="btn btn-primary" disabled>
+					<i class="glyphicon glyphicon-eye-open"></i> 预览
+				</button>
 			</div>
 			<table id="table_11"></table>
 		</div>
@@ -213,6 +216,7 @@
 		var $btn_add = $('#table_11_add');
 		var $btn_edit = $('#table_11_edit');
 		var $btn_delete = $('#table_11_delete');
+		var $btn_view = $('#table_11_view');
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -232,6 +236,8 @@
 				detailOpen: 'glyphicon-plus icon-plus',
 				detailClose: 'glyphicon-minus icon-minus'
 			},
+
+			singleSelect: true,		// 即使是checkbox，也只能选中一个
 
 			// showToggle: true,			//是否显示 切换试图（table/card）按钮
 			showColumns: true,		//是否显示 内容列下拉框
@@ -324,6 +330,7 @@
 
 			$btn_delete.prop('disabled', !selections.length);
 			$btn_edit.prop('disabled', selections.length !== 1);
+			$btn_view.prop('disabled', selections.length !== 1);
 		});
 		
 		// 异步加载数据
@@ -418,7 +425,9 @@
 												var result = $.parseJSON(d);
 												console.log('提交', d, result.message, result.status);
 
-												if (result.status == 1) {													
+												if (result.status == 1) {
+													$table.bootstrapTable('refresh', {silent: true});
+
 													dialog.enableButtons(false);
 													dialog.setClosable(false);
 													dialog.getModalBody().html(result.message);
@@ -563,7 +572,8 @@
 												var result = $.parseJSON(d);
 												console.log('提交', d, result.message, result.status);
 
-												if (result.status == 1) {													
+												if (result.status == 1) {
+													$table.bootstrapTable('refresh', {silent: true});
 													dialog.enableButtons(false);
 													dialog.setClosable(false);
 													dialog.getModalBody().html(result.message);
@@ -604,6 +614,60 @@
 				}]
 			});
 			$btn_edit.prop('disabled', false);
+		});
+
+		// 删
+		$btn_delete.click(function() {
+			// 确认框
+			var cfm = BootstrapDialog.confirm({
+	            title: '确认',
+	            message: '请确认是否删除？',
+	            type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+	            // closable: true, // <-- Default value is false
+	            draggable: true, // <-- Default value is false
+	            btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+	            btnOKLabel: '确认', // <-- Default value is 'OK',
+	            btnOKClass: 'btn-danger', // <-- If you didn't specify it, dialog type will be used,
+	            callback: function(result) {
+	                    
+                    // 整合数据
+					var formData = {
+						caseId: getIdSelections()[0]
+					};
+
+					$.ajax({
+						url: '${pageContext.request.contextPath}/caseAnalyze/deleteCase',
+						data : formData,
+						success: function(d) {
+							var result = $.parseJSON(d);
+							console.log('提交', d, result.message, result.status);
+
+							if (result.status == 1) {
+								var alt = BootstrapDialog.alert({
+									title: '删除成功',
+						            message: result.message,
+						            type: BootstrapDialog.TYPE_SUCCESS
+								});
+								alt.$modalDialog.css('width', '100px');
+								$table.bootstrapTable('refresh', {silent: true});
+							} else {
+								var alt = BootstrapDialog.alert({
+									title: '删除失败',
+						            message: result.message,
+						            type: BootstrapDialog.TYPE_DANGER
+								});
+								alt.$modalDialog.css('width', '100px');
+								$table.bootstrapTable('refresh', {silent: true});
+							}
+						},
+						error: function(d) {
+							BootstrapDialog.alert('提交删除请求失败');
+						}
+					});
+	                
+	            }
+	        });
+	        cfm.$modalDialog.css('width', '300px');
 		});
 	});
   </script>
