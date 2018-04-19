@@ -148,26 +148,29 @@
 	
 	<!-- 筛选 -->
 
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div id="table_11_toolbar">
+				<!-- <button id="table_11_add" class="btn btn-success">
+					<i class="glyphicon glyphicon-plus"></i> 新增
+				</button>
+				<button id="table_11_edit" class="btn btn-warning" disabled>
+					<i class="glyphicon glyphicon-edit"></i> 编辑
+				</button>
+				<button id="table_11_delete" class="btn btn-danger" disabled>
+					<i class="glyphicon glyphicon-remove"></i> 删除
+				</button>
+				<button id="table_11_view" class="btn btn-primary" disabled>
+					<i class="glyphicon glyphicon-eye-open"></i> 预览
+				</button> -->
+			</div>
+			<table id="table_11"></table>
 
-	<div id="table_11_toolbar">
-		<!-- <button id="table_11_add" class="btn btn-success">
-			<i class="glyphicon glyphicon-plus"></i> 新增
-		</button>
-		<button id="table_11_edit" class="btn btn-warning" disabled>
-			<i class="glyphicon glyphicon-edit"></i> 编辑
-		</button>
-		<button id="table_11_delete" class="btn btn-danger" disabled>
-			<i class="glyphicon glyphicon-remove"></i> 删除
-		</button>
-		<button id="table_11_view" class="btn btn-primary" disabled>
-			<i class="glyphicon glyphicon-eye-open"></i> 预览
-		</button> -->
-	</div>
-	<table id="table_11"></table>
+			<hr>
 
-	<hr>
-
-	<div id="selected"></div>
+			<div id="selected"></div>
+		</div>
+	</div>	
 
 
 
@@ -178,7 +181,7 @@
 		var selections = [];
 		$table.bootstrapTable({
 			url: '${pageContext.request.contextPath}/uploadLog/getList',
-			method: 'post',
+			method: 'GET',
 			dataType: "json",
 			striped: true,				//设置为 true 会有隔行变色效果  
 			undefinedText: "空",		//当数据为 undefined 时显示的字符  
@@ -222,7 +225,7 @@
 					search: params.search		//筛选
 				};
 			},
-			idField: "caseId",			//指定主键列
+			idField: "uploadFileId",			//指定主键列
 			columns: [
 				{
 					field: 'state',
@@ -233,23 +236,14 @@
 				},
 				{
 					title: 'ID',		// id
-					field: 'caseId',
-					align: 'center'
+					field: 'uploadFileId',
+					align: 'center',
+					visible: false
 				},
 				{
-					title: '案例名称',			//表的列名
-					field: 'caseName',	//json数据中rows数组中的属性名
+					title: '文件名称',			//表的列名
+					field: 'fileName',	//json数据中rows数组中的属性名
 					align: 'center'		//水平居中
-				},
-				{
-					title: '案例级别',
-					field: 'caseLevel',
-					align: 'center'
-				},
-				{
-					title: '案例类型',
-					field: 'caseType',
-					align: 'center'
 				},
 				{
 					//EMAIL
@@ -269,7 +263,7 @@
 		// 获取选中的ids
 		function getIdSelections() {
 			return $.map($table.bootstrapTable('getSelections'), function (row) {
-				return row.caseId
+				return row.uploadFileId
 			});
 		}
 		// 获取选中的行
@@ -290,13 +284,13 @@
 			$btn_view.prop('disabled', selections.length !== 1);
 		});
 		
-		// 异步加载数据
+		/*// 异步加载数据
 		$.ajax({
 			url: '${pageContext.request.contextPath}/styles/fb_data/makePaper_form.json',
 			success: function(d) {
 				window.caseFormConf = d;
 			}
-		});
+		});*/
 	});
 </script>
 </html>
