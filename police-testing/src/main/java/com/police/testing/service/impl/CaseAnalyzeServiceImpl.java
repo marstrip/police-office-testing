@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +26,10 @@ public class CaseAnalyzeServiceImpl implements ICaseAnalyzeService{
 	
 	@Override
 	public Integer saveData(String caseName, String caseContent, String caseType) {
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		String userId = (String) session.getAttribute("currentUserId");
+		String userName = (String) session.getAttribute("currentUserName");
 		String caseId = "CA" + UUID.randomUUID().toString().replace("-", "");
 		CaseAnalyze caseAnalyze = new CaseAnalyze();
 		caseAnalyze.setCaseId(caseId);
@@ -30,6 +37,8 @@ public class CaseAnalyzeServiceImpl implements ICaseAnalyzeService{
 		caseAnalyze.setCaseContent(caseContent);
 		caseAnalyze.setCaseType(caseType);
 		caseAnalyze.setCreateDate(new Date());
+		caseAnalyze.setCreatorId(userId);
+		caseAnalyze.setCreatorName(userName);
 		caseAnalyze.setEnable("1");
 		return caseAnaLyzeMapper.insert(caseAnalyze);
 	}
@@ -57,5 +66,13 @@ public class CaseAnalyzeServiceImpl implements ICaseAnalyzeService{
 		return caseAnaLyzeMapper.selectByLikeCaseName(caseName);
 	}
 
+	@Override
+	public String getContentById(String caseId) {
+		CaseAnalyze caseAnalyze = caseAnaLyzeMapper.selectByPrimaryKey(caseId);
+		if(caseAnalyze != null){
+			return caseAnalyze.getCaseContent();
+		}
+		return null;
+	}
 }
 

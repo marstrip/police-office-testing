@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.police.testing.pojo.QaSheetWithBLOBs;
 import com.police.testing.pojo.TestSelf;
 import com.police.testing.service.ITestSelfService;
 import com.police.testing.tools.GetEncode;
@@ -103,6 +105,23 @@ public class TestSelfController {
 		JSONObject result = new JSONObject();
 		String testSelfName = GetEncode.transcode(request.getParameter("testSelfName"));
 		List<TestSelf> list = testSelfService.getList(testSelfName);
+		return result;
+	}
+	
+	/**
+	 * 预览单个数据
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("view")
+	@ResponseBody
+	public JSONObject view(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		String qaId = GetEncode.transcode(request.getParameter("qaId"));
+		TestSelf testSelf = testSelfService.getContentById(qaId);
+		result.put("status", 1);
+		result.put("message", "成功");
+		result.put("info",testSelf.getTestSelfContent());
 		return result;
 	}
 }

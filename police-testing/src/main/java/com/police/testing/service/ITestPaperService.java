@@ -29,4 +29,10 @@ public interface ITestPaperService {
 	 * @return
 	 */
 	public JSONObject updateTestPaper(String testPaperId, String operateFlag, String testPaperName, String testDate, Integer testTime);
+	/**
+	 * 获取试卷列表集合
+	 * @param testName
+	 * @return
+	 */
+	public List<TestPaper> getList(String testName);
 }

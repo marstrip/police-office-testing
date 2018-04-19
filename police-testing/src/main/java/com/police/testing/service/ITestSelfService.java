@@ -18,5 +18,7 @@ public interface ITestSelfService {
 	public Integer deleteData(String testSelfId);
 	
 	public List<TestSelf> getList(String testSelfName);
+
+	public TestSelf getContentById(String testSelfId);
 }
 

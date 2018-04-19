@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.police.testing.dao.QaSheetMapper;
+import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.QaSheet;
 import com.police.testing.pojo.QaSheetWithBLOBs;
 import com.police.testing.service.IQaSheetService;
@@ -62,9 +63,14 @@ public class QaSheetServiceImpl implements IQaSheetService{
 	}
 
 	@Override
-	public List<QaSheet> getList(String questionContent) {
+	public List<QaSheetWithBLOBs> getList(String questionContent) {
 		return qaSheetMapper.selectByLikeQuestionContent(questionContent);
 	}
 
+	@Override
+	public QaSheetWithBLOBs getContentById(String qaId) {
+		QaSheetWithBLOBs qaSheetWithBLOBs = qaSheetMapper.selectByPrimaryKey(qaId);
+		return qaSheetWithBLOBs;
+	}
 }
 

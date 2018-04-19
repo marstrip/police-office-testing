@@ -24,4 +24,9 @@ public interface TestPaperMapper {
      * @return
      */
     List<TestPaper> selectByTestPaperId(@Param("testPaperIds") List<String> testPaperId);
+    /**
+     * 根据试卷名称获取数据集合
+     * @return
+     */
+    List<TestPaper> selectByLikeTestPapaerName(@Param("testPaperName") String testPaperName);
 }

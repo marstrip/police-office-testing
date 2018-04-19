@@ -18,5 +18,7 @@ public interface ICaseAnalyzeService {
 	public Integer deleteData(String caseId);
 	
 	public List<CaseAnalyze> getList(String caseName);
+
+	public String getContentById(String caseId);
 }
 

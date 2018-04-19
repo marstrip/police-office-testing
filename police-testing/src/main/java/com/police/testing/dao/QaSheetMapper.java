@@ -22,5 +22,5 @@ public interface QaSheetMapper {
 
     int updateByPrimaryKey(QaSheet record);
 
-	List<QaSheet> selectByLikeQuestionContent(@Param("questionContent")String questionContent);
+	List<QaSheetWithBLOBs> selectByLikeQuestionContent(@Param("questionContent")String questionContent);
 }

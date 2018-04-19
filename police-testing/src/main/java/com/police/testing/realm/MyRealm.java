@@ -62,7 +62,8 @@ public class MyRealm extends AuthorizingRealm {
 		SysUser user = userService.findByLoginName(token.getUsername());
 		SimpleAuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getLoginName(), user.getPassword(),
 				this.getName());
-		SecurityUtils.getSubject().getSession().setAttribute("currentUser", user.getUserId());
+		SecurityUtils.getSubject().getSession().setAttribute("currentUserId", user.getUserId());
+		SecurityUtils.getSubject().getSession().setAttribute("currentUserName", user.getUserName());
 		//保存用户登录日志
 		sysLogService.saveLoginLog(user);
 		return authcInfo;
