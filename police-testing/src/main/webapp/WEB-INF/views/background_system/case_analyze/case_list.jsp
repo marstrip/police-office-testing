@@ -176,9 +176,9 @@
 	</style>
 </head>
 <body>
-<div class="col-sm">
+<!-- <div class="col-sm">
 	<div class="panel panel-default">
-		<div class="panel-body">
+		<div class="panel-body"> -->
 			<div id="table_11_toolbar">
 				<button id="table_11_add" class="btn btn-success">
 					<i class="glyphicon glyphicon-plus"></i> 新增
@@ -194,9 +194,9 @@
 				</button>
 			</div>
 			<table id="table_11"></table>
-		</div>
-	</div>
-</div>
+		<!-- </div>
+			</div>
+		</div> -->
   <!-- <table>
   	<tr>
   		<td>

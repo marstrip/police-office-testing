@@ -24,8 +24,8 @@ public class UploadLogServiceImpl implements IUploadLogService{
 	}
 	
 	@Override
-	public List<UploadFileLog> getList(String beginDate, String endDate) {
-		List<UploadFileLog> fileLogs = uploadFileLogMapper.selectByCreateDate(beginDate, endDate);
+	public List<UploadFileLog> getList(String beginDate, String endDate, String fileName) {
+		List<UploadFileLog> fileLogs = uploadFileLogMapper.selectByCreateDate(beginDate, endDate, fileName);
 		return fileLogs;
 	}
 
