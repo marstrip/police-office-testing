@@ -3,8 +3,6 @@ package com.police.testing.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-
-import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.TestSelf;
 
 public interface TestSelfMapper {
@@ -27,5 +25,6 @@ public interface TestSelfMapper {
      * @param selfName
      * @return
      */
-    List<TestSelf> selectByLikeTestSelfName(@Param("testSelfContent") String testSelfContent);
+    List<TestSelf> selectByLikeTestSelfName(@Param("testSelfContent") String testSelfContent, 
+    		@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

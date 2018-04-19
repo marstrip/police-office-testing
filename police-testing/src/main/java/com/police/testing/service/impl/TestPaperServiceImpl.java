@@ -87,7 +87,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			testPaper.setCreatorName(userName);
 			testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-DD hh:mm:ss"));
 			testPaper.setTestTime(testTime);
-			testPaperMapper.updateByPrimaryKey(testPaper);
+			testPaperMapper.updateByPrimaryKeySelective(testPaper);
 			result.put("status", 1);
 			result.put("message", "确认成功，试卷已生成");
 		}else {
@@ -100,8 +100,8 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	}
 
 	@Override
-	public List<TestPaper> getList(String testPaperName) {
-		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName);
+	public List<TestPaper> getList(String testPaperName, Integer offset, Integer limit) {
+		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, offset, limit);
 		return testPapers;
 	}
 
@@ -141,5 +141,11 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		testingLog.setUserId(userId);
 		testingLog.setUserName(user.getUserName());
 		return testingLogMapper.insert(testingLog);
+	}
+
+	@Override
+	public long getCount(String testName) {
+		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testName, null, null);
+		return testPapers.size();
 	}
 }

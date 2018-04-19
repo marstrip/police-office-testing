@@ -12,6 +12,7 @@ import com.police.testing.pojo.QaSheetWithBLOBs;
 import com.police.testing.service.IQaSheetService;
 import com.police.testing.tools.GetEncode;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class QaSheetController {
@@ -27,9 +28,9 @@ public class QaSheetController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("saveCase")
+	@RequestMapping("saveData")
 	@ResponseBody
-	public JSONObject saveCase(HttpServletRequest request){
+	public JSONObject saveData(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String qaContent = GetEncode.transcode(request.getParameter("qaContent"));
 		Integer flag = qaSheetService.saveData(qaContent);
@@ -47,9 +48,9 @@ public class QaSheetController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("deleteCase")
+	@RequestMapping("deleteData")
 	@ResponseBody
-	public JSONObject deleteCase(HttpServletRequest request){
+	public JSONObject deleteData(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String qaId = GetEncode.transcode(request.getParameter("qaId"));
 		Integer flag = qaSheetService.deleteData(qaId);
@@ -68,9 +69,9 @@ public class QaSheetController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("updateCase")
+	@RequestMapping("updateData")
 	@ResponseBody
-	public JSONObject updateCase(HttpServletRequest request){
+	public JSONObject updateData(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String qaId = GetEncode.transcode(request.getParameter("qaId"));
 		String questionContent = GetEncode.transcode(request.getParameter("questionContent"));
@@ -95,8 +96,16 @@ public class QaSheetController {
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		String questionContent = GetEncode.transcode(request.getParameter("questionContent"));
-		List<QaSheetWithBLOBs> list = qaSheetService.getList(questionContent);
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		String questionContent = GetEncode.transcode(request.getParameter("search"));
+		List<QaSheetWithBLOBs> list = qaSheetService.getList(questionContent, offset, limit);
+		long total = qaSheetService.getCount(questionContent);
+		JSONArray array = JSONArray.fromObject(list);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
 		return result;
 	}
 	/**

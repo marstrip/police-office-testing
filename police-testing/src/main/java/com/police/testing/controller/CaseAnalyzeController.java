@@ -107,12 +107,17 @@ public class CaseAnalyzeController {
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		String caseName = GetEncode.transcode(request.getParameter("caseName"));
-		List<CaseAnalyze> list = caseAnalyzeService.getList(caseName);
-		result.put("page", 1);
+		//第几条记录开始
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		String caseName = GetEncode.transcode(request.getParameter("search"));
+		List<CaseAnalyze> list = caseAnalyzeService.getList(caseName, offset, limit);
+		long total = caseAnalyzeService.getCount(caseName);
 		JSONArray array = JSONArray.fromObject(list);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
 		result.put("rows", array);
-		System.out.println("json:" + result.toString());
 		return result;
 	}
 	

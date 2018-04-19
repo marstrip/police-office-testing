@@ -3,7 +3,6 @@ package com.police.testing.service;
 import java.util.List;
 
 import com.police.testing.pojo.TestPaper;
-import com.police.testing.pojo.TestQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 
 import net.sf.json.JSONObject;
@@ -35,7 +34,7 @@ public interface ITestPaperService {
 	 * @param testName
 	 * @return
 	 */
-	public List<TestPaper> getList(String testName);
+	public List<TestPaper> getList(String testName, Integer offset, Integer limit);
 	
 	/**
 	 * 根据试卷id获取全部试题
@@ -50,4 +49,6 @@ public interface ITestPaperService {
 	 * @return
 	 */
 	public Integer doTesting(String testingType, String testPaperId);
+
+	public long getCount(String testName);
 }

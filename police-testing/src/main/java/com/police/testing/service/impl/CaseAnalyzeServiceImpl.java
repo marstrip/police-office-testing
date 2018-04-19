@@ -61,14 +61,20 @@ public class CaseAnalyzeServiceImpl implements ICaseAnalyzeService{
 	}
 
 	@Override
-	public List<CaseAnalyze> getList(String caseName) {
-		return caseAnaLyzeMapper.selectByLikeCaseName(caseName);
+	public List<CaseAnalyze> getList(String caseName,Integer offset, Integer limit) {
+		return caseAnaLyzeMapper.selectByLikeCaseName(caseName, offset, limit);
 	}
 
 	@Override
 	public CaseAnalyze getContentById(String caseId) {
 		CaseAnalyze caseAnalyze = caseAnaLyzeMapper.selectByPrimaryKey(caseId);
 		return caseAnalyze;
+	}
+
+	@Override
+	public long getCount(String caseName) {
+		List<CaseAnalyze> caseAnalyzes = caseAnaLyzeMapper.selectByLikeCaseName(caseName, null, null);
+		return caseAnalyzes.size();
 	}
 }
 

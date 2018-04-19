@@ -1,11 +1,8 @@
 package com.police.testing.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.police.testing.dao.UploadFileLogMapper;
 import com.police.testing.pojo.UploadFileLog;
 import com.police.testing.service.IUploadLogService;

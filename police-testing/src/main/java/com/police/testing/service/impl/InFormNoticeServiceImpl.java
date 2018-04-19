@@ -47,7 +47,7 @@ public class InFormNoticeServiceImpl implements IIFormNoticeService{
 		informNotice.setInformName(informName);
 		informNotice.setInformContent(informContent);
 		informNotice.setUpdateDate(new Date());
-		return informNoticeMapper.updateByPrimaryKey(informNotice);
+		return informNoticeMapper.updateByPrimaryKeyWithBLOBs(informNotice);
 	}
 
 	@Override
@@ -59,8 +59,8 @@ public class InFormNoticeServiceImpl implements IIFormNoticeService{
 	}
 
 	@Override
-	public List<InformNotice> getList(String informName) {
-		return informNoticeMapper.selectByLikeInformName(informName);
+	public List<InformNotice> getList(String informName, Integer offset, Integer limit) {
+		return informNoticeMapper.selectByLikeInformName(informName, offset, limit);
 	}
 
 	@Override
@@ -70,6 +70,12 @@ public class InFormNoticeServiceImpl implements IIFormNoticeService{
 			return informNotice.getInformContent();
 		}
 		return null;
+	}
+
+	@Override
+	public long getCount(String informName) {
+		List<InformNotice> informNotices = informNoticeMapper.selectByLikeInformName(informName, null, null);
+		return informNotices.size();
 	}
 }
 

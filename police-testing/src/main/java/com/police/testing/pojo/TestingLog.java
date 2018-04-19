@@ -2,6 +2,8 @@ package com.police.testing.pojo;
 
 import java.util.Date;
 
+import com.police.testing.tools.SystemTools;
+
 public class TestingLog {
     private Integer autoId;
 
@@ -77,8 +79,9 @@ public class TestingLog {
         this.testPaperId = testPaperId == null ? null : testPaperId.trim();
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public String getCreateDate() {
+    	String str = SystemTools.Time2String(createDate, "yyyy-MM-dd HH:mm:ss");
+        return str;
     }
 
     public void setCreateDate(Date createDate) {

@@ -17,8 +17,10 @@ public interface ICaseAnalyzeService {
 	
 	public Integer deleteData(String caseId);
 	
-	public List<CaseAnalyze> getList(String caseName);
+	public List<CaseAnalyze> getList(String caseName, Integer offset, Integer limit);
 
 	public CaseAnalyze getContentById(String caseId);
+
+	public long getCount(String caseName);
 }
 

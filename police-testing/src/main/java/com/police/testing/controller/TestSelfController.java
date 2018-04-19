@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.police.testing.pojo.QaSheetWithBLOBs;
 import com.police.testing.pojo.TestSelf;
 import com.police.testing.service.ITestSelfService;
 import com.police.testing.tools.GetEncode;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -102,9 +101,17 @@ public class TestSelfController {
 	@RequestMapping("getList")
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
-		JSONObject result = new JSONObject();
-		String testSelfName = GetEncode.transcode(request.getParameter("testSelfName"));
-		List<TestSelf> list = testSelfService.getList(testSelfName);
+		JSONObject result = new JSONObject();//第几条记录开始
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		String testSelfName = GetEncode.transcode(request.getParameter("search"));
+		List<TestSelf> list = testSelfService.getList(testSelfName, offset, limit);
+		long total = testSelfService.getCount(testSelfName);
+		JSONArray array = JSONArray.fromObject(list);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
 		return result;
 	}
 	

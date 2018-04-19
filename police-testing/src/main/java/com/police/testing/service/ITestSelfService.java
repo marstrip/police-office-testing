@@ -17,8 +17,10 @@ public interface ITestSelfService {
 	
 	public Integer deleteData(String testSelfId);
 	
-	public List<TestSelf> getList(String testSelfName);
+	public List<TestSelf> getList(String testSelfName, Integer offset, Integer limit);
 
 	public TestSelf getContentById(String testSelfId);
+
+	public long getCount(String testSelfName);
 }
 
