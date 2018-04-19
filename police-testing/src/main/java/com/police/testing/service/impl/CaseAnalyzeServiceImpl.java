@@ -36,7 +36,9 @@ public class CaseAnalyzeServiceImpl implements ICaseAnalyzeService{
 		caseAnalyze.setCaseName(caseName);
 		caseAnalyze.setCaseContent(caseContent);
 		caseAnalyze.setCaseType(caseType);
-		caseAnalyze.setCreateDate(new Date());
+		Date d = new Date();
+		caseAnalyze.setCreateDate(d);
+		caseAnalyze.setUpdateDate(d);
 		caseAnalyze.setCreatorId(userId);
 		caseAnalyze.setCreatorName(userName);
 		caseAnalyze.setEnable("1");

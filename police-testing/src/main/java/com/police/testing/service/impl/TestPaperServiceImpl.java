@@ -1,6 +1,7 @@
 package com.police.testing.service.impl;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Component;
 
 import com.police.testing.dao.TestPaperMapper;
 import com.police.testing.dao.TestPaperQuestionMapper;
+import com.police.testing.dao.TestQuestionMapper;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestPaperQuestion;
+import com.police.testing.pojo.TestQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.SystemTools;
@@ -27,7 +30,8 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	private TestPaperMapper testPaperMapper;
 	@Autowired
 	private TestPaperQuestionMapper testPaperQuestionMapper;
-
+	@Autowired
+	private TestQuestionMapper testQuestionMapper;
 	@Override
 	public List<TestPaper> getTestPaperList() {
 		return testPaperMapper.selectByTestPaperId(null);
@@ -60,7 +64,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		//获取用户信息
 		Subject currentUser = SecurityUtils.getSubject();
 		Session session = currentUser.getSession();
-		String userId =(String)session.getAttribute("currentUser");
+		String userId =(String)session.getAttribute("currentUserId");
 		String userName = (String)session.getAttribute("currentUserName");
 		JSONObject result = new JSONObject();
 		//判断操作状态
@@ -90,6 +94,25 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	public List<TestPaper> getList(String testPaperName) {
 		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName);
 		return testPapers;
+	}
+
+	@Override
+	public JSONObject getTestPaperById(String testPaperId) {
+		List<TestPaperQuestion> testPaperQuestions = testPaperQuestionMapper.selectByTestPaperId(testPaperId);
+		List<String> testQuestionIds = new ArrayList<>();
+		String testPaperName = null;
+		if(testPaperQuestions.size() > 0){
+			testPaperName = testPaperQuestions.get(0).getTestPaperName();
+			for (TestPaperQuestion testPaperQuestion : testPaperQuestions) {
+				testQuestionIds.add(testPaperQuestion.getTestQuestionsId());
+			}
+		}
+		//获取试题
+		List<TestQuestion> resultList = testQuestionMapper.selectByTestQuestionIds(testQuestionIds);
+		JSONObject result = new JSONObject();
+		result.put("testPaperName", testPaperName);
+		result.put("list", resultList);
+		return result;
 	}
 
 }

@@ -3,6 +3,7 @@ package com.police.testing.service;
 import java.util.List;
 
 import com.police.testing.pojo.TestPaper;
+import com.police.testing.pojo.TestQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 
 import net.sf.json.JSONObject;
@@ -35,4 +36,11 @@ public interface ITestPaperService {
 	 * @return
 	 */
 	public List<TestPaper> getList(String testName);
+	
+	/**
+	 * 根据试卷id获取全部试题
+	 * @param testPaperId
+	 * @return
+	 */
+	public JSONObject getTestPaperById(String testPaperId);
 }

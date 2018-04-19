@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.police.testing.pojo.TestQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
-import com.police.testing.pojo.UploadFileLog;
 
 public interface TestQuestionMapper {
     int deleteByPrimaryKey(Integer testQuestionsId);
@@ -44,4 +43,10 @@ public interface TestQuestionMapper {
      */
     List<TestQuestionWithBLOBs> selectRandomByQuestionTypeAndNumber(@Param("beginDate") String beginDate, @Param("endDate") String endDate,
     		@Param("list") List<String> uploadFileLogs, @Param("questionType") String questionType, @Param("number")Integer number);
+    /**
+     * 根据试题ID批量获取试题
+     * @param testQuestionIds
+     * @return
+     */
+	List<TestQuestion> selectByTestQuestionIds(@Param("testQuestionIds") List<String> testQuestionIds);
 }

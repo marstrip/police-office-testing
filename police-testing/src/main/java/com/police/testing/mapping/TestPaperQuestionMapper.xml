@@ -20,6 +20,15 @@
     from test_paper_question
     where auto_id = #{autoId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectByTestPaperId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	select 
+    <include refid="Base_Column_List" />
+    from test_paper_question
+    where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from test_paper_question
     where auto_id = #{autoId,jdbcType=INTEGER}

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.GetEncode;
@@ -56,10 +55,14 @@ public class TestPaperController {
 	 * @param request
 	 * @return
 	 */
-	public JSONObject viewTestingPaper(HttpServletRequest request){
+	@RequestMapping("viewTestPaper")
+	@ResponseBody
+	public JSONObject viewTestPaper(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		String testingPaperId = GetEncode.transcode(request.getParameter("testingPaperId"));
-		
+		String testPaperId = GetEncode.transcode(request.getParameter("testPaperId"));
+		result = testPaperService.getTestPaperById(testPaperId);
+		result.put("status", 1);
+		result.put("message", "成功！");
 		return result;
 	}
 }
