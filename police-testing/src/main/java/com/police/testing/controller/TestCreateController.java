@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.police.testing.pojo.TestQuestionWithBLOBs;
-import com.police.testing.pojo.UploadFileLog;
 import com.police.testing.service.IQuestionService;
 import com.police.testing.service.ITestPaperService;
-import com.police.testing.service.IUploadLogService;
 import com.police.testing.tools.GetEncode;
 
 import net.sf.json.JSONArray;
