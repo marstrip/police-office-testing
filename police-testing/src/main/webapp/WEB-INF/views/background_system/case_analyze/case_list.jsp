@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,14 +9,21 @@
 	<!-- jquery -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/styles/js/jquery-3.3.1.min.js"></script>
 	<!-- umeditor -->
-	<link href="${pageContext.request.contextPath}/styles/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/styles/umeditor/third-party/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/styles/umeditor/umeditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/styles/umeditor/umeditor.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/styles/umeditor/lang/zh-cn/zh-cn.js"></script>
-    
-    <!-- BS table -->
-    <!-- 基础依赖 -->
+	<!-- <link href="${pageContext.request.contextPath}/styles/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+		<script type="text/javascript" src="${pageContext.request.contextPath}/styles/umeditor/third-party/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/styles/umeditor/umeditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/styles/umeditor/umeditor.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/styles/umeditor/lang/zh-cn/zh-cn.js"></script> -->
+
+	<!-- 王editor -->
+	<script src="${pageContext.request.contextPath}/styles/vendors/wangEditor-3.1.1/release/wangEditor.min.js"></script>
+	<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/wangEditor-3.1.1/release/wangEditor.min.css"> -->
+
+	<!-- jquery.serializeJSON -->
+	<script src="${pageContext.request.contextPath}/styles/vendors/jquery.serializeJSON/jquery.serializejson.min.js"></script>
+	
+	<!-- BS table -->
+	<!-- 基础依赖 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap3/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap3/dist/css/bootstrap-theme.min.css">
 	<script src="${pageContext.request.contextPath}/styles/node_modules/jquery/dist/jquery.min.js"></script>
@@ -63,105 +70,110 @@
 	<link href="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/css/form-builder-2.css" rel="stylesheet" type="text/css"/>
 	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.eventBinds.js"></script>
 	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.core.js"></script>
-    <style type="text/css">
-        h1{
-            font-family: "微软雅黑";
-            font-weight: normal;
-        }
-        .btn {
-            display: inline-block;
-            *display: inline;
-            padding: 4px 12px;
-            margin-bottom: 0;
-            *margin-left: .3em;
-            font-size: 14px;
-            line-height: 20px;
-            color: #333333;
-            text-align: center;
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-            vertical-align: middle;
-            cursor: pointer;
-            background-color: #f5f5f5;
-            *background-color: #e6e6e6;
-            background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-            background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-            background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-            background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-            background-repeat: repeat-x;
-            border: 1px solid #cccccc;
-            *border: 0;
-            border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            border-bottom-color: #b3b3b3;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            *zoom: 1;
-            -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-            -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
+	<style type="text/css">
+		h1{
+			font-family: "微软雅黑";
+			font-weight: normal;
+		}
+		.btn {
+			display: inline-block;
+			*display: inline;
+			padding: 4px 12px;
+			margin-bottom: 0;
+			*margin-left: .3em;
+			font-size: 14px;
+			line-height: 20px;
+			color: #333333;
+			text-align: center;
+			text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+			vertical-align: middle;
+			cursor: pointer;
+			background-color: #f5f5f5;
+			*background-color: #e6e6e6;
+			background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+			background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+			background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+			background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+			background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+			background-repeat: repeat-x;
+			border: 1px solid #cccccc;
+			*border: 0;
+			border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+			border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+			border-bottom-color: #b3b3b3;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+			filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+			*zoom: 1;
+			-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+			-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+		}
 
-        .btn:hover,
-        .btn:focus,
-        .btn:active,
-        .btn.active,
-        .btn.disabled,
-        .btn[disabled] {
-            color: #333333;
-            background-color: #e6e6e6;
-            *background-color: #d9d9d9;
-        }
+		.btn:hover,
+		.btn:focus,
+		.btn:active,
+		.btn.active,
+		.btn.disabled,
+		.btn[disabled] {
+			color: #333333;
+			background-color: #e6e6e6;
+			*background-color: #d9d9d9;
+		}
 
-        .btn:active,
-        .btn.active {
-            background-color: #cccccc \9;
-        }
+		.btn:active,
+		.btn.active {
+			background-color: #cccccc \9;
+		}
 
-        .btn:first-child {
-            *margin-left: 0;
-        }
+		.btn:first-child {
+			*margin-left: 0;
+		}
 
-        .btn:hover,
-        .btn:focus {
-            color: #333333;
-            text-decoration: none;
-            background-position: 0 -15px;
-            -webkit-transition: background-position 0.1s linear;
-            -moz-transition: background-position 0.1s linear;
-            -o-transition: background-position 0.1s linear;
-            transition: background-position 0.1s linear;
-        }
+		.btn:hover,
+		.btn:focus {
+			color: #333333;
+			text-decoration: none;
+			background-position: 0 -15px;
+			-webkit-transition: background-position 0.1s linear;
+			-moz-transition: background-position 0.1s linear;
+			-o-transition: background-position 0.1s linear;
+			transition: background-position 0.1s linear;
+		}
 
-        .btn:focus {
-            outline: thin dotted #333;
-            outline: 5px auto -webkit-focus-ring-color;
-            outline-offset: -2px;
-        }
+		.btn:focus {
+			outline: thin dotted #333;
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px;
+		}
 
-        .btn.active,
-        .btn:active {
-            background-image: none;
-            outline: 0;
-            -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-            -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
+		.btn.active,
+		.btn:active {
+			background-image: none;
+			outline: 0;
+			-webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+			-moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+		}
 
-        .btn.disabled,
-        .btn[disabled] {
-            cursor: default;
-            background-image: none;
-            opacity: 0.65;
-            filter: alpha(opacity=65);
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-        }
-    </style>
+		.btn.disabled,
+		.btn[disabled] {
+			cursor: default;
+			background-image: none;
+			opacity: 0.65;
+			filter: alpha(opacity=65);
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+		}
+
+		.modal-dialog {
+			min-width: 800px;
+			width: 90%;
+		}
+	</style>
 </head>
 <body>
 <div class="col-sm">
@@ -196,8 +208,9 @@
   </table> -->
 </body>
 <script type="text/javascript">
-    $(document).ready(function(){
-    	var $btn_add = $('#table_11_add');
+
+	$(document).ready(function(){
+		var $btn_add = $('#table_11_add');
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -285,7 +298,7 @@
 		
 		// 异步加载数据
 		$.ajax({
-			url: '${pageContext.request.contextPath}/styles/fb_add.json',
+			url: '${pageContext.request.contextPath}/styles/fb_data/case_form.json',
 			success: function(d) {
 				window.jsonConf_add = d;
 			}
@@ -294,52 +307,113 @@
 			$btn_add.prop('disabled', true);
 
 			BootstrapDialog.show({
-	            title: '新增',
-	            message: function() {
-	            	var $message = $(
-	            		'<form id="dataForm" style="display: inline-block;"></form>'
-	            	);
+				title: '新增',
+				message: function() {
+					var $message = $(
+						'<form id="dataForm" style="display: inline-block; width: 100%;"></form>'
+					);
 
-	            	$message.renderForm(jsonConf_add);
-	            	return $message;
-	            },
-	            buttons: [{
-	                label: 'Submit',
-	                icon: 'glyphicon glyphicon-send',
-            		autospin: false,
-	                cssClass: "btn-primary",
-	                action: function(dialog, evt) {
-	                	var $button = this;
-	                	$button.spin();
-	                	
-	                	var isValid = $('#dataForm').valid();
-	                	if (isValid) {
-		                	dialog.enableButtons(false);
-		                    dialog.setClosable(false);
-		                    dialog.getModalBody().html('Dialog closes in 3 seconds.');
-		                    setTimeout(function(){
-		                        dialog.close();
-		                    }, 3000);
-	                	} else {
-	                		$button.stopSpin();
-	                	}
-	                }
-	            }, {
-	                label: 'Close',
-	                action: function(dialog) {
-	                    dialog.close();
-	                }
-	            }]
-	        });
+					$message.renderForm(jsonConf_add);
+					return $message;
+				},
+				// 弹出显示，将使用um渲染
+				onshown: function(dialogReg) {
+					$('#dataForm [name=content]').replaceWith($('<div id="weditor"></div>'));
+			//	 	var ue = UE.getEditor('content', {
+			//	 		height: 500,
+			//	 		toolbars: [
+						//	 ['fullscreen', 'source', 'undo', 'redo', 'bold']
+						// ],
+			//	 	});
+			//	 	ue.setHeight(500);
+
+					var we = window.wangEditor;
+					window.weditor = new we('#weditor');
+					weditor.customConfig.menus = [
+						'head',  // 标题
+						'bold',  // 粗体
+						'fontSize',  // 字号
+						'fontName',  // 字体
+						'italic',  // 斜体
+						'underline',  // 下划线
+						'strikeThrough',  // 删除线
+						'foreColor',  // 文字颜色
+						'backColor',  // 背景颜色
+						'link',  // 插入链接
+						'list',  // 列表
+						'justify',  // 对齐方式
+						'quote',  // 引用
+						// 'emoticon',  // 表情
+						// 'image',  // 插入图片
+						// 'table',  // 表格
+						// 'video',  // 插入视频
+						// 'code',  // 插入代码
+						'undo',  // 撤销
+						'redo'  // 重复
+					];
+					weditor.create();
+
+				},
+				buttons: [{
+					label: '提交',
+					icon: 'glyphicon glyphicon-send',
+					autospin: false,
+					cssClass: "btn-primary",
+					action: function(dialog, evt) {
+						var $button = this;
+						$button.spin();
+						
+						var isValid = $('#dataForm').valid();
+
+						if (isValid) {
+
+							// TODO: 确认提交框
+
+
+
+							// 整合数据
+							var formData = $('#dataForm').serializeJson();
+							formData['content'] = window.weditor.txt.html();
+							console.log('formData', formData);
+
+							$.ajax({
+								url: 'testURL',
+								success: function(d) {
+									console.log('提交成功');
+									alert('OK !!');
+								},
+								error: function(d) {
+									alert('ERR!!');
+								}
+							});
+
+						
+							dialog.enableButtons(false);
+							dialog.setClosable(false);
+							dialog.getModalBody().html('Dialog closes in 3 seconds.');
+							setTimeout(function(){
+								dialog.close();
+							}, 3000);
+						} else {
+							$button.stopSpin();
+						}
+					}
+				}, {
+					label: '取消',
+					action: function(dialog) {
+						dialog.close();
+					}
+				}]
+			});
 			$btn_add.prop('disabled', false);
 		});
-    });
+	});
 		/* $(document).ready(function(){  
-		    // 初始化内容
+			// 初始化内容
 			var ue = UM.getEditor('myEditor');
 		});
 		function getAllHtml() {
-	    	alert(UM.getEditor('myEditor').getAllHtml())
+			alert(UM.getEditor('myEditor').getAllHtml())
 		} */
 		// 增
   </script>
