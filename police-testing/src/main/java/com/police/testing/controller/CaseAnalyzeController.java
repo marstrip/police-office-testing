@@ -106,10 +106,10 @@ public class CaseAnalyzeController {
 	@RequestMapping("getList")
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
+		JSONObject result = new JSONObject();
 		//第几条记录开始
 		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
-		JSONObject result = new JSONObject();
 		String caseName = GetEncode.transcode(request.getParameter("search"));
 		List<CaseAnalyze> list = caseAnalyzeService.getList(caseName, offset, limit);
 		long total = caseAnalyzeService.getCount(caseName);

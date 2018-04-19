@@ -1,7 +1,6 @@
 package com.police.testing.service.impl;
 
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.police.testing.dao.SysLoginLogMapper;
 import com.police.testing.pojo.SysLoginLog;
 import com.police.testing.pojo.SysUser;
-import com.police.testing.pojo.User;
 import com.police.testing.service.ISysLogService;
 
 @Component("sysLogService")

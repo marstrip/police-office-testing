@@ -6,9 +6,6 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.police.testing.dao.TestSelfMapper;
 import com.police.testing.pojo.TestSelf;
 import com.police.testing.service.ITestSelfService;
@@ -61,15 +58,20 @@ public class TestSelfServiceImpl implements ITestSelfService{
 	}
 
 	@Override
-	public List<TestSelf> getList(String testSelfName) {
-		// TODO Auto-generated method stub
-		return testSelfMapper.selectByLikeTestSelfName(testSelfName);
+	public List<TestSelf> getList(String testSelfName, Integer offset, Integer limit) {
+		return testSelfMapper.selectByLikeTestSelfName(testSelfName, offset, limit);
 	}
 
 	@Override
 	public TestSelf getContentById(String testSelfId) {
 		TestSelf testSelf = testSelfMapper.selectByPrimaryKey(testSelfId);
 		return testSelf;
+	}
+
+	@Override
+	public long getCount(String testSelfName) {
+		List<TestSelf> selfs = testSelfMapper.selectByLikeTestSelfName(testSelfName, null, null);
+		return selfs.size();
 	}
 
 }

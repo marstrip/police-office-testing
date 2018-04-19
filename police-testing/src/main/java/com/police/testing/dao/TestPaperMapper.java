@@ -28,5 +28,6 @@ public interface TestPaperMapper {
      * 根据试卷名称获取数据集合
      * @return
      */
-    List<TestPaper> selectByLikeTestPapaerName(@Param("testPaperName") String testPaperName);
+    List<TestPaper> selectByLikeTestPapaerName(@Param("testPaperName") String testPaperName, 
+    		@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

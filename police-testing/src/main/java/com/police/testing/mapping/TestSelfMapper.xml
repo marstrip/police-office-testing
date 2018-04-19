@@ -41,7 +41,10 @@
     <if test="testSelfContent != null and testSelfContent != ''">
     	 and test_self_name like '%${testSelfName}%'
     </if>
-  	
+  	and enable = '1'
+    <if test="offset != null and limit != null">
+     limit ${offset},${limit}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from test_self

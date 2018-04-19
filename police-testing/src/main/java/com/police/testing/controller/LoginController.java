@@ -11,18 +11,14 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.police.testing.service.IUserService;
 import com.police.testing.tools.GetEncode;
 
 @Controller
 @RequestMapping("/login/")
 public class LoginController {
 	static Logger logger = LogManager.getLogger(LoginController.class.getName());
-	@Autowired
-	private IUserService userService;
     /**
 	 * 登录页面初始(学生)
 	 * 

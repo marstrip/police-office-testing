@@ -17,9 +17,11 @@ public interface IIFormNoticeService {
 	
 	public Integer deleteData(String informId);
 	
-	public List<InformNotice> getList(String informName);
+	public List<InformNotice> getList(String informName, Integer offset, Integer limit);
 	
 	public String getContentById(String informId);
+
+	public long getCount(String inFormName);
 
 }
 

@@ -1,8 +1,6 @@
 package com.police.testing.service;
 
 import java.util.List;
-
-import com.police.testing.pojo.QaSheet;
 import com.police.testing.pojo.QaSheetWithBLOBs;
 
 /**
@@ -18,8 +16,10 @@ public interface IQaSheetService {
 	
 	public Integer deleteData(String qaId);
 	
-	public List<QaSheetWithBLOBs> getList(String questionContent);
+	public List<QaSheetWithBLOBs> getList(String questionContent, Integer offset, Integer limit);
 
 	public QaSheetWithBLOBs getContentById(String qaId);
+
+	public long getCount(String questionContent);
 }
 

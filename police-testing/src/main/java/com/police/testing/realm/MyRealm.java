@@ -15,7 +15,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.police.testing.pojo.SysUser;
-import com.police.testing.pojo.User;
 import com.police.testing.service.ISysLogService;
 import com.police.testing.service.IUserService;
 

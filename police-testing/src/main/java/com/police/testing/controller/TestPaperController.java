@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.GetEncode;
-import com.rabbitmq.client.AMQP.Basic.Get;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -23,17 +22,6 @@ public class TestPaperController {
 
 	@Autowired
 	private ITestPaperService testPaperService;
-//	/**
-//	 * 跳转到试卷列表
-//	 * @param request
-//	 * @return
-//	 */
-//	@RequestMapping("jsp")
-//	public String jsp(HttpServletRequest request){
-//		List<TestPaper> list = testPaperService.getTestPaperList();
-//		request.setAttribute("list", list);
-//		return "background_system/exam/test_paper_list";
-//	}
 	/**
 	 * 获取试卷列表
 	 * @param request
@@ -43,12 +31,17 @@ public class TestPaperController {
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		String testName = GetEncode.transcode(request.getParameter("testName"));
-		List<TestPaper> list = testPaperService.getList(testName);
-		result.put("page", 1);
+		//第几条记录开始
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		String testName = GetEncode.transcode(request.getParameter("search"));
+		List<TestPaper> list = testPaperService.getList(testName, offset, limit);
+		long total = testPaperService.getCount(testName);
 		JSONArray array = JSONArray.fromObject(list);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
 		result.put("rows", array);
-		System.out.println("json:" + result.toString());
 		return result;
 	}
 	/**

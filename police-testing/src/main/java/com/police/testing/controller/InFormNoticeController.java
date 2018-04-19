@@ -36,9 +36,9 @@ public class InFormNoticeController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("saveCase")
+	@RequestMapping("saveData")
 	@ResponseBody
-	public JSONObject saveCase(HttpServletRequest request){
+	public JSONObject saveData(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String inFormName = GetEncode.transcode(request.getParameter("inFormName"));
 		String inFormContent = GetEncode.transcode(request.getParameter("inFormContent"));
@@ -57,7 +57,7 @@ public class InFormNoticeController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("deleteCase")
+	@RequestMapping("deleteData")
 	@ResponseBody
 	public JSONObject deleteCase(HttpServletRequest request){
 		JSONObject result = new JSONObject();
@@ -78,7 +78,7 @@ public class InFormNoticeController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("updateCase")
+	@RequestMapping("updateData")
 	@ResponseBody
 	public JSONObject updateCase(HttpServletRequest request){
 		JSONObject result = new JSONObject();
@@ -104,12 +104,17 @@ public class InFormNoticeController {
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		String inFormName = GetEncode.transcode(request.getParameter("inFormName"));
-		List<InformNotice> list = informNoticeService.getList(inFormName);
-		result.put("page", 1);
+		//第几条记录开始
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		String inFormName = GetEncode.transcode(request.getParameter("search"));
+		List<InformNotice> list = informNoticeService.getList(inFormName, offset, limit);
+		long total = informNoticeService.getCount(inFormName);
 		JSONArray array = JSONArray.fromObject(list);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
 		result.put("rows", array);
-		System.out.println("json:" + result.toString());
 		return result;
 	}
 	/**
