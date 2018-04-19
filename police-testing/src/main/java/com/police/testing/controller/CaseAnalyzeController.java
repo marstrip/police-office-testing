@@ -41,8 +41,8 @@ public class CaseAnalyzeController {
 	@ResponseBody
 	public JSONObject saveCase(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		String caseName = GetEncode.transcode(request.getParameter("caseName"));
-		String caseContent = GetEncode.transcode(request.getParameter("caseContent"));
+		String caseName = GetEncode.transcode(request.getParameter("name"));
+		String caseContent = GetEncode.transcode(request.getParameter("content"));
 		String caseType = GetEncode.transcode(request.getParameter("caseType"));
 		Integer flag = caseAnalyzeService.saveData(caseName, caseContent, caseType);
 		if(flag == 1){
@@ -116,5 +116,21 @@ public class CaseAnalyzeController {
 		return result;
 	}
 	
+	/**
+	 * 预览单个数据
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("view")
+	@ResponseBody
+	public JSONObject view(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		String caseId = GetEncode.transcode(request.getParameter("caseId"));
+		String caseContent = caseAnalyzeService.getContentById(caseId);
+		result.put("status", 1);
+		result.put("message", "成功");
+		result.put("info", caseContent);
+		return result;
+	}
 }
 

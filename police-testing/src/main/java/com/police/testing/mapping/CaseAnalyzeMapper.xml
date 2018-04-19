@@ -42,6 +42,7 @@
     	 and case_name like '%${caseName}%'
     </if>
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from case_analyze
     where case_id = #{caseId,jdbcType=VARCHAR}

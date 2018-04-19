@@ -387,17 +387,28 @@
 										console.log('formData', formData);
 
 										$.ajax({
-											url: 'http://localhost/caseAnalyze/jsp',
-											data: formData,
+											url: '${pageContext.request.contextPath}/caseAnalyze/saveCase',
+											data : formData,
 											success: function(d) {
-												console.log('提交成功');
-												dialog.enableButtons(false);
-												dialog.setClosable(false);
-												dialog.getModalBody().html('上传成功！');
-										
-												setTimeout(function(){
-													dialog.close();
-												}, 3000);
+												var result = $.parseJSON(d);
+												console.log('提交', d, result.message, result.status);
+
+												if (result.status == 1) {													
+													dialog.enableButtons(false);
+													dialog.setClosable(false);
+													dialog.getModalBody().html(result.message);
+
+													setTimeout(function(){
+														dialog.close();
+													}, 3000);
+												} else {
+													BootstrapDialog.alert({
+														title: '结果',
+											            message: result.message,
+											            type: BootstrapDialog.TYPE_DANGER
+													});
+													$button.stopSpin();
+												}
 											},
 											error: function(d) {
 												BootstrapDialog.alert('上传失败');
@@ -411,9 +422,6 @@
 					        });
 					        cfm.$modalDialog.css('width', '300px');
 					        // console.log(cfm);
-
-
-							
 						} else {
 							$button.stopSpin();
 						}

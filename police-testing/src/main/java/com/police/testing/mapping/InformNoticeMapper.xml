@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.police.testing.dao.InformNoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.InformNotice" >
+    <id column="inform_id" property="informId" jdbcType="VARCHAR" />
+    <result column="inform_name" property="informName" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
+    <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="enable" property="enable" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.police.testing.pojo.InformNotice" extends="BaseResultMap" >
+    <result column="inform_content" property="informContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    inform_id, inform_name, create_date, creator_id, creator_name, update_date, enable
+  </sql>
+  <sql id="Blob_Column_List" >
+    inform_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from inform_notice
+    where inform_id = #{informId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByLikeInformName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from inform_notice
+    where 1=1 
+    <if test="informName != null and informName != ''">
+    	 and inform_name like '%${informName}%'
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from inform_notice
+    where inform_id = #{informId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.InformNotice" >
+    insert into inform_notice (inform_id, inform_name, create_date, 
+      creator_id, creator_name, update_date, 
+      enable, inform_content)
+    values (#{informId,jdbcType=VARCHAR}, #{informName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{enable,jdbcType=VARCHAR}, #{informContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.InformNotice" >
+    insert into inform_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="informId != null" >
+        inform_id,
+      </if>
+      <if test="informName != null" >
+        inform_name,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="creatorId != null" >
+        creator_id,
+      </if>
+      <if test="creatorName != null" >
+        creator_name,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="informContent != null" >
+        inform_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="informId != null" >
+        #{informId,jdbcType=VARCHAR},
+      </if>
+      <if test="informName != null" >
+        #{informName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="informContent != null" >
+        #{informContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.InformNotice" >
+    update inform_notice
+    <set >
+      <if test="informName != null" >
+        inform_name = #{informName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorId != null" >
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null" >
+        creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=VARCHAR},
+      </if>
+      <if test="informContent != null" >
+        inform_content = #{informContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where inform_id = #{informId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.police.testing.pojo.InformNotice" >
+    update inform_notice
+    set inform_name = #{informName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=VARCHAR},
+      inform_content = #{informContent,jdbcType=LONGVARCHAR}
+    where inform_id = #{informId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.InformNotice" >
+    update inform_notice
+    set inform_name = #{informName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=VARCHAR}
+    where inform_id = #{informId,jdbcType=VARCHAR}
+  </update>
+</mapper>

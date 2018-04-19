@@ -3,6 +3,7 @@ package com.police.testing.service;
 import java.util.List;
 
 import com.police.testing.pojo.QaSheet;
+import com.police.testing.pojo.QaSheetWithBLOBs;
 
 /**
 *@author created by answer
@@ -17,6 +18,8 @@ public interface IQaSheetService {
 	
 	public Integer deleteData(String qaId);
 	
-	public List<QaSheet> getList(String questionContent);
+	public List<QaSheetWithBLOBs> getList(String questionContent);
+
+	public QaSheetWithBLOBs getContentById(String qaId);
 }
 

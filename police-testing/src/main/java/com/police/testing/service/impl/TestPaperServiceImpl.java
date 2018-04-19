@@ -86,4 +86,10 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		return result;
 	}
 
+	@Override
+	public List<TestPaper> getList(String testPaperName) {
+		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName);
+		return testPapers;
+	}
+
 }

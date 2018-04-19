@@ -66,5 +66,11 @@ public class TestSelfServiceImpl implements ITestSelfService{
 		return testSelfMapper.selectByLikeTestSelfName(testSelfName);
 	}
 
+	@Override
+	public TestSelf getContentById(String testSelfId) {
+		TestSelf testSelf = testSelfMapper.selectByPrimaryKey(testSelfId);
+		return testSelf;
+	}
+
 }
 

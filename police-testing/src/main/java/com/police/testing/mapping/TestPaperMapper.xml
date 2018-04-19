@@ -36,6 +36,18 @@
  	</foreach>
     </if>
   </select>
+  
+  <select id="selectByLikeTestPapaerName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from test_paper
+    where 1=1 
+    <if test="testPaperName != null and testPaperName != ''">
+    	 and test_paper_name like '%${testPaperName}%'
+    </if>
+    and enable = '1'
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from test_paper
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
