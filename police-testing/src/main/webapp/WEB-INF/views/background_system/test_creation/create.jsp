@@ -28,6 +28,11 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/css/bootstrap-dialog.min.css">
 	<script src="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"></script>
 
+	<!-- 日期选择控件 -->
+	<link href="${pageContext.request.contextPath}/styles/vendors/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
 	<!--  PAGINATION plugin -->
 	<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/bs_pagination/jquery.bs_pagination.min.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/styles/bs_pagination/jquery.bs_pagination.min.js"></script>
@@ -150,7 +155,7 @@
 
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<div id="table_11_toolbar">
+			<div id="table_11_toolbar" style="width: 800px;">
 				<!-- <button id="table_11_add" class="btn btn-success">
 					<i class="glyphicon glyphicon-plus"></i> 新增
 				</button>
@@ -163,20 +168,78 @@
 				<button id="table_11_view" class="btn btn-primary" disabled>
 					<i class="glyphicon glyphicon-eye-open"></i> 预览
 				</button> -->
+				
+					<div class="input-group" style="width: 380px;">
+						<input type="text" class="form-control" placeholder="请点击以选择开始日期" name="beginDate" id="beginData">
+						<span class="input-group-addon">-</span>
+						<input type="text" class="form-control" placeholder="请点击以选择开始日期" name="endDate" id="endData">
+					</div>
+					<div class="input-group" style="width: 200px;">
+						<input type="text" class="form-control" placeholder="搜索" name="search" id="search">
+					</div>
+					<button class="btn btn-default" id="btn_search">
+						查找
+					</button>
+
 			</div>
 			<table id="table_11"></table>
-
+				
 			<hr>
 
-			<div id="selected"></div>
-		</div>
-	</div>	
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">已选中</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-12" id="btn_selected">
+									无选中
+								</div>
+							</div>
+							<hr>
+							<button class="btn btn-default" id="btn_check" disabled>检查已选中题目</button>
+						</div>
+					</div>
+				</div>
 
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">检查结果</div>
+						<div class="panel-body">
+							<div class="" id="checked">
+								无结果
+							</div>
+							<hr>
+							<button class="btn btn-primary" id="btn_next" disabled>下一步</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>	
+	</div>
 
 
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		$('input[name="beginDate"], input[name="endDate"]').datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+		var $btn_selected = $('#btn_selected');
+		var $btn_check = $('#btn_check');
+		var $btn_search = $('#btn_search');
+
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -212,7 +275,7 @@
 			paginationPreText: '‹',		//指定分页条中上一页按钮的图标或文字,这里是<
 			paginationNextText: '›',	//指定分页条中下一页按钮的图标或文字,这里是>
 			// singleSelect: false,		//设置True 将禁止多选
-			search: true,				//显示搜索框
+			search: false,				//显示搜索框
 			data_local: "zh-US",		//表格汉化
 			sidePagination: "server",	//服务端处理分页
 			queryParams: function (params) {
@@ -222,7 +285,9 @@
 					//这里的params是table提供的
 					offset: params.offset,		//从数据库第几条记录开始
 					limit: params.limit,		//找多少条
-					search: params.search		//筛选
+					search: $('#search').val(),		//筛选
+					beginDate: $('#beginDate').val(),
+					endDate: $('#endDate').val()
 				};
 			},
 			idField: "uploadFileId",			//指定主键列
@@ -279,9 +344,43 @@
 			console.log('selections:', selections);
 			// push or splice the selections if you want to save all data selections
 
-			$btn_delete.prop('disabled', !selections.length);
-			$btn_edit.prop('disabled', selections.length !== 1);
-			$btn_view.prop('disabled', selections.length !== 1);
+			$btn_check.prop('disabled', selections.length < 1);
+
+			$btn_selected.html('');
+			$.map($table.bootstrapTable('getSelections'), function (row) {
+				$btn_selected.append(
+					'<div class="form-control-static">' +
+						'<div class="col-sm-8">' + row.fileName + '</div>' +
+						'<div class="col-sm-4">' + row.createDate + '</div>' +
+					'</div>'
+				);
+			});
+			if (selections.length == 0) {
+				$btn_selected.html('无选中');
+			}
+		});
+
+		$btn_check.click(function() {
+			$btn_check.prop('disabled', true);
+			$.ajax({
+				url: '${pageContext.request.contextPath}/testCreate/searchLog',
+				data: {
+					uploadFileIds: selections
+				},
+				success: function(d) {
+					console.log('请求成功>', d);
+				},
+				error: function(d) {
+					console.log('请求失败>', d);
+				},
+				complete: function(req, txtStatus) {
+					$btn_check.prop('disabled', selections.length < 1);
+				}
+			});
+		});
+
+		$btn_search.click(function() {
+			$table.bootstrapTable('refresh', {silent: true});
 		});
 		
 		/*// 异步加载数据
