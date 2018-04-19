@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.police.testing.pojo.UploadFileLog;
 import com.police.testing.service.IUploadLogService;
+import com.police.testing.tools.GetEncode;
 
 import net.sf.json.JSONObject;
 
@@ -32,8 +33,10 @@ public class UploadLogController {
 	@RequestMapping("getList")
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
-		List<UploadFileLog> list = uploadLogService.getList(null, null);
+		String fileName = GetEncode.transcode(request.getParameter("fileName"));
+		List<UploadFileLog> list = uploadLogService.getList(null, null, fileName);
 		JSONObject result = new JSONObject();
+		result.put("list", list);
 		return result;
 	}
 }
