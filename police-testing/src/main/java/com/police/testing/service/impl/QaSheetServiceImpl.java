@@ -53,11 +53,7 @@ public class QaSheetServiceImpl implements IQaSheetService{
 
 	@Override
 	public Integer deleteData(String qaId) {
-		// TODO Auto-generated method stub
-		QaSheetWithBLOBs qaSheetWithBLOBs = new QaSheetWithBLOBs();
-		qaSheetWithBLOBs.setQaId(qaId);
-		qaSheetWithBLOBs.setEnable("-1");
-		return qaSheetMapper.updateByPrimaryKeySelective(qaSheetWithBLOBs);
+		return qaSheetMapper.updateEnable(qaId);
 	}
 
 	@Override

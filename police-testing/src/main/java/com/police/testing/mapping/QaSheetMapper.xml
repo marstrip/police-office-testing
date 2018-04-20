@@ -36,11 +36,11 @@
     <include refid="Blob_Column_List" />
     from qa_sheet
     where 1=1 
-    <if test="caseName != null and caseName != ''">
+    <if test="questionContent != null and questionContent != ''">
     	 and question_content like '%${questionContent}%'
     </if>
     and enable = '1'
-     <if test="offset != null and limit != null">
+    <if test="offset != null and limit != null">
      limit ${offset},${limit}
     </if>
   </select>
@@ -148,6 +148,12 @@
         question_answer = #{questionAnswer,jdbcType=LONGVARCHAR},
       </if>
     </set>
+    where qa_id = #{qaId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateEnable"  parameterType="java.lang.String" >
+  	update qa_sheet
+    set 
+     enable = '0'
     where qa_id = #{qaId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.police.testing.pojo.QaSheetWithBLOBs" >

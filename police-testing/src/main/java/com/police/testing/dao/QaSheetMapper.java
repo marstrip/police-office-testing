@@ -24,4 +24,6 @@ public interface QaSheetMapper {
 
 	List<QaSheetWithBLOBs> selectByLikeQuestionContent(@Param("questionContent")String questionContent, 
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
+	
+	 int updateEnable(@Param("qaId") String qaId);
 }

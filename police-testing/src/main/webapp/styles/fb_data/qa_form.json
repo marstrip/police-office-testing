@@ -1,0 +1,51 @@
+{
+	"label": "问答",
+	"type": "form",
+	"items": [
+		{
+			"label": "问题",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "questionContent",
+					"type": "text",
+					"placeholder": "提问内容"
+				}
+			]
+		},
+		{
+			"label": "答案",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "questionAnswer",
+					"type": "textarea",
+					"placeholder": ""
+				}
+			]
+		}
+	],
+	"rules": {
+		"name":{
+			"required": true
+		}
+	},
+	"events": [
+	],
+	"values": {
+	},
+	"isRead": false,
+	"groupDefaultSplit": false
+}

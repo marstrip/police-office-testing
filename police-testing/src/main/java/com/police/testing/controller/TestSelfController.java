@@ -102,7 +102,7 @@ public class TestSelfController {
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject result = new JSONObject();//第几条记录开始
-		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		String testSelfName = GetEncode.transcode(request.getParameter("search"));
 		List<TestSelf> list = testSelfService.getList(testSelfName, offset, limit);

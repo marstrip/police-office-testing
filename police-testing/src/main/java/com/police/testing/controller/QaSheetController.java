@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,13 +16,15 @@ import com.police.testing.tools.GetEncode;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+@Controller
+@RequestMapping("/qa/")
 public class QaSheetController {
 	@Autowired
 	private IQaSheetService qaSheetService;
 	
 	@RequestMapping("jsp")
 	public String jsp(HttpServletRequest request){
-		return "background_system/case_analyze/case_list";
+		return "background_system/qa_sheet/qa_list";
 	}
 	/**
 	 * 提交案例分析
@@ -96,7 +99,7 @@ public class QaSheetController {
 	@ResponseBody
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		String questionContent = GetEncode.transcode(request.getParameter("search"));
 		List<QaSheetWithBLOBs> list = qaSheetService.getList(questionContent, offset, limit);
@@ -121,8 +124,7 @@ public class QaSheetController {
 		QaSheetWithBLOBs bloBs = qaSheetService.getContentById(qaId);
 		result.put("status", 1);
 		result.put("message", "成功");
-		result.put("question",bloBs.getQuestionContent());
-		result.put("answer", bloBs.getQuestionAnswer());
+		result.put("info",bloBs);
 		return result;
 	}
 }

@@ -105,7 +105,7 @@ public class InFormNoticeController {
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		//第几条记录开始
-		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		String inFormName = GetEncode.transcode(request.getParameter("search"));
 		List<InformNotice> list = informNoticeService.getList(inFormName, offset, limit);

@@ -3,7 +3,7 @@
 	"type": "form",
 	"items": [
 		{
-			"label": "考试名称(TODO:确定name)",
+			"label": "考试名称(TODO:testPaperName)",
 			"type": "form-group",
 			"groupId": "group0",
 
@@ -13,14 +13,14 @@
 
 			"items": [
 				{
-					"name": "testName",
+					"name": "testPaperName",
 					"type": "text",
 					"placeholder": "请输入考试名称"
 				}
 			]
 		},
 		{
-			"label": "考试时长(TODO:单位?name?)",
+			"label": "考试时长(TODO:testTime 单位：分钟)",
 			"type": "form-group",
 			"groupId": "group0",
 
@@ -37,7 +37,7 @@
 			]
 		},
 		{
-			"label": "考试开始时间(TODO:单位?name?)",
+			"label": "考试截止日期(TODO:testDate 日期自动显示成当天23:59:59 例如：2018-04-20 23:59:59)",
 			"type": "form-group",
 			"groupId": "group0",
 
@@ -47,7 +47,7 @@
 
 			"items": [
 				{
-					"name": "testStartTime",
+					"name": "testDate",
 					"type": "date",
 					"placeholder": ""
 				}
