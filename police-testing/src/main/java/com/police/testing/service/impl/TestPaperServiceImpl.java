@@ -47,11 +47,15 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	}
 
 	@Override
-	public String createTempTestPaper(List<TestQuestionWithBLOBs> questionWithBLOBs, String testPaperType) {
+	public String createTempTestPaper(List<TestQuestionWithBLOBs> questionWithBLOBs, String testPaperType, String testPaperName,
+			Integer testTime, String testDate) {
 		//生成试卷
 		String testPaperId = UUID.randomUUID().toString();
 		TestPaper testPaper = new TestPaper();
 		testPaper.setTestPaperId(testPaperId);
+		testPaper.setTestPaperName(testPaperName);
+		testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-DD hh:mm:ss"));
+		testPaper.setTestTime(testTime);
 		//待预览为0，生成为1
 		testPaper.setTestPaperType(testPaperType);
 		testPaper.setEnable("0");

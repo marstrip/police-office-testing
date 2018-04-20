@@ -109,8 +109,13 @@ public class TestCreateController {
 		list.addAll(singleSelectList);
 		list.addAll(manySelectList);
 		list.addAll(judgeList);
+		//testPaperName试卷名称
+		String testPaperName = GetEncode.transcode(request.getParameter("testPaperName"));
+		String testTime = GetEncode.transcode(request.getParameter("testTime"));
+		Integer testTimeInt = Integer.valueOf(testTime);
+		String testDate = GetEncode.transcode(request.getParameter("testDate"));
 		//生成待预览试卷
-		String testPaperId = testPaperService.createTempTestPaper(list, "0");
+		String testPaperId = testPaperService.createTempTestPaper(list, "0", testPaperName, testTimeInt, testDate);
 		//封装jsonarray对象
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		JSONObject result = new JSONObject();

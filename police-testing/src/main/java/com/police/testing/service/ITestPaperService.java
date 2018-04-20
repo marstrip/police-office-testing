@@ -19,7 +19,8 @@ public interface ITestPaperService {
 	 * @param questionWithBLOBs
 	 * @param testPaperType
 	 */
-	public String createTempTestPaper(List<TestQuestionWithBLOBs> questionWithBLOBs, String testPaperType);
+	public String createTempTestPaper(List<TestQuestionWithBLOBs> questionWithBLOBs, String testPaperType, String testPaperName,
+			Integer testTime, String testDate);
 	
 	
 	/**
