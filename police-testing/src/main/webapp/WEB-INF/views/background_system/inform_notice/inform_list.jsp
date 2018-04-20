@@ -411,7 +411,7 @@
 												console.log('提交', d, result.message, result.status);
 
 												if (result.status == 1) {
-													$table.bootstrapTable('refresh', {silent: true});
+													$table.bootstrapTable('refresh', {silent: false});
 
 													dialog.enableButtons(false);
 													dialog.setClosable(false);
@@ -558,7 +558,7 @@
 												console.log('提交', d, result.message, result.status);
 
 												if (result.status == 1) {
-													$table.bootstrapTable('refresh', {silent: true});
+													$table.bootstrapTable('refresh', {silent: false});
 													dialog.enableButtons(false);
 													dialog.setClosable(false);
 													dialog.getModalBody().html(result.message);
@@ -634,7 +634,7 @@
 										type: BootstrapDialog.TYPE_SUCCESS
 									});
 									alt.$modalDialog.css('width', '100px');
-									$table.bootstrapTable('refresh', {silent: true});
+									$table.bootstrapTable('refresh', {silent: false});
 								} else {
 									var alt = BootstrapDialog.alert({
 										title: '删除失败',
@@ -642,7 +642,7 @@
 										type: BootstrapDialog.TYPE_DANGER
 									});
 									alt.$modalDialog.css('width', '100px');
-									$table.bootstrapTable('refresh', {silent: true});
+									$table.bootstrapTable('refresh', {silent: false});
 								}
 							},
 							error: function(d) {
