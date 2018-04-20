@@ -214,13 +214,13 @@
 			<span id="table_11_rightHack">
 				<div class="input-group pull-left" style="width: 482px;">
 					<span class="input-group-addon">日期从</span>
-					<input type="text" class="form-control" style="width: 87px;" placeholder="开始日期" name="beginDate" id="beginDate">
+					<input type="text" class="form-control" style="width: 100px;" placeholder="开始日期" name="beginDate" id="beginDate">
 					<span class="input-group-addon">至</span>
-					<input type="text" class="form-control" style="width: 87px;" placeholder="结束日期" name="endDate" id="endDate">
+					<input type="text" class="form-control" style="width: 100px;" placeholder="结束日期" name="endDate" id="endDate">
 				<!-- </div>
 				<div class="input-group pull-left" style="width: 200px; margin-left: 10px;"> -->
 					<span class="input-group-addon">关键字</span>
-					<input type="text" class="form-control" style="width: 133px;" placeholder="模糊查询" name="search" id="search">
+					<input type="text" class="form-control" style="width: 150px;" placeholder="模糊查询" name="search" id="search">
 
 					<span class="btn btn-default input-group-addon" style="width: 54px;" id="btn_search">
 						查找
@@ -433,6 +433,7 @@
 
 		$btn_check.click(function() {
 			$btn_check.prop('disabled', true);
+			$checked.html('检查中...');
 			$.ajax({
 				url: '${pageContext.request.contextPath}/testCreate/searchLog',
 				data: {
@@ -475,7 +476,7 @@
 		});
 
 		$btn_search.click(function() {
-			$table.bootstrapTable('refresh', {silent: true});
+			$table.bootstrapTable('refresh', {silent: false});
 		});
 
 
@@ -494,6 +495,7 @@
 		});
 
 		$btn_next.click(function() {
+			$btn_next.prop('disabled', true);
 			BootstrapDialog.show({
 				title: '请输入以下信息',
 				message: function() {
@@ -512,6 +514,7 @@
 					action: function(dialog, evt) {
 						var $button = this;
 						$button.spin();
+						dialog.enableButtons(false);
 						
 						var isValid = $('#dataForm').valid();
 
@@ -539,6 +542,7 @@
 											endDate: $('#endDate').val().trim()
 										}, formData);
 										console.log('save formData', formData);
+										$('#dataForm').find(':input').prop('disabled', true);
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
@@ -550,8 +554,9 @@
 
 												console.log('生成试卷预览TODO');
 
-												/*if (result.status == 1) {
-													$table.bootstrapTable('refresh', {silent: true});
+												// TODO ....
+												if (result.status == 1) {
+													$table.bootstrapTable('refresh', {silent: false});
 
 													dialog.enableButtons(false);
 													dialog.setClosable(false);
@@ -563,11 +568,12 @@
 												} else {
 													BootstrapDialog.alert({
 														title: '结果',
-														message: result.message,
+														message: '生成试卷预览失败。' + result.message,
 														type: BootstrapDialog.TYPE_DANGER
 													});
 													$button.stopSpin();
-												}*/
+													dialog.enableButtons(true);
+												}
 											},
 											error: function(d) {
 												BootstrapDialog.alert({
@@ -575,11 +581,16 @@
 													message: '上传失败',
 													type: BootstrapDialog.TYPE_DANGER
 												});
+											},
+											complete: function() {
 												$button.stopSpin();
+												dialog.enableButtons(true);
+												$('#dataForm').find(':input').prop('disabled', false);
 											}
 										});
 									} else {
 										$button.stopSpin();
+										dialog.enableButtons(true);
 									}
 								}
 							});
@@ -587,6 +598,7 @@
 							// console.log(cfm);
 						} else {
 							$button.stopSpin();
+							dialog.enableButtons(true);
 						}
 					}
 				}, {
@@ -596,6 +608,8 @@
 					}
 				}]
 			});
+
+			$btn_next.prop('disabled', false);
 		});
 	});
 </script>
