@@ -448,7 +448,7 @@
 							'已选择多选题：' + result.manySelectCount + '道' +
 						'</div>' +
 						'<div class="form-control-static">' +
-							'已选择判断题：' + result.singleSelectCount + '道' +
+							'已选择判断题：' + result.judgeCount + '道' +
 						'</div>' +
 						'<div class="form-control-static">' +
 							'检查结果：<span class="status ' + (result.status == 1 ? 'btn-success' : 'btn-danger') + '">' + (result.status == 1 ? '通过' : '未通过') + '</span>' +
@@ -563,7 +563,11 @@
 												}*/
 											},
 											error: function(d) {
-												BootstrapDialog.alert('上传失败');
+												BootstrapDialog.alert({
+													title: '错误',
+													message: '上传失败',
+													type: BootstrapDialog.TYPE_DANGER
+												});
 												$button.stopSpin();
 											}
 										});
