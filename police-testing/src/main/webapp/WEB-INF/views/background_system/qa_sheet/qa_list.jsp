@@ -174,8 +174,8 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div id="table_11_toolbar">
-				<!-- <button id="table_11_add" class="btn btn-success">
-					<i class="glyphicon glyphicon-plus"></i> 新增
+				<!-- <button id="table_11_set" class="btn btn-success">
+					<i class="glyphicon glyphicon-plus"></i> 设置发布状态
 				</button> -->
 				<button id="table_11_edit" class="btn btn-warning" disabled>
 					<i class="glyphicon glyphicon-edit"></i> 编辑
