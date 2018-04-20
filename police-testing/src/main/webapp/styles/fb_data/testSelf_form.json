@@ -1,0 +1,111 @@
+{
+	"label": "",
+	"type": "form",
+	"items": [
+		{
+			"label": "自学名称",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "testSelfName",
+					"type": "text",
+					"placeholder": "提问内容"
+				}
+			]
+		},
+		{
+			"label": "自学分类",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "testSelfType",
+					"type": "select",
+					"options": [
+						{
+							"value": "执法资格等级考试",
+							"label": "执法资格等级考试"
+						},
+						{
+							"value": "法律法规",
+							"label": "法律法规"
+						},
+						{
+							"value": "党的建设",
+							"label": "党的建设"
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "自学级别",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "testSelfLevel",
+					"type": "select",
+					"options": [
+						{
+							"value": "基本级",
+							"label": "基本级"
+						},
+						{
+							"value": "中级",
+							"label": "中级"
+						},
+						{
+							"value": "高级",
+							"label": "高级"
+						}
+					]
+				}
+			]
+		},
+		{
+			"label": "自学内容",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "testSelfContent",
+					"type": "textarea",
+					"placeholder": ""
+				}
+			]
+		}
+	],
+	"rules": {
+		"name":{
+			"required": true
+		}
+	},
+	"events": [
+	],
+	"values": {
+	},
+	"isRead": false,
+	"groupDefaultSplit": false
+}

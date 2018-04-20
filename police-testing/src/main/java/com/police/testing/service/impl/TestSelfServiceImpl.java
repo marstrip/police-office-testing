@@ -30,7 +30,9 @@ public class TestSelfServiceImpl implements ITestSelfService{
 		self.setTestSelfContent(testSelfContent);
 		self.setTestSelfLevel(testSelfLevel);
 		self.setTestSelfType(testSelfType);
-		self.setCreateDate(new Date());
+		Date now = new Date();
+		self.setCreateDate(now);
+		self.setUpdateDate(now);
 		self.setEnable("1");
 		return testSelfMapper.insert(self);
 	}
@@ -50,11 +52,7 @@ public class TestSelfServiceImpl implements ITestSelfService{
 
 	@Override
 	public Integer deleteData(String testSelfId) {
-		// TODO Auto-generated method stub
-		TestSelf self = new TestSelf();
-		self.setTestSelfId(testSelfId);
-		self.setEnable("0");
-		return testSelfMapper.updateByPrimaryKeySelective(self);
+		return testSelfMapper.updateEnable(testSelfId);
 	}
 
 	@Override

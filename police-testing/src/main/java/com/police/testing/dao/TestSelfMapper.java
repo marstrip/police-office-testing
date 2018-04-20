@@ -27,4 +27,6 @@ public interface TestSelfMapper {
      */
     List<TestSelf> selectByLikeTestSelfName(@Param("testSelfContent") String testSelfContent, 
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
+    
+    int updateEnable(@Param("testSelfId") String testSelfId);
 }

@@ -30,9 +30,9 @@ public class TestSelfController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("saveTestSelf")
+	@RequestMapping("saveData")
 	@ResponseBody
-	public JSONObject saveTestSelf(HttpServletRequest request){
+	public JSONObject saveData(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String testSelfName = GetEncode.transcode(request.getParameter("testSelfName"));
 		String testSelfContent = GetEncode.transcode(request.getParameter("testSelfContent"));
@@ -53,7 +53,7 @@ public class TestSelfController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("deleteTestSelf")
+	@RequestMapping("deleteData")
 	@ResponseBody
 	public JSONObject deleteTestSelf(HttpServletRequest request){
 		JSONObject result = new JSONObject();
@@ -74,7 +74,7 @@ public class TestSelfController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("updateTestSelf")
+	@RequestMapping("updateData")
 	@ResponseBody
 	public JSONObject updateTestSelf(HttpServletRequest request){
 		JSONObject result = new JSONObject();
@@ -124,11 +124,11 @@ public class TestSelfController {
 	@ResponseBody
 	public JSONObject view(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		String qaId = GetEncode.transcode(request.getParameter("qaId"));
+		String qaId = GetEncode.transcode(request.getParameter("testSelfId"));
 		TestSelf testSelf = testSelfService.getContentById(qaId);
 		result.put("status", 1);
 		result.put("message", "成功");
-		result.put("info",testSelf.getTestSelfContent());
+		result.put("info",testSelf);
 		return result;
 	}
 }
