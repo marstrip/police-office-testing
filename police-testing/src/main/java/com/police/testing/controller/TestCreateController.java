@@ -97,13 +97,13 @@ public class TestCreateController {
 		List<TestQuestionWithBLOBs> list = new ArrayList<>();
 		//获取不同类型题目个数
 		//单选题个数
-		Integer singleSelectCount = Integer.valueOf(GetEncode.transcode(request.getParameter("singleSelectCount")));
+		Integer singleSelectCount = 15;
 		List<TestQuestionWithBLOBs> singleSelectList = questionService.getListByQuestionTypeAndNumber(beginDate, endDate, uploadFileIds, singleSelectCount, "1");
 		//多选题个数
-		Integer manySelectCount = Integer.valueOf(GetEncode.transcode(request.getParameter("manySelectCount")));
+		Integer manySelectCount = 20;
 		List<TestQuestionWithBLOBs> manySelectList = questionService.getListByQuestionTypeAndNumber(beginDate, endDate, uploadFileIds, manySelectCount, "2");
 		//判断题个数
-		Integer judgeCount = Integer.valueOf(GetEncode.transcode(request.getParameter("judgeCount")));
+		Integer judgeCount = 10;
 		List<TestQuestionWithBLOBs> judgeList = questionService.getListByQuestionTypeAndNumber(beginDate, endDate, uploadFileIds, judgeCount, "3");
 		//合并集合
 		list.addAll(singleSelectList);

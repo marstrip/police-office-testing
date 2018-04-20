@@ -381,7 +381,7 @@ public class QuestionServiceImpl implements IQuestionService{
 			String[] uploadLogIds, Integer number, String questionType) {
 		List<String> uploadFileLogs = new ArrayList<>();
 		for (int i = 0; i < uploadLogIds.length; i++) {
-			uploadFileLogs.add(uploadLogIds[i]);
+			uploadFileLogs.add(uploadLogIds[i]);	
 		}
 		List<TestQuestionWithBLOBs> list = testQuestionMapper.selectRandomByQuestionTypeAndNumber(beginDate, endDate, uploadFileLogs, questionType, number);
 		return list;
