@@ -29,4 +29,19 @@ public interface SysLoginLogMapper {
      * @return
      */
     List<SysLoginLog> selectLoginList(@Param("page")PageHelper page);
+    /**
+     * 根据时间段获取所有去重上传部门集合
+     * @param beginDate
+     * @param endDate
+     * @return
+     */
+    List<String> selectDistDepartmentName(@Param("beginDate") String beginDate, @Param("endDate") String endDate);
+    /**
+     * 根据部门和登录时间获取登录记录集合
+     * @param departmentName
+     * @param beginDate
+     * @param endDate
+     * @return
+     */
+    List<SysLoginLog> selectByDepartmentName(@Param("departmentName") String departmentName,@Param("beginDate") String beginDate, @Param("endDate") String endDate);
 }

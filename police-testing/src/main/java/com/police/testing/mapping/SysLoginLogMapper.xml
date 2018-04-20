@@ -22,6 +22,29 @@
     from sys_login_log
     where auto_id = #{autoId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectDistDepartmentName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+  	DISTINCT(department_name)
+    from sys_login_log
+    where 1=1
+    <if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+    	and login_time between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
+    </if>
+    and user_status = '1'
+  </select>
+  
+  <select id="selectByDepartmentName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_login_log
+    where 1=1 
+    <if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+    	and login_time between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
+    </if>
+    and department_name = #{department,jdbcType=VARCHAR}
+    and user_status = '1'
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_login_log
     where auto_id = #{autoId,jdbcType=INTEGER}
