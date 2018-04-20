@@ -194,7 +194,7 @@
 
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<div id="table_11_toolbar" style="width: 800px;">
+			<div id="table_11_toolbar">
 				<!-- <button id="table_11_add" class="btn btn-success">
 					<i class="glyphicon glyphicon-plus"></i> 新增
 				</button>
@@ -208,19 +208,25 @@
 					<i class="glyphicon glyphicon-eye-open"></i> 预览
 				</button> -->
 				
-					<div class="input-group" style="width: 380px;">
-						<input type="text" class="form-control" placeholder="请点击以选择开始日期" name="beginDate" id="beginDate">
-						<span class="input-group-addon">-</span>
-						<input type="text" class="form-control" placeholder="请点击以选择开始日期" name="endDate" id="endDate">
-					</div>
-					<div class="input-group" style="width: 200px;">
-						<input type="text" class="form-control" placeholder="搜索" name="search" id="search">
-					</div>
-					<button class="btn btn-default" id="btn_search">
-						查找
-					</button>
+					
 
 			</div>
+			<span id="table_11_rightHack">
+				<div class="input-group pull-left" style="width: 482px;">
+					<span class="input-group-addon">日期从</span>
+					<input type="text" class="form-control" style="width: 87px;" placeholder="开始日期" name="beginDate" id="beginDate">
+					<span class="input-group-addon">至</span>
+					<input type="text" class="form-control" style="width: 87px;" placeholder="结束日期" name="endDate" id="endDate">
+				<!-- </div>
+				<div class="input-group pull-left" style="width: 200px; margin-left: 10px;"> -->
+					<span class="input-group-addon">关键字</span>
+					<input type="text" class="form-control" style="width: 133px;" placeholder="模糊查询" name="search" id="search">
+
+					<span class="btn btn-default input-group-addon" style="width: 54px;" id="btn_search">
+						查找
+					</span>
+				</div>
+			</span>
 			<table id="table_11"></table>
 				
 			<hr>
@@ -317,7 +323,7 @@
 			singleSelect: false,		// 即使是checkbox，也只能选中一个
 
 			// showToggle: true,			//是否显示 切换试图（table/card）按钮
-			showColumns: true,		//是否显示 内容列下拉框
+			showColumns: false,		//是否显示 内容列下拉框
 			showRefresh: true,
 			toolbar: '#table_11_toolbar',	// 指定了toolbar的选择器，会把toolbar加入到table的container里来
 			//buttonsToolbar				// 给toolbar外边再套一层，支持新建node
@@ -379,6 +385,13 @@
 				}
 			]
 		});
+		// 刷新按钮细节补全
+		$('button[name=refresh]').addClass('form-control-static').css({
+			"margin-left": "10px",
+			"border-top-left-radius": "4px",
+			"border-bottom-left-radius": "4px"
+		});
+		$('.columns.columns-right.btn-group.pull-right').prepend($('#table_11_rightHack'));
 
 		// 获取选中的ids
 		function getIdSelections() {
