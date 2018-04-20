@@ -274,6 +274,18 @@
 		      
 		    return this.optional(element) || (result);  
 		}, "请输入正确的日期");
+
+		jQuery.validator.addMethod("isDate", function(value, element){  
+		    var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;  
+		    var r = value.match(ereg);  
+		    if (r == null) {  
+		        return false;  
+		    }  
+		    var d = new Date(r[1], r[3] - 1, r[5]);  
+		    var result = (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[5]);  
+		      
+		    return this.optional(element) || (result);  
+		}, "请输入正确的日期时间");
 		  
 
 		$('input[name="beginDate"], input[name="endDate"]').datetimepicker({
@@ -492,7 +504,7 @@
 					return $message;
 				},
 				buttons: [{
-					label: '提交',
+					label: '生成预览',
 					icon: 'glyphicon glyphicon-send',
 					autospin: false,
 					cssClass: "btn-primary",
@@ -520,17 +532,18 @@
 										
 										// 整合数据
 										var formData = $('#dataForm').serializeJson();
-										formData['caseContent'] = window.weditor.txt.html();
 										console.log('save formData', formData);
 
 										$.ajax({
-											url: '${pageContext.request.contextPath}/caseAnalyze/saveCase',
+											url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
 											data : formData,
 											success: function(d) {
 												var result = $.parseJSON(d);
-												console.log('提交', d, result.message, result.status);
+												console.log('提交成功，结果:', d, result);
 
-												if (result.status == 1) {
+												console.log('生成试卷预览TODO');
+
+												/*if (result.status == 1) {
 													$table.bootstrapTable('refresh', {silent: true});
 
 													dialog.enableButtons(false);
@@ -547,7 +560,7 @@
 														type: BootstrapDialog.TYPE_DANGER
 													});
 													$button.stopSpin();
-												}
+												}*/
 											},
 											error: function(d) {
 												BootstrapDialog.alert('上传失败');

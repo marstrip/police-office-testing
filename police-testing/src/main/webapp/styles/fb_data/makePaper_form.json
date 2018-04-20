@@ -3,13 +3,13 @@
 	"type": "form",
 	"items": [
 		{
-			"label": "考试名称(TODO:testPaperName)",
+			"label": "考试名称",
 			"type": "form-group",
 			"groupId": "group0",
 
 			"outerWidth": "col-sm-12",
-			"labelWidth": "col-sm-2",
-			"contentWidth": "col-sm-10",
+			"labelWidth": "col-sm-4",
+			"contentWidth": "col-sm-8",
 
 			"items": [
 				{
@@ -20,13 +20,13 @@
 			]
 		},
 		{
-			"label": "考试时长(TODO:testTime 单位：分钟)",
+			"label": "考试时长(分钟)",
 			"type": "form-group",
 			"groupId": "group0",
 
 			"outerWidth": "col-sm-12",
-			"labelWidth": "col-sm-2",
-			"contentWidth": "col-sm-10",
+			"labelWidth": "col-sm-4",
+			"contentWidth": "col-sm-8",
 
 			"items": [
 				{
@@ -37,33 +37,45 @@
 			]
 		},
 		{
-			"label": "考试截止日期(TODO:testDate 日期自动显示成当天23:59:59 例如：2018-04-20 23:59:59)",
+			"label": "考试截止日期",
 			"type": "form-group",
 			"groupId": "group0",
 
 			"outerWidth": "col-sm-12",
-			"labelWidth": "col-sm-2",
-			"contentWidth": "col-sm-10",
+			"labelWidth": "col-sm-4",
+			"contentWidth": "col-sm-8",
 
 			"items": [
 				{
 					"name": "testDate",
 					"type": "date",
-					"placeholder": ""
+					"placeholder": "",
+					"dtp_setting": {
+		                "language": "zh-CN",
+		                "format": "yyyy-mm-dd 23:59:59",
+		                "weekStart": 1,
+		                "todayBtn":  1,
+		                "autoclose": 1,
+		                "todayHighlight": 1,
+		                "startView": 2,
+		                "minView": 2,
+		                "forceParse": 0
+		            }
 				}
 			]
 		}
 	],
 	"rules": {
-		"testName":{
+		"testPaperName":{
 			"required": true
 		},
 		"testTime":{
-			"required": true
-		},
-		"testStartTime":{
 			"required": true,
-			"isDate": true
+			"digits": true
+		},
+		"testDate":{
+			"required": true,
+			"date": true
 		}
 	},
 	"events": [

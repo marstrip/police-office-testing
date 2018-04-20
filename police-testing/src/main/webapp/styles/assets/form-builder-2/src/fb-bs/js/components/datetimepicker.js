@@ -26,7 +26,7 @@
             var $input = $(that.$node.find('input'));
             $input.attr('placeholder', that.opts.placeholder);
             
-            $input.datetimepicker({
+            $input.datetimepicker(that.opts.dtp_setting || {
                 language: 'zh-CN',
                 format: 'yyyy-mm-dd',
                 weekStart: 1,
