@@ -400,6 +400,7 @@
 					action: function(dialog, evt) {
 						var $button = this;
 						$button.spin();
+						dialog.enableButtons(false);
 						
 						var isValid = $('#dataForm').valid();
 
@@ -448,6 +449,7 @@
 														type: BootstrapDialog.TYPE_DANGER
 													});
 													$button.stopSpin();
+													dialog.enableButtons(true);
 												}
 											},
 											error: function(d) {
@@ -457,10 +459,12 @@
 													type: BootstrapDialog.TYPE_DANGER
 												});
 												$button.stopSpin();
+												dialog.enableButtons(true);
 											}
 										});
 									} else {
 										$button.stopSpin();
+										dialog.enableButtons(true);
 									}
 								}
 							});
@@ -468,6 +472,7 @@
 							// console.log(cfm);
 						} else {
 							$button.stopSpin();
+							dialog.enableButtons(true);
 						}
 					}
 				}, {
@@ -550,6 +555,7 @@
 					action: function(dialog, evt) {
 						var $button = this;
 						$button.spin();
+						dialog.enableButtons(false);
 						
 						var isValid = $('#dataForm').valid();
 
@@ -598,6 +604,7 @@
 														type: BootstrapDialog.TYPE_DANGER
 													});
 													$button.stopSpin();
+													dialog.enableButtons(true);
 												}
 											},
 											error: function(d) {
@@ -607,10 +614,12 @@
 													type: BootstrapDialog.TYPE_DANGER
 												});
 												$button.stopSpin();
+												dialog.enableButtons(true);
 											}
 										});
 									} else {
 										$button.stopSpin();
+										dialog.enableButtons(true);
 									}
 								}
 							});
@@ -618,6 +627,7 @@
 							// console.log(cfm);
 						} else {
 							$button.stopSpin();
+							dialog.enableButtons(true);
 						}
 					}
 				}, {
