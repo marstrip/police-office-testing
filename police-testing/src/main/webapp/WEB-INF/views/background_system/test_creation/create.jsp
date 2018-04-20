@@ -524,7 +524,7 @@
 											uploadFileIds: selections.join(',').trim(),
 											beginDate: $('#beginDate').val().trim(),
 											endDate: $('#endDate').val().trim()
-										})
+										}, formData);
 										console.log('save formData', formData);
 
 										$.ajax({
