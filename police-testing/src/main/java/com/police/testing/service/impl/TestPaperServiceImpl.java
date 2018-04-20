@@ -50,15 +50,24 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	public String createTempTestPaper(List<TestQuestionWithBLOBs> questionWithBLOBs, String testPaperType, String testPaperName,
 			Integer testTime, String testDate) {
 		//生成试卷
-		String testPaperId = UUID.randomUUID().toString();
+		String testPaperId = "TEST" + UUID.randomUUID().toString();
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		String userId = (String) session.getAttribute("currentUserId");
+		String userName = (String) session.getAttribute("currentUserName");
 		TestPaper testPaper = new TestPaper();
 		testPaper.setTestPaperId(testPaperId);
 		testPaper.setTestPaperName(testPaperName);
 		testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-DD hh:mm:ss"));
 		testPaper.setTestTime(testTime);
+		Date now = new Date();
 		//待预览为0，生成为1
 		testPaper.setTestPaperType(testPaperType);
 		testPaper.setEnable("0");
+		testPaper.setCreateDate(now);
+		testPaper.setUpdateDate(now);
+		testPaper.setCreatorId(userId);
+		testPaper.setCreatorName(userName);
 		testPaperMapper.insert(testPaper);
 		//生成试卷与试题对应关系
 		for (int i = 0 ; i< questionWithBLOBs.size(); i++) {
@@ -67,6 +76,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			testPaperQuestion.setTestPaperId(testPaperId);
 			testPaperQuestion.setTestQuestionsId(testQuestionWithBLOBs.getTestQuestionsId());
 			testPaperQuestion.setTestQuestionsNumber(i++);
+			testPaperQuestion.setTestPaperName(testPaperName);
 			testPaperQuestionMapper.insert(testPaperQuestion);
 		}
 		return testPaperId;

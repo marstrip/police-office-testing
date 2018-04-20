@@ -297,7 +297,7 @@
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
-			url: '${pageContext.request.contextPath}/uploadLog/getList?',
+			url: '${pageContext.request.contextPath}/uploadLog/getList',
 			method: 'GET',
 			dataType: "json",
 			striped: true,				//设置为 true 会有隔行变色效果  
