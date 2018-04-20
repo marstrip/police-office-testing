@@ -262,7 +262,7 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// 日期 自定义校验 
+		/*// 日期 自定义校验 
 		jQuery.validator.addMethod("isDate", function(value, element){  
 		    var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;  
 		    var r = value.match(ereg);  
@@ -274,19 +274,7 @@
 		      
 		    return this.optional(element) || (result);  
 		}, "请输入正确的日期");
-
-		jQuery.validator.addMethod("isDate", function(value, element){  
-		    var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;  
-		    var r = value.match(ereg);  
-		    if (r == null) {  
-		        return false;  
-		    }  
-		    var d = new Date(r[1], r[3] - 1, r[5]);  
-		    var result = (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[5]);  
-		      
-		    return this.optional(element) || (result);  
-		}, "请输入正确的日期时间");
-		  
+		  */
 
 		$('input[name="beginDate"], input[name="endDate"]').datetimepicker({
             language: 'zh-CN',
@@ -351,9 +339,9 @@
 					//这里的params是table提供的
 					offset: params.offset,		//从数据库第几条记录开始
 					limit: params.limit,		//找多少条
-					search: $('#search').val(),		//筛选
-					beginDate: $('#beginDate').val(),
-					endDate: $('#endDate').val()
+					search: $('#search').val().trim(),		//筛选
+					beginDate: $('#beginDate').val().trim(),
+					endDate: $('#endDate').val().trim()
 					// TODO: 加校验
 				};
 			},
@@ -448,7 +436,7 @@
 							'已选择多选题：' + result.manySelectCount + '道' +
 						'</div>' +
 						'<div class="form-control-static">' +
-							'已选择判断题：' + result.singleSelectCount + '道' +
+							'已选择判断题：' + result.judgeCount + '道' +
 						'</div>' +
 						'<div class="form-control-static">' +
 							'检查结果：<span class="status ' + (result.status == 1 ? 'btn-success' : 'btn-danger') + '">' + (result.status == 1 ? '通过' : '未通过') + '</span>' +
@@ -532,10 +520,16 @@
 										
 										// 整合数据
 										var formData = $('#dataForm').serializeJson();
+										formData = $.extend({}, {
+											uploadFileIds: selections.join(',').trim(),
+											beginDate: $('#beginDate').val().trim(),
+											endDate: $('#endDate').val().trim()
+										}, formData);
 										console.log('save formData', formData);
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
+											method: "POST",
 											data : formData,
 											success: function(d) {
 												var result = $.parseJSON(d);
@@ -563,7 +557,11 @@
 												}*/
 											},
 											error: function(d) {
-												BootstrapDialog.alert('上传失败');
+												BootstrapDialog.alert({
+													title: '错误',
+													message: '上传失败',
+													type: BootstrapDialog.TYPE_DANGER
+												});
 												$button.stopSpin();
 											}
 										});

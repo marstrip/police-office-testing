@@ -173,6 +173,9 @@
 			min-width: 800px;
 			width: 90%;
 		}
+		.fixed-table-toolbar .search {
+		    line-height: initial;
+		}
 	</style>
 </head>
 <body>
@@ -180,16 +183,16 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div id="table_11_toolbar">
-				<button id="table_11_add" class="btn btn-success">
+				<button id="table_11_add" class="form-control-static btn btn-success">
 					<i class="glyphicon glyphicon-plus"></i> 新增
 				</button>
-				<button id="table_11_edit" class="btn btn-warning" disabled>
+				<button id="table_11_edit" class="form-control-static btn btn-warning" disabled>
 					<i class="glyphicon glyphicon-edit"></i> 编辑
 				</button>
-				<button id="table_11_delete" class="btn btn-danger" disabled>
+				<button id="table_11_delete" class="form-control-static btn btn-danger" disabled>
 					<i class="glyphicon glyphicon-remove"></i> 删除
 				</button>
-				<button id="table_11_view" class="btn btn-primary" disabled>
+				<button id="table_11_view" class="form-control-static btn btn-primary" disabled>
 					<i class="glyphicon glyphicon-eye-open"></i> 预览
 				</button>
 			</div>
@@ -240,7 +243,7 @@
 			singleSelect: true,		// 即使是checkbox，也只能选中一个
 
 			// showToggle: true,			//是否显示 切换试图（table/card）按钮
-			showColumns: true,		//是否显示 内容列下拉框
+			showColumns: false,		//是否显示 内容列下拉框
 			showRefresh: true,
 			toolbar: '#table_11_toolbar',	// 指定了toolbar的选择器，会把toolbar加入到table的container里来
 			//buttonsToolbar				// 给toolbar外边再套一层，支持新建node
@@ -309,6 +312,8 @@
 				}
 			]
 		});
+		// 刷新按钮细节补全
+		$('button[name=refresh]').addClass('form-control-static');
 
 		// 获取选中的ids
 		function getIdSelections() {
@@ -446,7 +451,11 @@
 												}
 											},
 											error: function(d) {
-												BootstrapDialog.alert('上传失败');
+												BootstrapDialog.alert({
+													title: '错误',
+													message: '上传失败',
+													type: BootstrapDialog.TYPE_DANGER
+												});
 												$button.stopSpin();
 											}
 										});
@@ -592,7 +601,11 @@
 												}
 											},
 											error: function(d) {
-												BootstrapDialog.alert('上传失败');
+												BootstrapDialog.alert({
+													title: '错误',
+													message: '上传失败',
+													type: BootstrapDialog.TYPE_DANGER
+												});
 												$button.stopSpin();
 											}
 										});
@@ -662,7 +675,11 @@
 								}
 							},
 							error: function(d) {
-								BootstrapDialog.alert('提交删除请求失败');
+								BootstrapDialog.alert({
+									title: '错误',
+									message: '提交删除请求失败',
+									type: BootstrapDialog.TYPE_DANGER
+								});
 							}
 						});
 					}
