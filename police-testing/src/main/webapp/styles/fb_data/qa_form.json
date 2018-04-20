@@ -20,6 +20,32 @@
 			]
 		},
 		{
+			"label": "设置发布状态",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-2",
+			"contentWidth": "col-sm-10",
+
+			"items": [
+				{
+					"name": "qaStatus",
+					"type": "select",
+					"options": [
+						{
+							"value": 0,
+							"label": "未发布"
+						},
+						{
+							"value": 1,
+							"label": "已发布"
+						}
+					]
+				}
+			]
+		},
+		{
 			"label": "答案",
 			"type": "form-group",
 			"groupId": "group0",
