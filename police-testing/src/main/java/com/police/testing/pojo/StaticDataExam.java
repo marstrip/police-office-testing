@@ -1,14 +1,16 @@
 package com.police.testing.pojo;
 
-public class StaticDataSimulateExam {
+public class StaticDataExam {
 	
 	private String departmentName;
 	
 	private Integer simulateExamCount;
 	
 	private Integer viewExamCount;
-
+	
 	private Integer sumCount;
+	
+	private Integer officialCount;
 	
 	public String getDepartmentName() {
 		return departmentName;
@@ -41,4 +43,13 @@ public class StaticDataSimulateExam {
 	public void setSumCount(Integer sumCount) {
 		this.sumCount = sumCount;
 	}
+
+	public Integer getOfficialCount() {
+		return officialCount;
+	}
+
+	public void setOfficialCount(Integer officialCount) {
+		this.officialCount = officialCount;
+	}
+	
 }

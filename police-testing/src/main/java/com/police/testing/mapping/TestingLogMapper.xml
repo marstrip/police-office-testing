@@ -41,11 +41,27 @@
     <if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
     	and create_date between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
     </if>
-    	and department_name = #{department,jdbcType=VARCHAR}
+    	and department_name = #{departmentName,jdbcType=VARCHAR}
   	<if test="testingType != null and testingType != ''">
   		and testing_type = #{testingType,jdbcType=VARCHAR}
   	</if>
   </select>
+  
+  <select id="selectByTestPaperIdAndTypeAndSorce" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from testing_log
+    where 1=1 
+    <if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+    	and create_date between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
+    </if>
+    	and test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  	<if test="testingType != null and testingType != ''">
+  		and testing_type = #{testingType,jdbcType=VARCHAR}
+  	</if>
+  		and socre >= #{score,jdbcType=INTEGER}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from testing_log
     where auto_id = #{autoId,jdbcType=INTEGER}

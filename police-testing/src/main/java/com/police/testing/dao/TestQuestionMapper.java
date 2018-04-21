@@ -48,5 +48,5 @@ public interface TestQuestionMapper {
      * @param testQuestionIds
      * @return
      */
-	List<TestQuestion> selectByTestQuestionIds(@Param("testQuestionIds") List<String> testQuestionIds);
+	List<TestQuestionWithBLOBs> selectByTestQuestionIds(@Param("testQuestionIds") List<String> testQuestionIds);
 }

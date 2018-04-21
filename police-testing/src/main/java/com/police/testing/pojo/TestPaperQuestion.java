@@ -13,7 +13,7 @@ public class TestPaperQuestion {
 
     private Integer answerCount;
 
-    private Integer correctAnswerCount;
+    private Integer failCount;
 
     public Integer getAutoId() {
         return autoId;
@@ -64,11 +64,11 @@ public class TestPaperQuestion {
         this.answerCount = answerCount;
     }
 
-    public Integer getCorrectAnswerCount() {
-        return correctAnswerCount;
-    }
+	public Integer getFailCount() {
+		return failCount;
+	}
 
-    public void setCorrectAnswerCount(Integer correctAnswerCount) {
-        this.correctAnswerCount = correctAnswerCount;
-    }
+	public void setFailCount(Integer failCount) {
+		this.failCount = failCount;
+	}
 }

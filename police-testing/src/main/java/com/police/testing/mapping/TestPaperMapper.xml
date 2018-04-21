@@ -30,7 +30,7 @@
     from test_paper
     where 1=1
     <if test="testPaperIds != null and testPaperIds != ''">
-    and test_paper_id in
+    	and test_paper_id in
     <foreach item="item" index="index" collection="testPaperIds" open="(" separator="," close=")">  
   		#{item}
  	</foreach>
