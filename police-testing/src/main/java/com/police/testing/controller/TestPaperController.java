@@ -89,7 +89,14 @@ public class TestPaperController {
 	@ResponseBody
 	public JSONObject submitTesting(HttpServletRequest request){
 		JSONObject result = new JSONObject();
-		
+		String jsonStr = GetEncode.transcode(request.getParameter("json"));
+		JSONObject receiveObject = JSONObject.fromObject(jsonStr);
+		if(receiveObject.containsKey("testPaperId") && receiveObject.containsKey("answerList")){
+			String testPaperId = receiveObject.getString("testPaperId");
+			String answerListStr = receiveObject.getString("answerList");
+			JSONArray answerArray = JSONArray.fromObject(answerListStr);
+			Integer flag = testPaperService.submitTesting(answerArray, testPaperId);
+		}
 		return result;
 	}
 }

@@ -25,6 +25,7 @@ import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.SystemTools;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Component("testPaperService")
@@ -166,6 +167,17 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	public TestPaper getTestPaperObjectById(String testPaperId) {
 		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
 		return testPaper;
+	}
+
+	@Override
+	public Integer submitTesting(JSONArray answerArray, String testPaperId) {
+		for (Object object : answerArray) {
+			JSONObject jsonObject = JSONObject.fromObject(object);
+			if(jsonObject.containsKey("testQusetionId") && jsonObject.containsKey("answer") && jsonObject.containsKey("questionType")){
+				String questionType = jsonObject.getString("questionType");
+			}
+		}
+		return null;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public interface ITestPaperService {
@@ -54,4 +55,6 @@ public interface ITestPaperService {
 	public long getCount(String testName);
 	
 	public TestPaper getTestPaperObjectById(String testPaperId);
+
+	public Integer submitTesting(JSONArray answerArray, String testPaperId);
 }

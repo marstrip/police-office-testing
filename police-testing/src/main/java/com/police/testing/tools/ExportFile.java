@@ -30,11 +30,11 @@ public class ExportFile {
 			workBook.setSheetName(0, "考试成绩");// 工作簿名称
 			XSSFFont font = workBook.createFont();
 			font.setColor(XSSFFont.COLOR_NORMAL);
-			font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
+//			font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
 			XSSFCellStyle cellStyle = workBook.createCellStyle();// 创建格式
 			cellStyle.setFont(font);
-			cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-			cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
+//			cellStyle.setAlignment(XSSFCellStyle。);
+//			cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
 			// 创建第一行标题
 			XSSFRow titleRow = sheet.createRow((short) 0);
 			Integer titleColumnNubmer = 0;
