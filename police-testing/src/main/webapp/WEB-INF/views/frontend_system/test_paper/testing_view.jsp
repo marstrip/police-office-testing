@@ -62,6 +62,15 @@
 		.exam-header-item + .exam-header-item {
 			border-left: 1px solid #ddd;
 		}
+
+		.judge.fa.right:after {
+			content: "\f00c";
+			color: green;
+		}
+		.judge.fa.wrong:after {
+			content: "\f00d";
+			color: red;
+		}
 	</style>
 
 </head>
@@ -78,9 +87,9 @@
                     <div class="icon-description">
                         96分16秒
                     </div>
-                    <div class="weak small">
+                    <!-- <div class="weak small">
                         共1题
-                    </div>
+                    </div> -->
                 </div>
                 <button class="panel-footer hover btn btn-default" style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-top-width: 1px; border-bottom-width: 1px;">
                     <div class="icon">
@@ -90,14 +99,14 @@
                         返回首页
                     </div>
                 </button>
-                <button id="btn_pause" class="panel-footer hover btn btn-default" style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-bottom-width: 1px;">
+                <!-- <button id="btn_pause" class="panel-footer hover btn btn-default" style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-bottom-width: 1px;">
                     <div class="icon">
                         <i class="fa fa-pause-circle-o fa-2x"></i>
                     </div>
                     <div class="icon-description">
                         暂停
                     </div>
-                </button>
+                </button> -->
                 <button id="btn_submit" class="panel-footer hover btn btn-success" style="text-align: center; width: 100%; border: none;border-top-left-radius: 0; border-top-right-radius: 0;">
                     <div class="icon">
                         <i class="fa fa-check-circle-o fa-2x"></i>
@@ -133,6 +142,30 @@
 	    });  
 	    return o;  
 	}  
+
+	// 扩展String类型的原生方法，提供类似java或python的format方法
+	String.prototype.format = function(args) {
+		var result = this;
+		if (arguments.length > 0) {
+			if (arguments.length == 1 && typeof (args) == "object") {
+				for (var key in args) {
+					if(args[key]!=undefined){
+						var reg = new RegExp("({" + key + "})", "g");
+						result = result.replace(reg, args[key]);
+					}
+				}
+			}
+			else {
+				for (var i = 0; i < arguments.length; i++) {
+					if (arguments[i] != undefined) {
+						var reg = new RegExp("({[" + i + "]})", "g");
+						result = result.replace(reg, arguments[i]);
+					}
+				}
+			}
+		}
+		return result;
+	}
 
 	var $paperContainer = $('#paperContainer');
 
@@ -190,6 +223,7 @@
 			btnOKClass: 'btn-warning',
 			callback: function(isYes) {
 				if (isYes) {
+					// 提交数据
 					var formData = {
 						testPaperId: testPaperId,
 						answerList: []
@@ -217,16 +251,44 @@
 
 					console.log('提交的数据>>>', formData);
 					
-					// 提交数据
 					$.ajax({
 						url: '${pageContext.request.contextPath}/testPaper/submitTesting',
 						method: 'POST',
 						data: { json: JSON.stringify(formData)},
 						success: function(d) {
-							try {
+							// try {
 								var result = $.parseJSON(d);
 								if (result.status == 1) {
-									$('body').html('提交成功！请关闭页面');
+									// $('body').html('提交成功！请关闭页面');
+
+									var qIdInfoMap = {};
+									$.each(result.testingResult, function(idx2) {
+										var tr = result.testingResult[idx2];
+										qIdInfoMap[tr.testQuestionsId] = {
+											correctFlag: tr.correctFlag,
+											rightAnswer: tr.rightAnswer
+										}
+									});
+
+									var $qs = $('input[type=hidden]');
+									$.each($qs, function(idx3) {
+										var $q = $($qs[idx3]);
+										var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
+										var qId = qData.testQuestionsId;
+										var aData = qIdInfoMap[qId];
+										var $checkAnswer = $q.closest('.q-select-answer').find('.check-answer');
+
+										$checkAnswer.html(
+											'<i class="judge fa {judgeClass}"></i>    正确答案: <span>{rightAnswer}</span>'.format({
+												judgeClass: ((!!aData.correctFlag) ? 'right': 'wrong'),
+												rightAnswer: aData.rightAnswer
+											})
+										);
+									});
+
+									// 总分
+									$('#score').append('<span style="color: red;">' + result.score + '</span>/');
+
 								} else {
 									BootstrapDialog.alert({
 										title: '注意',
@@ -235,25 +297,14 @@
 									});
 									$this.prop('disabled', false);
 								}
-							} catch(err) {
-								BootstrapDialog.alert({
-									title: '注意',
-									message: '提交数据成功，但是未按照预期反馈状态...请刷新重试',
-									type: BootstrapDialog.TYPE_WARNING
-								});
-								$this.prop('disabled', false);
-							}
-							var result = $.parseJSON(d);
-							if (result.status == 1) {
-								$('body').html('提交成功！请关闭页面');
-							} else {
-								BootstrapDialog.alert({
-									title: '结果',
-									message: '提交数据成功，但是未按照预期反馈状态...请重试',
-									type: BootstrapDialog.TYPE_WARNING
-								});
-								$this.prop('disabled', false);
-							}
+							// } catch(err) {
+							// 	BootstrapDialog.alert({
+							// 		title: '异常',
+							// 		message: '提交数据成功，但是未按照预期反馈状态...请刷新重试',
+							// 		type: BootstrapDialog.TYPE_WARNING
+							// 	});
+							// 	$this.prop('disabled', false);
+							// }
 						},
 						error: function(d) {
 							BootstrapDialog.alert({
