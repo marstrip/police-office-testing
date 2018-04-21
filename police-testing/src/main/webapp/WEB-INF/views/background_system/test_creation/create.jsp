@@ -639,9 +639,56 @@
 													cfmPaper.$modalDialog.css('width', '300px');
 												}
 											}, {
-												label: '取消',
+												label: '取消并清空临时数据',
 												action: function(dialogPaper) {
 													dialogPaper.close();
+
+													// 取消页面-清空缓存
+													$.ajax({
+														url: '${pageContext.request.contextPath}/testCreate/feedbackTestPaper',
+														method: 'POST',
+														data: {
+															testPaperId: result.testPaperId,
+															operateFlag: "cancle",
+															testDate: formData.testDate,
+															testPaperName: formData.testPaperName,
+															testTime: formData.testTime
+														},
+														success: function(dd) {
+															var _result = $.parseJSON(dd);
+															if (result.status == 1) {
+																dialogPaper.close();
+																BootstrapDialog.alert({
+																	title: '结果',
+																	message: '清空临时数据成功',
+																	type: BootstrapDialog.TYPE_SUCCESS
+																});
+															} else {
+																$buttonPaper.stopSpin();
+																dialogPaper.enableButtons(true);
+																BootstrapDialog.alert({
+																	title: '结果',
+																	message: '清空临时数据失败',
+																	type: BootstrapDialog.TYPE_DANGER
+																});
+															}
+															
+														},
+														error: function(dd) {
+															$buttonPaper.stopSpin();
+															dialogPaper.enableButtons(true);
+															BootstrapDialog.alert({
+																title: '错误',
+																message: '清空临时数据请求失败',
+																type: BootstrapDialog.TYPE_DANGER
+															});
+														},
+														complete: function() {
+															$buttonPaper.stopSpin();
+															dialogPaper.enableButtons(true);
+														}
+													});
+
 													dialog.enableButtons(true);
 													dialog.setClosable(true);
 												}
