@@ -556,15 +556,60 @@
 
 												// TODO ....
 												if (result.status == 1) {
-													$table.bootstrapTable('refresh', {silent: false});
-
 													dialog.enableButtons(false);
 													dialog.setClosable(false);
-													dialog.getModalBody().html(result.message);
+													
+													// 弹出预览页面
+													BootstrapDialog.show({
+														title: '试卷预览',
+														cssClass: 'paper-preview-dialog',
+														message: function() {
+															var $message = $('<div>TODO</div>');
+															// 渲染试卷方法
+															// $message.genPaper(formData, result);
+															return $message;
+														},
+														buttons: [{
+															label: '确认',
+															icon: 'glyphicon glyphicon-send',
+															autospin: false,
+															cssClass: "btn-primary",
+															action: function(dialogPaper, evt) {
+																var $buttonPaper = this;
+																$buttonPaper.spin();
+																dialogPaper.enableButtons(false);
+																
+																// 确认提交框
+																var cfmPaper = BootstrapDialog.confirm({
+																	title: '确认',
+																	message: '请确认是否生成该试卷？',
+																	type: BootstrapDialog.TYPE_WARNING,
+																	draggable: true,
+																	btnCancelLabel: '取消', 
+																	btnOKLabel: '确认',
+																	btnOKClass: 'btn-warning',
+																	callback: function(isYes) {
+																		if (isYes) {
+																			// 保存页面 TODO
+																			
+																		} else {
+																			$button.stopSpin();
+																			dialog.enableButtons(true);
+																		}
+																	}
+																});
+																cfmPaper.$modalDialog.css('width', '300px');
+															}
+														}, {
+															label: '取消',
+															action: function(dialogPaper) {
+																dialogPaper.close();
+																dialog.enableButtons(true);
+																dialog.setClosable(true);
+															}
+														}]
+													});	// END OF BootstrapDialog.show
 
-													setTimeout(function(){
-														dialog.close();
-													}, 3000);
 												} else {
 													BootstrapDialog.alert({
 														title: '结果',
