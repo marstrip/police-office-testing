@@ -39,7 +39,7 @@
 		var opt = $.extend({}. formData, result);
 
 		var $paper = $(`
-			<div style="width: 960px; margin: 20px auto; white-space: initial; padding: 0 20px;">
+			<div class="paper" style="width: 960px; margin: 20px auto; white-space: initial; padding: 20px;">
 				<style>
 					.q-type-mark {
 						margin-top: 40px;
@@ -69,7 +69,7 @@
 					<div class="p anel-body" style="display: block;">
 						<!-- 试卷头 -->
 						<div class="text-center">
-							<h2>{testPaperName}</h2>
+							<h1>{testPaperName}</h1>
 							<div class="col-sm-8 col-sm-offset-2">
 								<hr>
 								<div>

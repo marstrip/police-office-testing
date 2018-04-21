@@ -540,7 +540,7 @@
 							$.ajax({
 								url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
 								method: "POST",
-								data : formData,
+								data: formData,
 								success: function(d) {
 									var result = $.parseJSON(d);
 									console.log('提交成功，结果:', d, result);
