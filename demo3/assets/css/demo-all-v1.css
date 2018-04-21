@@ -101,6 +101,9 @@ span.form-control-feedback {
 	float: left;
 	margin-left: 15px;
 }
+.content-area {
+	width: calc(100% - 100px);
+}
 .middle-area + .right-area {
 	width: calc(100% - 610px);
 }
