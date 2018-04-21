@@ -27,6 +27,7 @@ import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestPaperQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.pojo.TestingLog;
+import com.police.testing.pojo.TestingResult;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.SystemTools;
 
@@ -191,14 +192,17 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	}
 
 	@Override
-	public Integer submitTesting(JSONArray answerArray, String testPaperId) {
+	public JSONObject submitTesting(JSONArray answerArray, String testPaperId) {
+		JSONObject result = new JSONObject();
 		//初始分数为0
 		Integer score = 0;
 		//遍历提交答题结果
+		List<TestingResult> testingResults = new ArrayList<>();
 		for (Object object : answerArray) {
+			TestingResult testingResult = new TestingResult();
 			JSONObject jsonObject = JSONObject.fromObject(object);
 			//判断数据是否存在
-			if(jsonObject.containsKey("testQusetionsId") && jsonObject.containsKey("answer") && jsonObject.containsKey("testQuestionType")){
+			if(jsonObject.containsKey("testQuestionsId") && jsonObject.containsKey("answer") && jsonObject.containsKey("testQuestionType")){
 				String questionType = jsonObject.getString("testQuestionType");//题目类型
 				String testQuestionsId = jsonObject.getString("testQuestionsId");//试题ID
 				TestQuestionWithBLOBs testQuestionWithBLOBs = testQuestionMapper.selectByPrimaryKey(testQuestionsId);//获取题目对象用于获取答案
@@ -207,10 +211,13 @@ public class TestPaperServiceImpl implements ITestPaperService {
 					rightAnswer = testQuestionWithBLOBs.getCorrectAnswer();
 				}
 				String userAnswer = jsonObject.getString("answer");//用户提交的答案
+				testingResult.setRightAnswer(rightAnswer);
+				testingResult.setTestQuestionsId(testQuestionsId);
 				//判断答案是否一致
 				if(StringUtils.isNotBlank(rightAnswer) && userAnswer.equals(rightAnswer)){
 					//做题正确，在试卷试题关系表中记录正确一次用于统计分析
 					testPaperQuestionMapper.updateRightCount(testPaperId, testQuestionsId);
+					testingResult.setCorrectFlag(1);
 					if(StringUtils.isNotBlank(questionType)){
 						if(questionType.equals("1")){//单选题
 							score = score+2;
@@ -223,8 +230,10 @@ public class TestPaperServiceImpl implements ITestPaperService {
 				}else {
 					//做题错误，在试题试卷关系表中记录错误一次用于统计分析
 					testPaperQuestionMapper.updateFailCount(testPaperId, testQuestionsId);
+					testingResult.setCorrectFlag(0);
 				}
 			}
+			testingResults.add(testingResult);
 		}
 		//---------------------------------------保存分数-----------------------------
 		//用户信息
@@ -250,7 +259,9 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		testingLog.setUserId(userId);
 		testingLog.setUserName(userName);
 		testingLogMapper.insert(testingLog);
-		return score;
+		result.put("score", score);
+		result.put("testingResult", testingResults);
+		return result;
 	}
 	
 }
