@@ -1,5 +1,9 @@
 package com.police.testing.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.police.testing.pojo.TestingLog;
 
 public interface TestingLogMapper {
@@ -14,4 +18,9 @@ public interface TestingLogMapper {
     int updateByPrimaryKeySelective(TestingLog record);
 
     int updateByPrimaryKey(TestingLog record);
+    
+    List<String> selectDistDepartmentName(@Param("beginDate") String beginDate, @Param("endDate") String endDate);
+    
+    List<TestingLog> selectByDepartmentNameAndType(@Param("departmentName") String departmentName, @Param("testingType") String testingType,
+    		@Param("beginDate") String beginDate, @Param("endDate") String endDate);
 }

@@ -122,6 +122,7 @@ public class TestCreateController {
 		//封装反馈对象
 		result.put("testPaperId", testPaperId);
 		result.put("list", jsonArray);
+		result.put("status", 1);
 		return result;
 	}
 	/**
