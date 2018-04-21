@@ -1,9 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function () {
 	console.log('ready');
 
 	window.gpsb = new PerfectScrollbar('.psb-here');
 	// resize触发更新滚动条数据
-	$(window).resize(function() {
+	$(window).resize(function () {
 		window.gpsb.update();
 	});
 
@@ -54,16 +54,16 @@ $(document).ready(function() {
 		nodeIcon: "fa fa-file-o"
 	});
 
-	$('#lessonTree').on('nodeSelected', function(event, node) {
+	$('#lessonTree').on('nodeSelected', function (event, node) {
 		console.log('select NODE:', node);
 	});
 });
 
 //序列化表格元素为JSON  
-$.fn.serializeJson = function() {
+$.fn.serializeJson = function () {
 	var o = {};
 	var a = this.serializeArray();
-	$.each(a, function() {
+	$.each(a, function () {
 		if (o[this.name] !== undefined) {
 			if (o[this.name] == null || !o[this.name].push) {
 				o[this.name] = [o[this.name]];
@@ -77,7 +77,14 @@ $.fn.serializeJson = function() {
 }
 
 function go_index() {
+	var passwd1 = document.getElementByName("pwd").value;
+	var passwd2 = document.getElementByName("pwd_again").value;
+	if (passwd1 != passwd2) {
+		alert("密码不一致，请重新输入");
+		return false;
+	}
 	location.href = 'demo-index.html';
+
 }
 
 function go_forum() {
