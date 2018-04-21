@@ -52,4 +52,6 @@ public interface ITestPaperService {
 	public Integer doTesting(String testingType, String testPaperId);
 
 	public long getCount(String testName);
+	
+	public TestPaper getTestPaperObjectById(String testPaperId);
 }

@@ -162,4 +162,11 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testName, null, null);
 		return testPapers.size();
 	}
+
+	@Override
+	public TestPaper getTestPaperObjectById(String testPaperId) {
+		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
+		return testPaper;
+	}
+	
 }
