@@ -87,22 +87,9 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	@Override
 	public JSONObject updateTestPaper(String testPaperId, String operateFlag, String testPaperName, String testDate, Integer testTime) {
 		//获取用户信息
-//		Subject currentUser = SecurityUtils.getSubject();
-//		Session session = currentUser.getSession();
-//		String userId =(String)session.getAttribute("currentUserId");
-//		String userName = (String)session.getAttribute("currentUserName");
-		JSONObject result = new JSONObject();
+ 		JSONObject result = new JSONObject();
 		//判断操作状态
 		if(operateFlag.equals("affirm")){//确认
-//			TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
-//			testPaper.setTestPaperName(testPaperName);
-//			testPaper.setCreateDate(new Date());
-//			testPaper.setEnable("1");
-//			testPaper.setTestPaperType("1");
-//			testPaper.setCreatorId(userId);
-//			testPaper.setCreatorName(userName);
-//			testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-DD hh:mm:ss"));
-//			testPaper.setTestTime(testTime);
 			testPaperMapper.updateEnable(testPaperId);
 			result.put("status", 1);
 			result.put("message", "确认成功，试卷已生成");
