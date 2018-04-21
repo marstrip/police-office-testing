@@ -3,12 +3,9 @@ package com.police.testing.service.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.police.testing.dao.SysLoginLogMapper;
 import com.police.testing.dao.TestPaperMapper;
 import com.police.testing.dao.TestPaperQuestionMapper;
@@ -20,7 +17,6 @@ import com.police.testing.pojo.StaticDataTestPaper;
 import com.police.testing.pojo.StaticDataExam;
 import com.police.testing.pojo.SysLoginLog;
 import com.police.testing.pojo.TestPaper;
-import com.police.testing.pojo.TestQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.IStaticDataService;
@@ -215,6 +211,12 @@ public class StaticDataServiceImpl implements IStaticDataService{
 	        });
 		}
 		return dataQusetions;
+	}
+
+	@Override
+	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate) {
+		List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndTypeAndSorce(testPaperId, testingType, beginDate, endDate, 0);
+		return testingLogs;
 	}
 }
 

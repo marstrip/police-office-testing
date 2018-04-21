@@ -5,6 +5,7 @@ import java.util.List;
 import com.police.testing.pojo.StaticDataLogin;
 import com.police.testing.pojo.StaticDataQusetion;
 import com.police.testing.pojo.StaticDataTestPaper;
+import com.police.testing.pojo.TestingLog;
 import com.police.testing.pojo.StaticDataExam;
 
 /**
@@ -23,5 +24,7 @@ public interface IStaticDataService {
 	public List<StaticDataTestPaper> staticDataByTestingCountScore(String beginDate, String endDate, Integer score);
 
 	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType);
+
+	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate);
 }
 
