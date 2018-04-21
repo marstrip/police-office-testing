@@ -197,11 +197,13 @@ a:focus, a:hover {
 .mastbody {
 	background: transparent;
 	padding-bottom: 15px;
+	margin:0 auto;
 	margin-left: 0;
 	margin-right: 0;
+	margin-top: 100px;
 	width: 100%;
 	display: inline-block;
-    min-height: 654px;
+    min-height: 550px;
 }
 
 .panel-white {
@@ -280,6 +282,17 @@ a:focus, a:hover {
 	width: 400px;
 	float: left;
 	margin-left: 10px;
+}
+
+.login-left-area{
+	width: 400px;
+	float: left;
+}
+
+.login-right-area{
+	width: 400px;
+	float: right;
+	margin-right: 150px;
 }
 
 .dropdown-preview > .dropdown-menu {
