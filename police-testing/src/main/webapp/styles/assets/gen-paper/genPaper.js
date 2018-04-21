@@ -97,16 +97,16 @@
 						<!-- 题目 -->
 						<div class="q-select exam-area">
 							<h3 class="q-type-mark">一、单选题</h3>
-							<div id="singleContainer" class="q-container">
-							</div>
+							<form id="singleContainer" class="q-container">
+							</form>
 
 							<h3 class="q-type-mark">二、多选题</h3>
-							<div id="multiContainer" class="q-container">
-							</div>
+							<form id="multiContainer" class="q-container">
+							</form>
 
 							<h3 class="q-type-mark">三、判断题</h3>
-							<div id="judgeContainer" class="q-container">
-							</div>
+							<form id="judgeContainer" class="q-container">
+							</form>
 						</div>
 					</div>
 				</div>
@@ -121,7 +121,8 @@
 		var $multiContainer = $paper.find('#multiContainer');
 		var $judgeContainer = $paper.find('#judgeContainer');
 
-		var readOnlyTemplate_select = `
+		// 只读
+		var readonlyTemplate_select = `
 			<div class="col-sm-12 q-group">
 				<p class="q-name">{idx}、{testQuestionsName}</p>
 				<div class="q-select-answer">
@@ -130,20 +131,17 @@
 				</div>
 			</div>
 		`;
-
-		var readOnlyTemplate_singleSelectItem = `
+		var readonlyTemplate_singleSelectItem = `
 			<li>
 				{testQuestionSelectItem}
 			</li>
 		`;
-
-		var readOnlyTemplate_multiSelectItem = `
+		var readonlyTemplate_multiSelectItem = `
 			<li>
 				{testQuestionSelectItem}
 			</li>
 		`;
-
-		var readOnlyTemplate_judge = `
+		var readonlyTemplate_judge = `
 			<div class="col-sm-12 q-group">
 				<p class="q-name">{idx}、{testQuestionsName}</p>
 				<div class="q-select-answer">
@@ -154,11 +152,46 @@
 			</div>
 		`;
 
+
+		// 正式
+		var examTemplate_select = `
+			<div class="col-sm-12 q-group">
+				<p class="q-name">{idx}、{testQuestionsName}</p>
+				<div class="q-select-answer">
+					<input type="hidden" value="{'testQuestionsId':'{testQuestionsId}','testQuestionType':'{testQuestionType}'}" />
+					<ul class="no-style q-select-items">
+					</ul>
+				</div>
+			</div>
+		`;
+		var examTemplate_singleSelectItem = `
+			<li>
+				<input type="radio" name="{testQuestionsId}" value="{value}" />
+				{testQuestionSelectItem}
+			</li>
+		`;
+		var examTemplate_multiSelectItem = `
+			<li>
+				<input type="checkbox" name="{testQuestionsId}" value="{value}" />
+				{testQuestionSelectItem}
+			</li>
+		`;
+		var examTemplate_judge = `
+			<div class="col-sm-12 q-group">
+				<p class="q-name">{idx}、{testQuestionsName}</p>
+				<div class="q-select-answer">
+					<input type="hidden" value="{'testQuestionsId':'{testQuestionsId}','testQuestionType':'{testQuestionType}'}" />
+					<span><input type="radio" name="{testQuestionsId}" value="YES" />是</span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span><input type="radio" name="{testQuestionsId}" value="NO" />否</span>
+				</div>
+			</div>
+		`;
 		var singleIdx = 0;
 		var multiIdx = 0;
 		var judgeIdx = 0;
 
-
+		// 只读
 		if (!!readonly) {
 			$.each(result.list, function(idx) {
 				var q = result.list[idx];
@@ -167,14 +200,14 @@
 					case "1":
 						// 单选
 						singleIdx += 1;
-						var $q = $(readOnlyTemplate_select.format({
+						var $q = $(readonlyTemplate_select.format({
 							idx: (idx + 1),
 							testQuestionsName: q.testQuestionsName
 						}));
 
 						var options = q.testQuestionSelects.replace(/\&[^\&\;]*\;/g, '').split(';');
 						$.each(options, function(_idx) {
-							$q.find('.q-select-items').append($(readOnlyTemplate_singleSelectItem.format({
+							$q.find('.q-select-items').append($(readonlyTemplate_singleSelectItem.format({
 								testQuestionSelectItem: options[_idx]
 							})));
 						});
@@ -185,14 +218,14 @@
 					case "2":
 						// 多选
 						multiIdx += 1;
-						var $q = $(readOnlyTemplate_select.format({
+						var $q = $(readonlyTemplate_select.format({
 							idx: (idx + 1),
 							testQuestionsName: q.testQuestionsName
 						}));
 
 						var options = q.testQuestionSelects.replace(/\&[^\&\;]*\;/g, '').split(';');
 						$.each(options, function(_idx) {
-							$q.find('.q-select-items').append($(readOnlyTemplate_multiSelectItem.format({
+							$q.find('.q-select-items').append($(readonlyTemplate_multiSelectItem.format({
 								testQuestionSelectItem: options[_idx]
 							})));
 						});
@@ -203,7 +236,7 @@
 					case "3":
 						// 判断
 						judgeIdx += 1;
-						var $q = $(readOnlyTemplate_judge.format({
+						var $q = $(readonlyTemplate_judge.format({
 							idx: (idx + 1),
 							testQuestionsName: q.testQuestionsName
 						}));
@@ -216,9 +249,72 @@
 
 			$this.append($paper);
 		}
-
+		// 正式
 		else {
+			$.each(result.list, function(idx) {
+				var q = result.list[idx];
 
+				switch(q.testQuestionType) {
+					case "1":
+						// 单选
+						singleIdx += 1;
+						var $q = $(examTemplate_select.format({
+							idx: (idx + 1),
+							testQuestionsName: q.testQuestionsName,
+							testQuestionsId: q.testQuestionsId,
+							testQuestionType: q.testQuestionType
+						}));
+
+						var options = q.testQuestionSelects.replace(/\&[^\&\;]*\;/g, '').split(';');
+						$.each(options, function(_idx) {
+							$q.find('.q-select-items').append($(examTemplate_singleSelectItem.format({
+								testQuestionSelectItem: options[_idx],
+								testQuestionsId: q.testQuestionsId,
+								value: options[_idx][0]
+							})));
+						});
+
+						$singleContainer.append($q);
+						break;
+
+					case "2":
+						// 多选
+						multiIdx += 1;
+						var $q = $(examTemplate_select.format({
+							idx: (idx + 1),
+							testQuestionsName: q.testQuestionsName,
+							testQuestionsId: q.testQuestionsId,
+							testQuestionType: q.testQuestionType
+						}));
+
+						var options = q.testQuestionSelects.replace(/\&[^\&\;]*\;/g, '').split(';');
+						$.each(options, function(_idx) {
+							$q.find('.q-select-items').append($(examTemplate_multiSelectItem.format({
+								testQuestionSelectItem: options[_idx],
+								testQuestionsId: q.testQuestionsId,
+								value: options[_idx][0]
+							})));
+						});
+
+						$multiContainer.append($q);
+						break;
+
+					case "3":
+						// 判断
+						judgeIdx += 1;
+						var $q = $(examTemplate_judge.format({
+							idx: (idx + 1),
+							testQuestionsName: q.testQuestionsName,
+							testQuestionsId: q.testQuestionsId
+						}));
+
+						$judgeContainer.append($q);
+						break;
+
+				}
+			});
+
+			$this.append($paper);
 		}
 
 
