@@ -3,7 +3,9 @@ package com.police.testing.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
@@ -90,6 +92,11 @@ public class TestPaperServiceImpl implements ITestPaperService {
  		JSONObject result = new JSONObject();
 		//判断操作状态
 		if(operateFlag.equals("affirm")){//确认
+//			List<TestPaperQuestion> paperQuestions = testPaperQuestionMapper.selectByTestPaperId(testPaperId);
+//			for (int i = 0; i < paperQuestions.size(); i++) {
+//				TestPaperQuestion paperQuestion = paperQuestions.get(i);
+//				
+//			}
 			testPaperMapper.updateEnable(testPaperId);
 			result.put("status", 1);
 			result.put("message", "确认成功，试卷已生成");
@@ -110,18 +117,27 @@ public class TestPaperServiceImpl implements ITestPaperService {
 
 	@Override
 	public JSONObject getTestPaperById(String testPaperId) {
+		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
 		List<TestPaperQuestion> testPaperQuestions = testPaperQuestionMapper.selectByTestPaperId(testPaperId);
 		List<String> testQuestionIds = new ArrayList<>();
+		Map<String, Integer> testQuestionAndNumber = new HashMap<>(); 
 		String testPaperName = null;
 		if(testPaperQuestions.size() > 0){
 			testPaperName = testPaperQuestions.get(0).getTestPaperName();
 			for (TestPaperQuestion testPaperQuestion : testPaperQuestions) {
 				testQuestionIds.add(testPaperQuestion.getTestQuestionsId());
+				testQuestionAndNumber.put(testPaperQuestion.getTestQuestionsId(),testPaperQuestion.getTestQuestionsNumber());
 			}
 		}
 		//获取试题
 		List<TestQuestionWithBLOBs> resultList = testQuestionMapper.selectByTestQuestionIds(testQuestionIds);
+		for (TestQuestionWithBLOBs testQuestionWithBLOBs : resultList) {
+			String testQuestionId = testQuestionWithBLOBs.getTestQuestionsId();
+			Integer number = testQuestionAndNumber.get(testQuestionId);
+			testQuestionWithBLOBs.setNumber(number);
+		}
 		JSONObject result = new JSONObject();
+		result.put("testTime",testPaper.getTestTime());
 		result.put("testPaperName", testPaperName);
 		result.put("list", resultList);
 		return result;
@@ -160,19 +176,38 @@ public class TestPaperServiceImpl implements ITestPaperService {
 
 	@Override
 	public Integer submitTesting(JSONArray answerArray, String testPaperId) {
+		Integer sorce = 0;
 		for (Object object : answerArray) {
 			JSONObject jsonObject = JSONObject.fromObject(object);
 			if(jsonObject.containsKey("testQusetionId") && jsonObject.containsKey("answer") && jsonObject.containsKey("questionType")){
 				String questionType = jsonObject.getString("questionType");
 				String testQuestionsId = jsonObject.getString("testQuestionId");
-//				TestQuestionWithBLOBs testQuestionWithBLOBs = testQuestionMapper.selectByPrimaryKey(testQuestionsId);
-				String answer = jsonObject.getString("answer");
-				if(StringUtils.isNotBlank(questionType) && questionType.equals("1")){//单选题
-//					String 
+				TestQuestionWithBLOBs testQuestionWithBLOBs = testQuestionMapper.selectByPrimaryKey(testQuestionsId);
+				String rightAnswer = null;
+				if(testQuestionWithBLOBs != null){
+					rightAnswer = testQuestionWithBLOBs.getCorrectAnswer();
+				}
+				String userAnswer = jsonObject.getString("answer");
+				//判断答案是否一致
+				if(StringUtils.isNotBlank(rightAnswer) && userAnswer.equals(rightAnswer)){
+					//做题正确
+					testPaperQuestionMapper.updateRightCount(testPaperId, testQuestionsId);
+					if(StringUtils.isNotBlank(questionType) && questionType.equals("1")){
+						sorce = sorce+2;
+					}else if(questionType.equals("2")){
+						sorce = sorce+3;
+					}else if(questionType.equals("3")){
+						sorce = sorce+1;
+					}
+				}else {
+					//做题错误
+					testPaperQuestionMapper.updateFailCount(testPaperId, testQuestionsId);
 				}
 			}
 		}
-		return null;
+		//保存分数
+		
+		return sorce;
 	}
 	
 }

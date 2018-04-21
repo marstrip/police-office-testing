@@ -104,7 +104,7 @@ public class TestPaperController {
 			String testPaperId = receiveObject.getString("testPaperId");
 			String answerListStr = receiveObject.getString("answerList");
 			JSONArray answerArray = JSONArray.fromObject(answerListStr);
-			Integer flag = testPaperService.submitTesting(answerArray, testPaperId);
+			Integer socre = testPaperService.submitTesting(answerArray, testPaperId);
 		}
 		return result;
 	}

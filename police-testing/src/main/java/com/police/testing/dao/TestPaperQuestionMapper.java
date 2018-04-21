@@ -30,4 +30,8 @@ public interface TestPaperQuestionMapper {
 	Integer sumQuestionFailCount(@Param("testQuestionId") String testQuestionId);
 
 	Integer sumQuestionRightCount(@Param("testQuestionId") String testQuestionId);
+
+	void updateRightCount(@Param("testPaperId") String testPaperId, @Param("testQuestionId") String testQuestionsId);
+
+	void updateFailCount(@Param("testPaperId") String testPaperId, @Param("testQuestionId") String testQuestionsId);
 }
