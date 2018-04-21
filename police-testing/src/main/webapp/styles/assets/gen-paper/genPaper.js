@@ -79,7 +79,7 @@
 									</div>
 									<div class="col-sm-4 text-center exam-header-item">
 										<p>卷面总分</p>
-										<p><strong>100</strong> 分</p>
+										<p><span id="score"></span><strong>100</strong> 分</p>
 									</div>
 									<div class="col-sm-4 text-center exam-header-item">
 										<p>答题时间</p>
@@ -161,6 +161,7 @@
 					<input type="hidden" value="{'testQuestionsId':'{testQuestionsId}','testQuestionType':'{testQuestionType}'}" />
 					<ul class="no-style q-select-items">
 					</ul>
+					<div class="check-answer"></div>
 				</div>
 			</div>
 		`;
@@ -181,9 +182,10 @@
 				<p class="q-name">{idx}、{testQuestionsName}</p>
 				<div class="q-select-answer">
 					<input type="hidden" value="{'testQuestionsId':'{testQuestionsId}','testQuestionType':'{testQuestionType}'}" />
-					<span><input type="radio" name="{testQuestionsId}" value="YES" />是</span>
+					<span><input type="radio" name="{testQuestionsId}" value="Yes" />是</span>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<span><input type="radio" name="{testQuestionsId}" value="NO" />否</span>
+					<span><input type="radio" name="{testQuestionsId}" value="No" />否</span>
+					<div class="check-answer"></div>
 				</div>
 			</div>
 		`;

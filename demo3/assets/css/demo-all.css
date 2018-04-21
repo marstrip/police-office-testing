@@ -253,7 +253,7 @@ a:focus, a:hover {
 }
 
 .footer {
-    background-color: var(--bgcolor-panel-1);
+    background-color: #f0f0f0;
     color: #333;
 }
 .footer .row {
