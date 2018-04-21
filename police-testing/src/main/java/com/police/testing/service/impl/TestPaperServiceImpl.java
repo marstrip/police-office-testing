@@ -131,7 +131,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			}
 		}
 		//获取试题
-		List<TestQuestion> resultList = testQuestionMapper.selectByTestQuestionIds(testQuestionIds);
+		List<TestQuestionWithBLOBs> resultList = testQuestionMapper.selectByTestQuestionIds(testQuestionIds);
 		JSONObject result = new JSONObject();
 		result.put("testPaperName", testPaperName);
 		result.put("list", resultList);
