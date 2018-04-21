@@ -10,6 +10,10 @@ import com.police.testing.dao.SysUserMapper;
 import com.police.testing.dao.UserRoleMapper;
 import com.police.testing.pojo.SysMenu;
 import com.police.testing.pojo.SysUser;
+import com.police.testing.pojo.TestPaper;
+import com.police.testing.pojo.User;
+import com.police.testing.pojo.UserRole;
+import com.police.testing.pojo.UserRoleKey;
 import com.police.testing.service.IUserService;
 @Service("userService")
 public class UserServiceImpl implements IUserService {
@@ -127,6 +131,41 @@ public class UserServiceImpl implements IUserService {
 	public List<String> getPermissionByRoleName(String roleName) {
 		List<String> permissions = rolePermissionMapper.selectByRoleName(roleName);
 		return permissions;
+	}
+	@Override
+	public Integer deleteData(String userId, String enable) {
+		return sysUserMapper.updateEnable(userId, enable);
+	}
+	@Override
+	public List<User> getList(String userName, Integer offset, Integer limit) {
+		List<User> users = sysUserMapper.selectByLikeUserName(userName, offset, limit);
+		return users;
+	}
+	@Override
+	public long getCount(String userName) {
+		List<User> users = sysUserMapper.selectByLikeUserName(userName, null, null);
+		return users.size();
+	}
+	@Override
+	public Integer updateDataRole(String userId, String role) {
+		List<UserRoleKey> roleKeys = userRoleMapper.selectByUserId(userId);
+		if(roleKeys.size() > 0){
+			String roleName = roleKeys.get(0).getRoleName();
+			if(!roleName.equals("admin")){
+				UserRole userRoleKey = new UserRole();
+				userRoleKey.setRoleName("admin");
+				userRoleKey.setUserId(userId);
+				userRoleKey.setRoleId("1");
+				return userRoleMapper.insert(userRoleKey);
+			}
+		}else {
+			UserRole userRoleKey = new UserRole();
+			userRoleKey.setRoleName("admin");
+			userRoleKey.setUserId(userId);
+			userRoleKey.setRoleId("1");
+			return userRoleMapper.insert(userRoleKey);
+		}
+		return 0;
 	}
 
 }

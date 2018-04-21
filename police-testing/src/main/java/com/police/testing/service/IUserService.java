@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.police.testing.pojo.SysMenu;
 import com.police.testing.pojo.SysUser;
+import com.police.testing.pojo.User;
 
 public interface IUserService {
 	
@@ -89,4 +90,12 @@ public interface IUserService {
 //	  * @return
 //	  */
 //	 public List<User> getUserByDepartmentId(String departmentId);
+
+	public Integer deleteData(String userId, String enable);
+
+	public List<User> getList(String userName, Integer offset, Integer limit);
+
+	public long getCount(String userName);
+
+	public Integer updateDataRole(String userId, String role);
 }

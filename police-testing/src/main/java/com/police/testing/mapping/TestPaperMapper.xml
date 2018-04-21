@@ -45,7 +45,7 @@
     <if test="testPaperName != null and testPaperName != ''">
     	 and test_paper_name like '%${testPaperName}%'
     </if>
-    and enable = '1'
+    <!-- and enable = '1' -->
     <if test="offset != null and limit != null">
      limit ${offset},${limit}
     </if>
@@ -54,7 +54,7 @@
   <update id="updateEnable" parameterType="java.lang.String">
   	update test_paper
     set 
-     enable = '1'
+     enable = #{enable,jdbcType=VARCHAR}
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
   </update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >

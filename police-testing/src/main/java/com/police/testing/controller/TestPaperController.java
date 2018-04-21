@@ -23,6 +23,15 @@ public class TestPaperController {
 	@Autowired
 	private ITestPaperService testPaperService;
 	/**
+	 * 跳转后台试卷管理页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("jsp")
+	public String jsp(HttpServletRequest request){
+		return "background_system/test_paper/test_paper_list";
+	}
+	/**
 	 * 跳转前台展现试卷页面
 	 * @param request
 	 * @return
@@ -41,7 +50,7 @@ public class TestPaperController {
 	public JSONObject getList(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		//第几条记录开始
-		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset"))) + 1;
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		String testName = GetEncode.transcode(request.getParameter("search"));
 		List<TestPaper> list = testPaperService.getList(testName, offset, limit);
@@ -66,6 +75,33 @@ public class TestPaperController {
 		result = testPaperService.getTestPaperById(testPaperId);
 		result.put("status", 1);
 		result.put("message", "成功！");
+		return result;
+	}
+	
+	/**
+	 * 删除
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("deleteData")
+	@ResponseBody
+	public JSONObject deleteData(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		String testPaperId = GetEncode.transcode(request.getParameter("testPaperId"));
+		String enable = GetEncode.transcode(request.getParameter("enable"));
+		if(enable.equals("1")){
+			enable = "0";
+		}else if(enable.equals("0")){
+			enable = "1";
+		}
+		Integer flag = testPaperService.deleteData(testPaperId, enable);
+		if(flag == 1){
+			result.put("status", flag);
+			result.put("message", "删除成功");
+		}else {
+			result.put("status", flag);
+			result.put("message", "删除失败");
+		}
 		return result;
 	}
 	/**

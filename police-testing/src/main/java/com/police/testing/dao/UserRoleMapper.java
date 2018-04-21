@@ -5,12 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.police.testing.pojo.Role;
+import com.police.testing.pojo.UserRole;
 import com.police.testing.pojo.UserRoleKey;
 
 public interface UserRoleMapper {
     int deleteByPrimaryKey(UserRoleKey key);
 
-    int insert(UserRoleKey record);
+    int insert(UserRole record);
 
     int insertSelective(UserRoleKey record);
     /**

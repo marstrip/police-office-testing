@@ -102,7 +102,7 @@ public class LoginController {
         }catch(AuthenticationException ae){  
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
         	ae.printStackTrace();
-        	request.setAttribute("message", "用户名密码不正确！");
+        	request.setAttribute("message", "用户名密码不正确或账号被禁用！");
         	lastUrl= "login";
         }
 		return lastUrl;

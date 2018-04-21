@@ -57,4 +57,6 @@ public interface ITestPaperService {
 	public TestPaper getTestPaperObjectById(String testPaperId);
 
 	public JSONObject submitTesting(JSONArray answerArray, String testPaperId);
+
+	public Integer deleteData(String testPaperId, String enable);
 }

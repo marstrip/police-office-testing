@@ -95,12 +95,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
  		JSONObject result = new JSONObject();
 		//判断操作状态
 		if(operateFlag.equals("affirm")){//确认
-//			List<TestPaperQuestion> paperQuestions = testPaperQuestionMapper.selectByTestPaperId(testPaperId);
-//			for (int i = 0; i < paperQuestions.size(); i++) {
-//				TestPaperQuestion paperQuestion = paperQuestions.get(i);
-//				
-//			}
-			testPaperMapper.updateEnable(testPaperId);
+			testPaperMapper.updateEnable(testPaperId, "1");
 			result.put("status", 1);
 			result.put("message", "确认成功，试卷已生成");
 		}else {
@@ -262,6 +257,11 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		result.put("score", score);
 		result.put("testingResult", testingResults);
 		return result;
+	}
+
+	@Override
+	public Integer deleteData(String testPaperId, String enable) {
+		return testPaperMapper.updateEnable(testPaperId, enable);
 	}
 	
 }

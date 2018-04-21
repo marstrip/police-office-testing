@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.police.testing.pojo.SysMenu;
 import com.police.testing.pojo.SysUser;
+import com.police.testing.pojo.User;
 
 public interface SysUserMapper {
     int deleteByPrimaryKey(Integer autoId);
@@ -31,4 +32,9 @@ public interface SysUserMapper {
      * @return
      */
     List<SysMenu> getMenuByUserId (String userId);
+
+	Integer updateEnable(@Param("userId")String userId,@Param("enable") String enable);
+
+	List<User> selectByLikeUserName(@Param("userName")String userName, 
+    		@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

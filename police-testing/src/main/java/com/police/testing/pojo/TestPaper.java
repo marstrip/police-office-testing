@@ -2,6 +2,8 @@ package com.police.testing.pojo;
 
 import java.util.Date;
 
+import com.police.testing.tools.SystemTools;
+
 public class TestPaper {
     private String testPaperId;
 
@@ -78,16 +80,18 @@ public class TestPaper {
         this.creatorName = creatorName == null ? null : creatorName.trim();
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public String getCreateDate() {
+    	String str = SystemTools.Time2String(createDate, "yyyy-MM-dd HH:mm:ss");
+        return str;
     }
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
-        return updateDate;
+    public String getUpdateDate() {
+    	String str = SystemTools.Time2String(updateDate, "yyyy-MM-dd HH:mm:ss");
+        return str;
     }
 
     public void setUpdateDate(Date updateDate) {
