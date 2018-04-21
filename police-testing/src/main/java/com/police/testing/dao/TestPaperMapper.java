@@ -30,4 +30,6 @@ public interface TestPaperMapper {
      */
     List<TestPaper> selectByLikeTestPapaerName(@Param("testPaperName") String testPaperName, 
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
+    
+    int updateEnable(@Param("testPaperId") String testPaperId);
 }

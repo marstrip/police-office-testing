@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -85,23 +86,23 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	@Override
 	public JSONObject updateTestPaper(String testPaperId, String operateFlag, String testPaperName, String testDate, Integer testTime) {
 		//获取用户信息
-		Subject currentUser = SecurityUtils.getSubject();
-		Session session = currentUser.getSession();
-		String userId =(String)session.getAttribute("currentUserId");
-		String userName = (String)session.getAttribute("currentUserName");
+//		Subject currentUser = SecurityUtils.getSubject();
+//		Session session = currentUser.getSession();
+//		String userId =(String)session.getAttribute("currentUserId");
+//		String userName = (String)session.getAttribute("currentUserName");
 		JSONObject result = new JSONObject();
 		//判断操作状态
 		if(operateFlag.equals("affirm")){//确认
-			TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
-			testPaper.setTestPaperName(testPaperName);
-			testPaper.setCreateDate(new Date());
-			testPaper.setEnable("1");
-			testPaper.setTestPaperType("1");
-			testPaper.setCreatorId(userId);
-			testPaper.setCreatorName(userName);
-			testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-DD hh:mm:ss"));
-			testPaper.setTestTime(testTime);
-			testPaperMapper.updateByPrimaryKeySelective(testPaper);
+//			TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
+//			testPaper.setTestPaperName(testPaperName);
+//			testPaper.setCreateDate(new Date());
+//			testPaper.setEnable("1");
+//			testPaper.setTestPaperType("1");
+//			testPaper.setCreatorId(userId);
+//			testPaper.setCreatorName(userName);
+//			testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-DD hh:mm:ss"));
+//			testPaper.setTestTime(testTime);
+			testPaperMapper.updateEnable(testPaperId);
 			result.put("status", 1);
 			result.put("message", "确认成功，试卷已生成");
 		}else {
@@ -175,6 +176,11 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			JSONObject jsonObject = JSONObject.fromObject(object);
 			if(jsonObject.containsKey("testQusetionId") && jsonObject.containsKey("answer") && jsonObject.containsKey("questionType")){
 				String questionType = jsonObject.getString("questionType");
+				String testQuestionId = jsonObject.getString("testQuestionId");
+				String answer = jsonObject.getString("answer");
+				if(StringUtils.isNotBlank(questionType) && questionType.equals("1")){//单选题
+//					String 
+				}
 			}
 		}
 		return null;
