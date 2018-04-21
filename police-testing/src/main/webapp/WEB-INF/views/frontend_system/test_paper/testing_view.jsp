@@ -221,7 +221,7 @@
 					$.ajax({
 						url: '${pageContext.request.contextPath}/testPaper/submitTesting',
 						method: 'POST',
-						data: formData,
+						data: { json: JSON.stringify(formData)},
 						success: function(d) {
 							try {
 								var result = $.parseJSON(d);
