@@ -14,7 +14,7 @@ public interface TestQuestionMapper {
 
     int insertSelective(TestQuestionWithBLOBs record);
 
-    TestQuestionWithBLOBs selectByPrimaryKey(Integer testQuestionsId);
+    TestQuestionWithBLOBs selectByPrimaryKey(String testQuestionsId);
 
     int updateByPrimaryKeySelective(TestQuestionWithBLOBs record);
 

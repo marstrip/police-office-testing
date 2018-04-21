@@ -5,7 +5,7 @@
     <id column="auto_id" property="autoId" jdbcType="INTEGER" />
     <result column="test_paper_id" property="testPaperId" jdbcType="VARCHAR" />
     <result column="test_paper_name" property="testPaperName" jdbcType="VARCHAR" />
-    <result column="test_questions_id" property="testQuestionsId" jdbcType="INTEGER" />
+    <result column="test_questions_id" property="testQuestionsId" jdbcType="VARCHAR" />
     <result column="test_questions_number" property="testQuestionsNumber" jdbcType="INTEGER" />
     <result column="answer_count" property="answerCount" jdbcType="INTEGER" />
     <result column="fail_count" property="failCount" jdbcType="INTEGER" />
@@ -55,7 +55,7 @@
       test_questions_id, test_questions_number, answer_count, 
       fail_count)
     values (#{autoId,jdbcType=INTEGER}, #{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, 
-      #{testQuestionsId,jdbcType=INTEGER}, #{testQuestionsNumber,jdbcType=INTEGER}, #{answerCount,jdbcType=INTEGER}, 
+      #{testQuestionsId,jdbcType=VARCHAR}, #{testQuestionsNumber,jdbcType=INTEGER}, #{answerCount,jdbcType=INTEGER}, 
       #{failCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.police.testing.pojo.TestPaperQuestion" >
@@ -94,7 +94,7 @@
         #{testPaperName,jdbcType=VARCHAR},
       </if>
       <if test="testQuestionsId != null" >
-        #{testQuestionsId,jdbcType=INTEGER},
+        #{testQuestionsId,jdbcType=VARCHAR},
       </if>
       <if test="testQuestionsNumber != null" >
         #{testQuestionsNumber,jdbcType=INTEGER},
@@ -117,7 +117,7 @@
         test_paper_name = #{testPaperName,jdbcType=VARCHAR},
       </if>
       <if test="testQuestionsId != null" >
-        test_questions_id = #{testQuestionsId,jdbcType=INTEGER},
+        test_questions_id = #{testQuestionsId,jdbcType=VARCHAR},
       </if>
       <if test="testQuestionsNumber != null" >
         test_questions_number = #{testQuestionsNumber,jdbcType=INTEGER},
@@ -135,10 +135,23 @@
     update test_paper_question
     set test_paper_id = #{testPaperId,jdbcType=VARCHAR},
       test_paper_name = #{testPaperName,jdbcType=VARCHAR},
-      test_questions_id = #{testQuestionsId,jdbcType=INTEGER},
+      test_questions_id = #{testQuestionsId,jdbcType=VARCHAR},
       test_questions_number = #{testQuestionsNumber,jdbcType=INTEGER},
       answer_count = #{answerCount,jdbcType=INTEGER},
       fail_count = #{failCount,jdbcType=INTEGER}
     where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateRightCount" parameterType="java.lang.String">
+  	update test_paper_question
+  	set answer_count = answer_count +1
+  	where test_paper_id = #{testPaperId,jdbcType=VARCHAR} 
+  	and test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
+  </update>
+  
+   <update id="updateFailCount" parameterType="java.lang.String">
+  	update test_paper_question
+  	set fail_count = fail_count +1
+  	where test_paper_id = #{testPaperId,jdbcType=VARCHAR} 
+  	and test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </update>
 </mapper>
