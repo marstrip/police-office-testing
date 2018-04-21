@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.police.testing.pojo.StaticDataLogin;
+import com.police.testing.pojo.StaticDataSimulateExam;
 import com.police.testing.service.IStaticDataService;
 import com.police.testing.tools.GetEncode;
 
@@ -48,7 +49,41 @@ public class StaticDataController {
 		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
 		String endDate = GetEncode.transcode(request.getParameter("endDate"));
 		List<StaticDataLogin> dataLogins = staticDataService.staticDataLogin(beginDate, endDate);
+		result.put("status", 1);
 		result.put("list", dataLogins);
+		return result;
+	}
+	/**
+	 * 按照派出所分别统计模拟考试和浏览试题次数
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("staticDataSimulateExam")
+	@ResponseBody
+	public JSONObject staticDataSimulateExam(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
+		String endDate = GetEncode.transcode(request.getParameter("endDate"));
+		List<StaticDataSimulateExam> dataSimulateExams = staticDataService.staticDataSimulateExam(beginDate, endDate);
+		result.put("status", 1);
+		result.put("list", dataSimulateExams);
+		return result;
+	}
+	
+	/**
+	 * 按照派出所分别统计模拟考试和浏览试题次数
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("staticDataOfficialExam")
+	@ResponseBody
+	public JSONObject staticDataOfficialExam(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
+		String endDate = GetEncode.transcode(request.getParameter("endDate"));
+		List<StaticDataSimulateExam> dataSimulateExams = staticDataService.staticDataOfficialExam(beginDate, endDate);
+		result.put("status", 1);
+		result.put("list", dataSimulateExams);
 		return result;
 	}
 }
