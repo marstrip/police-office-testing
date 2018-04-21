@@ -328,14 +328,11 @@
 								<div class="panel-body" style="padding-top: 0;">
 									<div class="notice-list">
 										<table class="table">
-											<!-- <thead>
+											<tbody id="caseBody">
 												<tr>
-													<th>公告标题</th>
-													<th>发布时间</th>
+													<td>加载中...</td>
 												</tr>
-											</thead> -->
-											<tbody>
-												<tr>
+												<!-- <tr>
 													<td class="fix-text" style="border-top-color: transparent;">
 														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
 													</td>
@@ -364,12 +361,47 @@
 														<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
 													</td>
 													<td>2005/07/09</td>
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>
 									</div>
 									<!-- end of .notice-list -->
 								</div>
+								<script>
+									var caseTmp =
+										'<tr>' +
+											'<td class="fix-text" style="width: 640px;">' +
+												'<a href="javascript:void(0);">{caseName}</a>' +
+											'</td>' +
+											'<td style="">{createDate}</td>' +
+										'</tr>';
+									$.ajax({
+										url: '${pageContext.request.contextPath}/caseAnalyze/getList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#caseBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var $item = $(caseTmp.format(rows[idx]));
+												$item.find('a').data('idx', idx);
+												$item.find('a').on('click', function() {
+													var _idx = $(this).data('idx');
+													BootstrapDialog.alert({
+														title: rows[_idx].caseName,
+														message: rows[_idx].caseContent
+													});
+												});
+												$nbody.append($item);
+											});
+										}
+									});
+								</script>
 							</div>
 
 							<div class="panel panel-white panel-static-height">
@@ -384,8 +416,8 @@
 										<table class="table">
 											<thead>
 												<tr>
-													<th style="text-align: left; width:500px;">考试内容</th>
-													<th style="text-align: left;">开始时间</th>
+													<th style="text-align: left; width: 500px;">考试内容</th>
+													<!-- <th style="text-align: left;">开始时间</th> -->
 													<th style="text-align: left;">结束时间</th>
 												</tr>
 											</thead>
@@ -435,14 +467,11 @@
 								<div class="panel-body" style="padding-top: 0;">
 									<div class="notice-list">
 										<table class="table">
-											<!-- <thead>
-											<tr>
-												<th>公告标题</th>
-												<th>发布时间</th>
-											</tr>
-										</thead> -->
-											<tbody>
+											<tbody id="qaBody">
 												<tr>
+													<td>加载中...</td>
+												</tr>
+												<!-- <tr>
 													<td class="fix-text fix-text-660" style="border-top-color: transparent;">
 														<a href="demo-exam-paper.html">答疑答疑答疑答疑答疑答疑答疑答疑</a>
 													</td>
@@ -457,11 +486,48 @@
 														<a href="demo-exam-paper.html">答疑答疑答疑答疑</a>
 													</td>
 												</tr>
+												 -->
 											</tbody>
 										</table>
 									</div>
 									<!-- end of .notice-list -->
 								</div>
+
+								<script>
+									var qaTmp =
+										'<tr>' +
+											'<td class="fix-text" style="width: 640px;">' +
+												'<a href="javascript:void(0);">{questionContent}</a>' +
+											'</td>' +
+											'<td style="">{createDate}</td>' +
+										'</tr>';
+									$.ajax({
+										url: '${pageContext.request.contextPath}/qa/getList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#qaBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var $item = $(qaTmp.format(rows[idx]));
+												$item.find('a').data('idx', idx);
+												$item.find('a').on('click', function() {
+													var _idx = $(this).data('idx');
+													BootstrapDialog.alert({
+														title: rows[_idx].questionContent,
+														message: rows[_idx].questionAnswer
+													});
+												});
+												$nbody.append($item);
+											});
+										}
+									});
+								</script>
 							</div>
 						</div>
 
@@ -478,7 +544,7 @@
 									<span>北京市公安局东城分局政治处</span>
 								</li>
 								<li>
-									<span>建议使用IE9以上浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
+									<span>建议使用Chrome以上浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
 								</li>
 							</ul>
 						</div>
