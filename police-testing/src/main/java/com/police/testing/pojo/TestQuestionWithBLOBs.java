@@ -5,8 +5,6 @@ public class TestQuestionWithBLOBs extends TestQuestion {
 
     private String testQuestionSelects;
     
-    private Integer number;
-    
     public String getTestQuestionsName() {
         return testQuestionsName;
     }
@@ -23,12 +21,4 @@ public class TestQuestionWithBLOBs extends TestQuestion {
         this.testQuestionSelects = testQuestionSelects == null ? null : testQuestionSelects.trim();
     }
 
-	public Integer getNumber() {
-		return number;
-	}
-
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
-    
 }

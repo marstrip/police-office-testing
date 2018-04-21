@@ -2,6 +2,8 @@ package com.police.testing.service.impl;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,7 @@ import com.police.testing.dao.TestPaperMapper;
 import com.police.testing.dao.TestPaperQuestionMapper;
 import com.police.testing.dao.TestQuestionMapper;
 import com.police.testing.dao.TestingLogMapper;
+import com.police.testing.pojo.StaticDataLogin;
 import com.police.testing.pojo.SysUser;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestPaperQuestion;
@@ -136,6 +139,20 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			Integer number = testQuestionAndNumber.get(testQuestionId);
 			testQuestionWithBLOBs.setNumber(number);
 		}
+		// 按点击数倒序
+        Collections.sort(resultList, new Comparator<TestQuestionWithBLOBs>() {
+            public int compare(TestQuestionWithBLOBs arg0, TestQuestionWithBLOBs arg1) {
+                int hits0 = arg0.getNumber();
+                int hits1 = arg1.getNumber();
+                if (hits1 < hits0) {
+                    return 1;
+                } else if (hits1 == hits0) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        });
 		JSONObject result = new JSONObject();
 		result.put("testTime",testPaper.getTestTime());
 		result.put("testPaperName", testPaperName);
