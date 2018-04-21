@@ -557,13 +557,14 @@
 											title: '试卷预览',
 											cssClass: 'paper-preview-dialog',
 											message: function() {
-												var $message = $('<div>TODO</div>');
+												var $message = $('<div></div>');
 												// 渲染试卷方法
-												$message.genPaper(formData, result);
+												$message.genPaper(formData, result, true);
 												return $message;
 											},
+											closable: false,
 											buttons: [{
-												label: '确认',
+												label: '保存试卷',
 												icon: 'glyphicon glyphicon-send',
 												autospin: false,
 												cssClass: "btn-primary",
@@ -583,11 +584,55 @@
 														btnOKClass: 'btn-warning',
 														callback: function(isYes) {
 															if (isYes) {
-																// 保存页面 TODO
-																
+																// 保存页面
+																$.ajax({
+																	url: '${pageContext.request.contextPath}/testCreate/feedbackTestPaper',
+																	method: 'POST',
+																	data: {
+																		testPaperId: result.testPaperId,
+																		operateFlag: "affirm",
+																		testDate: formData.testDate,
+																		testPaperName: formData.testPaperName,
+																		testTime: formData.testTime
+																	},
+																	success: function(dd) {
+																		var _result = $.parseJSON(dd);
+																		if (result.status == 1) {
+																			dialog.close();
+																			dialogPaper.close();
+																			BootstrapDialog.alert({
+																				title: '结果',
+																				message: '保存成功',
+																				type: BootstrapDialog.TYPE_SUCCESS
+																			});
+																		} else {
+																			$buttonPaper.stopSpin();
+																			dialogPaper.enableButtons(true);
+																			BootstrapDialog.alert({
+																				title: '结果',
+																				message: '保存失败',
+																				type: BootstrapDialog.TYPE_DANGER
+																			});
+																		}
+																		
+																	},
+																	error: function(dd) {
+																		$buttonPaper.stopSpin();
+																		dialogPaper.enableButtons(true);
+																		BootstrapDialog.alert({
+																			title: '错误',
+																			message: '上传失败',
+																			type: BootstrapDialog.TYPE_DANGER
+																		});
+																	},
+																	complete: function() {
+																		$buttonPaper.stopSpin();
+																		dialogPaper.enableButtons(true);
+																	}
+																});
 															} else {
-																$button.stopSpin();
-																dialog.enableButtons(true);
+																$buttonPaper.stopSpin();
+																dialogPaper.enableButtons(true);
 															}
 														}
 													});
