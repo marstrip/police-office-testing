@@ -66,9 +66,16 @@
 	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.eventBinds.js"></script>
 	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.core.js"></script>
 
+	<!-- 组卷核心js -->
+	<script src="${pageContext.request.contextPath}/styles/assets/gen-paper/genPaper.js"></script>
+
 	<style>
 		.datetimepicker {
 			z-index: 9999!important;
+		}
+
+		.paper-preview-dialog .modal-dialog {
+			width: 980px;
 		}
 	</style>
 
@@ -520,82 +527,106 @@
 
 						if (isValid) {
 
-							// 确认提交框
-							var cfm = BootstrapDialog.confirm({
-								title: '确认',
-								message: '请确认是否提交？',
-								type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
-								// closable: true, // <-- Default value is false
-								draggable: true, // <-- Default value is false
-								btnCancelLabel: '取消', // <-- Default value is 'Cancel',
-								btnOKLabel: '确认', // <-- Default value is 'OK',
-								btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
-								callback: function(isYes) {
-									// isYes will be true if button was click, while it will be false if users close the dialog directly.
-									if (isYes) {
+							// 整合数据-生成试卷
+							var formData = $('#dataForm').serializeJson();
+							formData = $.extend({}, {
+								uploadFileIds: selections.join(',').trim(),
+								beginDate: $('#beginDate').val().trim(),
+								endDate: $('#endDate').val().trim()
+							}, formData);
+							console.log('save formData', formData);
+							$('#dataForm').find(':input').prop('disabled', true);
+
+							$.ajax({
+								url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
+								method: "POST",
+								data : formData,
+								success: function(d) {
+									var result = $.parseJSON(d);
+									console.log('提交成功，结果:', d, result);
+
+									console.log('生成试卷预览TODO');
+
+									// TODO ....
+									if (result.status == 1) {
+										dialog.enableButtons(false);
+										dialog.setClosable(false);
 										
-										// 整合数据
-										var formData = $('#dataForm').serializeJson();
-										formData = $.extend({}, {
-											uploadFileIds: selections.join(',').trim(),
-											beginDate: $('#beginDate').val().trim(),
-											endDate: $('#endDate').val().trim()
-										}, formData);
-										console.log('save formData', formData);
-										$('#dataForm').find(':input').prop('disabled', true);
-
-										$.ajax({
-											url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
-											method: "POST",
-											data : formData,
-											success: function(d) {
-												var result = $.parseJSON(d);
-												console.log('提交成功，结果:', d, result);
-
-												console.log('生成试卷预览TODO');
-
-												// TODO ....
-												if (result.status == 1) {
-													$table.bootstrapTable('refresh', {silent: false});
-
-													dialog.enableButtons(false);
-													dialog.setClosable(false);
-													dialog.getModalBody().html(result.message);
-
-													setTimeout(function(){
-														dialog.close();
-													}, 3000);
-												} else {
-													BootstrapDialog.alert({
-														title: '结果',
-														message: '生成试卷预览失败。' + result.message,
-														type: BootstrapDialog.TYPE_DANGER
+										// 弹出预览页面
+										BootstrapDialog.show({
+											title: '试卷预览',
+											cssClass: 'paper-preview-dialog',
+											message: function() {
+												var $message = $('<div>TODO</div>');
+												// 渲染试卷方法
+												$message.genPaper(formData, result);
+												return $message;
+											},
+											buttons: [{
+												label: '确认',
+												icon: 'glyphicon glyphicon-send',
+												autospin: false,
+												cssClass: "btn-primary",
+												action: function(dialogPaper, evt) {
+													var $buttonPaper = this;
+													$buttonPaper.spin();
+													dialogPaper.enableButtons(false);
+													
+													// 确认提交框
+													var cfmPaper = BootstrapDialog.confirm({
+														title: '确认',
+														message: '请确认是否生成该试卷？',
+														type: BootstrapDialog.TYPE_WARNING,
+														draggable: true,
+														btnCancelLabel: '取消', 
+														btnOKLabel: '确认',
+														btnOKClass: 'btn-warning',
+														callback: function(isYes) {
+															if (isYes) {
+																// 保存页面 TODO
+																
+															} else {
+																$button.stopSpin();
+																dialog.enableButtons(true);
+															}
+														}
 													});
-													$button.stopSpin();
-													dialog.enableButtons(true);
+													cfmPaper.$modalDialog.css('width', '300px');
 												}
-											},
-											error: function(d) {
-												BootstrapDialog.alert({
-													title: '错误',
-													message: '上传失败',
-													type: BootstrapDialog.TYPE_DANGER
-												});
-											},
-											complete: function() {
-												$button.stopSpin();
-												dialog.enableButtons(true);
-												$('#dataForm').find(':input').prop('disabled', false);
-											}
-										});
+											}, {
+												label: '取消',
+												action: function(dialogPaper) {
+													dialogPaper.close();
+													dialog.enableButtons(true);
+													dialog.setClosable(true);
+												}
+											}]
+										});	// END OF BootstrapDialog.show
+
 									} else {
+										BootstrapDialog.alert({
+											title: '结果',
+											message: '生成试卷预览失败。' + result.message,
+											type: BootstrapDialog.TYPE_DANGER
+										});
 										$button.stopSpin();
 										dialog.enableButtons(true);
 									}
+								},
+								error: function(d) {
+									BootstrapDialog.alert({
+										title: '错误',
+										message: '上传失败',
+										type: BootstrapDialog.TYPE_DANGER
+									});
+								},
+								complete: function() {
+									$button.stopSpin();
+									dialog.enableButtons(true);
+									$('#dataForm').find(':input').prop('disabled', false);
 								}
 							});
-							cfm.$modalDialog.css('width', '300px');
-							// console.log(cfm);
+
 						} else {
 							$button.stopSpin();
 							dialog.enableButtons(true);
