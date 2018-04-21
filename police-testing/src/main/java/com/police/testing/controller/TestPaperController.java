@@ -104,7 +104,11 @@ public class TestPaperController {
 			String testPaperId = receiveObject.getString("testPaperId");
 			String answerListStr = receiveObject.getString("answerList");
 			JSONArray answerArray = JSONArray.fromObject(answerListStr);
-			Integer socre = testPaperService.submitTesting(answerArray, testPaperId);
+			Integer score = testPaperService.submitTesting(answerArray, testPaperId);
+			result.put("status", 1);
+			result.put("score", score);
+		}else {
+			result.put("status", -1);
 		}
 		return result;
 	}

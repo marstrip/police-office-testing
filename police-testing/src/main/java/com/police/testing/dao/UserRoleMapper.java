@@ -24,7 +24,7 @@ public interface UserRoleMapper {
      * @param loginName
      * @return
      */
-    List<Role> selectByLoginName(@Param("loginName") String loginName);
+    List<UserRoleKey> selectByUserId(@Param("userId") String userId);
     /**
      * 修改用户对应的角色
      */

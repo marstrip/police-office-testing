@@ -11,13 +11,19 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.police.testing.service.ISystemService;
 import com.police.testing.tools.GetEncode;
 
 @Controller
 @RequestMapping("/login/")
 public class LoginController {
+	@Autowired
+	private ISystemService systemService;
+	
 	static Logger logger = LogManager.getLogger(LoginController.class.getName());
     /**
 	 * 登录页面初始(学生)
@@ -31,25 +37,32 @@ public class LoginController {
 		 return "login";
 	}
 	/**
-	 * 用户登录
+	 * 用户登录后台
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("backgroundeSystem")
+	@RequestMapping("backgroundSystem")
 	public String login(HttpServletRequest request){
-		String userName = GetEncode.transcode(request.getParameter("userName"));
+		String loginId = GetEncode.transcode(request.getParameter("loginId"));
 		String password = GetEncode.transcode(request.getParameter("password"));
-		if(StringUtils.isBlank(userName) || StringUtils.isBlank(password)){
+		if(StringUtils.isBlank(loginId) || StringUtils.isBlank(password)){
 			request.setAttribute("message", "用户名密码不能为空！");
 			return "login";
 		}
 		String lastUrl = null;
-		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);  
+		UsernamePasswordToken token = new UsernamePasswordToken(loginId, password);  
         //获取当前的Subject  
         Subject currentUser = SecurityUtils.getSubject(); 	
         try{  
-        	currentUser.login(token);  
-        	lastUrl = "background_system/index";
+        	currentUser.login(token);
+        	//判断是否有管理员权限
+        	boolean flag = systemService.ifAdminRole(loginId);
+        	if(flag){
+        		lastUrl = "background_system/index";
+        	}else {
+        		request.setAttribute("message", "没有管理员权限！");
+            	lastUrl= "login";
+        	}
         }catch(AuthenticationException ae){  
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
         	ae.printStackTrace();
@@ -58,7 +71,34 @@ public class LoginController {
         }
 		return lastUrl;
 	}
-	
+	/**
+	 * 用户登录
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("frontendLogin")
+	public String frontendLogin(HttpServletRequest request){
+		String loginId = GetEncode.transcode(request.getParameter("loginId"));
+		String password = GetEncode.transcode(request.getParameter("password"));
+		if(StringUtils.isBlank(loginId) || StringUtils.isBlank(password)){
+			request.setAttribute("message", "用户名密码不能为空！");
+			return "login";
+		}
+		String lastUrl = null;
+		UsernamePasswordToken token = new UsernamePasswordToken(loginId, password);  
+        //获取当前的Subject  
+        Subject currentUser = SecurityUtils.getSubject(); 	
+        try{  
+        	currentUser.login(token);  
+        	lastUrl = "frontend_system/index";
+        }catch(AuthenticationException ae){  
+            //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
+        	ae.printStackTrace();
+        	request.setAttribute("message", "用户名密码不正确！");
+        	lastUrl= "login";
+        }
+		return lastUrl;
+	}
 	 /** 
      * 用户登出 
      */

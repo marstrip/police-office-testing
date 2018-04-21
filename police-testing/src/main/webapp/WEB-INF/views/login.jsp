@@ -1,57 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户登录</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/login/demo.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/login/style.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/login/animate-custom.css" />
-<script type="text/javascript">
-</script>
+	<meta charset="UTF-8">
+	<title>登录页</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/jquery.perfect-scrollbar-1.3.0/css/perfect-scrollbar.css">
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/assets/css/demo-all.css">
+
+	<script src="${pageContext.request.contextPath}/styles/vendors/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/vendors/jquery.perfect-scrollbar-1.3.0/dist/perfect-scrollbar.min.js"></script>
+
+	<!-- <script src="${pageContext.request.contextPath}/styles/assets/js/demo.js"></script>
+	<script src="vendor/Chart.js/Chart.js"></script> -->
+	<!-- <script src="assets/js/mysite.js"></script> -->
+	<script type="text/javascript">
+		//登录
+		function login(flag){
+			var form = document.forms[0];
+			if(flag == 1){//前台系统
+				form.action = "${pageContext.request.contextPath}/login/frontendLogin"
+			}else if(flag == 2){//后台系统
+				form.action = "${pageContext.request.contextPath}/login/backgroundSystem"
+			}
+			form.submit();
+		}
+	</script>
 </head>
+
 <body>
-        <div class="container">
-            <!-- Codrops top bar -->
-            <div class="codrops-top">
-                
-                <div class="clr"></div>
-            </div><!--/ Codrops top bar -->
-            <header>
-                <h1>在线考试系统</h1>
-            </header>
-            <section>				
-                <div id="container_demo" >
-                    <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-                    <a class="hiddenanchor" id="toregister"></a>
-                    <a class="hiddenanchor" id="tologin"></a>
-                    <div id="wrapper">
-                        <div id="login" class="animate form">
-                            <form action="${pageContext.request.contextPath}/login/backgroundeSystem" method="post"> 
-                                <h1>Log in</h1> 
-                                <p> 
-                                    <label for="username" class="uname" data-icon="u" > Your username </label>
-                                    <input id="userName" name="userName" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
-                                </p>
-                                <p> 
-                                    <label for="password" class="youpasswd" data-icon="p"> Your password </label>
-                                    <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
-                                </p>
-                                <p>
-									<label style="color: red">${message }</label>                                
-                                </p>
-                                <p class="keeplogin"> 
-									<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
-									<label for="loginkeeping">Keep me logged in</label>
-								</p>
-                                <p class="login button"> 
-                                    <input type="submit" value="Login" /> 
-								</p>
-                            </form>
-                        </div>
-                    </div>
-                </div>  
-            </section>
-        </div>
-    </body>
+	<div class="psb-container psb-here">
+		<div class="psb-content">
+			<div class="mastbg">
+				<div class="masthead">
+					<div class="thin-body masthead-bg">
+					</div>
+				</div>
+
+				<div class="thin-body">
+					<div class="mastbody">
+						<!-- <ol class="breadcrumb">
+								<li><a href="demo-index.html">首页</a></li>
+							</ol> -->
+						<div class="login-left-area" style="margin-top:20px;">
+							<img src="${pageContext.request.contextPath}/styles/assets/img/police5.png">
+						</div>
+
+						<div class="login-right-area">
+							<div class="panel panel-white">
+								<!-- <div class="panel-heading">
+										<h3 class="panel-title">
+											登陆
+										</h3>
+									</div> -->
+								<div class="panel-body" style="padding-top: 0;">
+									<div class="row">
+										<div class="col-sm-8 col-sm-offset-2" style="margin-top: 20px;">
+											<h1 class="text-center">
+												<!-- <i class="fa fa-sign-in fa-2x"></i>&nbsp; -->
+												<span>欢迎您！</span>
+											</h1>
+										</div>
+										<!-- <hr style="clear: both; margin-left: 30px; margin-right: 30px;"> -->
+										<form id="mainForm" name="mainForm" method="post"> 
+											<div class="col-sm-10 col-sm-offset-1">
+												<div class="input-group form-group" style="margin: 25px 0;">
+													<span class="input-group-addon">警号</span>
+													<input type="text" class="form-control" name="loginId" placeholder="警号">
+												</div>
+												<div class="input-group form-group" style="margin: 40px 0;">
+													<span class="input-group-addon">密码</span>
+													<input type="password" class="form-control" name="password" placeholder="密码">
+												</div>
+												<p>
+													<label style="color: red">${message }</label>                                
+                                				</p>
+												<div class="form-group text-right" style="margin-bottom: 20px;">
+													<button type="button" class="btn btn-success" onclick="login(1);">登录</button>
+													<button type="button" class="btn btn-success" onclick="login(2);">登录管理后台</button>
+												</div>
+											</div>
+										</form>
+										<!-- <hr style="clear: both; margin-left: 30px; margin-right: 30px;"> -->
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<br>
+					</div>
+				</div>
+
+				<footer class="footer">
+					<div class="container">
+						<div class="row">
+							<ul class="text-center no-style" style="padding: 25px 0;">
+								<li>
+									<span>北京市公安局东城分局政治部教育训练处</span>
+								</li>
+								<li>
+									<span>建议使用IE9以上浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+
+</body>
+
 </html>

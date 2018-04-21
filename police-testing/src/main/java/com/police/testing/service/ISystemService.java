@@ -11,4 +11,6 @@ public interface ISystemService {
 	  * @return
 	  */
 	 public List<SysMenu> getChildByParentId(Integer parentId);
+
+	public boolean ifAdminRole(String loginId);
 }

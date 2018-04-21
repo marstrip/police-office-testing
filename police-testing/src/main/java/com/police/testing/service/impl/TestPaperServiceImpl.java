@@ -22,7 +22,6 @@ import com.police.testing.dao.TestPaperMapper;
 import com.police.testing.dao.TestPaperQuestionMapper;
 import com.police.testing.dao.TestQuestionMapper;
 import com.police.testing.dao.TestingLogMapper;
-import com.police.testing.pojo.StaticDataLogin;
 import com.police.testing.pojo.SysUser;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestPaperQuestion;
@@ -193,38 +192,65 @@ public class TestPaperServiceImpl implements ITestPaperService {
 
 	@Override
 	public Integer submitTesting(JSONArray answerArray, String testPaperId) {
-		Integer sorce = 0;
+		//初始分数为0
+		Integer score = 0;
+		//遍历提交答题结果
 		for (Object object : answerArray) {
 			JSONObject jsonObject = JSONObject.fromObject(object);
-			if(jsonObject.containsKey("testQusetionId") && jsonObject.containsKey("answer") && jsonObject.containsKey("questionType")){
-				String questionType = jsonObject.getString("questionType");
-				String testQuestionsId = jsonObject.getString("testQuestionId");
-				TestQuestionWithBLOBs testQuestionWithBLOBs = testQuestionMapper.selectByPrimaryKey(testQuestionsId);
+			//判断数据是否存在
+			if(jsonObject.containsKey("testQusetionsId") && jsonObject.containsKey("answer") && jsonObject.containsKey("testQuestionType")){
+				String questionType = jsonObject.getString("testQuestionType");//题目类型
+				String testQuestionsId = jsonObject.getString("testQuestionsId");//试题ID
+				TestQuestionWithBLOBs testQuestionWithBLOBs = testQuestionMapper.selectByPrimaryKey(testQuestionsId);//获取题目对象用于获取答案
 				String rightAnswer = null;
 				if(testQuestionWithBLOBs != null){
 					rightAnswer = testQuestionWithBLOBs.getCorrectAnswer();
 				}
-				String userAnswer = jsonObject.getString("answer");
+				String userAnswer = jsonObject.getString("answer");//用户提交的答案
 				//判断答案是否一致
 				if(StringUtils.isNotBlank(rightAnswer) && userAnswer.equals(rightAnswer)){
-					//做题正确
+					//做题正确，在试卷试题关系表中记录正确一次用于统计分析
 					testPaperQuestionMapper.updateRightCount(testPaperId, testQuestionsId);
-					if(StringUtils.isNotBlank(questionType) && questionType.equals("1")){
-						sorce = sorce+2;
-					}else if(questionType.equals("2")){
-						sorce = sorce+3;
-					}else if(questionType.equals("3")){
-						sorce = sorce+1;
+					if(StringUtils.isNotBlank(questionType)){
+						if(questionType.equals("1")){//单选题
+							score = score+2;
+						}else if(questionType.equals("2")){//多选题
+							score = score+3;
+						}else if(questionType.equals("3")){//判断题
+							score = score+1;
+						}	
 					}
 				}else {
-					//做题错误
+					//做题错误，在试题试卷关系表中记录错误一次用于统计分析
 					testPaperQuestionMapper.updateFailCount(testPaperId, testQuestionsId);
 				}
 			}
 		}
-		//保存分数
-		
-		return sorce;
+		//---------------------------------------保存分数-----------------------------
+		//用户信息
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		String userId = (String) session.getAttribute("currentUserId");
+		SysUser user = sysUserMapper.findByLoginName(userId, "1");
+		String departmentName = null;
+		String departmentId = null;
+		String userName = null;
+		if(user != null){
+			departmentName = user.getDepartmentName();
+			departmentId = user.getDepartmentId();
+			userName = user.getUserName();
+		}
+		TestingLog testingLog = new TestingLog();
+		testingLog.setCreateDate(new Date());
+		testingLog.setDepartmentId(departmentId);
+		testingLog.setDepartmentName(departmentName);
+		testingLog.setScore(score);
+		testingLog.setTestingType("officalExam");
+		testingLog.setTestPaperId(testPaperId);
+		testingLog.setUserId(userId);
+		testingLog.setUserName(userName);
+		testingLogMapper.insert(testingLog);
+		return score;
 	}
 	
 }
