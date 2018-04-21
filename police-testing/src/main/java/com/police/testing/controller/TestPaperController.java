@@ -29,7 +29,7 @@ public class TestPaperController {
 	 */
 	@RequestMapping("fronendJsp")
 	public String fronendJsp(HttpServletRequest request){
-		return "frontend_system/test_paper/testing_paper";
+		return "frontend_system/test_paper/testing_view";
 	}
 	/**
 	 * 获取试卷列表

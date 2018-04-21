@@ -81,7 +81,7 @@
     from test_question
     where 1=1
     <if test="testQuestionIds != null">
-    	and test_question_id in 
+    	and test_questions_id in 
 	    <foreach item="item" index="index" collection="testQuestionIds" open="(" separator="," close=")">  
 	  			#{item}
 		</foreach>
