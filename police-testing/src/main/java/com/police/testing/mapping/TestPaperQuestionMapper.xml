@@ -21,7 +21,7 @@
     where auto_id = #{autoId,jdbcType=INTEGER}
   </select>
   
-  <select id="selectByTestPaperId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByTestPaperId" resultMap="BaseResultMap" parameterType="java.lang.VARCHAR" >
   	select 
     <include refid="Base_Column_List" />
     from test_paper_question

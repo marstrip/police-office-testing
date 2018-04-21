@@ -164,7 +164,8 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			JSONObject jsonObject = JSONObject.fromObject(object);
 			if(jsonObject.containsKey("testQusetionId") && jsonObject.containsKey("answer") && jsonObject.containsKey("questionType")){
 				String questionType = jsonObject.getString("questionType");
-				String testQuestionId = jsonObject.getString("testQuestionId");
+				String testQuestionsId = jsonObject.getString("testQuestionId");
+//				TestQuestionWithBLOBs testQuestionWithBLOBs = testQuestionMapper.selectByPrimaryKey(testQuestionsId);
 				String answer = jsonObject.getString("answer");
 				if(StringUtils.isNotBlank(questionType) && questionType.equals("1")){//单选题
 //					String 

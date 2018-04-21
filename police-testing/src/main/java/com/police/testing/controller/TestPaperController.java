@@ -23,6 +23,15 @@ public class TestPaperController {
 	@Autowired
 	private ITestPaperService testPaperService;
 	/**
+	 * 跳转前台展现试卷页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("fronendJsp")
+	public String fronendJsp(HttpServletRequest request){
+		return "frontend_system/test_paper/testing_paper";
+	}
+	/**
 	 * 获取试卷列表
 	 * @param request
 	 * @return
