@@ -35,18 +35,18 @@
         </div>
     </div> -->
 
-	<div class="mastbody" style="background: transparent;">
-		<div class="container" style="margin-left: 0; margin-right: 0;">
+    <div class="mastbody" style="background: transparent;">
+        <div class="container" style="margin-left: 0; margin-right: 0;">
 
-			<!-- <div class="row">
+            <!-- <div class="row">
 			    <ol class="breadcrumb">
 				    <li><a href="demo-index.html">首页</a></li>
 				    <li>考试</li>
 				</ol>
 			</div> -->
-		</div>
+        </div>
 
-		<div>
+        <div>
             <!-- 面板区域 -->
             <div style="width: 90px; margin-right: 25px; float: right; position: fixed; right: calc(50% - 520px);">
                 <div class="panel panel-white" style="display: block; position: relative; overflow: hidden;">
@@ -54,8 +54,7 @@
                         <div class="icon">
                             <i class="fa fa-clock-o fa-4x"></i>
                         </div>
-                        <div class="icon-description">
-                            96分16秒
+                        <div class="icon-description" id="timer">
                         </div>
                         <div class="weak small">
                             共1题
@@ -88,7 +87,7 @@
                 </div>
             </div>
             <!-- 答题区域 -->
-	        <div style="margin: 0 15px; /*min-width: 780px; width: calc(100% - 150px);*/ width: 800px; margin: 20px auto; white-space: initial;">
+            <div style="margin: 0 15px; /*min-width: 780px; width: calc(100% - 150px);*/ width: 800px; margin: 20px auto; white-space: initial;">
                 <div class="panel panel-white" style="display: block;">
                     <!-- <div class="panel-heading">
                         <h3 class="panel-title">
@@ -96,214 +95,220 @@
                         </h3>
                     </div> -->
                     <div class="panel-body" style="display: block; padding-bottom: 50px;">
-                    	<!-- 试卷头 -->
-                    	<div class="text-center">
-                    		<h1>2018年第一次月考</h1>
-                    		<div class="col-sm-8 col-sm-offset-2">
-                    			<hr>
-                    			<div>
-                    				<div class="col-sm-4 text-center exam-header-item">
-                    					<p>本试卷共有</p>
-                    					<p><strong>30</strong> 题目</p>
-                    				</div>
-                    				<div class="col-sm-4 text-center exam-header-item">
-                    					<p>卷面总分</p>
-                    					<p><strong>100</strong> 分</p>
-                    				</div>
-                    				<div class="col-sm-4 text-center exam-header-item">
-                    					<p>答题时间</p>
-                    					<p><strong>100</strong> 分钟</p>
-                    				</div>
-                    			</div>
-                    		</div>
-                    		<div style="clear: left;">
-                    			<div class="col-sm-12">
-		                   			<hr>
-		                   		</div>
-                    		</div>
-                    	</div>
-                    	<!-- 题目 -->
+                        <!-- 试卷头 -->
+                        <div class="text-center">
+                            <h1>2018年第一次月考</h1>
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <hr>
+                                <div>
+                                    <div class="col-sm-4 text-center exam-header-item">
+                                        <p>本试卷共有</p>
+                                        <p>
+                                            <strong>30</strong> 题目</p>
+                                    </div>
+                                    <div class="col-sm-4 text-center exam-header-item">
+                                        <p>卷面总分</p>
+                                        <p>
+                                            <strong>100</strong> 分</p>
+                                    </div>
+                                    <div class="col-sm-4 text-center exam-header-item">
+                                        <p>答题时间</p>
+                                        <p>
+                                            <strong>100</strong> 分钟</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear: left;">
+                                <div class="col-sm-12">
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 题目 -->
                         <div class="q-select exam-area">
                             <h2>一、判断题</h2>
                             <div class="q-select-items">
-                            <div class="col-sm-12">
-                                <h3>1、(17年新增试题)吴某（聋哑人）涉嫌抢劫罪被逮捕，辩护律师孔某和翻译人员毛某到看守所要求会见，看守所查验了孔某的律师执业证书、律师事务所证明、委托书和毛某的身份证件后安排了会见，同时通知了办案部门。</h3>
-                                <div class="q-select-answer">
-                                    <ul class="no-style">
-                                        <li>
-                                            <input type="radio" name="q1"> 正确
-                                        </li>
-                                        <li>
-                                            <input type="radio" name="q1"> 错误
-                                        </li>
-                                    </ul>
+                                <div class="col-sm-12">
+                                    <h3>1、(17年新增试题)吴某（聋哑人）涉嫌抢劫罪被逮捕，辩护律师孔某和翻译人员毛某到看守所要求会见，看守所查验了孔某的律师执业证书、律师事务所证明、委托书和毛某的身份证件后安排了会见，同时通知了办案部门。</h3>
+                                    <div class="q-select-answer">
+                                        <ul class="no-style">
+                                            <li>
+                                                <input type="radio" name="q1"> 正确
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="q1"> 错误
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <h3>2、(17年新增试题)杨某涉嫌帮助恐怖活动罪被监视居住，辩护律师姜某要求会见杨某。公安机关应当在收到申请后5日内作出许可或不许可的决定。 </h3>
+                                    <div class="q-select-answer">
+                                        <ul class="no-style">
+                                            <li>
+                                                <input type="radio" name="q1"> 正确
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="q1"> 错误
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <h2>二、选择题</h2>
+                                <div class="q-select-items">
+                                    <div class="col-sm-12">
+                                        <h3>1、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
+                                        <div class="q-select-answer">
+                                            <ul class="no-style">
+                                                <li>
+                                                    <input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q1"> C．王某不可以对朱某口头传唤
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <h3>2、某市公安局在办理赵某故意伤害案件中，发现赵某是省政协委员，以下关于公安机关对赵某采取强制措施的表述错误的是（ ）。</h3>
+                                        <div class="q-select-answer">
+                                            <ul class="no-style">
+                                                <li>
+                                                    <input type="radio" name="q2"> A．对赵某采取拘传的，应当将有关情况通报给赵某所属的政协组织
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q2"> B．对赵某采取监视居住的，应当将有关情况通报给赵某所属的政协组织
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q2"> C．对赵某执行拘留前，应当向赵某所属的政协组织通报情况；情况紧急的，可在执行
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q1"> D．对赵某执行逮捕前，应当报请赵某所属的政协组织许可；情况紧急的，可在执行的同时或者执行以后及时报请许可
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <h3>3、犯罪嫌疑人王某因涉嫌抢劫罪于11月2日被立案侦查，3日被拘传讯问，4日被执行拘留，10日经人民检察院批准并于当日被执行逮捕。对犯罪嫌疑人王某的侦查羁押期限自（
+                                            ）起计算。</h3>
+                                        <div class="q-select-answer">
+                                            <ul class="no-style">
+                                                <li>
+                                                    <input type="radio" name="q3"> A．11月3日
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q3"> B．11月4日
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q3"> C．11月10日
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <h3>4、犯罪嫌疑人甲在实施抢劫时被当场抓获并被刑事拘留，后被逮捕。甲拒不说出真实姓名、住址，身份不明，其侦查羁押期限应从（ ）。</h3>
+                                        <div class="q-select-answer">
+                                            <ul class="no-style">
+                                                <li>
+                                                    <input type="radio" name="q4"> A．拘留之日起计算
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q4"> B．逮捕之日起计算
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q4"> C．查清其身份之日起计算
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <h3>5、犯罪嫌疑人吴某因涉嫌诈骗罪于某年1月1日被人民检察院批准逮捕，但吴某始终不讲自己的真实姓名、住址，直到3月1日公安机关方查清其身份。以下说法正确的是（ ）。</h3>
+                                        <div class="q-select-answer">
+                                            <ul class="no-style">
+                                                <li>
+                                                    <input type="radio" name="q5"> A．对吴某的羁押期限自1月1日起开始计算
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q5"> B．对吴某的羁押期限由办案机关确定
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q5"> C．吴某不讲真实姓名、住址，身份不明，公安机关无须对其身份进行调查
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <h3>6、甲县公安机关接到张某举报该县国家机关工作人员王某利用职权实施破坏县人大代表选举的刑事案件，应当（ ）。</h3>
+                                        <div class="q-select-answer">
+                                            <ul class="no-style">
+                                                <li>
+                                                    <input type="radio" name="q6"> A．告知举报人张某向有管辖权的国家机关举报
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q6"> B．向有管辖权的国家机关通报
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q6"> C．接受案件后，移送人民检察院处理
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <h3>7、被害人魏某在大街上因为小事与人发生争吵，在争吵过程中，对方拿出水果刀朝其腹部捅了一刀，然后逃跑，经鉴定为轻伤。魏某到当地公安机关报案，要求公安机关立案侦查。关于本案，下列说法正确的是（
+                                            ）。</h3>
+                                        <div class="q-select-answer">
+                                            <ul class="no-style">
+                                                <li>
+                                                    <input type="radio" name="q7"> A．公安机关应当立案
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q7"> B．轻伤害属于自诉案件，公安机关应当告知被害人向人民法院起诉
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q7"> C．公安机关应当等抓获犯罪嫌疑人之后，再立案侦查
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <h3>8、小于，17周岁，因盗窃罪被判处3年有期徒刑。关于其犯罪记录，以下说法正确的是（ ）。</h3>
+                                        <div class="q-select-answer">
+                                            <ul class="no-style">
+                                                <li>
+                                                    <input type="radio" name="q8"> A．司法机关应当对小于的犯罪记录封存
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q8"> B．小于服刑完毕后，到甲公司工作，公司为了解小于的个人信息，可以向司法机关调阅该犯罪记录
+                                                </li>
+                                                <li>
+                                                    <input type="radio" name="q8"> C．为普法宣传，司法机关经过严格的审批后，可以对外公开小于的犯罪记录
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-sm-12">
-                                <h3>2、(17年新增试题)杨某涉嫌帮助恐怖活动罪被监视居住，辩护律师姜某要求会见杨某。公安机关应当在收到申请后5日内作出许可或不许可的决定。 </h3>
-                                <div class="q-select-answer">
-                                    <ul class="no-style">
-                                        <li>
-                                            <input type="radio" name="q1"> 正确
-                                        </li>
-                                        <li>
-                                            <input type="radio" name="q1"> 错误
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        	<h2>二、选择题</h2>
-                        	<div class="q-select-items">
-                        		<div class="col-sm-12">
-	                        		<h3>1、在犯罪现场，侦查人员王某发现了犯罪嫌疑人朱某。下列说法正确的是（ ）。</h3>
-                                    <div class="q-select-answer">
-    	                        		<ul class="no-style">
-    	                        			<li>
-    	                        				<input type="radio" name="q1"> A．王某经出示工作证件，可以对朱某口头传唤，但应当在讯问笔录中注明
-    	                        			</li>
-    	                        			<li>
-    	                        				<input type="radio" name="q1"> B．王某可以对朱某口头传唤，无须出示工作证件，但应当在讯问笔录中注明
-    	                        			</li>
-    	                        			<li>
-    	                        				<input type="radio" name="q1"> C．王某不可以对朱某口头传唤
-                                            </li>
-                                            <li>
-    	                        				<input type="radio" name="q1"> D．王某对朱某传唤的时间不得超过8小时 
-    	                        			</li>
-    	                        		</ul>
-                                    </div>
-                        		</div>
-                                <div class="col-sm-12">
-                                    <h3>2、某市公安局在办理赵某故意伤害案件中，发现赵某是省政协委员，以下关于公安机关对赵某采取强制措施的表述错误的是（   ）。</h3>
-                                    <div class="q-select-answer">
-                                        <ul class="no-style">
-                                            <li>
-                                                <input type="radio" name="q2"> A．对赵某采取拘传的，应当将有关情况通报给赵某所属的政协组织
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q2"> B．对赵某采取监视居住的，应当将有关情况通报给赵某所属的政协组织
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q2"> C．对赵某执行拘留前，应当向赵某所属的政协组织通报情况；情况紧急的，可在执行
-                                            </li>
-                                            <li>
-    	                        				<input type="radio" name="q1"> D．对赵某执行逮捕前，应当报请赵某所属的政协组织许可；情况紧急的，可在执行的同时或者执行以后及时报请许可 
-    	                        			</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <h3>3、犯罪嫌疑人王某因涉嫌抢劫罪于11月2日被立案侦查，3日被拘传讯问，4日被执行拘留，10日经人民检察院批准并于当日被执行逮捕。对犯罪嫌疑人王某的侦查羁押期限自（  ）起计算。</h3>
-                                    <div class="q-select-answer">
-                                        <ul class="no-style">
-                                            <li>
-                                                <input type="radio" name="q3"> A．11月3日
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q3"> B．11月4日
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q3"> C．11月10日
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <h3>4、犯罪嫌疑人甲在实施抢劫时被当场抓获并被刑事拘留，后被逮捕。甲拒不说出真实姓名、住址，身份不明，其侦查羁押期限应从（  ）。</h3>
-                                    <div class="q-select-answer">
-                                        <ul class="no-style">
-                                            <li>
-                                                <input type="radio" name="q4"> A．拘留之日起计算
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q4"> B．逮捕之日起计算
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q4"> C．查清其身份之日起计算
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <h3>5、犯罪嫌疑人吴某因涉嫌诈骗罪于某年1月1日被人民检察院批准逮捕，但吴某始终不讲自己的真实姓名、住址，直到3月1日公安机关方查清其身份。以下说法正确的是（  ）。</h3>
-                                    <div class="q-select-answer">
-                                        <ul class="no-style">
-                                            <li>
-                                                <input type="radio" name="q5"> A．对吴某的羁押期限自1月1日起开始计算
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q5"> B．对吴某的羁押期限由办案机关确定
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q5"> C．吴某不讲真实姓名、住址，身份不明，公安机关无须对其身份进行调查
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <h3>6、甲县公安机关接到张某举报该县国家机关工作人员王某利用职权实施破坏县人大代表选举的刑事案件，应当（  ）。</h3>
-                                    <div class="q-select-answer">
-                                        <ul class="no-style">
-                                            <li>
-                                                <input type="radio" name="q6"> A．告知举报人张某向有管辖权的国家机关举报
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q6"> B．向有管辖权的国家机关通报  
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q6"> C．接受案件后，移送人民检察院处理
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <h3>7、被害人魏某在大街上因为小事与人发生争吵，在争吵过程中，对方拿出水果刀朝其腹部捅了一刀，然后逃跑，经鉴定为轻伤。魏某到当地公安机关报案，要求公安机关立案侦查。关于本案，下列说法正确的是（ ）。</h3>
-                                    <div class="q-select-answer">
-                                        <ul class="no-style">
-                                            <li>
-                                                <input type="radio" name="q7"> A．公安机关应当立案
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q7"> B．轻伤害属于自诉案件，公安机关应当告知被害人向人民法院起诉
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q7"> C．公安机关应当等抓获犯罪嫌疑人之后，再立案侦查
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <h3>8、小于，17周岁，因盗窃罪被判处3年有期徒刑。关于其犯罪记录，以下说法正确的是（ ）。</h3>
-                                    <div class="q-select-answer">
-                                        <ul class="no-style">
-                                            <li>
-                                                <input type="radio" name="q8"> A．司法机关应当对小于的犯罪记录封存
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q8"> B．小于服刑完毕后，到甲公司工作，公司为了解小于的个人信息，可以向司法机关调阅该犯罪记录
-                                            </li>
-                                            <li>
-                                                <input type="radio" name="q8"> C．为普法宣传，司法机关经过严格的审批后，可以对外公开小于的犯罪记录
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                        	</div>
                         </div>
-                    </div><!-- end of .panel-body -->
+                        <!-- end of .panel-body -->
+                    </div>
                 </div>
-	        </div>
-	    </div>
-	</div>
+            </div>
+        </div>
 
-    <!-- <footer class="footer">
+        <!-- <footer class="footer">
         <div class="container">
             <div class="row">
                 <ul class="text-center no-style" style="padding-top: 5px;">
@@ -313,63 +318,89 @@
             </div>
         </div>
     </footer> -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <ul class="text-center no-style" style="padding: 25px 0;">
-                    <li><span>北京市公安局东城分局政治部教育训练处</span></li>
-                    <li><span>建议使用IE9以上浏览器 &nbsp; 推荐分辨率：1366&times;768</span></li>
-                </ul>
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <ul class="text-center no-style" style="padding: 25px 0;">
+                        <li>
+                            <span>北京市公安局东城分局政治部教育训练处</span>
+                        </li>
+                        <li>
+                            <span>建议使用IE9以上浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </footer>
+
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="q" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" style="padding-top: 20px;">
+                        <div class="form-group">
+                            <input type="text" name="title" class="form-control" placeholder="标题">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="detail" id="" cols="30" rows="10" class="form-control" placeholder="内容" style="resize: none;"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">&nbsp;&nbsp;关闭&nbsp;&nbsp;</button>
+                        <button type="button" class="btn btn-success">&nbsp;&nbsp;提问&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
         </div>
-    </footer>
+        <!-- /.modal -->
+        <div class="modal fade" id="qa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" style="padding-left: 30px; padding-top: 20px;">
+                        <h1>问题</h1>
+                        <p>问题标题</p>
+                        <p>问题内容</p>
+                        <h1>回答</h1>
+                        <p>回答内容</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">&nbsp;&nbsp;确定&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
-    <!-- 模态框（Modal） -->
-	<div class="modal fade" id="q" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <div class="modal-body" style="padding-top: 20px;">
-	            	<div class="form-group">
-	            		<input type="text" name="title" class="form-control" placeholder="标题">
-	            	</div>
-	            	<div class="form-group">
-	            		<textarea name="detail" id="" cols="30" rows="10" class="form-control" placeholder="内容" style="resize: none;"></textarea>
-	            	</div>
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal">&nbsp;&nbsp;关闭&nbsp;&nbsp;</button>
-	                <button type="button" class="btn btn-success">&nbsp;&nbsp;提问&nbsp;&nbsp;</button>
-	            </div>
-	        </div><!-- /.modal-content -->
-	    </div><!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
-	<div class="modal fade" id="qa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <div class="modal-body" style="padding-left: 30px; padding-top: 20px;">
-	            	<h1>问题</h1>
-					<p>问题标题</p>
-					<p>问题内容</p>
-	            	<h1>回答</h1>
-					<p>回答内容</p>
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-success" data-dismiss="modal">&nbsp;&nbsp;确定&nbsp;&nbsp;</button>
-	            </div>
-	        </div><!-- /.modal-content -->
-	    </div><!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
+        <script>
+            $('.show-qa').on('click', function () {
+                $('#qa').modal('show');
+            });
+            $('.show-q').on('click', function () {
+                $('#q').modal('show');
+            });
+        </script>
 
-    <script>
-    	$('.show-qa').on('click', function() {
-    		$('#qa').modal('show');
-    	});
-    	$('.show-q').on('click', function() {
-    		$('#q').modal('show');
-    	});
-    </script>
+        <script type="text/javascript">        
+            var maxtime = 60 * 60; //一个小时，按秒计算，自己调整!
+            function CountDown() {
+                if (maxtime >= 0) {
+                    minutes = Math.floor(maxtime / 60);
+                    seconds = Math.floor(maxtime % 60);
+                    msg = minutes + "分" + seconds + "秒";
+                    document.all["timer"].innerHTML = msg;
+                    if (maxtime == 5 * 60) alert("还剩5分钟");
+                    --maxtime;
+                } else {
+                    clearInterval(timer);
+                    alert("时间到，结束!");
+                }
+            }
+            timer = setInterval("CountDown()", 1000);                
+        </script>
 
 </body>
 
