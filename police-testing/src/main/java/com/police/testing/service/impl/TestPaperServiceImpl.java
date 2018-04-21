@@ -72,13 +72,14 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		testPaperMapper.insert(testPaper);
 		//生成试卷与试题对应关系
 		for (int i = 0 ; i< questionWithBLOBs.size(); i++) {
+			Integer number = i;
 			TestQuestionWithBLOBs testQuestionWithBLOBs = questionWithBLOBs.get(i);
 			TestPaperQuestion testPaperQuestion = new TestPaperQuestion();
 			testPaperQuestion.setTestPaperId(testPaperId);
 			testPaperQuestion.setTestQuestionsId(testQuestionWithBLOBs.getTestQuestionsId());
-			testPaperQuestion.setTestQuestionsNumber(i++);
+			testPaperQuestion.setTestQuestionsNumber(number + 1);
 			testPaperQuestion.setTestPaperName(testPaperName);
-			testPaperQuestionMapper.insert(testPaperQuestion);
+			testPaperQuestionMapper.insertSelective(testPaperQuestion);
 		}
 		return testPaperId;
 	}

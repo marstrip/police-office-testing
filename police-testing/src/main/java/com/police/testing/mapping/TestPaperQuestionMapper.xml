@@ -45,7 +45,7 @@
     where auto_id = #{autoId,jdbcType=INTEGER}
   </delete>
   
-  <delete id="deleteByTestPaperId" parameterType="java.lang.Integer">
+  <delete id="deleteByTestPaperId" parameterType="java.lang.String">
   	delete from test_paper_question
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
   
