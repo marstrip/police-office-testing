@@ -35,4 +35,12 @@ public interface IQuestionService {
 	 * @return
 	 */
 	public List<TestQuestionWithBLOBs> getListByQuestionTypeAndNumber(String beginDate, String endDate, String[] uploadLogIds, Integer number, String questionType);
+
+	public List<TestQuestionWithBLOBs> getList(String questionName, Integer offset, Integer limit);
+
+	public long getCount(String questionName);
+
+	public TestQuestionWithBLOBs getContentById(String testQuestionId);
+
+	public Integer deleteData(String testQuestionsId);
 }

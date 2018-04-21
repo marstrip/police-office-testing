@@ -49,4 +49,9 @@ public interface TestQuestionMapper {
      * @return
      */
 	List<TestQuestionWithBLOBs> selectByTestQuestionIds(@Param("testQuestionIds") List<String> testQuestionIds);
+
+	List<TestQuestionWithBLOBs> selectByLikeQuestionName(@Param("questionName")String questionName, 
+    		@Param("offset") Integer offset, @Param("limit") Integer limit);
+
+	Integer updateEnable(@Param("testQuestionsId") String testQuestionsId);
 }

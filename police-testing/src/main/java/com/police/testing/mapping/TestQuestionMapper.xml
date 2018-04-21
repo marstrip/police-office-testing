@@ -32,6 +32,22 @@
     where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectByLikeQuestionName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from test_question
+    where 1=1 
+    <if test="questionName != null and questionName != ''">
+    	 and test_questions_name like '%${questionName}%'
+    </if>
+    and enable = '1'
+    <if test="offset != null and limit != null">
+     limit ${offset},${limit}
+    </if>
+  </select>
+  
    <select id="selectByCreateDateAndUploadFileIds" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
   	select 
     <include refid="Base_Column_List" />
@@ -69,6 +85,7 @@
     <if test="questionType != null and questionType != ''">
     	and test_question_type = #{questionType,jdbcType=VARCHAR}
     </if>
+    and enable = '1'
     order by rand() LIMIT #{number,jdbcType=INTEGER}
   </select>
   
@@ -87,6 +104,13 @@
 		</foreach>
     </if>
   </select>
+  
+  <update id="updateEnable" parameterType="java.lang.String">
+  	update test_question
+    set 
+     enable = '0'
+    where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
+  </update>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from test_question

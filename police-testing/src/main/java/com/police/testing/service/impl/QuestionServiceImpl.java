@@ -386,4 +386,22 @@ public class QuestionServiceImpl implements IQuestionService{
 		List<TestQuestionWithBLOBs> list = testQuestionMapper.selectRandomByQuestionTypeAndNumber(beginDate, endDate, uploadFileLogs, questionType, number);
 		return list;
 	}
+	@Override
+	public List<TestQuestionWithBLOBs> getList(String questionName, Integer offset, Integer limit) {
+		return testQuestionMapper.selectByLikeQuestionName(questionName, offset, limit);
+	}
+	@Override
+	public long getCount(String questionName) {
+		List<TestQuestionWithBLOBs> questionWithBLOBs = testQuestionMapper.selectByLikeQuestionName(questionName, null, null);
+		return questionWithBLOBs.size();
+	}
+	@Override
+	public TestQuestionWithBLOBs getContentById(String testQuestionsId) {
+		TestQuestionWithBLOBs testQuestionWithBLOBs = testQuestionMapper.selectByPrimaryKey(testQuestionsId);
+		return testQuestionWithBLOBs;
+	}
+	@Override
+	public Integer deleteData(String testQuestionsId) {
+		return testQuestionMapper.updateEnable(testQuestionsId);
+	}
 }
