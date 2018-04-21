@@ -18,9 +18,38 @@
 	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/styles/vendors/jquery.perfect-scrollbar-1.3.0/dist/perfect-scrollbar.min.js"></script>
 
+	<!-- bootstrap-dialog -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/css/bootstrap-dialog.min.css">
+	<script src="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"></script>
+
 	<!-- <script src="assets/js/demo.js"></script> -->
 	<!-- <script src="vendor/Chart.js/Chart.js"></script> -->
 	<!-- <script src="assets/js/mysite.js"></script> -->
+	<script>
+		// 扩展String类型的原生方法，提供类似java或python的format方法
+		String.prototype.format = function(args) {
+			var result = this;
+			if (arguments.length > 0) {
+				if (arguments.length == 1 && typeof (args) == "object") {
+					for (var key in args) {
+						if(args[key]!=undefined){
+							var reg = new RegExp("({" + key + "})", "g");
+							result = result.replace(reg, args[key]);
+						}
+					}
+				}
+				else {
+					for (var i = 0; i < arguments.length; i++) {
+						if (arguments[i] != undefined) {
+							var reg = new RegExp("({[" + i + "]})", "g");
+							result = result.replace(reg, arguments[i]);
+						}
+					}
+				}
+			}
+			return result;
+		}
+	</script>
 </head>
 
 <body>
@@ -56,8 +85,8 @@
 												<li>
 													<b>欢迎您！</b>
 												</li>
-												<li class="police-name">张三</li>
-												<li class="police-id">123456</li>
+												<li class="police-name">${userName}</li>
+												<li class="police-id">${userId}</li>
 											</ul>
 										</div>
 									</div>
@@ -243,48 +272,50 @@
 								<div class="panel-body" style="padding-top: 0;">
 									<div class="notice-list">
 										<table class="table">
-											<!-- <thead>
-											<tr>
-												<th>公告标题</th>
-												<th>发布时间</th>
-											</tr>
-										</thead> -->
-											<tbody>
+											<tbody id="noticeBody">
 												<tr>
-													<td class="fix-text" style="border-top-color: transparent;">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
-													</td>
-													<td style="border-top-color: transparent;">2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
-													</td>
-													<td>2005/07/09</td>
+													<td>加载中...</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 									<!-- end of .notice-list -->
 								</div>
+								<script>
+									var informTmp =
+										'<tr>' +
+											'<td class="fix-text" style="width: 640px;">' +
+												'<a href="javascript:void(0);">{informName}</a>' +
+											'</td>' +
+											'<td style="">{createDate}</td>' +
+										'</tr>';
+									$.ajax({
+										url: '${pageContext.request.contextPath}/informNotice/getList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#noticeBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var $item = $(informTmp.format(rows[idx]));
+												$item.find('a').data('idx', idx);
+												$item.find('a').on('click', function() {
+													var _idx = $(this).data('idx');
+													BootstrapDialog.alert({
+														title: rows[_idx].informName,
+														message: rows[_idx].informContent
+													});
+												});
+												$nbody.append($item);
+											});
+										}
+									});
+								</script>
 							</div>
 
 							<div class="panel panel-white panel-static-height">
