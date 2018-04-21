@@ -8,3 +8,17 @@
 6.前台页面数据填充
 7.前后台登录功能优化
 8.用户权限、用户功能、角色功能开发
+
+
+{
+	testPaperId : '',
+	answerList[{
+		testQusetionId : '',
+		answer: '',
+		questionType: ''
+	},{
+	 testQusetionId : '',
+		answer: '',
+		questionType: ''
+	}]
+}

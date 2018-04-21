@@ -80,4 +80,16 @@ public class TestPaperController {
 		}
 		return result;
 	}
+	/**
+	 * 提交考试成绩
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("submitTesting")
+	@ResponseBody
+	public JSONObject submitTesting(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		
+		return result;
+	}
 }
