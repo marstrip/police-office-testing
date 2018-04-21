@@ -20,7 +20,6 @@ import com.police.testing.dao.TestingLogMapper;
 import com.police.testing.pojo.SysUser;
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestPaperQuestion;
-import com.police.testing.pojo.TestQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.ITestPaperService;
