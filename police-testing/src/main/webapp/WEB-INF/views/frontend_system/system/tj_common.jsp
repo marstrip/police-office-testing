@@ -194,15 +194,6 @@
 		</footer>
 	</div>
 	<script>
-		function getUrlParam(name) {  
-			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
-			var r = window.location.search.substr(1).match(reg);  //匹配目标参数  
-			if (r != null) {
-				return unescape(r[2]);  //返回参数值 
-			} else {
-				return null; 
-			}
-		}
 		var switchPage = getUrlParam('switchPage');
 
 		var spTextMap = {
@@ -265,7 +256,7 @@
 						field: 'caseName',		//json数据中rows数组中的属性名
 						align: 'center',		//水平居中
 						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
-							return '<a href="${pageContext.request.contextPath}/infrontend/commonView?switchPage=' + switchPage + '&id=' + row.caseId + '">' + row.caseName + '</a>';
+							return '<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=' + switchPage + '&id=' + row.caseId + '">' + row.caseName + '</a>';
 						}
 					},
 					{
@@ -284,7 +275,7 @@
 						field: 'informName',	//json数据中rows数组中的属性名
 						align: 'center',		//水平居中
 						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
-							return '<a href="${pageContext.request.contextPath}/infrontend/commonView?switchPage=' + switchPage + '&id=' + row.informId + '">' + row.informName + '</a>';
+							return '<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=' + switchPage + '&id=' + row.informId + '">' + row.informName + '</a>';
 						}
 					},
 					{
