@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
-	<title></title>
+	<title id="title"></title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/jquery.perfect-scrollbar-1.3.0/css/perfect-scrollbar.css">
@@ -97,6 +97,7 @@
 			testSelf: '${pageContext.request.contextPath}/infrontend/superMarketJsp'
 		}
 
+		$('#title').html(spTextMap[switchPage]);
 		$('#spBreadCrumb').html(spTextMap[switchPage]);
 		$('#spBreadCrumb').attr('href', spHrefMap[switchPage]);
 
