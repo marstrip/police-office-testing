@@ -310,8 +310,8 @@
 					}
 					$paperContainer.genPaper(formData, result, false);
 
-					// countdown_init(result.testTime, pureSubmit);
-					countdown_init(0.5, pureSubmit);
+					countdown_init(result.testTime, pureSubmit);
+					// countdown_init(0.5, pureSubmit);
 				}
 			},
 			error: function() {
