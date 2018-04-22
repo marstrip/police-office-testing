@@ -22,7 +22,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/css/bootstrap-dialog.min.css">
 	<script src="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"></script>
 
-	<!-- <script src="assets/js/demo.js"></script> -->
+	<script src="${pageContext.request.contextPath}/styles/assets/js/demo.js"></script>
+	
 	<!-- <script src="vendor/Chart.js/Chart.js"></script> -->
 	<!-- <script src="assets/js/mysite.js"></script> -->
 	<script>
@@ -209,61 +210,6 @@
 											<tr>
 												<td>加载中...</td>
 											</tr>
-											<!-- <tr>
-												<td style="text-align: center;">
-													<span>1</span>
-												</td>
-												<td class="fix-text fix-text-200">
-													<span>xxx派出所</span>
-												</td>
-												<td style="text-align: center;">
-													500
-												</td>
-											</tr>
-											<tr>
-												<td style="text-align: center;">
-													<span>2</span>
-												</td>
-												<td class="fix-text fix-text-200">
-													<span>xxx派出所</span>
-												</td>
-												<td style="text-align: center;">
-													400
-												</td>
-											</tr>
-											<tr>
-												<td style="text-align: center;">
-													<span>3</span>
-												</td>
-												<td class="fix-text fix-text-200">
-													<span>xxx派出所</span>
-												</td>
-												<td style="text-align: center;">
-													300
-												</td>
-											</tr>
-											<tr>
-												<td style="text-align: center;">
-													<span>4</span>
-												</td>
-												<td class="fix-text fix-text-200">
-													<span>xxx派出所</span>
-												</td>
-												<td style="text-align: center;">
-													200
-												</td>
-											</tr>
-											<tr>
-												<td style="text-align: center;">
-													<span>5</span>
-												</td>
-												<td class="fix-text fix-text-200">
-													<span>xxx派出所</span>
-												</td>
-												<td style="text-align: center;">
-													100
-												</td>
-											</tr> -->
 										</tbody>
 									</table>
 								</div>

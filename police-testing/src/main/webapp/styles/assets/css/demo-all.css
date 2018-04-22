@@ -522,9 +522,9 @@ ul.no-style {
 	text-align: center;
 }
 
-.modal-content {
+/*.modal-content {
     background-color: var(--bgcolor-modal-1);
-}
+}*/
 .modal-dialog {
 	width: 700px;
 	height: 300px;
@@ -536,13 +536,13 @@ ul.no-style {
 	text-align: center;
 	border-top: 1px solid var(--bgcolor-modal-2);
 }
-.btn-success,
+/*.btn-success,
 .btn-default {
     background-color: var(--bgcolor-modal-1);
     border-color: var(--bgcolor-modal-2);
     color: #ddd;
 }
-
+*/
 .exam-header-item + .exam-header-item {
 	border-left: 1px solid #ddd;
 }
