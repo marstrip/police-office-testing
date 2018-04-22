@@ -167,7 +167,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										单位排行榜
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body">
@@ -230,7 +230,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										通知公告
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=informNotice" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
@@ -286,7 +286,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										案例评析
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=caseAnalyze" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
