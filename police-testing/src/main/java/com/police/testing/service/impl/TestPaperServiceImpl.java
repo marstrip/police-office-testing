@@ -171,6 +171,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		testingLog.setTestPaperId(testPaperId);
 		testingLog.setUserId(userId);
 		testingLog.setUserName(user.getUserName());
+		testingLog.setCreateDate(new Date());
 		return testingLogMapper.insert(testingLog);
 	}
 
