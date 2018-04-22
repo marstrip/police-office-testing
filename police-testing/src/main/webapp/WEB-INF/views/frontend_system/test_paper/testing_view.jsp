@@ -178,6 +178,7 @@
 	}
 	// var testPaperId = 'TEST1f86946e-85b3-42e5-afc6-25eac00d5378';	// TODO:从url的参数取
 	var testPaperId = getUrlParam('testPaperId');
+	var type = getUrlParam('type');
 
 	// 倒计时
 	function countdown_init(MINITE, endCB) {
@@ -290,34 +291,67 @@
 	}
 
 	$(document).ready(function() {
+		if (type == 'officialExam') {
+			console.log('类型:', type);
+			$.ajax({
+				url: '${pageContext.request.contextPath}/testPaper/viewTestPaper',
+				method: "POST",
+				data: {
+					testPaperId: testPaperId
+				},
+				success: function(d) {
+					var result = $.parseJSON(d);
+					console.log('>>>', result);
 
-		$.ajax({
-			url: '${pageContext.request.contextPath}/testPaper/viewTestPaper',
-			method: "POST",
-			data: {
-				testPaperId: testPaperId
-			},
-			success: function(d) {
-				var result = $.parseJSON(d);
-				console.log('>>>', result);
+					if (result.status !== 1) {
+						alert('请求成功，但是无法取得数据！!请刷新浏览器重试！！');
+					} else {
+						var formData = {
+							testPaperName: result.testPaperName,
+							testTime: result.testTime
+						}
+						$paperContainer.genPaper(formData, result, false);
 
-				if (result.status !== 1) {
-					alert('请求成功，但是无法取得数据！!请刷新浏览器重试！！');
-				} else {
-					var formData = {
-						testPaperName: result.testPaperName,
-						testTime: result.testTime
+						countdown_init(result.testTime, pureSubmit);
+						// countdown_init(0.5, pureSubmit);
 					}
-					$paperContainer.genPaper(formData, result, false);
-
-					countdown_init(result.testTime, pureSubmit);
-					// countdown_init(0.5, pureSubmit);
+				},
+				error: function() {
+					alert('发生异常！无法发送请求！！请刷新浏览器重试！！');
 				}
-			},
-			error: function() {
-				alert('发生异常！无法发送请求！！请刷新浏览器重试！！');
-			}
-		});
+			});
+		} else {
+			console.log('类型:', type);
+			$.ajax({
+				url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
+				method: "POST",
+				data: {
+					beginDate: null,
+					endDate: null,
+					uploadFileIds: null
+				},
+				success: function(d) {
+					var result = $.parseJSON(d);
+					console.log('>>>', result);
+
+					if (result.status !== 1) {
+						alert('请求成功，但是无法取得数据！!请刷新浏览器重试！！');
+					} else {
+						var formData = {
+							testPaperName: result.testPaperName,
+							testTime: result.testTime
+						}
+						$paperContainer.genPaper(formData, result, false);
+
+						countdown_init(result.testTime, pureSubmit);
+						// countdown_init(0.5, pureSubmit);
+					}
+				},
+				error: function() {
+					alert('发生异常！无法发送请求！！请刷新浏览器重试！！');
+				}
+			});
+		}
 	});
 
 	$('#btn_submit').on('click', function() {
@@ -337,6 +371,7 @@
 					// 提交数据
 					var formData = {
 						testPaperId: testPaperId,
+						type: type,
 						answerList: []
 					};
 
