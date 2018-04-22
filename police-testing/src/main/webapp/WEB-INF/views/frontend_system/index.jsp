@@ -68,7 +68,7 @@
 									<div class="row">
 										<!-- <div class="col-lg-4 col-md-6"> -->
 
-										<div class="func-item" onclick="go_examList();">
+										<div class="func-item">
 											<div class="icon">
 												<i class="fa fa-3x fa-bars"></i>
 											</div>
@@ -76,7 +76,7 @@
 												成绩查询
 											</div>
 										</div>
-										<div class="func-item" onclick="go_personalConfig();">
+										<div class="func-item">
 											<div class="icon">
 												<i class="fa fa-3x fa-user"></i>
 											</div>
@@ -84,7 +84,7 @@
 												个人设置
 											</div>
 										</div>
-										<div class="func-item" onclick="go_login();">
+										<div class="func-item">
 											<div class="icon">
 												<i class="fa fa-3x fa-sign-out"></i>
 											</div>
@@ -155,7 +155,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										问卷调查
-										<a href="demo-extra-forum.html" class="pull-right">更多</a>
+										<a href="#" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body">
@@ -167,7 +167,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										单位排行榜
-										<a href="demo-statistics-learn.html" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body">
@@ -229,7 +229,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										通知公告
-										<a href="javascript: void(0);" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
@@ -285,7 +285,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										案例评析
-										<a href="demo-exam-learn.html" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
@@ -341,7 +341,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										考试中心
-										<a href="demo-exam-learn.html" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
@@ -457,7 +457,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										答疑互动
-										<a href="demo-extra-forum.html" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
