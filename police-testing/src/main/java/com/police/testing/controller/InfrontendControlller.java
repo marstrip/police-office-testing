@@ -10,10 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.police.testing.pojo.CaseAnalyze;
+import com.police.testing.pojo.CommonView;
+import com.police.testing.pojo.InformNotice;
+import com.police.testing.pojo.TestSelf;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;
-import com.police.testing.service.IQaSheetService;
 import com.police.testing.service.IStaticDataService;
+import com.police.testing.service.ITestSelfService;
 import com.police.testing.tools.GetEncode;
 
 import net.sf.json.JSONArray;
@@ -32,9 +36,9 @@ public class InfrontendControlller {
 	@Autowired
 	private IIFormNoticeService informNoticeService;
 	@Autowired
-	private IQaSheetService qaSheetService;
-	@Autowired
 	private IStaticDataService staticDataService;
+	@Autowired
+	private ITestSelfService testSelfService;
 	/**
 	 * 课件超市
 	 * @param request
@@ -120,6 +124,40 @@ public class InfrontendControlller {
 		result.put("page", pageNumber);
 		result.put("total", total);
 		result.put("rows", array);
+		return result;
+	}
+	
+	/**
+	 * 前台更多页面展示数据接口
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("commonView")
+	@ResponseBody
+	public JSONObject commonView(HttpServletRequest request){
+		String id = GetEncode.transcode(request.getParameter("id"));
+		String switchPage = GetEncode.transcode(request.getParameter("switchPage"));
+		CommonView commonView = new CommonView();
+		if(switchPage.equals("caseAnalyze")){
+			CaseAnalyze caseAnalyze = caseAnalyzeService.getContentById(id);
+			commonView.setId(id);
+			commonView.setContent(caseAnalyze.getCaseContent());
+			commonView.setName(caseAnalyze.getCaseName());
+		}else if(switchPage.equals("informNotice")){
+			InformNotice informNotice = informNoticeService.getContentById(id);
+			commonView.setId(id);
+			commonView.setContent(informNotice.getInformContent());
+			commonView.setName(informNotice.getInformName());
+		}else if(switchPage.equals("testSelf")){
+			TestSelf testSelf = testSelfService.getContentById(id);
+			commonView.setId(id);
+			commonView.setContent(testSelf.getTestSelfContent());
+			commonView.setName(testSelf.getTestSelfName());
+		} 
+		JSONObject result = new JSONObject();
+		result.put("status", 1);
+		result.put("message", "成功");
+		result.put("info", commonView);
 		return result;
 	}
 }
