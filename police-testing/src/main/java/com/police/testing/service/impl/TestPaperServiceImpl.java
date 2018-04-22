@@ -275,7 +275,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		for (TestPaper testPaper : testPapers) {
 			String testPaperId = testPaper.getTestPaperId();
 			String testDateStr = testPaper.getTestDate();
-			Date testDate = SystemTools.String2Date(testDateStr, "yyyy-MM-DD hh:mm:ss");
+			Date testDate = SystemTools.String2Date(testDateStr, "yyyy-MM-dd hh:mm:ss");
 			Date now = new Date();
 			List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndUserId(testPaperId, userId);
 			if(testingLogs.size() > 0){//试卷被考试过
