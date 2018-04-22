@@ -7,56 +7,6 @@ $(document).ready(function () {
 		window.gpsb.update();
 	});
 
-	var lessonTreeData = [{
-		text: "Parent 1",
-		icon: "fa fa-folder-o",
-		nodes: [{
-			text: "Child 1",
-			icon: "fa fa-folder-o",
-			nodes: [{
-				text: "Grandchild 1"
-			}, {
-				text: "Grandchild 2"
-			}]
-		}, {
-			text: "Child 2"
-		}]
-	}, {
-		text: "Node 1",
-		dataId: "xxx_111", // 自定义参数，所有参数，在获取node的时候都可以取得
-		icon: "fa fa-folder-o",
-		color: "#00FF00",
-		backColor: "#FF0000",
-		href: "#node-1",
-		selectable: true, // 当前节点不可选中，可展开
-		state: {
-			checked: true, // ???
-			disabled: false, // 禁用节点，无法操作，不继续渲染内部
-			expanded: true, // 是否已经展开
-			selected: false // 是否已经选中
-		},
-		tags: ['available'], // ???
-		nodes: [{
-			text: "Parent 2"
-		}]
-	}, {
-		text: "Parent 3"
-	}, {
-		text: "Parent 4"
-	}, {
-		text: "Parent 5"
-	}];
-
-	$('#lessonTree').treeview({
-		data: lessonTreeData,
-		collapseIcon: "fa fa-minus-square-o",
-		expandIcon: "fa fa-plus-square-o",
-		nodeIcon: "fa fa-file-o"
-	});
-
-	$('#lessonTree').on('nodeSelected', function (event, node) {
-		console.log('select NODE:', node);
-	});
 });
 
 //序列化表格元素为JSON  

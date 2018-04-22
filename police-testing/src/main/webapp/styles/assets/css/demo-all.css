@@ -43,6 +43,9 @@ a {
 a:focus, a:hover {
     color: var(--color-link-active);
 }
+a.black {
+	color: #000;
+}
 
 /* .thin-body {
 	width: 1260px;
@@ -153,8 +156,8 @@ a:focus, a:hover {
 .breadcrumb {
     background-color: transparent;
 	margin-bottom: 0;
-	text-shadow: 0 2px 1px rgba(0, 0, 0, 0.5);
-	color: #ddd;
+	/*text-shadow: 0 2px 1px rgba(0, 0, 0, 0.5);*/
+	color: #999;
 }
 .breadcrumb>li+li:before {
 	content: "> ";

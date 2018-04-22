@@ -142,30 +142,36 @@
 								<div class="panel-body">
 
 									<div class="quick-link" style="padding: 30px 40px;">
-										<div class="func-item func-item-bar">
-											<div class="icon pull-left">
-												<i class="fa fa-2x fa-shopping-cart"></i>
+										<a class="black" href="${pageContext.request.contextPath}/infrontend/superMarketJsp">
+											<div class="func-item func-item-bar">
+												<div class="icon pull-left">
+													<i class="fa fa-2x fa-shopping-cart"></i>
+												</div>
+												<div class="desciption pull-left">
+													课&nbsp;件&nbsp;超&nbsp;市
+												</div>
 											</div>
-											<div class="desciption pull-left">
-												课&nbsp;件&nbsp;超&nbsp;市
+										</a>
+										<a class="black" href="${pageContext.request.contextPath}/#">
+											<div class="func-item func-item-bar">
+												<div class="icon pull-left">
+													<i class="fa fa-2x fa-paperclip"></i>
+												</div>
+												<div class="desciption pull-left">
+													执法培训模拟考试
+												</div>
 											</div>
-										</div>
-										<div class="func-item func-item-bar">
-											<div class="icon pull-left">
-												<i class="fa fa-2x fa-paperclip"></i>
+										</a>
+										<a class="black" href="${pageContext.request.contextPath}/#">
+											<div class="func-item func-item-bar">
+												<div class="icon pull-left">
+													<i class="fa fa-2x">☭</i>
+												</div>
+												<div class="desciption pull-left">
+													党的建设模拟考试
+												</div>
 											</div>
-											<div class="desciption pull-left">
-												执法培训模拟考试
-											</div>
-										</div>
-										<div class="func-item func-item-bar">
-											<div class="icon pull-left">
-												<i class="fa fa-2x">☭</i>
-											</div>
-											<div class="desciption pull-left">
-												党的建设模拟考试
-											</div>
-										</div>
+										</a>
 									</div>
 
 								</div>
