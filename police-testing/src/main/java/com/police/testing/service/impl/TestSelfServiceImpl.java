@@ -56,8 +56,8 @@ public class TestSelfServiceImpl implements ITestSelfService{
 	}
 
 	@Override
-	public List<TestSelf> getList(String testSelfName, Integer offset, Integer limit) {
-		return testSelfMapper.selectByLikeTestSelfName(testSelfName, offset, limit);
+	public List<TestSelf> getList(String testSelfName, String testSelfLevel, String testSelfType, Integer offset, Integer limit) {
+		return testSelfMapper.selectByLikeTestSelfName(testSelfName, testSelfLevel, testSelfType, offset, limit);
 	}
 
 	@Override
@@ -67,8 +67,8 @@ public class TestSelfServiceImpl implements ITestSelfService{
 	}
 
 	@Override
-	public long getCount(String testSelfName) {
-		List<TestSelf> selfs = testSelfMapper.selectByLikeTestSelfName(testSelfName, null, null);
+	public long getCount(String testSelfName, String testSelfLevel, String testSelfType) {
+		List<TestSelf> selfs = testSelfMapper.selectByLikeTestSelfName(testSelfName, testSelfLevel, testSelfType, null, null);
 		return selfs.size();
 	}
 

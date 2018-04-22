@@ -75,7 +75,7 @@
   	<if test="testingType != null and testingType != ''">
   		and testing_type = #{testingType,jdbcType=VARCHAR}
   	</if>
-  		and socre >= #{score,jdbcType=INTEGER}
+  		and score >= #{score,jdbcType=INTEGER}
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

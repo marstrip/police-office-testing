@@ -41,6 +41,12 @@
     <if test="testSelfContent != null and testSelfContent != ''">
     	 and test_self_name like '%${testSelfName}%'
     </if>
+    <if test="testSelfLevel != null and testSelfLevel !=''">
+    	and test_self_level = #{testSelfLevel,jdbcType=VARCHAR}
+    </if>
+    <if test="testSelfType != null and testSelfType !=''">
+    	and test_self_Type = #{testSelfType,jdbcType=VARCHAR}
+    </if>
   	and enable = '1'
     <if test="offset != null and limit != null">
      limit ${offset},${limit}

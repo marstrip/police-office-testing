@@ -17,10 +17,10 @@ public interface ITestSelfService {
 	
 	public Integer deleteData(String testSelfId);
 	
-	public List<TestSelf> getList(String testSelfName, Integer offset, Integer limit);
+	public List<TestSelf> getList(String testSelfName, String testSelfLevel, String testSelfType, Integer offset, Integer limit);
 
 	public TestSelf getContentById(String testSelfId);
 
-	public long getCount(String testSelfName);
+	public long getCount(String testSelfName,String testSelfLevel, String testSelfType);
 }
 
