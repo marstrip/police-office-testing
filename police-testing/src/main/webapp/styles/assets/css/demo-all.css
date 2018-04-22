@@ -28,7 +28,7 @@ body {
 }
 a[disabled], a.disabled {
 	text-decoration: none;
-	color: #aaa;
+	color: #aaa!important;
 }
 span.form-control-feedback {
 	line-height: 34px;

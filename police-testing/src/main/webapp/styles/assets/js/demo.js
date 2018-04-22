@@ -26,6 +26,30 @@ $.fn.serializeJson = function () {
 	return o;
 }
 
+// 扩展String类型的原生方法，提供类似java或python的format方法
+String.prototype.format = function(args) {
+	var result = this;
+	if (arguments.length > 0) {
+		if (arguments.length == 1 && typeof (args) == "object") {
+			for (var key in args) {
+				if(args[key]!=undefined){
+					var reg = new RegExp("({" + key + "})", "g");
+					result = result.replace(reg, args[key]);
+				}
+			}
+		}
+		else {
+			for (var i = 0; i < arguments.length; i++) {
+				if (arguments[i] != undefined) {
+					var reg = new RegExp("({[" + i + "]})", "g");
+					result = result.replace(reg, arguments[i]);
+				}
+			}
+		}
+	}
+	return result;
+}
+
 function go_index() {
 	var passwd1 = document.getElementByName("pwd").value;
 	var passwd2 = document.getElementByName("pwd_again").value;
