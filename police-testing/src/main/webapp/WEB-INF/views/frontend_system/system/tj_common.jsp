@@ -68,8 +68,8 @@
 	                        <li>
 	                            <a href="${pageContext.request.contextPath}/login/frontendLogin">首页</a>
 	                        </li>
-	                        <li>
-	                            课件超市
+	                        <li class="spText">
+	                            当前页
 	                        </li>
 	                    </ol>
 
@@ -82,18 +82,18 @@
 								</div>
 								<div class="panel-body">
 									<div class="dropdown dropdown-preview">
-										<ul class="dropdown-menu">
-											<li>
-												<a href="demo-notice.html">通知公告</a>
+										<ul class="dropdown-menu" id="menu">
+											<li class="informNotice">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=informNotice">通知公告</a>
 											</li>
-											<li class="active">
-												<a href="demo-case-analysis.html">案例评析</a>
+											<li class="caseAnalyze">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=caseAnalyze">案例评析</a>
 											</li>
 											<li>
 												<a href="demo-exam-list.html">考试列表</a>
 											</li>
 											<li>
-												<a href="#">问卷调查</a>
+												<a class="disabled" href="javascript:void(0);" disabled>问卷调查</a>
 											</li>
 											<li class="divider"></li>
 											<li>
@@ -105,8 +105,8 @@
 											<li>
 												<a href="demo-statistics-examlist.html">考试参与统计</a>
 											</li>
-											<li>
-												<a href="#">系统参与统计</a>
+											<li class="staticDataLogin">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与统计</a>
 											</li>
 											<li class="divider"></li>
 											<li>
@@ -124,51 +124,49 @@
 						<div class="right-area">
 							<div class="panel panel-white">
 								<div class="panel-heading">
-									<h3 class="panel-title">
-										课件列表
+									<h3 class="panel-title spText">
+										列表
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 15px;">
-									<div class="notice-list">
-										<table id="table_11"></table>
-										<!-- <table class="table">
-											<tbody>
-												<tr>
-													<td colspan="2" style="text-align: center;">加载中...</td>
-												</tr>
-												<tr>
-													<td class="fix-text" style="border-top-color: transparent;">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
-													</td>
-													<td style="border-top-color: transparent;">2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-											</tbody>
-										</table> -->
-									</div><!-- end of .notice-list -->
+									<table id="table_11"></table>
+									<!-- <table class="table">
+										<tbody>
+											<tr>
+												<td colspan="2" style="text-align: center;">加载中...</td>
+											</tr>
+											<tr>
+												<td class="fix-text" style="border-top-color: transparent;">
+													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
+												</td>
+												<td style="border-top-color: transparent;">2005/07/09</td>
+											</tr>
+											<tr>
+												<td class="fix-text">
+													<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
+												</td>
+												<td>2005/07/09</td>
+											</tr>
+											<tr>
+												<td class="fix-text">
+													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
+												</td>
+												<td>2005/07/09</td>
+											</tr>
+											<tr>
+												<td class="fix-text">
+													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
+												</td>
+												<td>2005/07/09</td>
+											</tr>
+											<tr>
+												<td class="fix-text">
+													<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
+												</td>
+												<td>2005/07/09</td>
+											</tr>
+										</tbody>
+									</table> -->
 								</div>
 							</div>
 
@@ -207,79 +205,19 @@
 		}
 		var switchPage = getUrlParam('switchPage');
 
+		var spTextMap = {
+			caseAnalyze: '案例分析',
+			informNotice: '通知公告',
+			staticDataLogin: '系统参与统计'
+		}
+
+		$('.spText').html(spTextMap[switchPage]);
+		$('.' + switchPage).addClass('active');
+
 		var $table = $('#table_11');
-		var testSelfLevel = '';
-		var testSelfType = '';
-		var onlyUnselect = true;
-		$(document).ready(function() {
-
-			var lessonTreeData = [{
-				text: "执法资格等级考试",
-				icon: "fa fa-folder-o",
-				selectable: false, // 当前节点不可选中，可展开
-				nodes: [{
-					text: "基本级",
-					testSelfLevel: '基本级',
-					testSelfType: '执法考试',
-					href: '#'
-				}, {
-					text: "中级",
-					testSelfLevel: '中级',
-					testSelfType: '执法考试',
-					href: '#'
-				}, {
-					text: "高级",
-					testSelfLevel: '高级',
-					testSelfType: '执法考试',
-					href: '#'
-				}]
-			}, {
-				text: "法律法规",
-				testSelfLevel: '',
-				testSelfType: '法律法规',
-				href: "#"
-			}, {
-				text: "党的建设",
-				testSelfLevel: '',
-				testSelfType: '党的建设',
-				href: "#"
-			}];
-
-			$('#lessonTree').treeview({
-				data: lessonTreeData,
-				collapseIcon: "fa fa-minus-square-o",
-				expandIcon: "fa fa-plus-square-o",
-				nodeIcon: "fa fa-file-o"
-			});
-
-			$('#lessonTree').on('nodeSelected', function (event, node) {
-				console.log('select NODE:', node);
-				testSelfLevel = node.testSelfLevel;
-				testSelfType = node.testSelfType;
-
-				// 更新右边列表
-				$table.bootstrapTable('refresh', {silent: false});
-				onlyUnselect = false;
-			});
-
-
-			$('#lessonTree').on('nodeUnselected', function (event, node) {
-				console.log('Unselect NODE:', node);
-				testSelfLevel = '';
-				testSelfType = '';
-
-				onlyUnselect = true;
-				setTimeout(function() {
-					if (onlyUnselect) {
-						// 更新右边列表
-						$table.bootstrapTable('refresh', {silent: false});
-					}
-				}, 200);
-			});
-		});
-
-		$table.bootstrapTable({
-			url: '${pageContext.request.contextPath}/testSelf/getList',
+		
+		var opt_common = {
+			url: '${pageContext.request.contextPath}/infrontend/commonGetList',
 			method: 'GET',
 			dataType: "JSON",
 			striped: true,				//设置为 true 会有隔行变色效果  
@@ -313,24 +251,71 @@
 					offset: params.offset,		//从数据库第几条记录开始
 					limit: params.limit,		//找多少条
 					search: params.search,		//筛选
-					testSelfLevel: testSelfLevel,
-					testSelfType: testSelfType
+					switchPage: switchPage
 				};
+			}
+		};
+
+		var spOptMap = {
+			caseAnalyze: {
+				idField: "caseId",				//指定主键列
+				columns: [
+					{
+						title: '案例名称',		//表的列名
+						field: 'caseName',		//json数据中rows数组中的属性名
+						align: 'center',		//水平居中
+						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
+							return '<a href="${pageContext.request.contextPath}/infrontend/commonView?switchPage=' + switchPage + '&id=' + row.caseId + '">' + row.caseName + '</a>';
+						}
+					},
+					{
+						//EMAIL
+						title: '创建时间',
+						field: 'createDate',
+						align: 'center'
+					}
+				]
 			},
-			idField: "caseId",			//指定主键列
-			columns: [
-				{
-					title: '课件名称',			//表的列名
-					field: 'caseName',	//json数据中rows数组中的属性名
-					align: 'center'		//水平居中
-				},
-				{
-					//EMAIL
-					title: '创建时间',
-					field: 'createDate',
-					align: 'center'
-				}
-			]
+			informNotice: {
+				idField: "informId",				//指定主键列
+				columns: [
+					{
+						title: '通告标题',		//表的列名
+						field: 'informName',	//json数据中rows数组中的属性名
+						align: 'center',		//水平居中
+						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
+							return '<a href="${pageContext.request.contextPath}/infrontend/commonView?switchPage=' + switchPage + '&id=' + row.informId + '">' + row.informName + '</a>';
+						}
+					},
+					{
+						//EMAIL
+						title: '创建时间',
+						field: 'createDate',
+						align: 'center'
+					}
+				]
+			},
+			staticDataLogin: {
+				idField: "departmentId",				//指定主键列
+				columns: [
+					{
+						title: '派出所名',		//表的列名
+						field: 'departmentName',	//json数据中rows数组中的属性名
+						align: 'center'
+					},
+					{
+						title: '使用次数',
+						field: 'loginCount',
+						align: 'center'
+					}
+				]
+			}
+		}
+
+		$(document).ready(function() {
+			var bstOpt = $.extend({}, opt_common, spOptMap[switchPage]);
+
+			$table.bootstrapTable(bstOpt);
 		});
 	</script>
 </body>

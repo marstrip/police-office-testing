@@ -176,17 +176,17 @@
 				nodes: [{
 					text: "基本级",
 					testSelfLevel: '基本级',
-					testSelfType: '执法考试',
+					testSelfType: '执法资格等级考试',
 					href: '#'
 				}, {
 					text: "中级",
 					testSelfLevel: '中级',
-					testSelfType: '执法考试',
+					testSelfType: '执法资格等级考试',
 					href: '#'
 				}, {
 					text: "高级",
 					testSelfLevel: '高级',
-					testSelfType: '执法考试',
+					testSelfType: '执法资格等级考试',
 					href: '#'
 				}]
 			}, {
@@ -273,15 +273,23 @@
 					testSelfType: testSelfType
 				};
 			},
-			idField: "caseId",			//指定主键列
+			idField: "testSelfId",			//指定主键列
 			columns: [
 				{
-					title: '课件名称',			//表的列名
-					field: 'caseName',	//json数据中rows数组中的属性名
-					align: 'center'		//水平居中
+					title: '课件名称',		//表的列名
+					field: 'testSelfName',	//json数据中rows数组中的属性名
+					align: 'center',		//水平居中
+					formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
+						return '<a href="${pageContext.request.contextPath}/infrontend/commonView?switchPage=testSelf&id=' + row.testSelfId + '">' + row.testSelfName + '</a>';
+					}
 				},
 				{
-					//EMAIL
+					title: 'testSelfId',
+					field: 'testSelfId',
+					align: 'center',
+					visible: false
+				},
+				{
 					title: '创建时间',
 					field: 'createDate',
 					align: 'center'
