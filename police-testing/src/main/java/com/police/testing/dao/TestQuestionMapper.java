@@ -46,9 +46,11 @@ public interface TestQuestionMapper {
     /**
      * 根据试题ID批量获取试题
      * @param testQuestionIds
+     * @param limit 
+     * @param offset 
      * @return
      */
-	List<TestQuestionWithBLOBs> selectByTestQuestionIds(@Param("testQuestionIds") List<String> testQuestionIds);
+	List<TestQuestionWithBLOBs> selectByTestQuestionIds(@Param("testQuestionIds") List<String> testQuestionIds, @Param("offset") Integer offset, @Param("limit") Integer limit);
 
 	List<TestQuestionWithBLOBs> selectByLikeQuestionName(@Param("questionName")String questionName, 
     		@Param("offset") Integer offset, @Param("limit") Integer limit);

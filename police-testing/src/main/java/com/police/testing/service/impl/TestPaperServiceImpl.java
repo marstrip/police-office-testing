@@ -128,7 +128,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			}
 		}
 		//获取试题
-		List<TestQuestionWithBLOBs> resultList = testQuestionMapper.selectByTestQuestionIds(testQuestionIds);
+		List<TestQuestionWithBLOBs> resultList = testQuestionMapper.selectByTestQuestionIds(testQuestionIds,null,null);
 		for (TestQuestionWithBLOBs testQuestionWithBLOBs : resultList) {
 			String testQuestionId = testQuestionWithBLOBs.getTestQuestionsId();
 			Integer number = testQuestionAndNumber.get(testQuestionId);

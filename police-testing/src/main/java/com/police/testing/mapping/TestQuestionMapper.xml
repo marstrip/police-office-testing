@@ -103,6 +103,9 @@
 	  			#{item}
 		</foreach>
     </if>
+    <if test="offset != null and limit != null">
+     	limit ${offset},${limit}
+    </if>
   </select>
   
   <update id="updateEnable" parameterType="java.lang.String">

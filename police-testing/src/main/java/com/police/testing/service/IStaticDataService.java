@@ -23,7 +23,7 @@ public interface IStaticDataService {
 
 	public List<StaticDataTestPaper> staticDataByTestingCountScore(String beginDate, String endDate, Integer score, Integer offset, Integer limit);
 
-	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType);
+	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType, Integer offset, Integer limit);
 
 	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate);
 
@@ -31,6 +31,8 @@ public interface IStaticDataService {
 
 	public long staticDataSimulateExamGetCount(String beginDate, String endDate);
 
-	public long TestingCountScoreGetCount(String beginDate, String endDate, Integer score);
+	public long TestingCountScoreGetCount();
+
+	public long questionFailGetCount();
 }
 

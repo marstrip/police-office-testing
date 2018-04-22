@@ -141,7 +141,7 @@ public class StaticDataController {
 		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		List<StaticDataTestPaper> dataTestPapers = staticDataService.staticDataByTestingCountScore(beginDate, endDate, score, offset, limit);
-		long total = staticDataService.TestingCountScoreGetCount(beginDate, endDate, score);
+		long total = staticDataService.TestingCountScoreGetCount();
 		JSONArray array = JSONArray.fromObject(dataTestPapers);
 		Integer pageNumber = offset/limit + 1;
 		result.put("page", pageNumber);
@@ -158,10 +158,16 @@ public class StaticDataController {
 	@ResponseBody
 	public JSONObject staticDataByQuestionFail(HttpServletRequest request){
 		String answerType = GetEncode.transcode(request.getParameter("answerType"));
-		List<StaticDataQusetion> dataQusetions = staticDataService.staticDataByQuestionFail(answerType);
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		List<StaticDataQusetion> dataQusetions = staticDataService.staticDataByQuestionFail(answerType, offset, limit);
+		long total = staticDataService.questionFailGetCount();
+		JSONArray array = JSONArray.fromObject(dataQusetions);
+		Integer pageNumber = offset/limit + 1;
 		JSONObject result = new JSONObject();
-		result.put("status", 1);
-		result.put("list", dataQusetions);
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
 		return result;
 	}
 }

@@ -177,13 +177,15 @@ public class StaticDataServiceImpl implements IStaticDataService{
 	}
 
 	@Override
-	public long TestingCountScoreGetCount(String beginDate, String endDate, Integer score) {
-		return 0;
+	public long TestingCountScoreGetCount() {
+		//从试卷表获取全部试卷
+		List<TestPaper> testPapers = testPaperMapper.selectByTestPaperId(null, null, null);
+		return testPapers.size();
 	}
 
 	@Override
-	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType) {
-		List<TestQuestionWithBLOBs> questions = testQuestionMapper.selectByTestQuestionIds(null);
+	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType, Integer offset, Integer limit) {
+		List<TestQuestionWithBLOBs> questions = testQuestionMapper.selectByTestQuestionIds(null, offset, limit);
 		List<StaticDataQusetion> dataQusetions = new ArrayList<>();
 		for (TestQuestionWithBLOBs testQuestion : questions) {
 			String testQuestionId = testQuestion.getTestQuestionsId();
@@ -234,6 +236,13 @@ public class StaticDataServiceImpl implements IStaticDataService{
 	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate) {
 		List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndTypeAndSorce(testPaperId, testingType, beginDate, endDate, 0);
 		return testingLogs;
+	}
+
+
+	@Override
+	public long questionFailGetCount() {
+		List<TestQuestionWithBLOBs> questions = testQuestionMapper.selectByTestQuestionIds(null, null, null);
+		return questions.size();
 	}
 
 }
