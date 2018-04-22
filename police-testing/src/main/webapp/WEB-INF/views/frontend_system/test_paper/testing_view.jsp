@@ -290,7 +290,9 @@
 		})
 	}
 
+	// 页面初始化加载数据
 	$(document).ready(function() {
+		// 正式考试
 		if (type == 'officialExam') {
 			console.log('类型:', type);
 			$.ajax({
@@ -312,7 +314,7 @@
 						}
 						$paperContainer.genPaper(formData, result, false);
 
-						countdown_init(result.testTime, pureSubmit);
+						countdown_init(formData.testTime, pureSubmit);
 						// countdown_init(0.5, pureSubmit);
 					}
 				},
@@ -320,7 +322,9 @@
 					alert('发生异常！无法发送请求！！请刷新浏览器重试！！');
 				}
 			});
-		} else {
+		}
+		// 模拟考试
+		else {
 			console.log('类型:', type);
 			$.ajax({
 				url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
@@ -338,12 +342,12 @@
 						alert('请求成功，但是无法取得数据！!请刷新浏览器重试！！');
 					} else {
 						var formData = {
-							testPaperName: result.testPaperName,
-							testTime: result.testTime
+							testPaperName: '模拟考试',
+							testTime: 60
 						}
 						$paperContainer.genPaper(formData, result, false);
 
-						countdown_init(result.testTime, pureSubmit);
+						countdown_init(formData.testTime, pureSubmit);
 						// countdown_init(0.5, pureSubmit);
 					}
 				},
