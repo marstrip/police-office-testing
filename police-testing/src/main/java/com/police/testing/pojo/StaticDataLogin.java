@@ -8,7 +8,7 @@ public class StaticDataLogin {
 	
 	private String departmentName;
 	
-	private String departemtnId;
+	private String departmentId;
 	
 	private Integer loginCount;
 
@@ -20,12 +20,12 @@ public class StaticDataLogin {
 		this.departmentName = departmentName;
 	}
 
-	public String getDepartemtnId() {
-		return departemtnId;
+	public String getDepartmentId() {
+		return departmentId;
 	}
 
-	public void setDepartemtnId(String departemtnId) {
-		this.departemtnId = departemtnId;
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
 	}
 
 	public Integer getLoginCount() {

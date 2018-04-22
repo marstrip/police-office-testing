@@ -1,0 +1,141 @@
+统计分析接口文档：
+1.按派出所统计——登陆到系统的总次数排名（已经降序排列，不需要处理）
+请求地址：
+/staticData/staticDataLogin
+请求参数：
+beginDate 可为空字符串
+endDate 可为空字符串
+数据结构：
+{
+	status : 1,
+	list[{
+		departmentName : '长辛店派出所',
+		departmentId: '',
+		loginCount: 100//登录次数
+	},{
+		departmentName : '',
+		departmentId: '',
+		loginCount: 
+	}]
+}
+
+2.按照派出所统计——模拟考试和浏览试题的总次数（已经降序排列，不需要处理）
+请求地址：
+/staticData/staticDataSimulateExam
+请求参数：
+beginDate 可为空字符串
+endDate 可为空字符串
+数据结构：
+{
+	status : 1,
+	list[{
+		departmentName : '长辛店派出所',
+		simulateExamCount: 100,//模拟考试次数
+		viewExamCount: 100,//浏览次数
+		sumCount ： 200,//模拟考试次数+浏览次数
+		officialCount ： 50//正式考试次数，用于统计分析3使用
+	},{
+		departmentName : '云岗派出所',
+		simulateExamCount: 100,//模拟考试次数
+		viewExamCount: 100,//浏览次数
+		sumCount ： 200,//模拟考试次数+浏览次数
+		officialCount ： 50//正式考试次数，用于统计分析3使用
+	}]
+}
+
+3.按照派出所统计——参与考试的总次数排名（已经降序排列，不需要处理）
+请求地址：
+/staticData/staticDataOfficialExam
+请求参数：
+beginDate 可为空字符串
+endDate 可为空字符串
+数据结构：
+{
+	status : 1,
+	list[{
+		departmentName : '长辛店派出所',
+		simulateExamCount: 100,//模拟考试次数
+		viewExamCount: 100,//浏览次数
+		sumCount ： 200,//模拟考试次数+浏览次数
+		officialCount ： 50//正式考试次数，此需求使用此字段
+	},{
+		departmentName : '云岗派出所',
+		simulateExamCount: 100,//模拟考试次数
+		viewExamCount: 100,//浏览次数
+		sumCount ： 200,//模拟考试次数+浏览次数
+		officialCount ： 50//正式考试次数，此需求使用此字段
+	}]
+}
+
+4.按照派出所统计——每次考试的人数排名
+请求地址：
+/staticData/staticDataByTestingCountAndScore
+请求参数：
+beginDate 可为空字符串
+endDate 可为空字符串
+score = 0 表示本次考试总人数，即得分大于等于0分的
+数据结构：
+{
+	status : 1,
+	list[{
+		testPaperId : '00000000',
+		testPaperName: '试卷名称',
+		officialCount ： 50//本次试卷正式考试次数
+	},{
+		testPaperId : '00000000',
+		testPaperName: '试卷名称',
+		officialCount ： 50//正式考试次数
+	}]
+}
+
+5.按照派出所统计——每次考试的及格人数和优秀人数
+请求地址：
+/staticData/staticDataByTestingCountAndScore
+请求参数：
+beginDate 可为空字符串
+endDate 可为空字符串
+score = 60 获取及格人数/score = 90 获取优秀人数 
+说明：分别请求两次获取完整数据
+数据结构：
+{
+	status : 1,
+	list[{
+		testPaperId : '00000000',
+		testPaperName: '试卷名称',
+		officialCount ： 50//本次试卷正式考试次数
+	},{
+		testPaperId : '00000000',
+		testPaperName: '试卷名称',
+		officialCount ： 50//正式考试次数
+	}]
+}
+
+6.按照单次考试导出所有参与考试的人成绩单（未测试）
+请求地址：
+/exportFile/exportFileByTestPaperId
+请求参数：
+testPaperId 试卷id
+beginDate 可为空字符串
+endDate 可为空字符串
+直接输出excel
+
+7.根据正式考试中错误次数将错题集列出错题排行
+请求地址：
+/staticData/staticDataByQuestionFail
+请求参数：
+answerType 值；right表示获取正确题目排行 fail表示获取错误题目排行
+数据结构：
+{
+	status : 1,
+	list[{
+		questionId : '00000000',//试题ID
+		questionName: '试卷名称',//试卷名称
+		failCount ： 50,//本题错误次数
+		rightCount ： 10//本题正确次数
+	},{
+		questionId : '00000000',//试题ID
+		questionName: '试卷名称',//试卷名称
+		failCount ： 50,//本题错误次数
+		rightCount ： 10//本题正确次数
+	}]
+}
