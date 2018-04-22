@@ -88,6 +88,12 @@ public class InfrontendControlller {
 	public String wrongListJsp(HttpServletRequest request){
 		return "frontend_system/system/wrong_list";
 	}
+	
+	
+	@RequestMapping("commonDetailJsp")
+	public String commonDetail(HttpServletRequest request){
+		return "frontend_system/system/common_detail";
+	}
 	/**
 	 * 前台更多页面展示数据接口
 	 * @param request
