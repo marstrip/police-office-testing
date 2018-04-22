@@ -470,8 +470,9 @@
 												'<span>{testDate}</span>' +
 											'</td>' +
 											'<td>' +
-												'{op}'
+												// '{op}'
 												//'<a href="demo-exam-paper.html">参加考试</a>' +
+												'<a href="javascript:void(0);" idx="{idx}">{op}</a>' +
 											'</td>' +
 										'</tr>';
 										/*'<tr>' +
@@ -493,21 +494,25 @@
 
 											$nbody.html('');
 											$.each(rows, function(idx) {
-												/*var opMap = {
-													'0': 
-												;
+												var opMap = {
+													'0': '参加考试'
+												};
 
 												var rdata = $.extend({}, rows[idx], {
-
-												});*/
-												var $item = $(examTmp.format(rows[idx]));
+													op: opMap[rows[idx].flagExam]
+												});
+												var $item = $(examTmp.format(rdata));
 												$item.find('a').data('idx', idx);
 												$item.find('a').on('click', function() {
 													var _idx = $(this).data('idx');
-													BootstrapDialog.alert({
-														title: rows[_idx].questionContent,
-														message: rows[_idx].questionAnswer
-													});
+													
+													// 做特殊操作
+													console.log('>>>', _idx, rows[idx].testPaperId);
+													switch(rows[idx].flagExam) {
+														case '0':
+															window.open('${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + rows[idx].testPaperId);
+															break;
+													}
 												});
 												$nbody.append($item);
 											});
