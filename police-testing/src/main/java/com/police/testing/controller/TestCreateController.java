@@ -1,6 +1,7 @@
 package com.police.testing.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.service.IQuestionService;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.GetEncode;
+import com.police.testing.tools.SystemTools;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -112,8 +114,14 @@ public class TestCreateController {
 		//testPaperName试卷名称
 		String testPaperName = GetEncode.transcode(request.getParameter("testPaperName"));
 		String testTime = GetEncode.transcode(request.getParameter("testTime"));
-		Integer testTimeInt = Integer.valueOf(testTime);
+		Integer testTimeInt = 60;
+		if(StringUtils.isNotBlank(testTime)){
+			testTimeInt = Integer.valueOf(testTime);
+		}
 		String testDate = GetEncode.transcode(request.getParameter("testDate"));
+		if(StringUtils.isBlank(testDate)){
+			testDate = SystemTools.Time2String(new Date(), "yyyy-MM-dd hh:mm:ss");
+		}
 		//生成待预览试卷
 		String testPaperId = testPaperService.createTempTestPaper(list, "0", testPaperName, testTimeInt, testDate);
 		//封装jsonarray对象

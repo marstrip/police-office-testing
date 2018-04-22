@@ -77,7 +77,7 @@
     	and create_date between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
     </if>
     <if test="list != null">
-    and upload_file_id in 
+    	and upload_file_id in 
     	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
   			#{item}
  		</foreach>
