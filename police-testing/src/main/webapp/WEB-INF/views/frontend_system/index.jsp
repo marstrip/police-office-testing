@@ -199,8 +199,11 @@
 												<th style="text-align: center;">系统使用次数</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="useRankBody">
 											<tr>
+												<td>加载中...</td>
+											</tr>
+											<!-- <tr>
 												<td style="text-align: center;">
 													<span>1</span>
 												</td>
@@ -254,11 +257,46 @@
 												<td style="text-align: center;">
 													100
 												</td>
-											</tr>
+											</tr> -->
 										</tbody>
 									</table>
 								</div>
 							</div>
+
+								<script>
+									var useRankTmp =
+										'<tr>' +
+											'<td style="text-align: center;">' +
+												'<span>{idx}</span>' +
+											'</td>' +
+											'<td class="fix-text fix-text-200" style="width: 640px;">' +
+												'{departmentName}' +
+											'</td>' +
+											'<td style="">{loginCount}</td>' +
+										'</tr>';
+									$.ajax({
+										url: '${pageContext.request.contextPath}/staticData/staticDataLogin',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5,
+											beginDate: '',
+											endDate: ''
+										},
+										success: function(d) {
+											var rows = d.list;
+											var $nbody = $('#useRankBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var rdata = $.extend({}, rows[idx], {idx: idx + 1});
+												var $item = $(useRankTmp.format(rdata));
+												$nbody.append($item);
+											});
+										}
+									});
+								</script>
+
 						</div>
 
 						<div class="right-area">
@@ -332,36 +370,6 @@
 												<tr>
 													<td>加载中...</td>
 												</tr>
-												<!-- <tr>
-													<td class="fix-text" style="border-top-color: transparent;">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
-													</td>
-													<td style="border-top-color: transparent;">2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr> -->
 											</tbody>
 										</table>
 									</div>
@@ -417,17 +425,17 @@
 											<thead>
 												<tr>
 													<th style="text-align: left; width: 500px;">考试内容</th>
-													<!-- <th style="text-align: left;">开始时间</th> -->
 													<th style="text-align: left;">结束时间</th>
+													<th style="text-align: left;">操作</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody id="examBody">
 												<tr>
+													<td>加载中...</td>
+												</tr>
+												<!-- <tr>
 													<td>
 														<span>2018年第一次考试</span>
-													</td>
-													<td>
-														<span>2018/1/19</span>
 													</td>
 													<td>
 														<span>2018/2/19</span>
@@ -441,20 +449,71 @@
 														<span>2018年第二次考试</span>
 													</td>
 													<td>
-														<span>2018/1/19</span>
-													</td>
-													<td>
 														<span>2018/2/19</span>
 													</td>
 													<td>
 														<a href="demo-exam-paper.html">已结束</a>
 													</td>
-												</tr>
+												</tr> -->
 											</tbody>
 										</table>
 									</div>
 									<!-- end of .notice-list -->
 								</div>
+								<script>
+									var examTmp =
+										'<tr>' +
+											'<td>' +
+												'<span>{testPaperName}</span>' +
+											'</td>' +
+											'<td>' +
+												'<span>{testDate}</span>' +
+											'</td>' +
+											'<td>' +
+												'{op}'
+												//'<a href="demo-exam-paper.html">参加考试</a>' +
+											'</td>' +
+										'</tr>';
+										/*'<tr>' +
+											'<td class="fix-text" style="width: 640px;">' +
+												'<a href="javascript:void(0);">{questionContent}</a>' +
+											'</td>' +
+											'<td style="">{createDate}</td>' +
+										'</tr>';*/
+									$.ajax({
+										url: '${pageContext.request.contextPath}/testPaper/fronendList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#examBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												/*var opMap = {
+													'0': 
+												;
+
+												var rdata = $.extend({}, rows[idx], {
+
+												});*/
+												var $item = $(examTmp.format(rows[idx]));
+												$item.find('a').data('idx', idx);
+												$item.find('a').on('click', function() {
+													var _idx = $(this).data('idx');
+													BootstrapDialog.alert({
+														title: rows[_idx].questionContent,
+														message: rows[_idx].questionAnswer
+													});
+												});
+												$nbody.append($item);
+											});
+										}
+									});
+								</script>
 							</div>
 
 							<div class="panel panel-white panel-static-height">
@@ -471,22 +530,6 @@
 												<tr>
 													<td>加载中...</td>
 												</tr>
-												<!-- <tr>
-													<td class="fix-text fix-text-660" style="border-top-color: transparent;">
-														<a href="demo-exam-paper.html">答疑答疑答疑答疑答疑答疑答疑答疑</a>
-													</td>
-												</tr>
-												<tr>
-													<td class="fix-text fix-text-660">
-														<a href="demo-exam-paper.html">答疑答疑答疑答疑</a>
-													</td>
-												</tr>
-												<tr>
-													<td class="fix-text fix-text-660">
-														<a href="demo-exam-paper.html">答疑答疑答疑答疑</a>
-													</td>
-												</tr>
-												 -->
 											</tbody>
 										</table>
 									</div>
