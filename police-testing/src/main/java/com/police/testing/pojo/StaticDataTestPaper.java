@@ -7,6 +7,8 @@ public class StaticDataTestPaper {
 	private String testPaperName;
 	
 	private Integer officialCount;
+	
+	private String departmentName;
 
 	public String getTestPaperId() {
 		return testPaperId;
@@ -31,5 +33,12 @@ public class StaticDataTestPaper {
 	public void setOfficialCount(Integer officialCount) {
 		this.officialCount = officialCount;
 	}
-	
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
 }

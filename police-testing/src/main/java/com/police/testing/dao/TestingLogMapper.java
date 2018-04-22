@@ -24,7 +24,7 @@ public interface TestingLogMapper {
     List<TestingLog> selectByDepartmentNameAndType(@Param("departmentName") String departmentName, @Param("testingType") String testingType,
     		@Param("beginDate") String beginDate, @Param("endDate") String endDate);
 
-	List<TestingLog> selectByTestPaperIdAndTypeAndSorce(@Param("testPaperId") String testPaperId, @Param("testingType") String testingType,
+	List<TestingLog> selectByTestPaperIdAndTypeAndSorce(@Param("testPaperId") String testPaperId, @Param("testingType") String testingType, @Param("departmentName") String departmentName,
 			
     		@Param("beginDate") String beginDate, @Param("endDate") String endDate, @Param("score") Integer score);
 
