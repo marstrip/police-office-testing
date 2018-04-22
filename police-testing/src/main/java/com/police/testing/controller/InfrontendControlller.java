@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.CommonView;
 import com.police.testing.pojo.InformNotice;
+import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestSelf;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;
 import com.police.testing.service.IStaticDataService;
+import com.police.testing.service.ITestPaperService;
 import com.police.testing.service.ITestSelfService;
 import com.police.testing.tools.GetEncode;
 import net.sf.json.JSONArray;
@@ -38,6 +40,8 @@ public class InfrontendControlller {
 	private IStaticDataService staticDataService;
 	@Autowired
 	private ITestSelfService testSelfService;
+	@Autowired
+	private ITestPaperService testPaperService;
 	/**
 	 * 课件超市
 	 * @param request
@@ -124,6 +128,9 @@ public class InfrontendControlller {
 		}else if(switchPage.equals("staticDataByQuestionFail")){
 			list = staticDataService.staticDataByQuestionFail("fail", offset, limit);
 			total = staticDataService.questionFailGetCount();
+		}else if(switchPage.equals("testPaper")){
+			list = testPaperService.getList(null, offset, limit);
+			total = testPaperService.getCount(null);
 		}
 		JSONObject result = new JSONObject();
 		JSONArray array = JSONArray.fromObject(list);
