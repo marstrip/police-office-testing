@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;
@@ -89,6 +90,7 @@ public class InfrontendControlller {
 	 * @return
 	 */
 	@RequestMapping("commonGetList")
+	@ResponseBody
 	public JSONObject commonGetList(HttpServletRequest request){
 		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
