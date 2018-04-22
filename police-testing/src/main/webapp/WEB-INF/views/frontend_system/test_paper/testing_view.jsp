@@ -89,11 +89,13 @@
 						共1题
 					</div> -->
 				</div>
-				<button class="panel-footer hover btn btn-default" style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-top-width: 1px; border-bottom-width: 1px;">
+				<button class="panel-footer hover btn btn-default" 
+						style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-top-width: 1px; border-bottom-width: 1px;"
+						onclick="javascript:window.location.href='${pageContext.request.contextPath}/login/frontendIndex'">
 					<div class="icon">
 						<i class="fa fa-arrow-circle-o-left fa-2x"></i>
 					</div>
-					<div class="icon-description" onclick="javascript:window.location.href='${pageContext.request.contextPath}/login/frontendIndex'">
+					<div class="icon-description">
 						返回首页
 					</div>
 				</button>
