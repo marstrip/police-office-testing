@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.CommonView;
 import com.police.testing.pojo.InformNotice;
+import com.police.testing.pojo.StaticDataQusetion;
 import com.police.testing.pojo.TestSelf;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;
@@ -121,6 +122,9 @@ public class InfrontendControlller {
 		}else if(switchPage.equals("staticDataOfficialExam")){
 			list = staticDataService.staticDataOfficialExam(null, null, offset, limit);
 			total = staticDataService.staticDataSimulateExamGetCount(null, null);
+		}else if(switchPage.equals("staticDataByQuestionFail")){
+			list = staticDataService.staticDataByQuestionFail("fail", offset, limit);
+			total = staticDataService.questionFailGetCount();
 		}
 		JSONObject result = new JSONObject();
 		JSONArray array = JSONArray.fromObject(list);
