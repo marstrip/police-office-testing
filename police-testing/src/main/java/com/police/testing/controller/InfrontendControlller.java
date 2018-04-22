@@ -19,7 +19,7 @@ import com.police.testing.service.IIFormNoticeService;
 import com.police.testing.service.IStaticDataService;
 import com.police.testing.service.ITestSelfService;
 import com.police.testing.tools.GetEncode;
-
+import com.police.testing.tools.SystemTools;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -149,16 +149,22 @@ public class InfrontendControlller {
 			commonView.setId(id);
 			commonView.setContent(caseAnalyze.getCaseContent());
 			commonView.setName(caseAnalyze.getCaseName());
+			commonView.setCreatorName(caseAnalyze.getCreatorName());
+			commonView.setCreateDate(caseAnalyze.getCreateDate());
 		}else if(switchPage.equals("informNotice")){
 			InformNotice informNotice = informNoticeService.getContentById(id);
 			commonView.setId(id);
 			commonView.setContent(informNotice.getInformContent());
 			commonView.setName(informNotice.getInformName());
+			commonView.setCreatorName(informNotice.getCreatorName());
+			commonView.setCreateDate(informNotice.getCreateDate());
 		}else if(switchPage.equals("testSelf")){
 			TestSelf testSelf = testSelfService.getContentById(id);
 			commonView.setId(id);
 			commonView.setContent(testSelf.getTestSelfContent());
 			commonView.setName(testSelf.getTestSelfName());
+			commonView.setCreatorName(testSelf.getCreatorName());
+			commonView.setCreateDate(testSelf.getCreateDate());
 		} 
 		JSONObject result = new JSONObject();
 		result.put("status", 1);
