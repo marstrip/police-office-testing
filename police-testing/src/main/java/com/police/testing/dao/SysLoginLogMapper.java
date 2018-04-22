@@ -33,9 +33,11 @@ public interface SysLoginLogMapper {
      * 根据时间段获取所有去重上传部门集合
      * @param beginDate
      * @param endDate
+     * @param limit 
+     * @param offset 
      * @return
      */
-    List<String> selectDistDepartmentName(@Param("beginDate") String beginDate, @Param("endDate") String endDate);
+    List<String> selectDistDepartmentName(@Param("beginDate") String beginDate, @Param("endDate") String endDate, @Param("offset") Integer offset,@Param("limit") Integer limit);
     /**
      * 根据部门和登录时间获取登录记录集合
      * @param departmentName

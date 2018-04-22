@@ -35,6 +35,8 @@
   		#{item}
  	</foreach>
     </if>
+    <if test="offset != null and limit != null">
+     limit ${offset
   </select>
   
   <select id="selectByLikeTestPapaerName" resultMap="BaseResultMap" parameterType="java.lang.String">

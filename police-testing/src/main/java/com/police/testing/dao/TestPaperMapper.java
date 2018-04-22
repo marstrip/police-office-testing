@@ -21,9 +21,12 @@ public interface TestPaperMapper {
     /**
      * 根据试卷id获取数据
      * @param testPaperId
+     * @param limit 
+     * @param offset 
      * @return
      */
-    List<TestPaper> selectByTestPaperId(@Param("testPaperIds") List<String> testPaperId);
+    List<TestPaper> selectByTestPaperId(@Param("testPaperIds") List<String> testPaperId, 
+    		@Param("offset") Integer offset, @Param("limit") Integer limit);
     /**
      * 根据试卷名称获取数据集合
      * @return

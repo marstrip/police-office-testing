@@ -15,16 +15,22 @@ import com.police.testing.pojo.StaticDataExam;
 **/
 public interface IStaticDataService {
 
-	public List<StaticDataLogin> staticDataLogin(String beginDate, String endDate);
+	public List<StaticDataLogin> staticDataLogin(String beginDate, String endDate, Integer offset, Integer limit);
 	
-	public List<StaticDataExam> staticDataSimulateExam(String beginDate, String endDate);
+	public List<StaticDataExam> staticDataSimulateExam(String beginDate, String endDate, Integer offset, Integer limit);
 
-	public List<StaticDataExam> staticDataOfficialExam(String beginDate, String endDate);
+	public List<StaticDataExam> staticDataOfficialExam(String beginDate, String endDate, Integer offset, Integer limit);
 
-	public List<StaticDataTestPaper> staticDataByTestingCountScore(String beginDate, String endDate, Integer score);
+	public List<StaticDataTestPaper> staticDataByTestingCountScore(String beginDate, String endDate, Integer score, Integer offset, Integer limit);
 
 	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType);
 
-	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate);
+	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate, Integer offset, Integer limit);
+
+	public long getCount(String beginDate, String endDate);
+
+	public long staticDataSimulateExamGetCount(String beginDate, String endDate);
+
+	public long TestingCountScoreGetCount(String beginDate, String endDate, Integer score);
 }
 

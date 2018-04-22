@@ -32,6 +32,9 @@
     	and login_time between #{beginDate,jdbcType=VARCHAR} and #{endDate,jdbcType=VARCHAR}
     </if>
     and user_status = '1'
+    <if test="offset != null and limit != null">
+     limit ${offset},${limit}
+    </if>
   </select>
   
   <select id="selectByDepartmentName" resultMap="BaseResultMap" parameterType="java.lang.String">

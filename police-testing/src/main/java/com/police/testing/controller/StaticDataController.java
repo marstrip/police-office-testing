@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.StaticDataLogin;
 import com.police.testing.pojo.StaticDataQusetion;
 import com.police.testing.pojo.StaticDataTestPaper;
+import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.StaticDataExam;
 import com.police.testing.service.IStaticDataService;
 import com.police.testing.tools.GetEncode;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -50,9 +52,15 @@ public class StaticDataController {
 		JSONObject result = new JSONObject();
 		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
 		String endDate = GetEncode.transcode(request.getParameter("endDate"));
-		List<StaticDataLogin> dataLogins = staticDataService.staticDataLogin(beginDate, endDate);
-		result.put("status", 1);
-		result.put("list", dataLogins);
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		List<StaticDataLogin> dataLogins = staticDataService.staticDataLogin(beginDate, endDate, offset, limit);
+		long total = staticDataService.getCount(beginDate, endDate);
+		JSONArray array = JSONArray.fromObject(dataLogins);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
 		return result;
 	}
 	/**
@@ -66,9 +74,15 @@ public class StaticDataController {
 		JSONObject result = new JSONObject();
 		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
 		String endDate = GetEncode.transcode(request.getParameter("endDate"));
-		List<StaticDataExam> dataSimulateExams = staticDataService.staticDataSimulateExam(beginDate, endDate);
-		result.put("status", 1);
-		result.put("list", dataSimulateExams);
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		List<StaticDataExam> dataSimulateExams = staticDataService.staticDataSimulateExam(beginDate, endDate, offset, limit);
+		long total = staticDataService.staticDataSimulateExamGetCount(beginDate, endDate);
+		JSONArray array = JSONArray.fromObject(dataSimulateExams);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
 		return result;
 	}
 	
@@ -83,9 +97,15 @@ public class StaticDataController {
 		JSONObject result = new JSONObject();
 		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
 		String endDate = GetEncode.transcode(request.getParameter("endDate"));
-		List<StaticDataExam> dataSimulateExams = staticDataService.staticDataOfficialExam(beginDate, endDate);
-		result.put("status", 1);
-		result.put("list", dataSimulateExams);
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		List<StaticDataExam> dataSimulateExams = staticDataService.staticDataOfficialExam(beginDate, endDate, offset, limit);
+		long total = staticDataService.staticDataSimulateExamGetCount(beginDate, endDate);
+		JSONArray array = JSONArray.fromObject(dataSimulateExams);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
 		return result;
 	}
 //	/**
@@ -118,9 +138,15 @@ public class StaticDataController {
 		String endDate = GetEncode.transcode(request.getParameter("endDate"));
 		String scoreStr = GetEncode.transcode(request.getParameter("score"));
 		Integer score = Integer.valueOf(scoreStr);
-		List<StaticDataTestPaper> dataTestPapers = staticDataService.staticDataByTestingCountScore(beginDate, endDate, score);
-		result.put("status", 1);
-		result.put("list", dataTestPapers);
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		List<StaticDataTestPaper> dataTestPapers = staticDataService.staticDataByTestingCountScore(beginDate, endDate, score, offset, limit);
+		long total = staticDataService.TestingCountScoreGetCount(beginDate, endDate, score);
+		JSONArray array = JSONArray.fromObject(dataTestPapers);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
 		return result;
 	}
 	/**
