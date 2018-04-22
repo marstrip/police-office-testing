@@ -56,7 +56,7 @@
 		}
 
 		.panel-white {
-		    border-color: #999;
+			border-color: #999;
 		}
 
 		.exam-header-item + .exam-header-item {
@@ -77,70 +77,68 @@
 <body style="background: transparent;">
 	
 	<div class="mastbody" style="background: transparent;">
-        <!-- 面板区域 -->
-        <div style="width: 90px; margin-right: 25px; float: right; position: fixed; right: calc(50% - 600px);">
-            <div class="panel panel-white" style="display: block; position: relative; overflow: hidden;">
-                <div class="panel-body hover" style="text-align: center; background: #f5f5f5; display: block;">
-                    <div class="icon">
-                        <i class="fa fa-clock-o fa-4x"></i>
-                    </div>
-                    <div class="icon-description">
-                        96分16秒
-                    </div>
-                    <!-- <div class="weak small">
-                        共1题
-                    </div> -->
-                </div>
-                <button class="panel-footer hover btn btn-default" style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-top-width: 1px; border-bottom-width: 1px;">
-                    <div class="icon">
-                        <i class="fa fa-arrow-circle-o-left fa-2x"></i>
-                    </div>
-                    <div class="icon-description">
-                        返回首页
-                    </div>
-                </button>
-                <!-- <button id="btn_pause" class="panel-footer hover btn btn-default" style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-bottom-width: 1px;">
-                    <div class="icon">
-                        <i class="fa fa-pause-circle-o fa-2x"></i>
-                    </div>
-                    <div class="icon-description">
-                        暂停
-                    </div>
-                </button> -->
-                <button id="btn_submit" class="panel-footer hover btn btn-success" style="text-align: center; width: 100%; border: none;border-top-left-radius: 0; border-top-right-radius: 0;">
-                    <div class="icon">
-                        <i class="fa fa-check-circle-o fa-2x"></i>
-                    </div>
-                    <div class="icon-description">
-                        提交
-                    </div>
-                </button>
-            </div>
-        </div>
+		<!-- 面板区域 -->
+		<div style="width: 90px; margin-right: 25px; float: right; position: fixed; right: calc(50% - 600px);">
+			<div class="panel panel-white" style="display: block; position: relative; overflow: hidden;">
+				<div class="panel-body hover" style="text-align: center; background: #f5f5f5; display: block;">
+					<div class="icon">
+						<i class="fa fa-clock-o fa-4x"></i>
+					</div>
+					<div class="icon-description" style="font-size: 12px;" id="timer"></div>
+					<!-- <div class="weak small">
+						共1题
+					</div> -->
+				</div>
+				<button class="panel-footer hover btn btn-default" style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-top-width: 1px; border-bottom-width: 1px;">
+					<div class="icon">
+						<i class="fa fa-arrow-circle-o-left fa-2x"></i>
+					</div>
+					<div class="icon-description">
+						返回首页
+					</div>
+				</button>
+				<!-- <button id="btn_pause" class="panel-footer hover btn btn-default" style="text-align: center; width: 100%; background: #fff; border-radius: 0; border: 0px solid #ddd; border-bottom-width: 1px;">
+					<div class="icon">
+						<i class="fa fa-pause-circle-o fa-2x"></i>
+					</div>
+					<div class="icon-description">
+						暂停
+					</div>
+				</button> -->
+				<button id="btn_submit" class="panel-footer hover btn btn-success" style="text-align: center; width: 100%; border: none;border-top-left-radius: 0; border-top-right-radius: 0;">
+					<div class="icon">
+						<i class="fa fa-check-circle-o fa-2x"></i>
+					</div>
+					<div class="icon-description">
+						提交
+					</div>
+				</button>
+			</div>
+		</div>
 
-        <!-- 答题区域 -->
-        <div id="paperContainer">
-            
-        </div>
+		<!-- 答题区域 -->
+		<div id="paperContainer">
+			
+		</div>
 	</div>
 
 </body>
 <script type="text/javascript">
 	//序列化表格元素为JSON  
 	$.fn.serializeJson = function() {  
-	    var o = {};  
-	    var a = this.serializeArray();  
-	    $.each(a, function() {  
-	        if (o[this.name] !== undefined) {  
-	            if (o[this.name] == null || !o[this.name].push) {  
-	                o[this.name] = [o[this.name]];  
-	            }  
-	            o[this.name].push(this.value || null);  
-	        } else {  
-	            o[this.name] = this.value || null;  
-	        }  
-	    });  
-	    return o;  
+		var o = {};  
+		var a = this.serializeArray();  
+		$.each(a, function() {  
+			if (o[this.name] !== undefined) {  
+				if (o[this.name] == null || !o[this.name].push) {  
+					o[this.name] = [o[this.name]];  
+				}  
+				o[this.name].push(this.value || null);  
+			} else {  
+				o[this.name] = this.value || null;  
+			}  
+		});  
+		return o;  
 	}  
 
 	// 扩展String类型的原生方法，提供类似java或python的format方法
@@ -181,6 +179,116 @@
 	// var testPaperId = 'TEST1f86946e-85b3-42e5-afc6-25eac00d5378';	// TODO:从url的参数取
 	var testPaperId = getUrlParam('testPaperId');
 
+	// 倒计时
+	function countdown_init(MINITE, endCB) {
+		var maxtime = MINITE * 60; //一个小时，按秒计算，自己调整!
+		function CountDown() {
+			if (maxtime >= 0) {
+				minutes = Math.floor(maxtime / 60);
+				seconds = Math.floor(maxtime % 60);
+				msg = minutes + "分" + seconds + "秒";
+				document.all["timer"].innerHTML = msg;
+				// if (maxtime == 5 * 60) alert("还剩5分钟");
+				--maxtime;
+			} else {
+				clearInterval(timer);
+				alert("时间到，点击确定交卷");
+				endCB();
+			}
+		}
+		timer = setInterval(function() {
+			CountDown();
+		}, 1000);
+	}
+
+	function pureSubmit() {
+		// 禁用提交按钮
+		$('#btn_submit').prop('disabled', true);
+		// 提交数据
+		var formData = {
+			testPaperId: testPaperId,
+			answerList: []
+		};
+
+		var $forms = $('form');
+		$.each($forms, function(idx) {
+			var $form = $($forms[idx]);
+			var fd = $form.serializeJson();
+			console.log('fd', idx, '>>>', fd);
+
+			var $qs = $form.find('input[type=hidden]');
+			$.each($qs, function(_idx) {
+				var $q = $($qs[_idx]);
+
+				var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
+				qData['answer'] = fd[qData.testQuestionsId] || '';
+				if ($.isArray(qData['answer'])) {
+					qData['answer'] = qData['answer'].join('');
+				}
+
+				formData.answerList.push(qData);
+			})
+		});
+
+		console.log('提交的数据>>>', formData);
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/testPaper/submitTesting',
+			method: 'POST',
+			dataType: 'JSON',
+			data: { json: JSON.stringify(formData)},
+			success: function(result) {
+				if (result.status == 1) {
+					var qIdInfoMap = {};
+					$.each(result.testingResult, function(idx2) {
+						var tr = result.testingResult[idx2];
+						qIdInfoMap[tr.testQuestionsId] = {
+							correctFlag: tr.correctFlag,
+							rightAnswer: tr.rightAnswer
+						}
+					});
+
+					var $qs = $('input[type=hidden]');
+					$.each($qs, function(idx3) {
+						var $q = $($qs[idx3]);
+						var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
+						var qId = qData.testQuestionsId;
+						var aData = qIdInfoMap[qId];
+						var $checkAnswer = $q.closest('.q-select-answer').find('.check-answer');
+
+						$checkAnswer.html(
+							'<i class="judge fa {judgeClass}"></i>	正确答案: <span>{rightAnswer}</span>'.format({
+								judgeClass: ((!!aData.correctFlag) ? 'right': 'wrong'),
+								rightAnswer: aData.rightAnswer
+							})
+						);
+					});
+
+					// 总分
+					$('#score').append('<span style="color: red;">' + result.score + '</span>/');
+
+				} else {
+					BootstrapDialog.alert({
+						title: '注意',
+						message: '提交数据成功，但是未按照预期反馈状态...',
+						type: BootstrapDialog.TYPE_WARNING
+					});
+				}
+			},
+			error: function(d) {
+				BootstrapDialog.alert({
+					title: '错误',
+					message: '提交数据失败',
+					type: BootstrapDialog.TYPE_DANGER
+				});
+			},
+			complete: function() {
+				// 禁用提交按钮
+				$('#btn_submit').prop('disabled', true);
+			}
+		})
+	}
+
 	$(document).ready(function() {
 
 		$.ajax({
@@ -201,6 +309,9 @@
 						testTime: result.testTime
 					}
 					$paperContainer.genPaper(formData, result, false);
+
+					// countdown_init(result.testTime, pureSubmit);
+					countdown_init(0.5, pureSubmit);
 				}
 			},
 			error: function() {
@@ -279,7 +390,7 @@
 										var $checkAnswer = $q.closest('.q-select-answer').find('.check-answer');
 
 										$checkAnswer.html(
-											'<i class="judge fa {judgeClass}"></i>    正确答案: <span>{rightAnswer}</span>'.format({
+											'<i class="judge fa {judgeClass}"></i>	正确答案: <span>{rightAnswer}</span>'.format({
 												judgeClass: ((!!aData.correctFlag) ? 'right': 'wrong'),
 												rightAnswer: aData.rightAnswer
 											})
