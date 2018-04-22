@@ -263,5 +263,29 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	public Integer deleteData(String testPaperId, String enable) {
 		return testPaperMapper.updateEnable(testPaperId, enable);
 	}
+
+	@Override
+	public List<TestPaper> getListByUser(String testPaperName, Integer offset, Integer limit) {
+		//获取用户信息
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		String userId = (String) session.getAttribute("currentUserId");
+		//获取试卷列表
+		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, offset, limit);
+		for (TestPaper testPaper : testPapers) {
+			String testPaperId = testPaper.getTestPaperId();
+			Date testDate = testPaper.getTestDate();
+			Date now = new Date();
+			List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndUserId(testPaperId, userId);
+			if(testingLogs.size() > 0){//试卷被考试过
+				testPaper.setFlagExam("0");
+			}else if(testDate.getTime() < now.getTime()){
+				testPaper.setFlagExam("0");
+			}else {
+				testPaper.setFlagExam("1");
+			}
+		}
+		return testPapers;
+	}
 	
 }

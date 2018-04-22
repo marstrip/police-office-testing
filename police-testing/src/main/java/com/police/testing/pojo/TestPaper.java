@@ -24,6 +24,8 @@ public class TestPaper {
     private Date updateDate;
 
     private String enable;
+    
+    private String flagExam;
 
     public String getTestPaperId() {
         return testPaperId;
@@ -105,4 +107,12 @@ public class TestPaper {
     public void setEnable(String enable) {
         this.enable = enable == null ? null : enable.trim();
     }
+
+	public String getFlagExam() {
+		return flagExam;
+	}
+
+	public void setFlagExam(String flagExam) {
+		this.flagExam = flagExam;
+	}
 }

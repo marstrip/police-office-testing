@@ -59,4 +59,6 @@ public interface ITestPaperService {
 	public JSONObject submitTesting(JSONArray answerArray, String testPaperId);
 
 	public Integer deleteData(String testPaperId, String enable);
+
+	public List<TestPaper> getListByUser(String testName, Integer offset, Integer limit);
 }
