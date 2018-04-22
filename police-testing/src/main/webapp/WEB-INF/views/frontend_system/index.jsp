@@ -495,7 +495,8 @@
 											$nbody.html('');
 											$.each(rows, function(idx) {
 												var opMap = {
-													'0': '参加考试'
+													'1': '参加考试',
+													'0': '已结束'
 												};
 
 												var rdata = $.extend({}, rows[idx], {
@@ -509,8 +510,14 @@
 													// 做特殊操作
 													console.log('>>>', _idx, rows[idx].testPaperId);
 													switch(rows[idx].flagExam) {
-														case '0':
+														case '1':
 															window.open('${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + rows[idx].testPaperId);
+															break;
+														case '0':
+															BootstrapDialog.alert({
+																title: '提示',
+																message: '当前考试已结束'
+															});
 															break;
 													}
 												});
