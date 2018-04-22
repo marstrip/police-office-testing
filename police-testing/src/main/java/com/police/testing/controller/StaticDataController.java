@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.StaticDataLogin;
 import com.police.testing.pojo.StaticDataQusetion;
 import com.police.testing.pojo.StaticDataTestPaper;
-import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.StaticDataExam;
 import com.police.testing.service.IStaticDataService;
 import com.police.testing.tools.GetEncode;

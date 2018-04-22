@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.police.testing.pojo.SysUser;
-import com.police.testing.pojo.User;
 import com.police.testing.service.ISystemService;
 import com.police.testing.service.IUserService;
 import com.police.testing.tools.GetEncode;
@@ -40,6 +39,20 @@ public class LoginController {
 	@RequestMapping(value = "page")
 	public String loginPage(HttpServletRequest request, HttpServletResponse response) {
 		 return "login";
+	}
+	/**
+	 * 跳转首页
+	 * @return
+	 */
+	@RequestMapping("frontendIndex")
+	public String frontendIndex(HttpServletRequest request){
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		String userId = (String) session.getAttribute("currentUserId");
+		String userName = (String) session.getAttribute("currentUserName");
+		request.setAttribute("userName", userName);
+    	request.setAttribute("userId", userId);
+		return "frontend_system/index";
 	}
 	/**
 	 * 用户登录后台

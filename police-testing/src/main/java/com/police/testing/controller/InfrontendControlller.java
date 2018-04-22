@@ -19,7 +19,6 @@ import com.police.testing.service.IIFormNoticeService;
 import com.police.testing.service.IStaticDataService;
 import com.police.testing.service.ITestSelfService;
 import com.police.testing.tools.GetEncode;
-import com.police.testing.tools.SystemTools;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -48,7 +47,6 @@ public class InfrontendControlller {
 	public String superMarketJsp(HttpServletRequest request){
 		return "frontend_system/system/super_market";
 	}
-	
 	/**
 	 * 
 	 * @param request
