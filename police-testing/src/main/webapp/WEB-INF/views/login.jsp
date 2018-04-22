@@ -82,8 +82,8 @@
 													<label style="color: red">${message }</label>                                
                                 				</p>
 												<div class="form-group text-right" style="margin-bottom: 20px;">
-													<button type="button" class="btn btn-success" onclick="login(1);">登录</button>
-													<button type="button" class="btn btn-success" onclick="login(2);">登录管理后台</button>
+													<button type="button" class="btn btn-success" onclick="login(1);" style="background-color:#65b2e5;border-color:#65b2e5">登录</button>
+													<button type="button" class="btn btn-success" onclick="login(2);" style="background-color:#65b2e5;border-color:#65b2e5">登录管理后台</button>
 												</div>
 											</div>
 										</form>
