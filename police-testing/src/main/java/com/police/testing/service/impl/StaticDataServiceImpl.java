@@ -231,7 +231,7 @@ public class StaticDataServiceImpl implements IStaticDataService{
 	}
 
 	@Override
-	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate, Integer offset, Integer limit) {
+	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate) {
 		List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndTypeAndSorce(testPaperId, testingType, beginDate, endDate, 0);
 		return testingLogs;
 	}

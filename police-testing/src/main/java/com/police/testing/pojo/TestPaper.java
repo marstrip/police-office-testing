@@ -50,8 +50,9 @@ public class TestPaper {
 	public void setTestPaperType(String testPaperType) {
 		this.testPaperType = testPaperType;
 	}
-	public Date getTestDate() {
-		return testDate;
+	public String getTestDate() {
+		String str = SystemTools.Time2String(testDate, "yyyy-MM-dd HH:mm:ss");
+        return str;
 	}
 
 	public void setTestDate(Date testDate) {

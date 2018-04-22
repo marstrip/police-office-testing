@@ -25,7 +25,7 @@ public interface IStaticDataService {
 
 	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType);
 
-	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate, Integer offset, Integer limit);
+	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate);
 
 	public long getCount(String beginDate, String endDate);
 

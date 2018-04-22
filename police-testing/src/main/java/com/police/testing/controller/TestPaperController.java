@@ -61,6 +61,7 @@ public class TestPaperController {
 		result.put("page", pageNumber);
 		result.put("total", total);
 		result.put("rows", array);
+		System.out.println(result.toString());
 		return result;
 	}
 	

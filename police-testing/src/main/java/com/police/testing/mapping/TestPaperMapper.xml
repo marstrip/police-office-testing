@@ -37,6 +37,7 @@
     </if>
     <if test="offset != null and limit != null">
      limit ${offset
+     </if>
   </select>
   
   <select id="selectByLikeTestPapaerName" resultMap="BaseResultMap" parameterType="java.lang.String">

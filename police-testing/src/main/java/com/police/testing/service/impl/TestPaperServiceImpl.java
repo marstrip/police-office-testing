@@ -49,7 +49,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	
 	@Override
 	public List<TestPaper> getTestPaperList() {
-		return testPaperMapper.selectByTestPaperId(null);
+		return testPaperMapper.selectByTestPaperId(null, null, null);
 	}
 
 	@Override
@@ -274,7 +274,8 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, offset, limit);
 		for (TestPaper testPaper : testPapers) {
 			String testPaperId = testPaper.getTestPaperId();
-			Date testDate = testPaper.getTestDate();
+			String testDateStr = testPaper.getTestDate();
+			Date testDate = SystemTools.String2Date(testDateStr, "yyyy-MM-DD hh:mm:ss");
 			Date now = new Date();
 			List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndUserId(testPaperId, userId);
 			if(testingLogs.size() > 0){//试卷被考试过
