@@ -105,8 +105,10 @@ public class TestSelfController {
 		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		String testSelfName = GetEncode.transcode(request.getParameter("search"));
-		List<TestSelf> list = testSelfService.getList(testSelfName, offset, limit);
-		long total = testSelfService.getCount(testSelfName);
+		String testSelfLevel = GetEncode.transcode(request.getParameter("testSelfLevel"));
+		String testSelfType = GetEncode.transcode(request.getParameter("testSelfType"));
+		List<TestSelf> list = testSelfService.getList(testSelfName, testSelfLevel, testSelfType, offset, limit);
+		long total = testSelfService.getCount(testSelfName, testSelfLevel, testSelfType);
 		JSONArray array = JSONArray.fromObject(list);
 		Integer pageNumber = offset/limit + 1;
 		result.put("page", pageNumber);

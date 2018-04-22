@@ -177,9 +177,9 @@
 				<!-- <button id="table_11_add" class="btn btn-success">
 					<i class="glyphicon glyphicon-plus"></i> 新增
 				</button> -->
-				<!-- <button id="table_11_edit" class="btn btn-warning" disabled>
-					<i class="glyphicon glyphicon-edit"></i> 编辑
-				</button> -->
+				<button id="table_11_edit" class="btn btn-warning" disabled>
+					<i class="glyphicon glyphicon-edit"></i> 导出成绩
+				</button>
 				<button id="table_11_delete" class="btn btn-danger" disabled>
 					<i class="glyphicon glyphicon-remove"></i> 设置状态
 				</button>
@@ -329,6 +329,63 @@
 		});
 		
 
+		//导出成绩
+		$btn_edit.click(function() {
+			// 确认框
+			var cfm = BootstrapDialog.confirm({
+				title: '确认',
+				message: '请确认导出？',
+				type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+				// closable: true, // <-- Default value is false
+				draggable: true, // <-- Default value is false
+				btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+				btnOKLabel: '确认', // <-- Default value is 'OK',
+				btnOKClass: 'btn-danger', // <-- If you didn't specify it, dialog type will be used,
+				callback: function(isYes) {
+					if (isYes) {
+						// 整合数据
+						/* var formData = {
+							testPaperId: getIdSelections()[0]
+						}; */
+						var testPaperId = getIdSelections()[0];
+						window.location.href='${pageContext.request.contextPath}/exportFile/exportFileByTestPaperId?testPaperId=' + testPaperId; 
+						/* $.ajax({
+							url: '${pageContext.request.contextPath}/exportFile/exportFileByTestPaperId',
+							data : formData,
+							success: function(d) {
+								var result = $.parseJSON(d);
+								console.log('提交', d, result.message, result.status);
+
+								if (result.status == 1) {
+									var alt = BootstrapDialog.alert({
+										title: '成功',
+										message: result.message,
+										type: BootstrapDialog.TYPE_SUCCESS
+									});
+									alt.$modalDialog.css('width', '100px');
+									$table.bootstrapTable('refresh', {silent: false});
+								} else {
+									var alt = BootstrapDialog.alert({
+										title: '失败',
+										message: result.message,
+										type: BootstrapDialog.TYPE_DANGER
+									});
+									alt.$modalDialog.css('width', '100px');
+									$table.bootstrapTable('refresh', {silent: false});
+								}
+							},
+							error: function(d) {
+								BootstrapDialog.alert('提交删除请求失败');
+							}
+						}); */
+					}
+					
+				}
+			});
+			cfm.$modalDialog.css('width', '300px');
+		});
+		
+		
 		// 删
 		$btn_delete.click(function() {
 			// 确认框

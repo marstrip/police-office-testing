@@ -1,7 +1,9 @@
 package com.police.testing.tools;
 
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -10,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.police.testing.pojo.TestingLog;
 
 public class ExportFile {
@@ -94,7 +97,7 @@ public class ExportFile {
 				XSSFCell cellDataDepartmentName = valuerow.createCell(valueNumber,0);
 				cellDataDepartmentName.setCellStyle(cellStyle);
 				String departmentName = testingLog.getDepartmentName();
-				cellDataDepartmentName.setCellValue(departmentName.toString());
+				cellDataDepartmentName.setCellValue(departmentName);
 				valueNumber++;
 				//试卷名称
 				sheet.setColumnWidth(valueNumber, 5000);
@@ -114,6 +117,10 @@ public class ExportFile {
 			 * Web形式输出Excel
 			 */
 			String exportFileName = "考试成绩.xlsx";
+//			//输出Excel文件  
+//			FileOutputStream output=new FileOutputStream("d:\\考试成绩.xls");  
+//			workBook.write(output);  
+//			output.flush();
 			// 表示以附件的形式把文件发送到客户端
 			response.setHeader("Content-Disposition", "attachment;filename=" + new String((exportFileName).getBytes(), "ISO-8859-1"));// 设定输出文件头
 			response.setContentType("application/x-msdownload;charset=UTF-8");// 定义输出类型

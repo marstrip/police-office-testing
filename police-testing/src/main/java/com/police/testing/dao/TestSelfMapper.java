@@ -22,11 +22,13 @@ public interface TestSelfMapper {
     
     /**
      * 根据名称获取数据集合
+     * @param testSelfType 
+     * @param testSelfLevel 
      * @param selfName
      * @return
      */
     List<TestSelf> selectByLikeTestSelfName(@Param("testSelfContent") String testSelfContent, 
-    		@Param("offset") Integer offset, @Param("limit") Integer limit);
+    		@Param("testSelfLevel") String testSelfLevel, @Param("testSelfType") String testSelfType, @Param("offset") Integer offset, @Param("limit") Integer limit);
     
     int updateEnable(@Param("testSelfId") String testSelfId);
 }
