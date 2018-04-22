@@ -174,9 +174,9 @@
 									<table class="table">
 										<thead>
 											<tr>
-												<th style="text-align: center;">名次</th>
+												<th style="text-align: center; width: 82px;">名次</th>
 												<th style="text-align: center;">派出所</th>
-												<th style="text-align: center;">系统使用次数</th>
+												<th style="text-align: center; width: 82px;">次数</th>
 											</tr>
 										</thead>
 										<tbody id="useRankBody">
@@ -200,16 +200,17 @@
 											'<td style="">{loginCount}</td>' +
 										'</tr>';
 									$.ajax({
-										url: '${pageContext.request.contextPath}/staticData/staticDataLogin',
+										url: '${pageContext.request.contextPath}/infrontend/commonGetList',
 										dataType: "json",
 										data: {
 											offset: 0,
 											limit: 5,
 											beginDate: '',
-											endDate: ''
+											endDate: '',
+											switchPage: 'staticDataLogin'
 										},
 										success: function(d) {
-											var rows = d.list;
+											var rows = d.rows;
 											var $nbody = $('#useRankBody');
 
 											$nbody.html('');
