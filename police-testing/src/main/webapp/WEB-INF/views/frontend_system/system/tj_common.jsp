@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
-	<title>插件超市</title>
+	<title class="spText">插件超市</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
@@ -96,14 +96,14 @@
 												<a class="disabled" href="javascript:void(0);" disabled>问卷调查</a>
 											</li>
 											<li class="divider"></li>
-											<li>
+											<li class="staticDataSimulateExam">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataSimulateExam">参与自学统计</a>
 											</li>
-											<li>
+											<li class="staticDataOfficialExam">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam">累计考试统计</a>
 											</li>
 											<li>
-												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataByTestingCountAndScore">考试参与统计</a>
+												<a class="active" href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp">考试参与统计</a>
 											</li>
 											<li class="staticDataLogin">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与统计</a>
