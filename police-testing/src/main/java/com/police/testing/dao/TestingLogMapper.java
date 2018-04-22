@@ -27,4 +27,6 @@ public interface TestingLogMapper {
 	List<TestingLog> selectByTestPaperIdAndTypeAndSorce(@Param("testPaperId") String testPaperId, @Param("testingType") String testingType,
     		@Param("beginDate") String beginDate, @Param("endDate") String endDate, @Param("score") Integer score);
 
+	List<TestingLog> selectByTestPaperIdAndUserId(@Param("testPaperId") String testPaperId, @Param("userId") String userId);
+
 }

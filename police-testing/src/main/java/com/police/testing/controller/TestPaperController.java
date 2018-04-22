@@ -40,6 +40,30 @@ public class TestPaperController {
 	public String fronendJsp(HttpServletRequest request){
 		return "frontend_system/test_paper/testing_view";
 	}
+
+	/**
+	 * 获取试卷列表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("fronendList")
+	@ResponseBody
+	public JSONObject fronendList(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		//第几条记录开始
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		String testName = GetEncode.transcode(request.getParameter("search"));
+		List<TestPaper> list = testPaperService.getListByUser(testName, offset, limit);
+		long total = testPaperService.getCount(testName);
+		JSONArray array = JSONArray.fromObject(list);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
+		return result;
+	}
+	
 	/**
 	 * 获取试卷列表
 	 * @param request
