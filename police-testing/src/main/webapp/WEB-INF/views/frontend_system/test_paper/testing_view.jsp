@@ -93,7 +93,7 @@
 					<div class="icon">
 						<i class="fa fa-arrow-circle-o-left fa-2x"></i>
 					</div>
-					<div class="icon-description">
+					<div class="icon-description" onclick="javascript:window.location.href='${pageContext.request.contextPath}/login/frontendIndex'">
 						返回首页
 					</div>
 				</button>

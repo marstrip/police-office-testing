@@ -342,7 +342,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										考试中心
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">

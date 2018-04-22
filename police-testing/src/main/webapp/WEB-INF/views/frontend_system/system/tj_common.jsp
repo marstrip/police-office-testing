@@ -90,7 +90,7 @@
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=caseAnalyze">案例评析</a>
 											</li>
 											<li>
-												<a href="demo-exam-list.html">考试列表</a>
+												<a class="testPaper" href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper">考试列表</a>
 											</li>
 											<li>
 												<a class="disabled" href="javascript:void(0);" disabled>问卷调查</a>
