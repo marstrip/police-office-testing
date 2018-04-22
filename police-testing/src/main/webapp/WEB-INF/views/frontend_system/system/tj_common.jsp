@@ -66,7 +66,7 @@
 					<div class="mastbody" style="">
 						<ol class="breadcrumb">
 	                        <li>
-	                            <a href="${pageContext.request.contextPath}/login/frontendLogin">首页</a>
+	                            <a href="${pageContext.request.contextPath}/login/frontendIndex">首页</a>
 	                        </li>
 	                        <li class="spText">
 	                            当前页
@@ -97,13 +97,13 @@
 											</li>
 											<li class="divider"></li>
 											<li>
-												<a href="demo-statistics-learn.html">参与自学统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataSimulateExam">参与自学统计</a>
 											</li>
 											<li>
-												<a href="#">累计考试统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam">累计考试统计</a>
 											</li>
 											<li>
-												<a href="demo-statistics-examlist.html">考试参与统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataByTestingCountAndScore">考试参与统计</a>
 											</li>
 											<li class="staticDataLogin">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与统计</a>
