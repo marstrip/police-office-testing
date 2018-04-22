@@ -199,7 +199,8 @@
 		var spTextMap = {
 			caseAnalyze: '案例分析',
 			informNotice: '通知公告',
-			staticDataLogin: '系统参与统计'
+			staticDataLogin: '系统参与统计',
+			testPaper: '考试列表'
 		}
 
 		$('.spText').html(spTextMap[switchPage]);
@@ -300,7 +301,39 @@
 						align: 'center'
 					}
 				]
-			}
+			},
+			testPaper: {
+				url: '${pageContext.request.contextPath}/testPaper/fronendList',
+				idField: "testPaperId",				//指定主键列
+				columns: [
+					{
+						title: '考试名称',			//表的列名
+						field: 'testPaperName',		//json数据中rows数组中的属性名
+						align: 'center'
+					},
+					{
+						title: '结束时间',
+						field: 'testDate',
+						align: 'center'
+					},
+					{
+						title: '操作',			//表的列名
+						field: 'flagExam',		//json数据中rows数组中的属性名
+						align: 'center',		//水平居中
+						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
+							var opMap = {
+								'1': '参加考试',
+								'0': '已结束'
+							};
+							if ((row.flagExam + '') == '1') {
+								return '<a href="${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + row.testPaperId + '&type=officialExam">' + opMap[row.flagExam + ''] + '</a>';
+							} else {
+								return opMap[row.flagExam + ''];
+							}
+						}
+					}
+				]
+			},
 		}
 
 		$(document).ready(function() {
