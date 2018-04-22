@@ -280,7 +280,7 @@
 					field: 'testSelfName',	//json数据中rows数组中的属性名
 					align: 'center',		//水平居中
 					formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
-						return '<a href="${pageContext.request.contextPath}/infrontend/commonView?switchPage=testSelf&id=' + row.testSelfId + '">' + row.testSelfName + '</a>';
+						return '<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=testSelf&id=' + row.testSelfId + '">' + row.testSelfName + '</a>';
 					}
 				},
 				{
