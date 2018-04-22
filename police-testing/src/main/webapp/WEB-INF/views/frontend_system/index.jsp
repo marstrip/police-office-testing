@@ -136,7 +136,7 @@
 												</div>
 											</div>
 										</a>
-										<a class="black" href="${pageContext.request.contextPath}/#">
+										<a class="black" href="javascript:void(0);">
 											<div class="func-item func-item-bar">
 												<div class="icon pull-left">
 													<i class="fa fa-2x">☭</i>
