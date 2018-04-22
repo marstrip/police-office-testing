@@ -66,7 +66,7 @@
 					<div class="mastbody" style="">
 						<ol class="breadcrumb">
 	                        <li>
-	                            <a href="${pageContext.request.contextPath}/login/frontendLogin">首页</a>
+	                            <a href="${pageContext.request.contextPath}/login/frontendIndex">首页</a>
 	                        </li>
 	                        <li>
 	                            课件超市
