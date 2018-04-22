@@ -21,7 +21,7 @@ public interface IStaticDataService {
 
 	public List<StaticDataExam> staticDataOfficialExam(String beginDate, String endDate, Integer offset, Integer limit);
 
-	public List<StaticDataTestPaper> staticDataByTestingCountScore(String beginDate, String endDate, Integer score, Integer offset, Integer limit);
+	public List<StaticDataTestPaper> staticDataByTestingCountScore(String testPaperId, String beginDate, String endDate, Integer score, Integer offset, Integer limit);
 
 	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType, Integer offset, Integer limit);
 

@@ -145,18 +145,18 @@ public class StaticDataServiceImpl implements IStaticDataService{
 	}
 
 	@Override
-	public List<StaticDataTestPaper> staticDataByTestingCountScore(String beginDate, String endDate, Integer score, Integer offset, Integer limit) {
-		//从试卷表获取全部试卷
-		List<TestPaper> testPapers = testPaperMapper.selectByTestPaperId(null, offset, limit);
+	public List<StaticDataTestPaper> staticDataByTestingCountScore(String testPaperId, String beginDate, String endDate, Integer score, Integer offset, Integer limit) {
+//		List<TestPaper> testPapers = testPaperMapper.selectByTestPaperId(null, offset, limit);
 		List<StaticDataTestPaper> dataTestPapers = new ArrayList<>();
-		for (TestPaper testPaper : testPapers) {
-			String testPaperId = testPaper.getTestPaperId();
+		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, limit, limit);
+		for (String departmentName : departmentNames) {
 			//按照部门获取模拟考试总数
-			List<TestingLog> officialList = testingLogMapper.selectByTestPaperIdAndTypeAndSorce(testPaperId, "officialExam", beginDate, endDate, score);
+			List<TestingLog> officialList = testingLogMapper.selectByTestPaperIdAndTypeAndSorce(testPaperId, "officialExam", departmentName, beginDate, endDate, score);
 			StaticDataTestPaper dataTestPaper = new StaticDataTestPaper();
 			dataTestPaper.setOfficialCount(officialList.size());
 			dataTestPaper.setTestPaperId(testPaperId);
-			dataTestPaper.setTestPaperName(testPaper.getTestPaperName());
+			dataTestPaper.setDepartmentName(departmentName);
+//			dataTestPaper.setTestPaperName(testPaper.getTestPaperName());
 			dataTestPapers.add(dataTestPaper);
 		}
 		// 按点击数倒序
@@ -234,7 +234,7 @@ public class StaticDataServiceImpl implements IStaticDataService{
 
 	@Override
 	public List<TestingLog> selectTestingLogsByTestId(String testPaperId, String testingType, String beginDate, String endDate) {
-		List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndTypeAndSorce(testPaperId, testingType, beginDate, endDate, 0);
+		List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndTypeAndSorce(testPaperId, testingType, null, beginDate, endDate, 0);
 		return testingLogs;
 	}
 

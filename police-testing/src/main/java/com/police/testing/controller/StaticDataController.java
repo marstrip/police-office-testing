@@ -135,11 +135,12 @@ public class StaticDataController {
 		JSONObject result = new JSONObject();
 		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
 		String endDate = GetEncode.transcode(request.getParameter("endDate"));
+		String testPaperId = GetEncode.transcode(request.getParameter("testPaperId"));
 		String scoreStr = GetEncode.transcode(request.getParameter("score"));
 		Integer score = Integer.valueOf(scoreStr);
 		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
-		List<StaticDataTestPaper> dataTestPapers = staticDataService.staticDataByTestingCountScore(beginDate, endDate, score, offset, limit);
+		List<StaticDataTestPaper> dataTestPapers = staticDataService.staticDataByTestingCountScore(testPaperId, beginDate, endDate, score, offset, limit);
 		long total = staticDataService.TestingCountScoreGetCount();
 		JSONArray array = JSONArray.fromObject(dataTestPapers);
 		Integer pageNumber = offset/limit + 1;

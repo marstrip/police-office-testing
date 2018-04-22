@@ -75,6 +75,9 @@
   	<if test="testingType != null and testingType != ''">
   		and testing_type = #{testingType,jdbcType=VARCHAR}
   	</if>
+  	<if test="departmentName != null">
+  		and department_name = #{departmentName,jdbcType=VARCHAR}
+  	</if>
   		and score >= #{score,jdbcType=INTEGER}
   </select>
   
