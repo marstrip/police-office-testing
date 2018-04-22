@@ -176,6 +176,7 @@ public class QuestionServiceImpl implements IQuestionService{
 				question.setTestQuestionsId(testQuestionsId);
 				question.setCreatorId(userId);
 				question.setCreateDate(createDate);
+				question.setUpdateDate(createDate);
 				question.setEnable("1");
 				System.out.println("题干：" + question.getTestQuestionsName());
 				System.out.println("选项：" + question.getTestQuestionSelects());

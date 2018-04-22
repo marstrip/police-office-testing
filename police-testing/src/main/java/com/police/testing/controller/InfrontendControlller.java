@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.CommonView;
 import com.police.testing.pojo.InformNotice;
-import com.police.testing.pojo.StaticDataQusetion;
 import com.police.testing.pojo.TestSelf;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;

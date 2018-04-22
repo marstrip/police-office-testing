@@ -35,6 +35,11 @@ public class QuestionController {
 	public String jsp(HttpServletRequest request){
 		return "background_system/question/question_list";
 	}
+	
+	@RequestMapping("uploadQuestionJsp")
+	public String uploadQuestionJsp(HttpServletRequest request){
+		return "background_system/question/upload_question";
+	}
 	/**
 	 * 批量上传试卷
 	 * @param request
