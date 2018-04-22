@@ -557,3 +557,27 @@ ul.no-style {
 .icon-description {
 	margin-top: 3px;
 }
+.text-info{
+	font-size: 14px;
+    line-height: 20px;
+	color: #999;
+	text-align: center; 
+	display:block;
+}
+.text-title{
+	color:black; 
+	text-align: center; 
+	display:block;
+}
+.text-content{
+	font-size: 16px;
+    box-sizing: border-box;
+    line-height: 1.9;
+    outline: 0;
+    overflow-y: auto;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    text-align: left;
+	word-wrap: break-word;
+	color: black;
+}
