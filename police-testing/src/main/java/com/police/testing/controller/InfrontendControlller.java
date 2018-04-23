@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.CommonView;
 import com.police.testing.pojo.InformNotice;
-import com.police.testing.pojo.QaSheetWithBLOBs;
-import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestSelf;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;
@@ -138,7 +136,7 @@ public class InfrontendControlller {
 		}else if(switchPage.equals("qa")){
 			list = qaSheetService.getList(null, offset, limit);
 			qaSheetService.getCount(null);
-		}
+		} 
 		JSONObject result = new JSONObject();
 		JSONArray array = JSONArray.fromObject(list);
 		Integer pageNumber = offset/limit + 1;
