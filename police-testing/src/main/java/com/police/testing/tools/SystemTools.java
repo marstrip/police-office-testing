@@ -63,7 +63,8 @@ public class SystemTools {
 			date = sdf.parse(str);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("日期解析错误");
 		}
 		return date;
 	}
@@ -160,7 +161,8 @@ public class SystemTools {
 		try {
 			dateStr = sdf2.format(date);
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("日期解析错误");
 		}
 		return dateStr;
 	}

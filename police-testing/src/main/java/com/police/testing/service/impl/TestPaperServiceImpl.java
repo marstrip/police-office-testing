@@ -64,7 +64,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		TestPaper testPaper = new TestPaper();
 		testPaper.setTestPaperId(testPaperId);
 		testPaper.setTestPaperName(testPaperName);
-		testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-DD hh:mm:ss"));
+		testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-dd hh:mm:ss"));
 		testPaper.setTestTime(testTime);
 		Date now = new Date();
 		//待预览为0，生成为1
