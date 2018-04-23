@@ -289,16 +289,6 @@
 					align: 'center'		//水平居中
 				},
 				{
-					title: '案例级别',
-					field: 'caseLevel',
-					align: 'center'
-				},
-				{
-					title: '案例类型',
-					field: 'caseType',
-					align: 'center'
-				},
-				{
 					//EMAIL
 					title: '创建时间',
 					field: 'createDate',
