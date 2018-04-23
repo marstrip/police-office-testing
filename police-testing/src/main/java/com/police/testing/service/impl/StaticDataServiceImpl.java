@@ -190,7 +190,13 @@ public class StaticDataServiceImpl implements IStaticDataService{
 		for (TestQuestionWithBLOBs testQuestion : questions) {
 			String testQuestionId = testQuestion.getTestQuestionsId();
 			Integer failCount = testPaperQuestionMapper.sumQuestionFailCount(testQuestionId);
+			if(failCount == null){
+				failCount = 0;
+			}
 			Integer rightCount = testPaperQuestionMapper.sumQuestionRightCount(testQuestionId);
+			if(rightCount == null){
+				rightCount = 0;
+			}
 			StaticDataQusetion dataQusetion = new StaticDataQusetion();
 			dataQusetion.setFailCount(failCount);
 			dataQusetion.setRightCount(rightCount);
