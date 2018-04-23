@@ -109,8 +109,8 @@
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与统计</a>
 											</li>
 											<li class="divider"></li>
-											<li>
-												<a class="disabled" href="javascript:void(0);" disabled>答疑互动</a>
+											<li class="qa">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=qa">答疑互动</a>
 											</li>
 											<li class="staticDataByQuestionFail">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataByQuestionFail">错题集</a>

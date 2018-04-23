@@ -405,6 +405,7 @@
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/informNotice/saveData',
+											method: 'POST',
 											data : formData,
 											success: function(d) {
 												var result = $.parseJSON(d);
@@ -501,6 +502,7 @@
 
 					$.ajax({
 						url: '${pageContext.request.contextPath}/informNotice/view',
+						method: 'POST',
 						data: {
 							informId: getIdSelections()[0],
 						},
@@ -552,6 +554,7 @@
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/informNotice/updateData',
+											method: 'POST',
 											data : formData,
 											success: function(d) {
 												var result = $.parseJSON(d);

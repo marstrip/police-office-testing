@@ -417,6 +417,7 @@
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/caseAnalyze/saveCase',
+											method: 'POST',
 											data : formData,
 											success: function(d) {
 												var result = $.parseJSON(d);
@@ -521,6 +522,7 @@
 
 					$.ajax({
 						url: '${pageContext.request.contextPath}/caseAnalyze/view',
+						method: 'POST',
 						data: {
 							caseId: getIdSelections()[0],
 						},
@@ -573,6 +575,7 @@
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/caseAnalyze/updateCase',
+											method: 'POST',
 											data : formData,
 											success: function(d) {
 												var result = $.parseJSON(d);

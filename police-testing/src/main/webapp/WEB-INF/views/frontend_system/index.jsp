@@ -200,6 +200,7 @@
 											'<td style="">{loginCount}</td>' +
 										'</tr>';
 									$.ajax({
+										method: 'POST',
 										url: '${pageContext.request.contextPath}/infrontend/commonGetList',
 										dataType: "json",
 										data: {
@@ -254,6 +255,7 @@
 											'<td style="">{createDate}</td>' +
 										'</tr>';
 									$.ajax({
+										method: 'POST',
 										url: '${pageContext.request.contextPath}/informNotice/getList',
 										dataType: "json",
 										data: {
@@ -310,6 +312,7 @@
 											'<td style="">{createDate}</td>' +
 										'</tr>';
 									$.ajax({
+										method: 'POST',
 										url: '${pageContext.request.contextPath}/caseAnalyze/getList',
 										dataType: "json",
 										data: {
@@ -408,6 +411,7 @@
 											'<td style="">{createDate}</td>' +
 										'</tr>';*/
 									$.ajax({
+										method: 'POST',
 										url: '${pageContext.request.contextPath}/testPaper/fronendList',
 										dataType: "json",
 										data: {
@@ -458,7 +462,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										答疑互动
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=qa" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
@@ -483,6 +487,7 @@
 											'<td style="">{createDate}</td>' +
 										'</tr>';
 									$.ajax({
+										method: 'POST',
 										url: '${pageContext.request.contextPath}/qa/getList',
 										dataType: "json",
 										data: {

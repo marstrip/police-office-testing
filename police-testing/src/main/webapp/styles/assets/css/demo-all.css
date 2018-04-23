@@ -229,13 +229,13 @@ a.black {
     color: #fff;
 }
 .panel-white .input-group-addon {
-    background-color: var(--bgcolor-panel-2);
-    color: #ddd;
+    /*background-color: var(--bgcolor-panel-2);*/
+    /*color: #ddd;*/
     border-color: #ccc;
 }
 .panel-white .form-control {
 	background-color: transparent;
-    color: #fff;
+    /*color: #fff;*/
     border-color: #ccc;
 }
 .panel-white .form-control:active,
@@ -534,7 +534,7 @@ ul.no-style {
 }
 .modal-footer {
 	text-align: center;
-	border-top: 1px solid var(--bgcolor-modal-2);
+	/*border-top: 1px solid var(--bgcolor-modal-2);*/
 }
 /*.btn-success,
 .btn-default {

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
-	<title class="spText">插件超市</title>
+	<title class="spText">课件超市</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
@@ -112,8 +112,8 @@
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与统计</a>
 											</li>
 											<li class="divider"></li>
-											<li>
-												<a class="disabled" href="javascript:void(0);" disabled>答疑互动</a>
+											<li class="qa">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=qa">答疑互动</a>
 											</li>
 											<li class="staticDataByQuestionFail">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataByQuestionFail">错题集</a>
@@ -132,6 +132,7 @@
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 15px;">
+									<div id="table_11_toolbar"></div>
 									<table id="table_11"></table>
 									<!-- <table class="table">
 										<tbody>
@@ -204,12 +205,14 @@
 			informNotice: '通知公告',
 			staticDataLogin: '系统参与统计',
 			testPaper: '考试列表',
-			staticDataByQuestionFail: '错题集'
+			staticDataByQuestionFail: '错题集',
+			qa: '答疑互动'
 		}
 
 		$('.spText').html(spTextMap[switchPage]);
 		$('.' + switchPage).addClass('active');
 
+		var $toolbar = $('#table_11_toolbar');
 		var $table = $('#table_11');
 		
 		var opt_common = {
@@ -356,13 +359,29 @@
 						align: 'center'
 					}
 				]
+			},
+			qa: {
+				search: true,
+				toolbar: '#table_11_toolbar',
+				idField: "informId",				//指定主键列
+				columns: [
+					{
+						title: '问题',		//表的列名
+						field: 'questionName',	//json数据中rows数组中的属性名
+						align: 'left',		//水平居中
+						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
+							return '<a href="javascript:void(0);" onclick="qa_pop(\'' + row.qaId + '\');">' + row.questionContent + '</a>';
+						}
+					}
+				]
 			}
 		}
 
+		// 错误题目详情
 		function staticDataByQuestionFail_pop(id) {
 			var q = undefined;
 			$.ajax({
-				url: '/question/view',
+				url: '${pageContext.request.contextPath}/question/view',
 				async: false,
 				dataType: 'JSON',
 				data: {
@@ -373,10 +392,8 @@
 				}
 			});
 			
-			console.log(q);
 			var $message = $('<div></div>');
 			$message.genQuestion(q);
-			console.log($message[0].outerHTML);
 
 			BootstrapDialog.alert({
 				title: '题目详情',
@@ -384,7 +401,107 @@
 			});
 		}
 
+		// 问答详情
+		function qa_pop(id) {
+			$.ajax({
+				url: '${pageContext.request.contextPath}/qa/view',
+				async: false,
+				dataType: 'JSON',
+				data: {
+					qaId: id
+				},
+				success: function(d) {
+					q = d.info;
+				}
+			});
+			
+			var $message = $((
+				'<div class="row">' +
+					'<div class="col-xs-12">问题：</div>' +
+					'<div class="col-xs-12">{questionContent}</div>' +
+					'<div class="col-xs-12">回答：</div>' +
+					'<div class="col-xs-12">{questionAnswer}</div>' +
+				'</div>'
+			).format(q));
+
+			BootstrapDialog.alert({
+				title: '问答详情',
+				message: $message.html()
+			});
+		}
+
 		$(document).ready(function() {
+			if (switchPage == 'qa') {
+				var $btn_add = $('<button id="table_11_add" class="form-control-static btn btn-primary">提问</button>');
+				$btn_add.click(function() {
+					$btn_add.prop('disabled', true);
+					BootstrapDialog.show({
+						title: '请输入您的问题',
+						message: function() {
+							var $message = $('<textarea class="form-control" name="qaContent" id="qaContent" style="width: 100%; resize: none;" rows="5"></textarea>');
+							return $message;
+						},
+						buttons: [{
+							label: '提交',
+							icon: 'glyphicon glyphicon-send',
+							autospin: false,
+							cssClass: "btn-primary",
+							action: function(dialog, evt) {
+								var $button = this;
+								$button.spin();
+								dialog.enableButtons(false);
+								var qaContent = $('#qaContent').val();
+								
+								$.ajax({
+									url: '${pageContext.request.contextPath}/qa/saveData',
+									method: 'POST',
+									dataType: 'JSON',
+									data: {
+										qaContent: qaContent
+									},
+									success: function(result) {
+										if (result.status == 1) {
+											BootstrapDialog.alert({
+												title: '成功',
+												message: '提问成功',
+												type: BootstrapDialog.TYPE_SUCCESS
+											});
+											dialog.close();
+										} else {
+											BootstrapDialog.alert({
+												title: '警告',
+												message: '提问请求成功，未按照预期返回结果',
+												type: BootstrapDialog.TYPE_WARNING
+											});
+											$button.stopSpin();
+											dialog.enableButtons(true);
+										}
+									},
+									error: function(e) {
+										BootstrapDialog.alert({
+											title: '失败',
+											message: '提问请求失败',
+											type: BootstrapDialog.TYPE_DANGER
+										});
+										$button.stopSpin();
+										dialog.enableButtons(true);
+									}
+								});
+							}
+						}, {
+							label: '取消',
+							action: function(dialog) {
+								dialog.close();
+							}
+						}]
+					});
+
+					$btn_add.prop('disabled', false);
+				});
+
+				$toolbar.append($btn_add);
+			}
+
 			var bstOpt = $.extend({}, opt_common, spOptMap[switchPage]);
 
 			$table.bootstrapTable(bstOpt);
