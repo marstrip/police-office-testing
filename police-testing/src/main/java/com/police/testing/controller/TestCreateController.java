@@ -113,6 +113,9 @@ public class TestCreateController {
 		list.addAll(judgeList);
 		//testPaperName试卷名称
 		String testPaperName = GetEncode.transcode(request.getParameter("testPaperName"));
+		if(StringUtils.isBlank(testPaperName)){
+			testPaperName = "模拟考试临时试卷";
+		}
 		String testTime = GetEncode.transcode(request.getParameter("testTime"));
 		Integer testTimeInt = 60;
 		if(StringUtils.isNotBlank(testTime)){

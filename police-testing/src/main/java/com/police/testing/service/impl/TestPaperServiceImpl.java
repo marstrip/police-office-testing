@@ -273,7 +273,11 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		String userId = (String) session.getAttribute("currentUserId");
 		//获取试卷列表
 		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, offset, limit);
+		List<TestPaper> resultTestPapers = new ArrayList<>();
 		for (TestPaper testPaper : testPapers) {
+			if(testPaper.getEnable().equals("0")){
+				continue;
+			}
 			String testPaperId = testPaper.getTestPaperId();
 			String testDateStr = testPaper.getTestDate();
 			Date testDate = SystemTools.String2Date(testDateStr, "yyyy-MM-dd hh:mm:ss");
@@ -286,8 +290,9 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			}else {
 				testPaper.setFlagExam("1");
 			}
+			resultTestPapers.add(testPaper);
 		}
-		return testPapers;
+		return resultTestPapers;
 	}
 	
 }
