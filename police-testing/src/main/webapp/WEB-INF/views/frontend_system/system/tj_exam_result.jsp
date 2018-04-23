@@ -102,7 +102,7 @@
 											<li>
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam">累计考试统计</a>
 											</li>
-											<li>
+											<li class="active">
 												<a class="active" href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp">考试参与统计</a>
 											</li>
 											<li class="staticDataLogin">
@@ -110,10 +110,10 @@
 											</li>
 											<li class="divider"></li>
 											<li>
-												<a href="demo-extra-forum.html">答疑互动</a>
+												<a class="disabled" href="javascript:void(0);" disabled>答疑互动</a>
 											</li>
-											<li>
-												<a href="demo-extra-fail-list.html">错题集</a>
+											<li class="staticDataByQuestionFail">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataByQuestionFail">错题集</a>
 											</li>
 										</ul>
 									</div>
