@@ -136,7 +136,7 @@
 												</div>
 											</div>
 										</a>
-										<a class="black" href="${pageContext.request.contextPath}/#">
+										<a class="black" href="javascript:void(0);">
 											<div class="func-item func-item-bar">
 												<div class="icon pull-left">
 													<i class="fa fa-2x">☭</i>
@@ -249,7 +249,7 @@
 									var informTmp =
 										'<tr>' +
 											'<td class="fix-text" style="width: 640px;">' +
-												'<a href="javascript:void(0);">{informName}</a>' +
+												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=informNotice&id={informId}">{informName}</a>' +
 											'</td>' +
 											'<td style="">{createDate}</td>' +
 										'</tr>';
@@ -267,14 +267,14 @@
 											$nbody.html('');
 											$.each(rows, function(idx) {
 												var $item = $(informTmp.format(rows[idx]));
-												$item.find('a').data('idx', idx);
+												/*$item.find('a').data('idx', idx);
 												$item.find('a').on('click', function() {
 													var _idx = $(this).data('idx');
 													BootstrapDialog.alert({
 														title: rows[_idx].informName,
 														message: rows[_idx].informContent
 													});
-												});
+												});*/
 												$nbody.append($item);
 											});
 										}
@@ -305,7 +305,7 @@
 									var caseTmp =
 										'<tr>' +
 											'<td class="fix-text" style="width: 640px;">' +
-												'<a href="javascript:void(0);">{caseName}</a>' +
+												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=caseAnalyze&id={caseId}">{caseName}</a>' +
 											'</td>' +
 											'<td style="">{createDate}</td>' +
 										'</tr>';
@@ -323,14 +323,14 @@
 											$nbody.html('');
 											$.each(rows, function(idx) {
 												var $item = $(caseTmp.format(rows[idx]));
-												$item.find('a').data('idx', idx);
+												/*$item.find('a').data('idx', idx);
 												$item.find('a').on('click', function() {
 													var _idx = $(this).data('idx');
 													BootstrapDialog.alert({
 														title: rows[_idx].caseName,
 														message: rows[_idx].caseContent
 													});
-												});
+												});*/
 												$nbody.append($item);
 											});
 										}
