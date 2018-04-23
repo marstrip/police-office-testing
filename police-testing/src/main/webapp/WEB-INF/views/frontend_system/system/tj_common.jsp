@@ -103,17 +103,17 @@
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam">累计考试统计</a>
 											</li>
 											<li>
-												<a class="active" href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp">考试参与统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp">考试参与统计</a>
 											</li>
 											<li class="staticDataLogin">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与统计</a>
 											</li>
 											<li class="divider"></li>
 											<li>
-												<a href="demo-extra-forum.html">答疑互动</a>
+												<a class="disabled" href="javascript:void(0);" disabled>答疑互动</a>
 											</li>
-											<li>
-												<a href="demo-extra-fail-list.html">错题集</a>
+											<li class="staticDataByQuestionFail">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataByQuestionFail">错题集</a>
 											</li>
 										</ul>
 									</div>
@@ -200,7 +200,8 @@
 			caseAnalyze: '案例分析',
 			informNotice: '通知公告',
 			staticDataLogin: '系统参与统计',
-			testPaper: '考试列表'
+			testPaper: '考试列表',
+			staticDataByQuestionFail: '错题集'
 		}
 
 		$('.spText').html(spTextMap[switchPage]);
@@ -334,6 +335,25 @@
 					}
 				]
 			},
+			staticDataByQuestionFail: {
+				idField: "informId",				//指定主键列
+				columns: [
+					{
+						title: '通告标题',		//表的列名
+						field: 'informName',	//json数据中rows数组中的属性名
+						align: 'center',		//水平居中
+						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
+							return '<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=' + switchPage + '&id=' + row.informId + '">' + row.informName + '</a>';
+						}
+					},
+					{
+						//EMAIL
+						title: '创建时间',
+						field: 'createDate',
+						align: 'center'
+					}
+				]
+			}
 		}
 
 		$(document).ready(function() {
