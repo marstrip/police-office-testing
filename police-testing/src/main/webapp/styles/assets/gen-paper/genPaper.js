@@ -322,4 +322,94 @@
 
 		
 	}
+
+	$.fn.genQuestion = function(q) {
+		var $this = $(this);
+		// 只读
+		var readonlyTemplate_select = `
+			<div>
+				<p class="q-name">{idx}、{testQuestionsName}</p><div class="q-select-answer"><ul class="no-style q-select-items"></ul></div>
+				<div class="check-answer">【正确答案】{correctAnswer}</div>
+			</div>
+		`;
+		var readonlyTemplate_singleSelectItem = `
+			<li>{testQuestionSelectItem}</li>
+		`;
+		var readonlyTemplate_multiSelectItem = `
+			<li>{testQuestionSelectItem}</li>
+		`;
+		var readonlyTemplate_judge = `
+			<div>
+				<p class="q-name">{idx}、{testQuestionsName}</p><div class="q-select-answer"><span>是</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>否</span></div>
+				<div class="check-answer">【正确答案】{correctAnswer}</div>
+			</div>
+		`;
+
+		var singleIdx = 0;
+		var multiIdx = 0;
+		var judgeIdx = 0;
+		var idx = 0;
+
+		switch(q.testQuestionType) {
+			case "1":
+				// 单选
+				singleIdx += 1;
+				var $q = $(readonlyTemplate_select.format({
+					idx: (idx + 1),
+					testQuestionsName: q.testQuestionsName,
+					testQuestionsId: q.testQuestionsId,
+					testQuestionType: q.testQuestionType,
+					correctAnswer: q.correctAnswer
+				}));
+
+				var options = q.testQuestionSelects.replace(/\&[^\&\;]*\;/g, '').split(';');
+				$.each(options, function(_idx) {
+					$q.find('.q-select-items').append($(readonlyTemplate_singleSelectItem.format({
+						testQuestionSelectItem: options[_idx],
+						testQuestionsId: q.testQuestionsId,
+						value: options[_idx][0]
+					})));
+				});
+
+				$this.append($q);
+				break;
+
+			case "2":
+				// 多选
+				multiIdx += 1;
+				var $q = $(readonlyTemplate_select.format({
+					idx: (idx + 1),
+					testQuestionsName: q.testQuestionsName,
+					testQuestionsId: q.testQuestionsId,
+					testQuestionType: q.testQuestionType,
+					correctAnswer: q.correctAnswer
+				}));
+
+				var options = q.testQuestionSelects.replace(/\&[^\&\;]*\;/g, '').split(';');
+				$.each(options, function(_idx) {
+					$q.find('.q-select-items').append($(readonlyTemplate_multiSelectItem.format({
+						testQuestionSelectItem: options[_idx],
+						testQuestionsId: q.testQuestionsId,
+						value: options[_idx][0]
+					})));
+				});
+
+				$this.append($q);
+				break;
+
+			case "3":
+				// 判断
+				judgeIdx += 1;
+				var $q = $(readonlyTemplate_judge.format({
+					idx: (idx + 1),
+					testQuestionsName: q.testQuestionsName,
+					testQuestionsId: q.testQuestionsId,
+					correctAnswer: q.correctAnswer
+				}));
+
+				$this.append($q);
+				break;
+
+		}
+	}
 }));

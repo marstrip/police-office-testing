@@ -30,6 +30,9 @@
 	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap-treeview-1.2.0/dist/bootstrap-treeview.min.js"></script>
 
 	<script src="${pageContext.request.contextPath}/styles/assets/js/demo.js"></script>
+
+	<!-- 组卷核心js -->
+	<script src="${pageContext.request.contextPath}/styles/assets/gen-paper/genPaper.js"></script>
 	
 	<style>
 		.list-group-item {
@@ -339,21 +342,46 @@
 				idField: "informId",				//指定主键列
 				columns: [
 					{
-						title: '通告标题',		//表的列名
-						field: 'informName',	//json数据中rows数组中的属性名
-						align: 'center',		//水平居中
+						title: '题目',		//表的列名
+						field: 'questionName',	//json数据中rows数组中的属性名
+						align: 'left',		//水平居中
 						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
-							return '<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=' + switchPage + '&id=' + row.informId + '">' + row.informName + '</a>';
+							return '<a href="javascript:void(0);" onclick="staticDataByQuestionFail_pop(\'' + row.questionId + '\');">' + row.questionName + '</a>';
 						}
 					},
 					{
 						//EMAIL
-						title: '创建时间',
-						field: 'createDate',
+						title: '错误计数',
+						field: 'failCount',
 						align: 'center'
 					}
 				]
 			}
+		}
+
+		function staticDataByQuestionFail_pop(id) {
+			var q = undefined;
+			$.ajax({
+				url: '/question/view',
+				async: false,
+				dataType: 'JSON',
+				data: {
+					testQuestionsId: id
+				},
+				success: function(d) {
+					q = d.info;
+				}
+			});
+			
+			console.log(q);
+			var $message = $('<div></div>');
+			$message.genQuestion(q);
+			console.log($message[0].outerHTML);
+
+			BootstrapDialog.alert({
+				title: '题目详情',
+				message: $message.html()
+			});
 		}
 
 		$(document).ready(function() {
