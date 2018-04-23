@@ -72,11 +72,11 @@
 											<div class="col-sm-10 col-sm-offset-1">
 												<div class="input-group form-group" style="margin: 25px 0;">
 													<span class="input-group-addon">警号</span>
-													<input type="text" class="form-control" name="loginId" placeholder="警号">
+													<input type="text" class="form-control" name="loginId" placeholder="警号" style="color:black">
 												</div>
 												<div class="input-group form-group" style="margin: 40px 0;">
 													<span class="input-group-addon">密码</span>
-													<input type="password" class="form-control" name="password" placeholder="密码">
+													<input type="password" class="form-control" name="password" placeholder="密码" style="color:black">
 												</div>
 												<p>
 													<label style="color: red">${message }</label>                                
