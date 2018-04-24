@@ -178,10 +178,10 @@
 					<i class="glyphicon glyphicon-plus"></i> 新增
 				</button> -->
 				<button id="table_11_edit" class="btn btn-warning" disabled>
-					<i class="glyphicon glyphicon-edit"></i> 导出成绩
+					<i class="glyphicon glyphicon-export"></i> 导出成绩
 				</button>
 				<button id="table_11_delete" class="btn btn-danger" disabled>
-					<i class="glyphicon glyphicon-remove"></i> 设置状态
+					<i class="glyphicon glyphicon-check"></i> 设置状态
 				</button>
 				<button id="table_11_view" class="btn btn-primary" disabled>
 					<i class="glyphicon glyphicon-eye-open"></i> 预览

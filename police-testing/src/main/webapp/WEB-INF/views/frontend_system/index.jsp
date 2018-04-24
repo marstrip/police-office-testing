@@ -463,6 +463,7 @@
 									<h3 class="panel-title">
 										答疑互动
 										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=qa" class="pull-right">更多</a>
+										<a href="javascript:void(0);" class="pull-right" id="btn_qa_add">提问</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
@@ -486,32 +487,132 @@
 											'</td>' +
 											'<td style="">{createDate}</td>' +
 										'</tr>';
-									$.ajax({
-										method: 'POST',
-										url: '${pageContext.request.contextPath}/qa/getList',
-										dataType: "json",
-										data: {
-											offset: 0,
-											limit: 5
-										},
-										success: function(d) {
-											var rows = d.rows;
-											var $nbody = $('#qaBody');
+									function reload_qa() {
+										$.ajax({
+											method: 'POST',
+											url: '${pageContext.request.contextPath}/qa/getList',
+											dataType: "json",
+											data: {
+												offset: 0,
+												limit: 5
+											},
+											success: function(d) {
+												var rows = d.rows;
+												var $nbody = $('#qaBody');
 
-											$nbody.html('');
-											$.each(rows, function(idx) {
-												var $item = $(qaTmp.format(rows[idx]));
-												$item.find('a').data('idx', idx);
-												$item.find('a').on('click', function() {
-													var _idx = $(this).data('idx');
-													BootstrapDialog.alert({
-														title: rows[_idx].questionContent,
-														message: rows[_idx].questionAnswer
+												$nbody.html('');
+												$.each(rows, function(idx) {
+													var $item = $(qaTmp.format(rows[idx]));
+													$item.find('a').data('idx', idx);
+													$item.find('a').on('click', function() {
+														var _idx = $(this).data('idx');
+														qa_pop(rows[idx].qaId);
 													});
+													$nbody.append($item);
 												});
-												$nbody.append($item);
-											});
-										}
+											}
+										});
+									}
+									reload_qa();
+									
+									// 问答详情
+									function qa_pop(id) {
+										$.ajax({
+											url: '${pageContext.request.contextPath}/qa/view',
+											async: false,
+											dataType: 'JSON',
+											data: {
+												qaId: id
+											},
+											success: function(d) {
+												q = d.info;
+											}
+										});
+										
+										var $message = $((
+											'<div class="row">' +
+												'<div class="col-xs-12"><strong>问题：</strong></div>' +
+												'<div class="col-xs-12">{questionContent}</div>' +
+												'<div class="col-xs-12"><br /></div>' +
+												'<div class="col-xs-12"><strong>回答：</strong></div>' +
+												'<div class="col-xs-12">{questionAnswer}</div>' +
+											'</div>'
+										).format(q));
+
+										BootstrapDialog.alert({
+											title: '问答详情',
+											message: $message[0].outerHTML
+										});
+									}
+
+									// 提问
+									var $btn_qa_add = $('#btn_qa_add');
+									$btn_qa_add.click(function() {
+										$btn_qa_add.prop('disabled', true);
+										BootstrapDialog.show({
+											title: '请输入您的问题',
+											message: function() {
+												var $message = $('<textarea class="form-control" name="qaContent" id="qaContent" style="width: 100%; resize: none;" rows="5"></textarea>');
+												return $message;
+											},
+											buttons: [{
+												label: '提交',
+												icon: 'glyphicon glyphicon-send',
+												autospin: false,
+												cssClass: "btn-primary",
+												action: function(dialog, evt) {
+													var $button = this;
+													$button.spin();
+													dialog.enableButtons(false);
+													var qaContent = $('#qaContent').val();
+													
+													$.ajax({
+														url: '${pageContext.request.contextPath}/qa/saveData',
+														method: 'POST',
+														dataType: 'JSON',
+														data: {
+															qaContent: qaContent
+														},
+														success: function(result) {
+															if (result.status == 1) {
+																BootstrapDialog.alert({
+																	title: '成功',
+																	message: '提问成功',
+																	type: BootstrapDialog.TYPE_SUCCESS
+																});
+																dialog.close();
+
+																reload_qa();
+															} else {
+																BootstrapDialog.alert({
+																	title: '警告',
+																	message: '提问请求成功，未按照预期返回结果',
+																	type: BootstrapDialog.TYPE_WARNING
+																});
+																$button.stopSpin();
+																dialog.enableButtons(true);
+															}
+														},
+														error: function(e) {
+															BootstrapDialog.alert({
+																title: '失败',
+																message: '提问请求失败',
+																type: BootstrapDialog.TYPE_DANGER
+															});
+															$button.stopSpin();
+															dialog.enableButtons(true);
+														}
+													});
+												}
+											}, {
+												label: '取消',
+												action: function(dialog) {
+													dialog.close();
+												}
+											}]
+										});
+
+										$btn_qa_add.prop('disabled', false);
 									});
 								</script>
 							</div>

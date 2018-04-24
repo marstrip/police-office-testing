@@ -415,6 +415,7 @@
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/testSelf/saveData',
+											method: 'POST',
 											data : formData,
 											success: function(d) {
 												var result = $.parseJSON(d);
@@ -511,6 +512,7 @@
 
 					$.ajax({
 						url: '${pageContext.request.contextPath}/testSelf/view',
+						method: 'POST',
 						data: {
 							testSelfId: getIdSelections()[0],
 						},
@@ -562,6 +564,7 @@
 
 										$.ajax({
 											url: '${pageContext.request.contextPath}/testSelf/updateData',
+											method: 'POST',
 											data : formData,
 											success: function(d) {
 												var result = $.parseJSON(d);

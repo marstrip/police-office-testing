@@ -549,7 +549,15 @@
 					BootstrapDialog.show({
 						title: '预览',
 						message: function() {
-							return result.info.questionContent;
+							return (
+								'<div class="row">' +
+									'<div class="col-xs-12"><strong>问题：</strong></div>' +
+									'<div class="col-xs-12">{questionContent}</div>' +
+									'<div class="col-xs-12"><br /></div>' +
+									'<div class="col-xs-12"><strong>回答：</strong></div>' +
+									'<div class="col-xs-12">{questionAnswer}</div>' +
+								'</div>'
+							).format(result.info);
 						},
 						draggable: true // <-- Default value is false
 					});

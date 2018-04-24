@@ -417,16 +417,17 @@
 			
 			var $message = $((
 				'<div class="row">' +
-					'<div class="col-xs-12">问题：</div>' +
+					'<div class="col-xs-12"><strong>问题：</strong></div>' +
 					'<div class="col-xs-12">{questionContent}</div>' +
-					'<div class="col-xs-12">回答：</div>' +
+					'<div class="col-xs-12"><br /></div>' +
+					'<div class="col-xs-12"><strong>回答：</strong></div>' +
 					'<div class="col-xs-12">{questionAnswer}</div>' +
 				'</div>'
 			).format(q));
 
 			BootstrapDialog.alert({
 				title: '问答详情',
-				message: $message.html()
+				message: $message[0].outerHTML
 			});
 		}
 
@@ -467,6 +468,8 @@
 												type: BootstrapDialog.TYPE_SUCCESS
 											});
 											dialog.close();
+
+											$table.bootstrapTable('refresh');
 										} else {
 											BootstrapDialog.alert({
 												title: '警告',
