@@ -40,6 +40,9 @@
 	                <span>管理平台</span>
 	            </a>
 	        </div>
+
+	        <div class="navbar-body" id="myTab">
+	        </div>
 	    </nav>
 		
 		<!-- 左侧小屏用菜单 -->
@@ -51,8 +54,7 @@
 		</div>
 
 		<!-- 右侧内容区域 -->
-		<div class="frame-container">
-			<iframe src="" frameborder="0" id="mainFrame"></iframe>
+		<div class="frame-container" id="myTabContent">
 		</div>
 	</div>
 
@@ -73,7 +75,9 @@
             success: function(data){
             	console.log(data);
             	 $('.side-menu').sidebar({
-						"iframeId": "mainFrame",
+						// "iframeId": "mainFrame",
+						"tabsId": "myTab",					// 放置标签的容器id
+						"tabsContentId": "myTabContent",	// 放置标签页内容的容器id
 						"data": data
 					});
            	}
