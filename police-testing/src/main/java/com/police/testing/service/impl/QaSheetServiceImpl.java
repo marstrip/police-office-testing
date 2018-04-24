@@ -29,7 +29,9 @@ public class QaSheetServiceImpl implements IQaSheetService{
 		QaSheetWithBLOBs qaSheet = new QaSheetWithBLOBs();
 		qaSheet.setQaId(qaId);
 		qaSheet.setQuestionContent(questionContent);
-		qaSheet.setCreateDate(new Date());
+		Date now = new Date();
+		qaSheet.setCreateDate(now);
+		qaSheet.setUpdateDate(now);
 		qaSheet.setEnable("1");
 		qaSheet.setQaStatus("0");
 		return qaSheetMapper.insertSelective(qaSheet);
