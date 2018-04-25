@@ -153,7 +153,7 @@
 			<div class="row">
 				<ul class="text-center no-style">
 					<li>
-						<span>北京市公安局东城分局政治处</span>
+						<span>北京市公安局东城分局</span>
 					</li>
 					<li>
 						<span>建议使用Chrome浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
