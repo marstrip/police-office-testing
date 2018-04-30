@@ -1,13 +1,28 @@
 $(document).ready(function () {
 	console.log('ready');
 
+	// 滚动条初始化
 	window.gpsb = new PerfectScrollbar('.psb-here');
-	// resize触发更新滚动条数据
+	// 底部初始化
+	resetFooter();
+
+	// resize触发更新滚动条数据、更新滚动条位置
 	$(window).resize(function () {
+		resetFooter();
+
 		window.gpsb.update();
 	});
-
 });
+
+// 当footer不在最底部，放在最底部，否则干掉
+function resetFooter() {
+	$('.footer').removeClass('to-bottom');
+	if ($('.footer').offset().top < ($(window).height() - 99)) {
+		$('.footer').addClass('to-bottom');
+	} else {
+		$('.footer').removeClass('to-bottom');
+	}
+}
 
 //序列化表格元素为JSON  
 $.fn.serializeJson = function () {
@@ -100,13 +115,13 @@ function go_personalConfig() {
 	location.href = 'demo-change-pwd.html'
 }
 
-function login(btn) {
-	var $form = $(btn).closest('form');
-	var data = $form.serializeJson();
-	console.log(data);
-	if (data.policeId == '123456' && data.pwd == '123456') {
-		go_index();
-	} else {
-		alert('登陆失败！');
-	}
-}
+// function login(btn) {
+// 	var $form = $(btn).closest('form');
+// 	var data = $form.serializeJson();
+// 	console.log(data);
+// 	if (data.policeId == '123456' && data.pwd == '123456') {
+// 		go_index();
+// 	} else {
+// 		alert('登陆失败！');
+// 	}
+// }

@@ -47,12 +47,9 @@ a.black {
 	color: #000;
 }
 
-/* .thin-body {
-	width: 1260px;
-	margin: 0 auto;
-} TODO: 确定分歧; */
 .thin-body {
-	width: 1260px;
+	/*width: 1260px;*/
+	width: 1366px;
 	margin: 0 auto;
 }
 
@@ -75,7 +72,7 @@ a.black {
 }
 .masthead {
     overflow: hidden;
-    height: 210px;
+    height: 200px;
 	min-width: 1260px;
     position: relative;
     color: #fff;
@@ -91,12 +88,19 @@ a.black {
 	/* --color-1: #1044c3;
 	--color-2: #ffffff; */
 }
-.masthead-bg {
+.masthead-bg_back {
 	/*width: 100%;*/
 	height: 220px;
 	background: url(../img/masterHead2.png) no-repeat right top;
 	background-size: 100% 100%;
 	background-position: 35px;
+}
+.masthead-bg {
+	width: 1366px;
+	height: 200px;
+	background: url(../img/masterHead3.png) no-repeat right top;
+	background-size: 100% 100%;
+	/*background-position: 35px;*/
 }
 .masthead-logo {
 	float: left;
@@ -217,7 +221,8 @@ a.black {
 	margin-right: 0;
 	width: 100%;
 	display: inline-block;
-    min-height: 550px;
+    /*min-height: 550px;*/
+    min-height: calc(100% - 200px);
 }
 
 .panel-white {
@@ -255,6 +260,12 @@ a.black {
 	text-decoration: underline;
 }
 
+.footer.to-bottom {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
 .footer {
     background-color: #f0f0f0;
     color: #333;
@@ -272,41 +283,76 @@ a.black {
 }*/
 .panel {
 	overflow: hidden;
-    margin-bottom: 20px;
-    background-color: var(--bgcolor-panel-2);
+    margin-bottom: 10px;
+    /*background-color: var(--bgcolor-panel-2);*/
+    background-color: transparent;
     /* border: 1px solid transparent; */
     /*border-width: 0px;*/
     /*border-radius: 10px;*/
     border: 1px solid var(--bgcolor-panel-1);
-    border-radius: 0px;
+    border-width: 0px;
+    /*border-radius: 10px;*/
     /* -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05); */
     /* box-shadow: 0 1px 1px rgba(0,0,0,.05); */
-    color: #000;
+    /*color: #000;*/
     /*box-shadow: inset 0 0 15px 5px rgba(0,0,0,0.5);*/
 }
 .panel-heading {
-	border-top-left-radius: 0px;
-    border-top-right-radius: 0px; 
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-width: 0px;
+    height: 45px;
+    line-height: 45px;
+
+    /* background: -webkit-linear-gradient(top, #838383 0%, #ffffff 30%, #c5bfbf 70%);
+      	background: -o-linear-gradient(top, #838383 0%, #ffffff 30%, #c5bfbf 70%);
+      	background: linear-gradient(to bottom, #838383 0%, #ffffff 30%, #c5bfbf 70%);    */  
+
+	/* 背景色渐变 */
+	
+	background: -moz-linear-gradient(top, #d1cccc -20%, #ffffff 22%, #c5bfbf 120%);
+    background: -webkit-gradient(linear, top, bottom, color-stop(-20%, #d1cccc), color-stop(22%, #ffffff), color-stop(120%, #c5bfbf));
+    background: -webkit-linear-gradient(top, #d1cccc -20%, #ffffff 22%, #c5bfbf 120%);
+    background: -o-linear-gradient(top, #d1cccc -20%, #ffffff 22%, #c5bfbf 120%);
+    background: -ms-linear-gradient(top, #d1cccc -20%, #ffffff 22%, #c5bfbf 120%);
+    background: linear-gradient(to bottom, #d1cccc -20%, #ffffff 22%, #c5bfbf 120%);
 }
+.panel-heading h3 {
+    font-size: 20px;
+    color: #909090;
+	font-weight: 900;
+}
+.panel-heading h3 a.pull-right {
+    font-size: 20px;
+    color: #909090;
+	font-weight: 100;
+}
+
 .panel-body {
 	padding-top: 0;
+	border: 1px solid #ddd;
+	border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+	border-bottom: 1px solid #ddd; 
+	font-size: 16px;
 }
 
 .left-area {
-	width: 400px;
+	width: 375px;
 	float: left;
-	margin-left: 10px;
+	margin-left: 12px;
 }
 
 .login-left-area{
-	width: 400px;
+	/*width: 400px;*/
 	float: left;
+	margin-left: 100px;
 }
 
 .login-right-area{
 	width: 400px;
 	float: right;
-	margin-right: 150px;
+	margin-right: 100px;
 }
 
 .dropdown-preview > .dropdown-menu {
@@ -332,6 +378,16 @@ a.black {
 	float: left;
 	margin-left: 15px;
 }*/
+.center-area {
+	width: 580px;
+	float: left;
+	margin-left: 5px;
+}
+.center-area + .right-area {
+	width: 375px;
+	float: left;
+	margin-left: 5px;
+}
 .right-area {
 	width: 820px;
 	float: left;
@@ -341,7 +397,10 @@ a.black {
 	width: calc(100% - 610px);
 }*/
 .panel-static-height {
-	height: 300px;
+	height: 285px;
+}
+.panel-static-height .panel-body {
+	height: 240px;
 }
 
 ul.no-style {
@@ -383,11 +442,15 @@ ul.no-style {
 .avatar {
 	width: 70px;
 }
+.police-info {
+	font-size: 20px;
+	color: #000000;
+}
 .police-name, .police-name {
 	line-height: 42px;
 }
-.police-name:before {
-	content: "姓名：";
+.police-name:after {
+	content: "　同志";
 }
 .police-id:before {
 	content: "警号：";

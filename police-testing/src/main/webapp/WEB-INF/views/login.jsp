@@ -17,8 +17,8 @@
 	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/styles/vendors/jquery.perfect-scrollbar-1.3.0/dist/perfect-scrollbar.min.js"></script>
 
-	<!-- <script src="${pageContext.request.contextPath}/styles/assets/js/demo.js"></script>
-	<script src="vendor/Chart.js/Chart.js"></script> -->
+	<script src="${pageContext.request.contextPath}/styles/assets/js/demo.js"></script>
+	<!-- <script src="vendor/Chart.js/Chart.js"></script> -->
 	<!-- <script src="assets/js/mysite.js"></script> -->
 	<script type="text/javascript">
 		//登录
@@ -45,20 +45,13 @@
 
 				<div class="thin-body">
 					<div class="mastbody">
-						<!-- <ol class="breadcrumb">
-								<li><a href="demo-index.html">首页</a></li>
-							</ol> -->
 						<div class="login-left-area" style="margin-top:20px;">
-							<img src="${pageContext.request.contextPath}/styles/assets/img/police5.png">
+							<!-- <img src="${pageContext.request.contextPath}/styles/assets/img/police5.png"> -->
+							<img src="${pageContext.request.contextPath}/styles/assets/img/police6.png">
 						</div>
 
 						<div class="login-right-area">
 							<div class="panel panel-white">
-								<!-- <div class="panel-heading">
-										<h3 class="panel-title">
-											登陆
-										</h3>
-									</div> -->
 								<div class="panel-body" style="padding-top: 0;">
 									<div class="row">
 										<div class="col-sm-8 col-sm-offset-2" style="margin-top: 20px;">

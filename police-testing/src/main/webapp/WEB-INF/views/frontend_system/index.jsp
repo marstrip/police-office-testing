@@ -56,11 +56,11 @@
 									</div> -->
 										<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
 											<ul class="no-style">
-												<li>
+												<li class="police-info">
 													<b>欢迎您！</b>
 												</li>
-												<li class="police-name">${userName}</li>
-												<li class="police-id">${userId}</li>
+												<li class="police-info police-name">${userName}</li>
+												<li class="police-info police-id">${userId}</li>
 											</ul>
 										</div>
 									</div>
@@ -224,6 +224,398 @@
 									});
 								</script>
 
+						</div>
+
+						<div class="center-area">
+							<div class="panel panel-white panel-static-height">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										通知公告
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=informNotice" class="pull-right">更多</a>
+									</h3>
+								</div>
+								<div class="panel-body" style="padding-top: 0;">
+									<div class="notice-list">
+										<table class="table">
+											<tbody id="noticeBody">
+												<tr>
+													<td>加载中...</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- end of .notice-list -->
+								</div>
+								<script>
+									var informTmp =
+										'<tr>' +
+											'<td class="fix-text" style="width: 640px;">' +
+												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=informNotice&id={informId}">{informName}</a>' +
+											'</td>' +
+											'<td style="">{createDate}</td>' +
+										'</tr>';
+									$.ajax({
+										method: 'POST',
+										url: '${pageContext.request.contextPath}/informNotice/getList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#noticeBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var $item = $(informTmp.format(rows[idx]));
+												/*$item.find('a').data('idx', idx);
+												$item.find('a').on('click', function() {
+													var _idx = $(this).data('idx');
+													BootstrapDialog.alert({
+														title: rows[_idx].informName,
+														message: rows[_idx].informContent
+													});
+												});*/
+												$nbody.append($item);
+											});
+										}
+									});
+								</script>
+							</div>
+
+							<div class="panel panel-white panel-static-height">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										案例评析
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=caseAnalyze" class="pull-right">更多</a>
+									</h3>
+								</div>
+								<div class="panel-body" style="padding-top: 0;">
+									<div class="notice-list">
+										<table class="table">
+											<tbody id="caseBody">
+												<tr>
+													<td>加载中...</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- end of .notice-list -->
+								</div>
+								<script>
+									var caseTmp =
+										'<tr>' +
+											'<td class="fix-text" style="width: 640px;">' +
+												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=caseAnalyze&id={caseId}">{caseName}</a>' +
+											'</td>' +
+											'<td style="">{createDate}</td>' +
+										'</tr>';
+									$.ajax({
+										method: 'POST',
+										url: '${pageContext.request.contextPath}/caseAnalyze/getList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#caseBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var $item = $(caseTmp.format(rows[idx]));
+												/*$item.find('a').data('idx', idx);
+												$item.find('a').on('click', function() {
+													var _idx = $(this).data('idx');
+													BootstrapDialog.alert({
+														title: rows[_idx].caseName,
+														message: rows[_idx].caseContent
+													});
+												});*/
+												$nbody.append($item);
+											});
+										}
+									});
+								</script>
+							</div>
+
+							<div class="panel panel-white panel-static-height">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										考试中心
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper" class="pull-right">更多</a>
+									</h3>
+								</div>
+								<div class="panel-body" style="padding-top: 0;">
+									<div class="notice-list">
+										<table class="table">
+											<thead>
+												<tr>
+													<th style="text-align: left; width: 500px;">考试内容</th>
+													<th style="text-align: left;">结束时间</th>
+													<th style="text-align: left;">操作</th>
+												</tr>
+											</thead>
+											<tbody id="examBody">
+												<tr>
+													<td>加载中...</td>
+												</tr>
+												<!-- <tr>
+													<td>
+														<span>2018年第一次考试</span>
+													</td>
+													<td>
+														<span>2018/2/19</span>
+													</td>
+													<td>
+														<a href="demo-exam-paper.html">参加考试</a>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<span>2018年第二次考试</span>
+													</td>
+													<td>
+														<span>2018/2/19</span>
+													</td>
+													<td>
+														<a href="demo-exam-paper.html">已结束</a>
+													</td>
+												</tr> -->
+											</tbody>
+										</table>
+									</div>
+									<!-- end of .notice-list -->
+								</div>
+								<script>
+									var examTmp =
+										'<tr>' +
+											'<td>' +
+												'<span>{testPaperName}</span>' +
+											'</td>' +
+											'<td>' +
+												'<span>{testDate}</span>' +
+											'</td>' +
+											'<td>' +
+												// '{op}'
+												//'<a href="demo-exam-paper.html">参加考试</a>' +
+												'<a href="javascript:void(0);" idx="{idx}">{op}</a>' +
+											'</td>' +
+										'</tr>';
+										/*'<tr>' +
+											'<td class="fix-text" style="width: 640px;">' +
+												'<a href="javascript:void(0);">{questionContent}</a>' +
+											'</td>' +
+											'<td style="">{createDate}</td>' +
+										'</tr>';*/
+									$.ajax({
+										method: 'POST',
+										url: '${pageContext.request.contextPath}/testPaper/fronendList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#examBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var opMap = {
+													'1': '参加考试',
+													'0': '已结束'
+												};
+
+												var rdata = $.extend({}, rows[idx], {
+													op: opMap[rows[idx].flagExam]
+												});
+												var $item = $(examTmp.format(rdata));
+												$item.find('a').data('idx', idx);
+												$item.find('a').on('click', function() {
+													var _idx = $(this).data('idx');
+													
+													// 做特殊操作
+													console.log('>>>', _idx, rows[idx].testPaperId);
+													switch(rows[idx].flagExam) {
+														case '1':
+															window.open('${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + rows[idx].testPaperId + '&type=officialExam');
+															break;
+														case '0':
+															BootstrapDialog.alert({
+																title: '提示',
+																message: '当前考试已结束'
+															});
+															break;
+													}
+												});
+												$nbody.append($item);
+											});
+										}
+									});
+								</script>
+							</div>
+
+							<div class="panel panel-white panel-static-height">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										答疑互动
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=qa" class="pull-right">更多</a>
+										<a href="javascript:void(0);" class="pull-right" id="btn_qa_add">提问</a>
+									</h3>
+								</div>
+								<div class="panel-body" style="padding-top: 0;">
+									<div class="notice-list">
+										<table class="table">
+											<tbody id="qaBody">
+												<tr>
+													<td>加载中...</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- end of .notice-list -->
+								</div>
+
+								<script>
+									var qaTmp =
+										'<tr>' +
+											'<td class="fix-text" style="width: 640px;">' +
+												'<a href="javascript:void(0);">{questionContent}</a>' +
+											'</td>' +
+											'<td style="">{createDate}</td>' +
+										'</tr>';
+									function reload_qa() {
+										$.ajax({
+											method: 'POST',
+											url: '${pageContext.request.contextPath}/qa/getList',
+											dataType: "json",
+											data: {
+												offset: 0,
+												limit: 5
+											},
+											success: function(d) {
+												var rows = d.rows;
+												var $nbody = $('#qaBody');
+
+												$nbody.html('');
+												$.each(rows, function(idx) {
+													var $item = $(qaTmp.format(rows[idx]));
+													$item.find('a').data('idx', idx);
+													$item.find('a').on('click', function() {
+														var _idx = $(this).data('idx');
+														qa_pop(rows[idx].qaId);
+													});
+													$nbody.append($item);
+												});
+											}
+										});
+									}
+									reload_qa();
+									
+									// 问答详情
+									function qa_pop(id) {
+										$.ajax({
+											url: '${pageContext.request.contextPath}/qa/view',
+											async: false,
+											dataType: 'JSON',
+											data: {
+												qaId: id
+											},
+											success: function(d) {
+												q = d.info;
+											}
+										});
+										
+										var $message = $((
+											'<div class="row">' +
+												'<div class="col-xs-12"><strong>问题：</strong></div>' +
+												'<div class="col-xs-12">{questionContent}</div>' +
+												'<div class="col-xs-12"><br /></div>' +
+												'<div class="col-xs-12"><strong>回答：</strong></div>' +
+												'<div class="col-xs-12">{questionAnswer}</div>' +
+											'</div>'
+										).format(q));
+
+										BootstrapDialog.alert({
+											title: '问答详情',
+											message: $message[0].outerHTML
+										});
+									}
+
+									// 提问
+									var $btn_qa_add = $('#btn_qa_add');
+									$btn_qa_add.click(function() {
+										$btn_qa_add.prop('disabled', true);
+										BootstrapDialog.show({
+											title: '请输入您的问题',
+											message: function() {
+												var $message = $('<textarea class="form-control" name="qaContent" id="qaContent" style="width: 100%; resize: none;" rows="5"></textarea>');
+												return $message;
+											},
+											buttons: [{
+												label: '提交',
+												icon: 'glyphicon glyphicon-send',
+												autospin: false,
+												cssClass: "btn-primary",
+												action: function(dialog, evt) {
+													var $button = this;
+													$button.spin();
+													dialog.enableButtons(false);
+													var qaContent = $('#qaContent').val();
+													
+													$.ajax({
+														url: '${pageContext.request.contextPath}/qa/saveData',
+														method: 'POST',
+														dataType: 'JSON',
+														data: {
+															qaContent: qaContent
+														},
+														success: function(result) {
+															if (result.status == 1) {
+																BootstrapDialog.alert({
+																	title: '成功',
+																	message: '提问成功',
+																	type: BootstrapDialog.TYPE_SUCCESS
+																});
+																dialog.close();
+
+																reload_qa();
+															} else {
+																BootstrapDialog.alert({
+																	title: '警告',
+																	message: '提问请求成功，未按照预期返回结果',
+																	type: BootstrapDialog.TYPE_WARNING
+																});
+																$button.stopSpin();
+																dialog.enableButtons(true);
+															}
+														},
+														error: function(e) {
+															BootstrapDialog.alert({
+																title: '失败',
+																message: '提问请求失败',
+																type: BootstrapDialog.TYPE_DANGER
+															});
+															$button.stopSpin();
+															dialog.enableButtons(true);
+														}
+													});
+												}
+											}, {
+												label: '取消',
+												action: function(dialog) {
+													dialog.close();
+												}
+											}]
+										});
+
+										$btn_qa_add.prop('disabled', false);
+									});
+								</script>
+							</div>
 						</div>
 
 						<div class="right-area">
