@@ -54,10 +54,11 @@
 										<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
 										<img src="assets/img/People.png" alt="" class="avatar">
 									</div> -->
-										<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
+										<div class="func-item func-item-2x" style="padding: 12px 18px;">
 											<ul class="no-style">
 												<li class="police-info">
 													<b>欢迎您！</b>
+													<i><img src="${pageContext.request.contextPath}/styles/assets/img/smile.png" style="vertical-align: text-bottom;"></i>
 												</li>
 												<li class="police-info police-name">${userName}</li>
 												<li class="police-info police-id">${userId}</li>
@@ -66,40 +67,15 @@
 									</div>
 									<!-- 功能 -->
 									<div class="row">
-										<!-- <div class="col-lg-4 col-md-6"> -->
-
-										<div class="func-item">
-											<div class="icon">
-												<i class="fa fa-3x fa-bars"></i>
-											</div>
-											<div class="desciption">
-												成绩查询
-											</div>
+										<div class="func-item func-item-btn">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_01.png">
 										</div>
-										<div class="func-item">
-											<div class="icon">
-												<i class="fa fa-3x fa-user"></i>
-											</div>
-											<div class="desciption">
-												个人设置
-											</div>
+										<div class="func-item func-item-btn">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_02.png">
 										</div>
-										<div class="func-item">
-											<div class="icon">
-												<i class="fa fa-3x fa-sign-out"></i>
-											</div>
-											<div class="desciption">
-												退出
-											</div>
+										<div class="func-item func-item-btn">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_03.png">
 										</div>
-										<!-- <div class="func-item func-item-2x no-border">
-										<div class="info">
-											<ul class="no-style">
-												<li>已通过课程：10门</li>
-												<li>未通过课程：4门</li>
-											</ul>
-										</div>
-									</div> -->
 									</div>
 								</div>
 							</div>
