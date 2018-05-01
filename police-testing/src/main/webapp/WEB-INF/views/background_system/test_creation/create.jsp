@@ -77,6 +77,93 @@
 		.paper-preview-dialog .modal-dialog {
 			width: 980px;
 		}
+
+		.btn {
+			margin-bottom: 0;
+			font-size: 14px;
+			line-height: 20px;
+			color: #333333;
+			text-align: center;
+			text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+			vertical-align: middle;
+			cursor: pointer;
+			background-color: #f5f5f5;
+			background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+			background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+			background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+			background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+			background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+			background-repeat: repeat-x;
+			border: 1px solid #cccccc;
+			border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+			border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+			border-bottom-color: #b3b3b3;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+			filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+			-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+			-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+		}
+
+		.btn:hover,
+		.btn:focus,
+		.btn:active,
+		.btn.active,
+		.btn.disabled,
+		.btn[disabled] {
+			color: #333333;
+			background-color: #e6e6e6;
+			*background-color: #d9d9d9;
+		}
+
+		.btn:active,
+		.btn.active {
+			background-color: #cccccc \9;
+		}
+
+		.btn:first-child {
+			*margin-left: 0;
+		}
+
+		.btn:hover,
+		.btn:focus {
+			color: #333333;
+			text-decoration: none;
+			background-position: 0 -15px;
+			-webkit-transition: background-position 0.1s linear;
+			-moz-transition: background-position 0.1s linear;
+			-o-transition: background-position 0.1s linear;
+			transition: background-position 0.1s linear;
+		}
+
+		.btn:focus {
+			outline: thin dotted #333;
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px;
+		}
+
+		.btn.active,
+		.btn:active {
+			background-image: none;
+			outline: 0;
+			-webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+			-moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+		}
+
+		.btn.disabled,
+		.btn[disabled] {
+			cursor: default;
+			background-image: none;
+			opacity: 0.65;
+			filter: alpha(opacity=65);
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+		}
 	</style>
 
 	<!--  PAGINATION plugin -->
@@ -214,9 +301,9 @@
 				<button id="table_11_view" class="btn btn-primary" disabled>
 					<i class="glyphicon glyphicon-eye-open"></i> 预览
 				</button> -->
-				
-					
-
+				<button id="table_11_upload" class="btn btn-success">
+					<i class="glyphicon glyphicon-upload"></i> 上传
+				</button>
 			</div>
 			<span id="table_11_rightHack">
 				<div class="input-group pull-left" style="width: 482px;">
@@ -301,6 +388,7 @@
             forceParse: 0
         });
 
+		var $btn_upload = $('#table_11_upload');
 		var $btn_selected = $('#btn_selected');
 		var $btn_check = $('#btn_check');
 		var $btn_search = $('#btn_search');
@@ -487,7 +575,58 @@
 		});
 
 
+		$btn_upload.click(function() {
+			$btn_upload.prop('disabled', true);
 
+			BootstrapDialog.show({
+				onshown: function() {
+					$btn_upload.prop('disabled', false);
+				},
+				title: '上传试题',
+				message: function() {
+					var $message = $(
+						'<form id="dataForm_upload" style="display: inline-block; width: 100%;"></form>'
+					);
+
+					var fb_conf = {
+						"label": "上传试题",
+						"type": "form",
+						"items": [
+							{
+								"label": "请选择文件",
+								"type": "form-group",
+								"groupId": "group0",
+
+								"outerWidth": "col-sm-12",
+								"labelWidth": "col-sm-2",
+								"contentWidth": "col-sm-10",
+
+								"items": [
+									{
+										"name": "uploadFile",
+										"type": "image"
+									}
+								]
+							}
+						],
+						"rules": {
+							"uploadFile":{
+								"required": true
+							}
+						},
+						"events": [
+						],
+						"values": {
+						},
+						"isRead": false,
+						"groupDefaultSplit": false
+					}
+
+					$message.renderForm(fb_conf);
+					return $message;
+				}
+			})
+		})
 
 		
 		// 异步加载数据
