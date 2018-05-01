@@ -109,7 +109,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 
 	@Override
 	public List<TestPaper> getList(String testPaperName, Integer offset, Integer limit) {
-		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, offset, limit);
+		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, null, offset, limit);
 		return testPapers;
 	}
 
@@ -176,8 +176,8 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	}
 
 	@Override
-	public long getCount(String testName) {
-		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testName, null, null);
+	public long getCount(String testName, String enable) {
+		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testName, enable, null, null);
 		return testPapers.size();
 	}
 
@@ -272,12 +272,9 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		Session session = currentUser.getSession();
 		String userId = (String) session.getAttribute("currentUserId");
 		//获取试卷列表
-		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, offset, limit);
+		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, "1", offset, limit);
 		List<TestPaper> resultTestPapers = new ArrayList<>();
 		for (TestPaper testPaper : testPapers) {
-			if(testPaper.getEnable().equals("0")){
-				continue;
-			}
 			String testPaperId = testPaper.getTestPaperId();
 			String testDateStr = testPaper.getTestDate();
 			Date testDate = SystemTools.String2Date(testDateStr, "yyyy-MM-dd hh:mm:ss");
