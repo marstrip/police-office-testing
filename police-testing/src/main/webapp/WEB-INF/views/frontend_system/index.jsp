@@ -49,15 +49,13 @@
 										个人信息
 									</h3>
 								</div>
-								<div class="panel-body">
+								<div class="panel-body" style="padding: 0 15px;">
 									<div class="row">
-										<!-- <div class="pull-left" style="width: 90px; height: 90px; padding-left: 15px;">
-										<img src="assets/img/People.png" alt="" class="avatar">
-									</div> -->
-										<div class="func-item func-item-2x no-border" style="padding: 20px 10px;">
+										<div class="func-item func-item-2x" style="padding: 12px 18px;">
 											<ul class="no-style">
 												<li class="police-info">
 													<b>欢迎您！</b>
+													<i><img src="${pageContext.request.contextPath}/styles/assets/img/smile.png" style="vertical-align: text-bottom;"></i>
 												</li>
 												<li class="police-info police-name">${userName}</li>
 												<li class="police-info police-id">${userId}</li>
@@ -66,46 +64,20 @@
 									</div>
 									<!-- 功能 -->
 									<div class="row">
-										<!-- <div class="col-lg-4 col-md-6"> -->
-
-										<div class="func-item">
-											<div class="icon">
-												<i class="fa fa-3x fa-bars"></i>
-											</div>
-											<div class="desciption">
-												成绩查询
-											</div>
+										<div class="func-item func-item-btn">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_01.png">
 										</div>
-										<div class="func-item">
-											<div class="icon">
-												<i class="fa fa-3x fa-user"></i>
-											</div>
-											<div class="desciption">
-												个人设置
-											</div>
+										<div class="func-item func-item-btn">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_02.png">
 										</div>
-										<div class="func-item">
-											<div class="icon">
-												<i class="fa fa-3x fa-sign-out"></i>
-											</div>
-											<div class="desciption">
-												退出
-											</div>
+										<div class="func-item func-item-btn">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_03.png">
 										</div>
-										<!-- <div class="func-item func-item-2x no-border">
-										<div class="info">
-											<ul class="no-style">
-												<li>已通过课程：10门</li>
-												<li>未通过课程：4门</li>
-											</ul>
-										</div>
-									</div> -->
 									</div>
 								</div>
 							</div>
 
-
-
+							<!-- 快速导航 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
@@ -115,7 +87,28 @@
 								</div>
 								<div class="panel-body">
 
-									<div class="quick-link" style="padding: 30px 40px;">
+									<div class="quick-link">
+										<a href="${pageContext.request.contextPath}/infrontend/superMarketJsp">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/qlbtn_01.png">
+										</a>
+									</div>
+									<div class="quick-link">
+										<a href="${pageContext.request.contextPath}/testPaper/fronendJsp?type=simulateExam">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/qlbtn_02.png">
+										</a>
+									</div>
+									<div class="quick-link">
+										<a href="javascript:void(0);">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/qlbtn_03.png">
+										</a>
+									</div>
+									<div class="quick-link">
+										<a href="javascript:void(0);">
+											<img src="${pageContext.request.contextPath}/styles/assets/img/qlbtn_04.png">
+										</a>
+									</div>
+
+									<!-- <div class="quick-link" style="padding: 30px 40px;">
 										<a class="black" href="${pageContext.request.contextPath}/infrontend/superMarketJsp">
 											<div class="func-item func-item-bar">
 												<div class="icon pull-left">
@@ -146,22 +139,12 @@
 												</div>
 											</div>
 										</a>
-									</div>
+									</div> -->
 
 								</div>
 							</div>
 
-							<div class="panel panel-white panel-static-height">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										问卷调查
-										<a href="#" class="pull-right">更多</a>
-									</h3>
-								</div>
-								<div class="panel-body">
-									<span style="color:gray;">功能开发中</span>
-								</div>
-							</div>
+							
 
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
@@ -205,7 +188,7 @@
 										dataType: "json",
 										data: {
 											offset: 0,
-											limit: 5,
+											limit: 6,
 											beginDate: '',
 											endDate: '',
 											switchPage: 'staticDataLogin'
@@ -227,17 +210,26 @@
 						</div>
 
 						<div class="center-area">
+							<!-- 考试中心 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										通知公告
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=informNotice" class="pull-right">更多</a>
+										考试中心
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
 									<div class="notice-list">
 										<table class="table">
-											<tbody id="noticeBody">
+											<thead>
+												<tr>
+													<th style="text-align: center; width: 300px;">考试内容</th>
+													<th style="text-align: left;">开始时间</th>
+													<th style="text-align: left;">结束时间</th>
+													<th style="text-align: left;">操作</th>
+												</tr>
+											</thead>
+											<tbody id="examBody">
 												<tr>
 													<td>加载中...</td>
 												</tr>
@@ -247,43 +239,87 @@
 									<!-- end of .notice-list -->
 								</div>
 								<script>
-									var informTmp =
+									var examTmp =
 										'<tr>' +
-											'<td class="fix-text" style="width: 640px;">' +
-												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=informNotice&id={informId}">{informName}</a>' +
+											'<td>' +
+												'<span>{testPaperName}</span>' +
 											'</td>' +
-											'<td style="">{createDate}</td>' +
+											'<td>' +
+												'<span>{beginDate}</span>' +
+											'</td>' +
+											'<td>' +
+												'<span>{testDate}</span>' +
+											'</td>' +
+											'<td>' +
+												'<a href="javascript:void(0);" idx="{idx}">{op}</a>' +
+											'</td>' +
 										'</tr>';
 									$.ajax({
 										method: 'POST',
-										url: '${pageContext.request.contextPath}/informNotice/getList',
+										url: '${pageContext.request.contextPath}/testPaper/fronendList',
 										dataType: "json",
 										data: {
 											offset: 0,
-											limit: 5
+											limit: 6
 										},
 										success: function(d) {
 											var rows = d.rows;
-											var $nbody = $('#noticeBody');
+											var $nbody = $('#examBody');
 
 											$nbody.html('');
 											$.each(rows, function(idx) {
-												var $item = $(informTmp.format(rows[idx]));
-												/*$item.find('a').data('idx', idx);
+												var opMap = {
+													'1': '参加考试',
+													'0': '已结束',
+													'2': '未开始'
+												};
+
+												var rdata = $.extend({}, rows[idx], {
+													op: opMap[rows[idx].flagExam]
+												});
+												var $item = $(examTmp.format(rdata));
+												$item.find('a').data('idx', idx);
 												$item.find('a').on('click', function() {
 													var _idx = $(this).data('idx');
-													BootstrapDialog.alert({
-														title: rows[_idx].informName,
-														message: rows[_idx].informContent
-													});
-												});*/
+													
+													// 做特殊操作
+													console.log('>>>', _idx, rows[idx].testPaperId);
+													switch(rows[idx].flagExam) {
+														case '1':
+															window.open('${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + rows[idx].testPaperId + '&type=officialExam');
+															break;
+														case '0':
+															BootstrapDialog.alert({
+																title: '提示',
+																message: '当前考试已结束'
+															});
+															break;
+														case '2':
+															BootstrapDialog.alert({
+																title: '提示',
+																message: '当前考试未开始'
+															});
+															break;
+													}
+												});
 												$nbody.append($item);
 											});
+
+											if (rows.length == 0) {
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="4" style="text-align: center;">' +
+															'<span>-- 暂无数据 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
+											}
 										}
 									});
 								</script>
 							</div>
 
+							<!-- 案例评析 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
@@ -317,7 +353,7 @@
 										dataType: "json",
 										data: {
 											offset: 0,
-											limit: 5
+											limit: 9
 										},
 										success: function(d) {
 											var rows = d.rows;
@@ -340,124 +376,11 @@
 									});
 								</script>
 							</div>
+							
+							<!-- 错题集 -->
+							--TODO--
 
-							<div class="panel panel-white panel-static-height">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										考试中心
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper" class="pull-right">更多</a>
-									</h3>
-								</div>
-								<div class="panel-body" style="padding-top: 0;">
-									<div class="notice-list">
-										<table class="table">
-											<thead>
-												<tr>
-													<th style="text-align: left; width: 500px;">考试内容</th>
-													<th style="text-align: left;">结束时间</th>
-													<th style="text-align: left;">操作</th>
-												</tr>
-											</thead>
-											<tbody id="examBody">
-												<tr>
-													<td>加载中...</td>
-												</tr>
-												<!-- <tr>
-													<td>
-														<span>2018年第一次考试</span>
-													</td>
-													<td>
-														<span>2018/2/19</span>
-													</td>
-													<td>
-														<a href="demo-exam-paper.html">参加考试</a>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<span>2018年第二次考试</span>
-													</td>
-													<td>
-														<span>2018/2/19</span>
-													</td>
-													<td>
-														<a href="demo-exam-paper.html">已结束</a>
-													</td>
-												</tr> -->
-											</tbody>
-										</table>
-									</div>
-									<!-- end of .notice-list -->
-								</div>
-								<script>
-									var examTmp =
-										'<tr>' +
-											'<td>' +
-												'<span>{testPaperName}</span>' +
-											'</td>' +
-											'<td>' +
-												'<span>{testDate}</span>' +
-											'</td>' +
-											'<td>' +
-												// '{op}'
-												//'<a href="demo-exam-paper.html">参加考试</a>' +
-												'<a href="javascript:void(0);" idx="{idx}">{op}</a>' +
-											'</td>' +
-										'</tr>';
-										/*'<tr>' +
-											'<td class="fix-text" style="width: 640px;">' +
-												'<a href="javascript:void(0);">{questionContent}</a>' +
-											'</td>' +
-											'<td style="">{createDate}</td>' +
-										'</tr>';*/
-									$.ajax({
-										method: 'POST',
-										url: '${pageContext.request.contextPath}/testPaper/fronendList',
-										dataType: "json",
-										data: {
-											offset: 0,
-											limit: 5
-										},
-										success: function(d) {
-											var rows = d.rows;
-											var $nbody = $('#examBody');
-
-											$nbody.html('');
-											$.each(rows, function(idx) {
-												var opMap = {
-													'1': '参加考试',
-													'0': '已结束'
-												};
-
-												var rdata = $.extend({}, rows[idx], {
-													op: opMap[rows[idx].flagExam]
-												});
-												var $item = $(examTmp.format(rdata));
-												$item.find('a').data('idx', idx);
-												$item.find('a').on('click', function() {
-													var _idx = $(this).data('idx');
-													
-													// 做特殊操作
-													console.log('>>>', _idx, rows[idx].testPaperId);
-													switch(rows[idx].flagExam) {
-														case '1':
-															window.open('${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + rows[idx].testPaperId + '&type=officialExam');
-															break;
-														case '0':
-															BootstrapDialog.alert({
-																title: '提示',
-																message: '当前考试已结束'
-															});
-															break;
-													}
-												});
-												$nbody.append($item);
-											});
-										}
-									});
-								</script>
-							</div>
-
+							<!-- 答疑互动 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
@@ -494,7 +417,7 @@
 											dataType: "json",
 											data: {
 												offset: 0,
-												limit: 5
+												limit: 6
 											},
 											success: function(d) {
 												var rows = d.rows;
@@ -619,6 +542,7 @@
 						</div>
 
 						<div class="right-area">
+							<!-- 通知公告 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
@@ -628,7 +552,7 @@
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
 									<div class="notice-list">
-										<table class="table">
+										<table class="table sp-row-height">
 											<tbody id="noticeBody">
 												<tr>
 													<td>加载中...</td>
@@ -641,10 +565,11 @@
 								<script>
 									var informTmp =
 										'<tr>' +
-											'<td class="fix-text" style="width: 640px;">' +
+											'<td class="td-icon-holder"><i class="td-icon icon-speaker"></i></td>' +
+											'<td class="fix-text fix-text-230">' +
 												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=informNotice&id={informId}">{informName}</a>' +
 											'</td>' +
-											'<td style="">{createDate}</td>' +
+											'<td style="width: 100px;">{createDate}</td>' +
 										'</tr>';
 									$.ajax({
 										method: 'POST',
@@ -652,15 +577,17 @@
 										dataType: "json",
 										data: {
 											offset: 0,
-											limit: 5
+											limit: 9
 										},
 										success: function(d) {
 											var rows = d.rows;
 											var $nbody = $('#noticeBody');
 
 											$nbody.html('');
+
 											$.each(rows, function(idx) {
-												var $item = $(informTmp.format(rows[idx]));
+												var df = $.extend({}, rows[idx], {createDate: rows[idx].createDate.split(' ')[0]});
+												var $item = $(informTmp.format(df));
 												/*$item.find('a').data('idx', idx);
 												$item.find('a').on('click', function() {
 													var _idx = $(this).data('idx');
@@ -671,72 +598,30 @@
 												});*/
 												$nbody.append($item);
 											});
+												
 										}
 									});
 								</script>
 							</div>
 
+							<!-- 问卷调查 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										案例评析
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=caseAnalyze" class="pull-right">更多</a>
+										问卷调查
+										<a href="#" class="pull-right">更多</a>
 									</h3>
 								</div>
-								<div class="panel-body" style="padding-top: 0;">
-									<div class="notice-list">
-										<table class="table">
-											<tbody id="caseBody">
-												<tr>
-													<td>加载中...</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<!-- end of .notice-list -->
+								<div class="panel-body">
+									<div style="color:gray; padding: 20px;">功能开发中</div>
 								</div>
-								<script>
-									var caseTmp =
-										'<tr>' +
-											'<td class="fix-text" style="width: 640px;">' +
-												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=caseAnalyze&id={caseId}">{caseName}</a>' +
-											'</td>' +
-											'<td style="">{createDate}</td>' +
-										'</tr>';
-									$.ajax({
-										method: 'POST',
-										url: '${pageContext.request.contextPath}/caseAnalyze/getList',
-										dataType: "json",
-										data: {
-											offset: 0,
-											limit: 5
-										},
-										success: function(d) {
-											var rows = d.rows;
-											var $nbody = $('#caseBody');
-
-											$nbody.html('');
-											$.each(rows, function(idx) {
-												var $item = $(caseTmp.format(rows[idx]));
-												/*$item.find('a').data('idx', idx);
-												$item.find('a').on('click', function() {
-													var _idx = $(this).data('idx');
-													BootstrapDialog.alert({
-														title: rows[_idx].caseName,
-														message: rows[_idx].caseContent
-													});
-												});*/
-												$nbody.append($item);
-											});
-										}
-									});
-								</script>
 							</div>
 
+							<!-- 考试参与排名 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										考试中心
+										考试参与排名
 										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper" class="pull-right">更多</a>
 									</h3>
 								</div>
@@ -802,13 +687,13 @@
 											'</td>' +
 											'<td style="">{createDate}</td>' +
 										'</tr>';*/
-									$.ajax({
+									/*$.ajax({
 										method: 'POST',
 										url: '${pageContext.request.contextPath}/testPaper/fronendList',
 										dataType: "json",
 										data: {
 											offset: 0,
-											limit: 5
+											limit: 6
 										},
 										success: function(d) {
 											var rows = d.rows;
@@ -846,7 +731,7 @@
 												$nbody.append($item);
 											});
 										}
-									});
+									});*/
 								</script>
 							</div>
 
@@ -886,7 +771,7 @@
 											dataType: "json",
 											data: {
 												offset: 0,
-												limit: 5
+												limit: 6
 											},
 											success: function(d) {
 												var rows = d.rows;
