@@ -29,10 +29,11 @@ public interface TestPaperMapper {
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
     /**
      * 根据试卷名称获取数据集合
+     * @param enableFlag 
      * @return
      */
     List<TestPaper> selectByLikeTestPapaerName(@Param("testPaperName") String testPaperName, 
-    		@Param("offset") Integer offset, @Param("limit") Integer limit);
+    		@Param("enable") String enable, @Param("offset") Integer offset, @Param("limit") Integer limit);
     
     int updateEnable(@Param("testPaperId") String testPaperId, @Param("enable") String enable);
 }

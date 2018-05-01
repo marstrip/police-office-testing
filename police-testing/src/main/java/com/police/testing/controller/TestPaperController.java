@@ -55,7 +55,7 @@ public class TestPaperController {
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		String testName = GetEncode.transcode(request.getParameter("search"));
 		List<TestPaper> list = testPaperService.getListByUser(testName, offset, limit);
-		long total = testPaperService.getCount(testName);
+		long total = testPaperService.getCount(testName, "1");
 		JSONArray array = JSONArray.fromObject(list);
 		Integer pageNumber = offset/limit + 1;
 		result.put("page", pageNumber);
@@ -79,7 +79,7 @@ public class TestPaperController {
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		String testName = GetEncode.transcode(request.getParameter("search"));
 		List<TestPaper> list = testPaperService.getList(testName, offset, limit);
-		long total = testPaperService.getCount(testName);
+		long total = testPaperService.getCount(testName, null);
 		JSONArray array = JSONArray.fromObject(list);
 		Integer pageNumber = offset/limit + 1;
 		result.put("page", pageNumber);
