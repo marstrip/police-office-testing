@@ -23,6 +23,9 @@
 	<script src="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"></script>
 
 	<script src="${pageContext.request.contextPath}/styles/assets/js/demo.js"></script>
+
+	<!-- 组卷核心js -->
+	<script src="${pageContext.request.contextPath}/styles/assets/gen-paper/genPaper.js"></script>
 	
 </head>
 
@@ -43,6 +46,7 @@
 					</ol> -->
 
 						<div class="left-area">
+							<!-- 个人信息 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
@@ -107,80 +111,43 @@
 											<img src="${pageContext.request.contextPath}/styles/assets/img/qlbtn_04.png">
 										</a>
 									</div>
-
-									<!-- <div class="quick-link" style="padding: 30px 40px;">
-										<a class="black" href="${pageContext.request.contextPath}/infrontend/superMarketJsp">
-											<div class="func-item func-item-bar">
-												<div class="icon pull-left">
-													<i class="fa fa-2x fa-shopping-cart"></i>
-												</div>
-												<div class="desciption pull-left">
-													课&nbsp;件&nbsp;超&nbsp;市
-												</div>
-											</div>
-										</a>
-										<a class="black" href="${pageContext.request.contextPath}/testPaper/fronendJsp?type=simulateExam">
-											<div class="func-item func-item-bar">
-												<div class="icon pull-left">
-													<i class="fa fa-2x fa-paperclip"></i>
-												</div>
-												<div class="desciption pull-left">
-													执法培训模拟考试
-												</div>
-											</div>
-										</a>
-										<a class="black" href="javascript:void(0);">
-											<div class="func-item func-item-bar">
-												<div class="icon pull-left">
-													<i class="fa fa-2x">☭</i>
-												</div>
-												<div class="desciption pull-left">
-													党的建设模拟考试
-												</div>
-											</div>
-										</a>
-									</div> -->
-
 								</div>
 							</div>
 
-							
-
+							<!-- 参与自学排名 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										单位排行榜
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin" class="pull-right">更多</a>
+										参与自学排名
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataSimulateExam" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body">
 									<table class="table">
 										<thead>
 											<tr>
-												<th style="text-align: center; width: 82px;">名次</th>
-												<th style="text-align: center;">派出所</th>
-												<th style="text-align: center; width: 82px;">次数</th>
+												<th style="text-align: center; width: 48px;">排行</th>
+												<th style="text-align: center; width: 213px;">单位</th>
+												<th style="text-align: center; width: 112px;">参与自学次数</th>
 											</tr>
 										</thead>
-										<tbody id="useRankBody">
+										<tbody id="selfLearnRankBody">
 											<tr>
-												<td>加载中...</td>
+												<td colspan="3">加载中...</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-							</div>
-
 								<script>
-									var useRankTmp =
+									var selfLearnRankTmp =
 										'<tr>' +
 											'<td style="text-align: center;">' +
 												'<span>{idx}</span>' +
 											'</td>' +
-											'<td class="fix-text fix-text-200" style="width: 640px;">' +
+											'<td class="fix-text fix-text-210">' +
 												'{departmentName}' +
 											'</td>' +
-											'<td style="">{loginCount}</td>' +
+											'<td style="text-align: center;">{loginCount}</td>' +
 										'</tr>';
 									$.ajax({
 										method: 'POST',
@@ -188,25 +155,128 @@
 										dataType: "json",
 										data: {
 											offset: 0,
-											limit: 6,
+											limit: 5,
 											beginDate: '',
 											endDate: '',
-											switchPage: 'staticDataLogin'
+											switchPage: 'staticDataSimulateExam'
 										},
 										success: function(d) {
 											var rows = d.rows;
-											var $nbody = $('#useRankBody');
+											var $nbody = $('#selfLearnRankBody');
 
 											$nbody.html('');
 											$.each(rows, function(idx) {
 												var rdata = $.extend({}, rows[idx], {idx: idx + 1});
-												var $item = $(useRankTmp.format(rdata));
+												var $item = $(selfLearnRankTmp.format(rdata));
 												$nbody.append($item);
 											});
+
+											if (rows.length == 0) {
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="3" style="text-align: center;">' +
+															'<span>-- 暂无数据 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
+											}
+										},
+										error: function() {
+											var $nbody = $('#selfLearnRankBody');
+											$nbody.html('');
+											$nbody.append(
+												'<tr>' +
+													'<td colspan="3" style="text-align: center; color: red;">' +
+														'<span>-- 后台发生错误 --</span>' +
+													'</td>' +
+												'</tr>'
+											);
 										}
 									});
 								</script>
+							</div>
 
+							<!-- 累计考试排名 -->
+							<div class="panel panel-white panel-static-height">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										累计考试排名
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam" class="pull-right">更多</a>
+									</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table">
+										<thead>
+											<tr>
+												<th style="text-align: center; width: 48px;">排行</th>
+												<th style="text-align: center; width: 213px;">单位</th>
+												<th style="text-align: center; width: 112px;">参与考试次数</th>
+											</tr>
+										</thead>
+										<tbody id="examRankBody">
+											<tr>
+												<td colspan="3">加载中...</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<script>
+									var examRankTmp =
+										'<tr>' +
+											'<td style="text-align: center;">' +
+												'<span>{idx}</span>' +
+											'</td>' +
+											'<td class="fix-text fix-text-210">' +
+												'{departmentName}' +
+											'</td>' +
+											'<td style="text-align: center;">{loginCount}</td>' +
+										'</tr>';
+									$.ajax({
+										method: 'POST',
+										url: '${pageContext.request.contextPath}/infrontend/commonGetList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5,
+											beginDate: '',
+											endDate: '',
+											switchPage: 'staticDataOfficialExam'
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#examRankBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var rdata = $.extend({}, rows[idx], {idx: idx + 1});
+												var $item = $(examRankTmp.format(rdata));
+												$nbody.append($item);
+											});
+
+											if (rows.length == 0) {
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="3" style="text-align: center;">' +
+															'<span>-- 暂无数据 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
+											}
+										},
+										error: function() {
+											var $nbody = $('#examRankBody');
+											$nbody.html('');
+											$nbody.append(
+												'<tr>' +
+													'<td colspan="3" style="text-align: center; color: red;">' +
+														'<span>-- 后台发生错误 --</span>' +
+													'</td>' +
+												'</tr>'
+											);
+										}
+									});
+								</script>
+							</div>
 						</div>
 
 						<div class="center-area">
@@ -275,7 +345,9 @@
 												};
 
 												var rdata = $.extend({}, rows[idx], {
-													op: opMap[rows[idx].flagExam]
+													op: opMap[rows[idx].flagExam],
+													testDate: rows[idx].testDate.split(' ')[0],
+													beginDate: rows[idx].beginDate ? rows[idx].beginDate.split(' ')[0] : 'undefined'
 												});
 												var $item = $(examTmp.format(rdata));
 												$item.find('a').data('idx', idx);
@@ -329,7 +401,7 @@
 								</div>
 								<div class="panel-body" style="padding-top: 0;">
 									<div class="notice-list">
-										<table class="table">
+										<table class="table sp-row-height">
 											<tbody id="caseBody">
 												<tr>
 													<td>加载中...</td>
@@ -337,15 +409,15 @@
 											</tbody>
 										</table>
 									</div>
-									<!-- end of .notice-list -->
 								</div>
 								<script>
 									var caseTmp =
 										'<tr>' +
-											'<td class="fix-text" style="width: 640px;">' +
+											'<td class="td-icon-holder"><i class="td-icon icon-pencil"></i></td>' +
+											'<td class="fix-text fix-text-430">' +
 												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=caseAnalyze&id={caseId}">{caseName}</a>' +
 											'</td>' +
-											'<td style="">{createDate}</td>' +
+											'<td class="date-colume">{createDate}</td>' +
 										'</tr>';
 									$.ajax({
 										method: 'POST',
@@ -361,7 +433,8 @@
 
 											$nbody.html('');
 											$.each(rows, function(idx) {
-												var $item = $(caseTmp.format(rows[idx]));
+												var df = $.extend({}, rows[idx], {createDate: rows[idx].createDate.split(' ')[0]});
+												var $item = $(caseTmp.format(df));
 												/*$item.find('a').data('idx', idx);
 												$item.find('a').on('click', function() {
 													var _idx = $(this).data('idx');
@@ -372,13 +445,142 @@
 												});*/
 												$nbody.append($item);
 											});
+
+											if (rows.length == 0) {
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="4" style="text-align: center;">' +
+															'<span>-- 暂无数据 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
+											}
 										}
 									});
 								</script>
 							</div>
 							
 							<!-- 错题集 -->
-							--TODO--
+							<div class="panel panel-white panel-static-height">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										错题集
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataByQuestionFail" class="pull-right">更多</a>
+									</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table">
+										<thead>
+											<tr>
+												<th style="text-align: center; width: 460px;">问题列表</th>
+												<th style="text-align: center;">答错次数</th>
+											</tr>
+										</thead>
+										<tbody id="failBody">
+											<tr>
+												<td>加载中...</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<script>
+									var failTmp =
+										'<tr>' +
+											'<td class="fix-text fix-text-460">' +
+												'<a href="javascript: void(0);">' +
+													'{questionName}' +
+												'</a>' +
+											'</td>' +
+											'<td style="text-align: center;">' +
+												'{failCount}' +
+											'</td>' +
+										'</tr>';
+									$.ajax({
+										method: 'POST',
+										url: '${pageContext.request.contextPath}/infrontend/commonGetList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5,
+											beginDate: '',
+											endDate: '',
+											switchPage: 'staticDataByQuestionFail'
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#failBody');
+
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var rdata = $.extend({}, rows[idx], {idx: idx + 1});
+												var $item = $(failTmp.format(rdata));
+												$item.find('a').on('click', function() {
+													var _idx = $(this).data('idx');
+													fail_pop(rows[idx].questionId);
+												});
+												$nbody.append($item);
+											});
+
+											if (rows.length == 0) {
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="2" style="text-align: center;">' +
+															'<span>-- 暂无数据 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
+											}
+										},
+										error: function() {
+											var $nbody = $('#failBody');
+											$nbody.html('');
+											$nbody.append(
+												'<tr>' +
+													'<td colspan="2" style="text-align: center; color: red;">' +
+														'<span>-- 后台发生错误 --</span>' +
+													'</td>' +
+												'</tr>'
+											);
+										}
+									});
+									// 错误题目详情
+									function fail_pop(id) {
+										var q = undefined;
+										$.ajax({
+											url: '${pageContext.request.contextPath}/question/view',
+											async: false,
+											dataType: 'JSON',
+											data: {
+												testQuestionsId: id
+											},
+											success: function(d) {
+												q = d.info;
+											}
+										});
+										
+										var $message = $('<div class="psb-here"><div class="psb-content"></div></div>');
+										$message.find('.psb-content').genQuestion(q);
+
+										BootstrapDialog.show({
+											title: '题目详情',
+											cssClass: "modal-sp",
+											closable: false,
+											message: $message.html(),
+											buttons: [
+												{
+													label: '确定',
+													action: function(dialogRef, evt) {
+														dialogRef.close();
+													}
+												}
+											],
+											onshown: function(dialogRef) {
+												new PerfectScrollbar('.modal-sp .modal-body');
+											}
+										});
+									}
+								</script>
+							</div>
 
 							<!-- 答疑互动 -->
 							<div class="panel panel-white panel-static-height">
@@ -392,6 +594,11 @@
 								<div class="panel-body" style="padding-top: 0;">
 									<div class="notice-list">
 										<table class="table">
+											<thead>
+												<tr>
+													<th style="text-align: center;">问题列表</th>
+												</tr>
+											</thead>
 											<tbody id="qaBody">
 												<tr>
 													<td>加载中...</td>
@@ -401,14 +608,12 @@
 									</div>
 									<!-- end of .notice-list -->
 								</div>
-
 								<script>
 									var qaTmp =
 										'<tr>' +
-											'<td class="fix-text" style="width: 640px;">' +
+											'<td class="fix-text fix-text-560">' +
 												'<a href="javascript:void(0);">{questionContent}</a>' +
 											'</td>' +
-											'<td style="">{createDate}</td>' +
 										'</tr>';
 									function reload_qa() {
 										$.ajax({
@@ -417,7 +622,7 @@
 											dataType: "json",
 											data: {
 												offset: 0,
-												limit: 6
+												limit: 5
 											},
 											success: function(d) {
 												var rows = d.rows;
@@ -433,6 +638,27 @@
 													});
 													$nbody.append($item);
 												});
+
+												if (rows.length == 0) {
+													$nbody.append(
+														'<tr>' +
+															'<td colspan="1" style="text-align: center;">' +
+																'<span>-- 暂无数据 --</span>' +
+															'</td>' +
+														'</tr>'
+													);
+												}
+											},
+											error: function() {
+												var $nbody = $('#qaBody');
+												$nbody.html('');
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="1" style="text-align: center; color: red;">' +
+															'<span>-- 后台发生错误 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
 											}
 										});
 									}
@@ -569,7 +795,7 @@
 											'<td class="fix-text fix-text-230">' +
 												'<a href="${pageContext.request.contextPath}/infrontend/commonDetailJsp?switchPage=informNotice&id={informId}">{informName}</a>' +
 											'</td>' +
-											'<td style="width: 100px;">{createDate}</td>' +
+											'<td class="date-colume">{createDate}</td>' +
 										'</tr>';
 									$.ajax({
 										method: 'POST',
@@ -598,7 +824,27 @@
 												});*/
 												$nbody.append($item);
 											});
-												
+
+											if (rows.length == 0) {
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="3" style="text-align: center;">' +
+															'<span>-- 暂无数据 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
+											}
+										},
+										error: function() {
+											var $nbody = $('#noticeBody');
+											$nbody.html('');
+											$nbody.append(
+												'<tr>' +
+													'<td colspan="3" style="text-align: center; color: red;">' +
+														'<span>-- 后台发生错误 --</span>' +
+													'</td>' +
+												'</tr>'
+											);
 										}
 									});
 								</script>
@@ -622,274 +868,159 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										考试参与排名
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin" class="pull-right">更多</a>
 									</h3>
 								</div>
-								<div class="panel-body" style="padding-top: 0;">
-									<div class="notice-list">
-										<table class="table">
-											<thead>
-												<tr>
-													<th style="text-align: left; width: 500px;">考试内容</th>
-													<th style="text-align: left;">结束时间</th>
-													<th style="text-align: left;">操作</th>
-												</tr>
-											</thead>
-											<tbody id="examBody">
-												<tr>
-													<td>加载中...</td>
-												</tr>
-												<!-- <tr>
-													<td>
-														<span>2018年第一次考试</span>
-													</td>
-													<td>
-														<span>2018/2/19</span>
-													</td>
-													<td>
-														<a href="demo-exam-paper.html">参加考试</a>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<span>2018年第二次考试</span>
-													</td>
-													<td>
-														<span>2018/2/19</span>
-													</td>
-													<td>
-														<a href="demo-exam-paper.html">已结束</a>
-													</td>
-												</tr> -->
-											</tbody>
-										</table>
-									</div>
-									<!-- end of .notice-list -->
+								<div class="panel-body">
+									<table class="table">
+										<thead>
+											<tr>
+												<th style="text-align: center;">考试内容</th>
+											</tr>
+										</thead>
+										<tbody id="paperRankBody">
+											<tr>
+												<td>加载中...</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 								<script>
-									var examTmp =
+									var paperRankTmp =
 										'<tr>' +
-											'<td>' +
-												'<span>{testPaperName}</span>' +
+											// '<td style="text-align: center;">' +
+											// 	'<span>{idx}</span>' +
+											// '</td>' +
+											'<td class="fix-text fix-text-350">' +
+												'<span>{departmentName}TODO</span>' +
 											'</td>' +
-											'<td>' +
-												'<span>{testDate}</span>' +
-											'</td>' +
-											'<td>' +
-												// '{op}'
-												//'<a href="demo-exam-paper.html">参加考试</a>' +
-												'<a href="javascript:void(0);" idx="{idx}">{op}</a>' +
-											'</td>' +
+											// '<td style="text-align: center;">{loginCount}</td>' +
 										'</tr>';
-										/*'<tr>' +
-											'<td class="fix-text" style="width: 640px;">' +
-												'<a href="javascript:void(0);">{questionContent}</a>' +
-											'</td>' +
-											'<td style="">{createDate}</td>' +
-										'</tr>';*/
-									/*$.ajax({
+									$.ajax({
 										method: 'POST',
-										url: '${pageContext.request.contextPath}/testPaper/fronendList',
+										url: '${pageContext.request.contextPath}/infrontend/commonGetList',
 										dataType: "json",
 										data: {
 											offset: 0,
-											limit: 6
+											limit: 5,
+											beginDate: '',
+											endDate: '',
+											switchPage: 'staticDataLogin'
 										},
 										success: function(d) {
 											var rows = d.rows;
-											var $nbody = $('#examBody');
+											var $nbody = $('#paperRankBody');
 
 											$nbody.html('');
 											$.each(rows, function(idx) {
-												var opMap = {
-													'1': '参加考试',
-													'0': '已结束'
-												};
-
-												var rdata = $.extend({}, rows[idx], {
-													op: opMap[rows[idx].flagExam]
-												});
-												var $item = $(examTmp.format(rdata));
-												$item.find('a').data('idx', idx);
-												$item.find('a').on('click', function() {
-													var _idx = $(this).data('idx');
-													
-													// 做特殊操作
-													console.log('>>>', _idx, rows[idx].testPaperId);
-													switch(rows[idx].flagExam) {
-														case '1':
-															window.open('${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + rows[idx].testPaperId + '&type=officialExam');
-															break;
-														case '0':
-															BootstrapDialog.alert({
-																title: '提示',
-																message: '当前考试已结束'
-															});
-															break;
-													}
-												});
+												var rdata = $.extend({}, rows[idx], {idx: idx + 1});
+												var $item = $(paperRankTmp.format(rdata));
 												$nbody.append($item);
 											});
+
+											if (rows.length == 0) {
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="1" style="text-align: center;">' +
+															'<span>-- 暂无数据 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
+											}
+										},
+										error: function() {
+											var $nbody = $('#paperRankBody');
+											$nbody.html('');
+											$nbody.append(
+												'<tr>' +
+													'<td colspan="1" style="text-align: center; color: red;">' +
+														'<span>-- 后台发生错误 --</span>' +
+													'</td>' +
+												'</tr>'
+											);
 										}
-									});*/
+									});
 								</script>
 							</div>
 
+							<!-- 系统参与排名 -->
 							<div class="panel panel-white panel-static-height">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										答疑互动
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=qa" class="pull-right">更多</a>
-										<a href="javascript:void(0);" class="pull-right" id="btn_qa_add">提问</a>
+										系统参与排名
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin" class="pull-right">更多</a>
 									</h3>
 								</div>
-								<div class="panel-body" style="padding-top: 0;">
-									<div class="notice-list">
-										<table class="table">
-											<tbody id="qaBody">
-												<tr>
-													<td>加载中...</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<!-- end of .notice-list -->
+								<div class="panel-body">
+									<table class="table">
+										<thead>
+											<tr>
+												<th style="text-align: center; width: 48px;">排行</th>
+												<th style="text-align: center; width: 213px;">单位</th>
+												<th style="text-align: center; width: 112px;">系统登录次数</th>
+											</tr>
+										</thead>
+										<tbody id="useRankBody">
+											<tr>
+												<td>加载中...</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-
 								<script>
-									var qaTmp =
+									var useRankTmp =
 										'<tr>' +
-											'<td class="fix-text" style="width: 640px;">' +
-												'<a href="javascript:void(0);">{questionContent}</a>' +
+											'<td style="text-align: center;">' +
+												'<span>{idx}</span>' +
 											'</td>' +
-											'<td style="">{createDate}</td>' +
+											'<td class="fix-text fix-text-210">' +
+												'{departmentName}' +
+											'</td>' +
+											'<td style="text-align: center;">{loginCount}</td>' +
 										'</tr>';
-									function reload_qa() {
-										$.ajax({
-											method: 'POST',
-											url: '${pageContext.request.contextPath}/qa/getList',
-											dataType: "json",
-											data: {
-												offset: 0,
-												limit: 6
-											},
-											success: function(d) {
-												var rows = d.rows;
-												var $nbody = $('#qaBody');
+									$.ajax({
+										method: 'POST',
+										url: '${pageContext.request.contextPath}/infrontend/commonGetList',
+										dataType: "json",
+										data: {
+											offset: 0,
+											limit: 5,
+											beginDate: '',
+											endDate: '',
+											switchPage: 'staticDataLogin'
+										},
+										success: function(d) {
+											var rows = d.rows;
+											var $nbody = $('#useRankBody');
 
-												$nbody.html('');
-												$.each(rows, function(idx) {
-													var $item = $(qaTmp.format(rows[idx]));
-													$item.find('a').data('idx', idx);
-													$item.find('a').on('click', function() {
-														var _idx = $(this).data('idx');
-														qa_pop(rows[idx].qaId);
-													});
-													$nbody.append($item);
-												});
+											$nbody.html('');
+											$.each(rows, function(idx) {
+												var rdata = $.extend({}, rows[idx], {idx: idx + 1});
+												var $item = $(useRankTmp.format(rdata));
+												$nbody.append($item);
+											});
+
+											if (rows.length == 0) {
+												$nbody.append(
+													'<tr>' +
+														'<td colspan="3" style="text-align: center;">' +
+															'<span>-- 暂无数据 --</span>' +
+														'</td>' +
+													'</tr>'
+												);
 											}
-										});
-									}
-									reload_qa();
-									
-									// 问答详情
-									function qa_pop(id) {
-										$.ajax({
-											url: '${pageContext.request.contextPath}/qa/view',
-											async: false,
-											dataType: 'JSON',
-											data: {
-												qaId: id
-											},
-											success: function(d) {
-												q = d.info;
-											}
-										});
-										
-										var $message = $((
-											'<div class="row">' +
-												'<div class="col-xs-12"><strong>问题：</strong></div>' +
-												'<div class="col-xs-12">{questionContent}</div>' +
-												'<div class="col-xs-12"><br /></div>' +
-												'<div class="col-xs-12"><strong>回答：</strong></div>' +
-												'<div class="col-xs-12">{questionAnswer}</div>' +
-											'</div>'
-										).format(q));
-
-										BootstrapDialog.alert({
-											title: '问答详情',
-											message: $message[0].outerHTML
-										});
-									}
-
-									// 提问
-									var $btn_qa_add = $('#btn_qa_add');
-									$btn_qa_add.click(function() {
-										$btn_qa_add.prop('disabled', true);
-										BootstrapDialog.show({
-											title: '请输入您的问题',
-											message: function() {
-												var $message = $('<textarea class="form-control" name="qaContent" id="qaContent" style="width: 100%; resize: none;" rows="5"></textarea>');
-												return $message;
-											},
-											buttons: [{
-												label: '提交',
-												icon: 'glyphicon glyphicon-send',
-												autospin: false,
-												cssClass: "btn-primary",
-												action: function(dialog, evt) {
-													var $button = this;
-													$button.spin();
-													dialog.enableButtons(false);
-													var qaContent = $('#qaContent').val();
-													
-													$.ajax({
-														url: '${pageContext.request.contextPath}/qa/saveData',
-														method: 'POST',
-														dataType: 'JSON',
-														data: {
-															qaContent: qaContent
-														},
-														success: function(result) {
-															if (result.status == 1) {
-																BootstrapDialog.alert({
-																	title: '成功',
-																	message: '提问成功',
-																	type: BootstrapDialog.TYPE_SUCCESS
-																});
-																dialog.close();
-
-																reload_qa();
-															} else {
-																BootstrapDialog.alert({
-																	title: '警告',
-																	message: '提问请求成功，未按照预期返回结果',
-																	type: BootstrapDialog.TYPE_WARNING
-																});
-																$button.stopSpin();
-																dialog.enableButtons(true);
-															}
-														},
-														error: function(e) {
-															BootstrapDialog.alert({
-																title: '失败',
-																message: '提问请求失败',
-																type: BootstrapDialog.TYPE_DANGER
-															});
-															$button.stopSpin();
-															dialog.enableButtons(true);
-														}
-													});
-												}
-											}, {
-												label: '取消',
-												action: function(dialog) {
-													dialog.close();
-												}
-											}]
-										});
-
-										$btn_qa_add.prop('disabled', false);
+										},
+										error: function() {
+											var $nbody = $('#useRankBody');
+											$nbody.html('');
+											$nbody.append(
+												'<tr>' +
+													'<td colspan="3" style="text-align: center; color: red;">' +
+														'<span>-- 后台发生错误 --</span>' +
+													'</td>' +
+												'</tr>'
+											);
+										}
 									});
 								</script>
 							</div>
