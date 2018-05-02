@@ -19,9 +19,10 @@ public interface ITestPaperService {
 	 * 生成待预览的试卷及试卷类型
 	 * @param questionWithBLOBs
 	 * @param testPaperType
+	 * @param testBeginDate 
 	 */
 	public String createTempTestPaper(List<TestQuestionWithBLOBs> questionWithBLOBs, String testPaperType, String testPaperName,
-			Integer testTime, String testDate);
+			Integer testTime, String testDate, String testBeginDate);
 	
 	
 	/**

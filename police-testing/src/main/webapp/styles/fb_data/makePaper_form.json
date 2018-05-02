@@ -35,6 +35,33 @@
 					"placeholder": ""
 				}
 			]
+		},{
+			"label": "考试开始日期",
+			"type": "form-group",
+			"groupId": "group0",
+
+			"outerWidth": "col-sm-12",
+			"labelWidth": "col-sm-4",
+			"contentWidth": "col-sm-8",
+
+			"items": [
+				{
+					"name": "testBeginDate",
+					"type": "date",
+					"placeholder": "",
+					"dtp_setting": {
+		                "language": "zh-CN",
+		                "format": "yyyy-mm-dd 00:00:00",
+		                "weekStart": 1,
+		                "todayBtn":  1,
+		                "autoclose": 1,
+		                "todayHighlight": 1,
+		                "startView": 2,
+		                "minView": 2,
+		                "forceParse": 0
+		            }
+				}
+			]
 		},
 		{
 			"label": "考试截止日期",
@@ -73,6 +100,10 @@
 			"required": true,
 			"digits": true
 		},
+		"testBeginDate":{
+			"required": true,
+			"date": true
+		}
 		"testDate":{
 			"required": true,
 			"date": true

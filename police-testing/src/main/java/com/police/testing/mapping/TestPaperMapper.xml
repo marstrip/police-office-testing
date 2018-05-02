@@ -5,6 +5,7 @@
     <id column="test_paper_id" property="testPaperId" jdbcType="VARCHAR" />
     <result column="test_paper_name" property="testPaperName" jdbcType="VARCHAR" />
     <result column="test_paper_type" property="testPaperType" jdbcType="VARCHAR" />
+    <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
     <result column="test_date" property="testDate" jdbcType="TIMESTAMP" />
     <result column="test_time" property="testTime" jdbcType="INTEGER" />
     <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
@@ -14,7 +15,7 @@
     <result column="enable" property="enable" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    test_paper_id, test_paper_name, test_paper_type, test_date, test_time, creator_id, creator_name, create_date, update_date, 
+    test_paper_id, test_paper_name, test_paper_type, begin_date, test_date, test_time, creator_id, creator_name, create_date, update_date, 
     enable
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -67,11 +68,11 @@
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.police.testing.pojo.TestPaper" >
-    insert into test_paper (test_paper_id, test_paper_name, test_paper_type, test_date, test_time, creator_id, 
+    insert into test_paper (test_paper_id, test_paper_name, test_paper_type, begin_date, test_date, test_time, creator_id, 
       creator_name, create_date, update_date, 
       enable)
     values (#{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, #{testPaperType,jdbcType=VARCHAR}, 
-    	#{testDate,jdbcType=TIMESTAMP}, #{testTime,jdbcType=INTEGER}, #{creatorId,jdbcType=VARCHAR}, 
+    	#{beginDate,jdbcType=TIMESTAMP}, #{testDate,jdbcType=TIMESTAMP}, #{testTime,jdbcType=INTEGER}, #{creatorId,jdbcType=VARCHAR}, 
       #{creatorName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{enable,jdbcType=VARCHAR})
   </insert>
@@ -86,6 +87,10 @@
       </if>
       <if test="testPaperType != null" >
         test_paper_type,
+      </if>
+      
+      <if test="beginDate != null" >
+        begin_date,
       </if>
       
       <if test="testDate != null" >
@@ -123,6 +128,10 @@
         #{testPaperType,jdbcType=VARCHAR},
       </if>
       
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      
       <if test="testDate != null" >
         #{testDate,jdbcType=TIMESTAMP},
       </if>
@@ -157,8 +166,12 @@
         test_paper_type = #{testPaperType,jdbcType=VARCHAR},
       </if>
       
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      
       <if test="testDate != null" >
-        test_time = #{testDate,jdbcType=TIMESTAMP},
+        test_date = #{testDate,jdbcType=TIMESTAMP},
       </if>
       <if test="testTime != null" >
         test_time = #{testTime,jdbcType=INTEGER},
@@ -187,6 +200,8 @@
     update test_paper
     set test_paper_name = #{testPaperName,jdbcType=VARCHAR},
       test_paper_type = #{testPaperType,jdbcType=VARCHAR},
+      
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
       
       test_date = #{testDate,jdbcType=TIMESTAMP},
       test_time = #{testTime,jdbcType=INTEGER},

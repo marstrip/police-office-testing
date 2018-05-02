@@ -88,6 +88,7 @@ public class TestCreateController {
 	@RequestMapping("randomGenerationTestPaper")
 	@ResponseBody
 	public JSONObject randomGenerationTestPaper(HttpServletRequest request){
+		JSONObject result = new JSONObject();
 		//获取题库范围
 		String beginDate = GetEncode.transcode(request.getParameter("beginDate"));
 		String endDate = GetEncode.transcode(request.getParameter("endDate"));
@@ -122,14 +123,19 @@ public class TestCreateController {
 			testTimeInt = Integer.valueOf(testTime);
 		}
 		String testDate = GetEncode.transcode(request.getParameter("testDate"));
+		String testBeginDate = GetEncode.transcode(request.getParameter("testBeginDate"));
 		if(StringUtils.isBlank(testDate)){
 			testDate = SystemTools.Time2String(new Date(), "yyyy-MM-dd hh:mm:ss");
 		}
+		if(StringUtils.isBlank(testBeginDate)){
+			result.put("status", -1);
+			result.put("message", "testBeginDate is null");
+			return result;
+		}
 		//生成待预览试卷
-		String testPaperId = testPaperService.createTempTestPaper(list, "0", testPaperName, testTimeInt, testDate);
+		String testPaperId = testPaperService.createTempTestPaper(list, "0", testPaperName, testTimeInt, testDate, testBeginDate);
 		//封装jsonarray对象
 		JSONArray jsonArray = JSONArray.fromObject(list);
-		JSONObject result = new JSONObject();
 		//封装反馈对象
 		result.put("testPaperId", testPaperId);
 		result.put("list", jsonArray);

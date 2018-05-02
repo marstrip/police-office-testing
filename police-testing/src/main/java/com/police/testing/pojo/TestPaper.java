@@ -11,6 +11,8 @@ public class TestPaper {
 
     private String testPaperType;
     
+    private Date beginDate;
+    
     private Date testDate;
     
     private Integer testTime;
@@ -51,6 +53,15 @@ public class TestPaper {
 		this.testPaperType = testPaperType;
 	}
 	
+	public String getBeginDate() {
+		String str = SystemTools.Time2String(beginDate, "yyyy-MM-dd HH:mm:ss");
+        return str;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
 	public String getTestDate() {
 		String str = SystemTools.Time2String(testDate, "yyyy-MM-dd HH:mm:ss");
         return str;

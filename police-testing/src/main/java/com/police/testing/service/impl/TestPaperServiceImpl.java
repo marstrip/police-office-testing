@@ -54,7 +54,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 
 	@Override
 	public String createTempTestPaper(List<TestQuestionWithBLOBs> questionWithBLOBs, String testPaperType, String testPaperName,
-			Integer testTime, String testDate) {
+			Integer testTime, String testDate, String testBeginDate) {
 		//生成试卷
 		String testPaperId = "TEST" + UUID.randomUUID().toString();
 		Subject currentUser = SecurityUtils.getSubject();
@@ -64,6 +64,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		TestPaper testPaper = new TestPaper();
 		testPaper.setTestPaperId(testPaperId);
 		testPaper.setTestPaperName(testPaperName);
+		testPaper.setBeginDate(SystemTools.String2Date(testBeginDate, "yyyy-MM-dd hh:mm:ss"));
 		testPaper.setTestDate(SystemTools.String2Date(testDate, "yyyy-MM-dd hh:mm:ss"));
 		testPaper.setTestTime(testTime);
 		Date now = new Date();
@@ -277,13 +278,17 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		for (TestPaper testPaper : testPapers) {
 			String testPaperId = testPaper.getTestPaperId();
 			String testDateStr = testPaper.getTestDate();
+			String testBeginDateStr = testPaper.getBeginDate();
 			Date testDate = SystemTools.String2Date(testDateStr, "yyyy-MM-dd hh:mm:ss");
+			Date testBeginDate = SystemTools.String2Date(testBeginDateStr, "yyyy-MM-dd hh:mm:ss");
 			Date now = new Date();
 			List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndUserId(testPaperId, userId);
 			if(testingLogs.size() > 0){//试卷被考试过
 				testPaper.setFlagExam("0");
 			}else if(testDate.getTime() < now.getTime()){
 				testPaper.setFlagExam("0");
+			}else if(testBeginDate.getTime() > now.getTime()){
+				testPaper.setFlagExam("2");
 			}else {
 				testPaper.setFlagExam("1");
 			}

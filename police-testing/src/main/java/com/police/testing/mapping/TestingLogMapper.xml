@@ -23,7 +23,7 @@
     where auto_id = #{autoId,jdbcType=INTEGER}
   </select>
   
-  <select id="selectDistDepartmentName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectDistDepartmentName" resultType="java.lang.String" parameterType="java.lang.String" >
   	select 
   	DISTINCT(department_name)
     from testing_log
