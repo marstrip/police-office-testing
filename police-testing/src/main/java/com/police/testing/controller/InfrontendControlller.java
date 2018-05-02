@@ -132,7 +132,7 @@ public class InfrontendControlller {
 			total = staticDataService.questionFailGetCount();
 		}else if(switchPage.equals("testPaper")){
 			list = testPaperService.getList(null, offset, limit);
-			total = testPaperService.getCount(null);
+			total = testPaperService.getCount(null,"1");
 		}else if(switchPage.equals("qa")){
 			list = qaSheetService.getList(null, offset, limit);
 			qaSheetService.getCount(null);
