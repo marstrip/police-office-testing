@@ -8,6 +8,7 @@ $(document).ready(function () {
 
 	// resize触发更新滚动条数据、更新滚动条位置
 	$(window).resize(function () {
+		console.log('resize');
 		resetFooter();
 
 		window.gpsb.update();
@@ -16,8 +17,13 @@ $(document).ready(function () {
 
 // 当footer不在最底部，放在最底部，否则干掉
 function resetFooter() {
+	// var heightA = $('.footer').offset().top;
+	var heightA = $('.masthead').height() + $('.mastbody').height();		// 文档高度
+	// var heightB = $(window).height() - 99;
+	var heightB = document.body.clientHeight - 75;							// 当前可见高度
+	console.log(heightA, heightB);
 	$('.footer').removeClass('to-bottom');
-	if ($('.footer').offset().top < ($(window).height() - 99)) {
+	if (heightA < heightB) {
 		$('.footer').addClass('to-bottom');
 	} else {
 		$('.footer').removeClass('to-bottom');

@@ -76,11 +76,11 @@
 	                        </li>
 	                    </ol>
 
-						<div class="left-area">
+						<div class="left-area-quicklink">
 							<div class="panel panel-white">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										导航
+										快速导航
 									</h3>
 								</div>
 								<div class="panel-body">
@@ -131,7 +131,7 @@
 										列表
 									</h3>
 								</div>
-								<div class="panel-body" style="padding-top: 15px;">
+								<div class="panel-body">
 									<div id="table_11_toolbar"></div>
 									<table id="table_11"></table>
 									<!-- <table class="table">
@@ -178,24 +178,22 @@
 
 						<br>	
 					</div>
-
 				</div>
 
+				<footer class="footer">
+					<div class="row">
+						<ul class="text-center no-style">
+							<li>
+								<span>北京市公安局东城分局</span>
+							</li>
+							<li>
+								<span>建议使用Chrome浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
+							</li>
+						</ul>
+					</div>
+				</footer>
 			</div>
 		</div>
-
-		<footer class="footer">
-			<div class="row">
-				<ul class="text-center no-style">
-					<li>
-						<span>北京市公安局东城分局</span>
-					</li>
-					<li>
-						<span>建议使用Chrome浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
-					</li>
-				</ul>
-			</div>
-		</footer>
 	</div>
 	<script>
 		var switchPage = getUrlParam('switchPage');
@@ -242,6 +240,9 @@
 			// singleSelect: false,		//设置True 将禁止多选
 			data_local: "zh-US",		//表格汉化
 			sidePagination: "server",	//服务端处理分页
+			onLoadSuccess: function() {
+				$(window).trigger('resize');
+			},
 			queryParams: function (params) {
 				//自定义参数，这里的参数是传给后台的，我这是是分页用的
 				console.log('params:', params);
@@ -345,7 +346,7 @@
 				idField: "informId",				//指定主键列
 				columns: [
 					{
-						title: '题目',		//表的列名
+						title: '题目内容',		//表的列名
 						field: 'questionName',	//json数据中rows数组中的属性名
 						align: 'left',		//水平居中
 						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
@@ -354,7 +355,7 @@
 					},
 					{
 						//EMAIL
-						title: '错误计数',
+						title: '答错次数',
 						field: 'failCount',
 						align: 'center'
 					}

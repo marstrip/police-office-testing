@@ -73,11 +73,11 @@
 	                        </li>
 	                    </ol>
 
-						<div class="left-area">
+						<div class="left-area-quicklink">
 							<div class="panel panel-white">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										导航
+										快速导航
 									</h3>
 								</div>
 								<div class="panel-body">

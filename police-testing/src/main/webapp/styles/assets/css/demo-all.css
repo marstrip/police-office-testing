@@ -38,12 +38,15 @@ span.form-control-feedback {
 	background: transparent;
 }
 a {
-	color: #000!important;
-	text-decoration: none;
+	color: #000;
+	text-decoration: none!important;
 }
-a:focus, a:hover, a:visited {
-	color: #000!important;
-	text-decoration: underline;
+a:focus,
+a:hover
+/* , a:visited */ {
+	color: var(--color-link);
+	/*color: #000!important;*/
+	/*text-decoration: underline;*/
 }
 a.black {
 	color: #000;
@@ -64,8 +67,9 @@ a.black {
 }
 
 .mastbg {
-	height: 240px;
+	height: 330px;
 	width: 100%;
+	min-width: 1366px;
 	position: absolute;
 	z-index: 0;
 	top: 0;
@@ -83,7 +87,8 @@ a.black {
 .masthead {
 	overflow: hidden;
 	height: 200px;
-	min-width: 1260px;
+	/*min-width: 1260px;*/
+	min-width: 1366px;
 	position: relative;
 	color: #fff;
 	text-align: center;
@@ -297,18 +302,18 @@ a.black {
 	background-color: transparent;
 	/* border: 1px solid transparent; */
 	/*border-width: 0px;*/
-	/*border-radius: 10px;*/
+	/*border-radius: 15px;*/
 	border: 1px solid var(--bgcolor-panel-1);
 	border-width: 0px;
-	/*border-radius: 10px;*/
+	/*border-radius: 15px;*/
 	/* -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05); */
 	/* box-shadow: 0 1px 1px rgba(0,0,0,.05); */
 	/*color: #000;*/
 	/*box-shadow: inset 0 0 15px 5px rgba(0,0,0,0.5);*/
 }
 .panel-heading {
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
 	border-bottom-width: 0px;
 	height: 45px;
 	line-height: 45px;
@@ -339,10 +344,18 @@ a.black {
 .panel-body {
 	padding: 0;
 	border: 1px solid #ddd;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-	border-bottom: 1px solid #ddd; 
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	/*border-bottom: 1px solid #ddd; */
 	font-size: 16px;
+	background-color: #fff;
+	overflow: hidden;
+}
+.panel-heading + .panel-body {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
 }
 
 .left-area {
@@ -350,7 +363,11 @@ a.black {
 	float: left;
 	margin-left: 12px;
 }
-
+.left-area-quicklink {
+	width: 380px;
+	float: left;
+	margin-left: 6px;
+}
 .login-left-area{
 	/*width: 400px;*/
 	float: left;
@@ -397,9 +414,9 @@ a.black {
 	margin-left: 5px;
 }
 .right-area {
-	width: 820px;
+	width: 970px;
 	float: left;
-	margin-left: 20px;
+	margin-left: 5px;
 }
 /*.middle-area + .right-area {
 	width: calc(100% - 610px);
@@ -635,7 +652,13 @@ ul.no-style {
 	right: auto;
 
 }
+.bootstrap-table .table {
+	border-bottom-width: 0px!important;
 
+}
+.bootstrap-table tr.no-records-found {
+	background-color: transparent!important;
+}
 table.table > thead > tr {
 	background-color: #f1f1f1;
 }
@@ -710,18 +733,23 @@ i.td-icon {
 }
 .modal-sp.bootstrap-dialog .modal-header {
 	height: 45px;
-	padding: 7px 25px;
+	padding: 8px 25px;
 	background-color: #fff!important;
 	border-top-left-radius: 12px;
 	border-top-right-radius: 12px;
 	border-bottom-color: #909090!important;
 }
-.modal-sp.bootstrap-dialog .bootstrap-dialog-title {
+.modal-sp.bootstrap-dialog .bootstrap-dialog-title,
+.modal-sp.bootstrap-dialog .bootstrap-dialog-title button,
+.modal-sp.bootstrap-dialog .bootstrap-dialog-message label,
+.modal-sp.bootstrap-dialog .bootstrap-dialog-message .psb-content label {
 	font-size: 20px!important;
 	font-weight: 500;
 	color: #909090!important;
 }
-.modal-sp.bootstrap-dialog .bootstrap-dialog-message {
+/* .modal-sp.bootstrap-dialog .bootstrap-dialog-message, */
+.modal-sp.bootstrap-dialog .bootstrap-dialog-message p,
+.modal-sp.bootstrap-dialog .bootstrap-dialog-message .psb-content p {
 	font-size: 16px!important;
 	color: #404040!important;
 }
@@ -739,12 +767,15 @@ i.td-icon {
 }
 .modal-sp.bootstrap-dialog .modal-footer .btn {
 	font-size: 20px!important;
-	border-radius: 10px;
+	border-radius: 15px;
 	color: #909090;
 	border: 1px solid #404040;
 	width: 100px;
 	height: 40px;
 	padding: 5px 12px;
+}
+.text-indent-2em {
+	text-indent: 2em;
 }
 
 .modal-dialog {
@@ -781,4 +812,21 @@ i.td-icon {
 
 .icon-description {
 	margin-top: 3px;
+}
+
+.fixed-table-container {
+	border-width: 0px!important;
+	border-radius: 0px!important;
+}
+.fixed-table-container table.table>thead>tr>th,
+.fixed-table-container table.table>tbody>tr>td  {
+	border-width: 0px!important;
+}
+
+/*.fixed-table-loading {
+	background-color: transparent!important;
+}*/
+
+.fixed-table-pagination {
+	padding: 0 20px;
 }

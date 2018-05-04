@@ -329,19 +329,19 @@
 		var readonlyTemplate_select = `
 			<div>
 				<p class="q-name">{idx}、{testQuestionsName}</p><div class="q-select-answer"><ul class="no-style q-select-items"></ul></div>
-				<div class="check-answer">【正确答案】{correctAnswer}</div>
+				<p class="check-answer">【正确答案】{correctAnswer}</p>
 			</div>
 		`;
 		var readonlyTemplate_singleSelectItem = `
-			<li>{testQuestionSelectItem}</li>
+			<li><p>{testQuestionSelectItem}</p></li>
 		`;
 		var readonlyTemplate_multiSelectItem = `
-			<li>{testQuestionSelectItem}</li>
+			<li><p>{testQuestionSelectItem}</p></li>
 		`;
 		var readonlyTemplate_judge = `
 			<div>
-				<p class="q-name">{idx}、{testQuestionsName}</p><div class="q-select-answer"><span>是</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>否</span></div>
-				<div class="check-answer">【正确答案】{correctAnswer}</div>
+				<p class="q-name">{idx}、{testQuestionsName}</p><p class="q-select-answer"><span>是</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>否</span></p>
+				<p class="check-answer">【正确答案】{correctAnswer}</p>
 			</div>
 		`;
 
