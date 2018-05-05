@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +52,36 @@ public class UserController {
 		}
 		return result;
 	}*/
-	
+	/**
+	 * 修改密码
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("updatePassword")
+	public JSONObject updatePassword(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		String oldPassword = GetEncode.transcode(request.getParameter("oldPassword"));
+		String newPassword = GetEncode.transcode(request.getParameter("newPassword"));
+		if(StringUtils.isBlank(newPassword) || StringUtils.isBlank(oldPassword)){
+			result.put("status", 2);
+			result.put("message", "新密码或原密码不能为空");
+			return result;
+		}
+		if(newPassword.equals(oldPassword)){
+			result.put("status", 3);
+			result.put("message", "新密码不能与原密码相同");
+			return result;
+		}
+		boolean flag = userService.updatePassword(oldPassword, newPassword);
+		if(flag){
+			result.put("status", 1);
+			result.put("message", "更新成功，请重新登录！");
+		}else {
+			result.put("status", -1);
+			result.put("message", "原密码错误，请重新输入！");
+		}
+		return result;
+	}
 	/**
 	 * 设置管理员
 	 * @param request

@@ -18,6 +18,8 @@ public class TestingLog {
     private String testingType;
 
     private String testPaperId;
+    
+    private String testPaperName;
 
     private Date createDate;
 
@@ -78,8 +80,16 @@ public class TestingLog {
     public void setTestPaperId(String testPaperId) {
         this.testPaperId = testPaperId == null ? null : testPaperId.trim();
     }
+    
+    public String getTestPaperName() {
+		return testPaperName;
+	}
 
-    public String getCreateDate() {
+	public void setTestPaperName(String testPaperName) {
+		this.testPaperName = testPaperName;
+	}
+
+	public String getCreateDate() {
     	String str = SystemTools.Time2String(createDate, "yyyy-MM-dd HH:mm:ss");
         return str;
     }

@@ -6,6 +6,10 @@ public class StaticDataExam {
 	
 	private Integer simulateExamCount;
 	
+	private Integer excellentCount;
+	
+	private Integer passCount;
+	
 	private Integer viewExamCount;
 	
 	private Integer sumCount;
@@ -26,6 +30,22 @@ public class StaticDataExam {
 
 	public void setSimulateExamCount(Integer simulateExamCount) {
 		this.simulateExamCount = simulateExamCount;
+	}
+	
+	public Integer getExcellentCount() {
+		return excellentCount;
+	}
+
+	public void setExcellentCount(Integer excellentCount) {
+		this.excellentCount = excellentCount;
+	}
+
+	public Integer getPassCount() {
+		return passCount;
+	}
+
+	public void setPassCount(Integer passCount) {
+		this.passCount = passCount;
 	}
 
 	public Integer getViewExamCount() {

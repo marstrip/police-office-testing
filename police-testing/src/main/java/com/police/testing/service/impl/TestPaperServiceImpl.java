@@ -252,7 +252,13 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		testingLog.setDepartmentName(departmentName);
 		testingLog.setScore(score);
 		testingLog.setTestingType("officalExam");
+		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
+		String testPaperName = null;
+		if(testPaper != null){
+			testPaperName = testPaper.getTestPaperName();
+		}
 		testingLog.setTestPaperId(testPaperId);
+		testingLog.setTestPaperName(testPaperName);
 		testingLog.setUserId(userId);
 		testingLog.setUserName(userName);
 		testingLogMapper.insert(testingLog);

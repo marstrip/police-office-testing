@@ -19,7 +19,8 @@ public interface TestingLogMapper {
 
     int updateByPrimaryKey(TestingLog record);
     
-    List<String> selectDistDepartmentName(@Param("beginDate") String beginDate, @Param("endDate") String endDate, @Param("offset") Integer offset,@Param("limit") Integer limit);
+    List<String> selectDistDepartmentName(@Param("beginDate") String beginDate, @Param("endDate") String endDate, 
+    		@Param("offset") Integer offset,@Param("limit") Integer limit, @Param("testPaperId") String testPaperId);
     
     List<TestingLog> selectByDepartmentNameAndType(@Param("departmentName") String departmentName, @Param("testingType") String testingType,
     		@Param("beginDate") String beginDate, @Param("endDate") String endDate);
@@ -30,4 +31,6 @@ public interface TestingLogMapper {
 
 	List<TestingLog> selectByTestPaperIdAndUserId(@Param("testPaperId") String testPaperId, @Param("userId") String userId);
 
+	List<TestingLog> selectByUserIdAndType(@Param("userId") String userId, @Param("testingType") String testingType,
+			@Param("offset") Integer offset,@Param("limit") Integer limit);
 }

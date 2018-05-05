@@ -77,7 +77,7 @@ public class StaticDataServiceImpl implements IStaticDataService{
 	
 	@Override
 	public List<StaticDataExam> staticDataSimulateExam(String beginDate, String endDate, Integer offset, Integer limit) {
-		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, offset, limit);
+		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, offset, limit, null);
 		List<StaticDataExam> simulateExams = new ArrayList<>();
 		for (String departmentName : departmentNames) {
 			//按照部门获取模拟考试总数
@@ -111,12 +111,12 @@ public class StaticDataServiceImpl implements IStaticDataService{
 
 	@Override
 	public long staticDataSimulateExamGetCount(String beginDate, String endDate) {
-		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, null, null);
+		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, null, null, null);
 		return departmentNames.size();
 	}
 	@Override
 	public List<StaticDataExam> staticDataOfficialExam(String beginDate, String endDate, Integer offset, Integer limit) {
-		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, limit, limit);
+		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, offset, limit, null);
 		List<StaticDataExam> simulateExams = new ArrayList<>();
 		for (String departmentName : departmentNames) {
 			//按照部门获取模拟考试总数
@@ -144,11 +144,63 @@ public class StaticDataServiceImpl implements IStaticDataService{
 		return simulateExams;
 	}
 
+	
+	@Override
+	public List<StaticDataExam> staticDataOfficialExamAndPaperId(String testPaperId, Integer offset, Integer limit, Integer excellentSorce, Integer passSorce) {
+		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(null, null, offset, limit, testPaperId);
+		List<StaticDataExam> simulateExams = new ArrayList<>();
+		for (String departmentName : departmentNames) {
+			//按照部门获取模拟考试总数
+			List<TestingLog> officialList = testingLogMapper.selectByDepartmentNameAndType(departmentName, "officialExam", null, null);
+			Integer officialCount = officialList.size();
+			Integer excellentCount = 0;
+			Integer passCount = 0;
+			StaticDataExam simulateExam = new StaticDataExam();
+			simulateExam.setDepartmentName(departmentName);
+			simulateExam.setOfficialCount(officialCount);
+			//计算优秀和及格人数
+			for (TestingLog testingLog : officialList) {
+				Integer score = testingLog.getScore();
+				//优秀人数
+				if(score >= excellentSorce){
+					excellentCount ++;
+				}
+				if(score >= passSorce){
+					passCount ++;
+				}
+			}
+			simulateExam.setExcellentCount(excellentCount);
+			simulateExam.setPassCount(passCount);
+			simulateExams.add(simulateExam);
+		}
+		// 按点击数倒序
+        Collections.sort(simulateExams, new Comparator<StaticDataExam>() {
+            public int compare(StaticDataExam arg0, StaticDataExam arg1) {
+                int hits0 = arg0.getOfficialCount();
+                int hits1 = arg1.getOfficialCount();
+                if (hits1 > hits0) {
+                    return 1;
+                } else if (hits1 == hits0) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        });
+		return simulateExams;
+	}
+	
+	@Override
+	public long staticDataSimulateExamPaperIdGetCount(String testPaperId) {
+		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(null, null, null, null, testPaperId);
+		return departmentNames.size();
+	}
+	
 	@Override
 	public List<StaticDataTestPaper> staticDataByTestingCountScore(String testPaperId, String beginDate, String endDate, Integer score, Integer offset, Integer limit) {
 //		List<TestPaper> testPapers = testPaperMapper.selectByTestPaperId(null, offset, limit);
 		List<StaticDataTestPaper> dataTestPapers = new ArrayList<>();
-		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, limit, limit);
+		List<String> departmentNames = testingLogMapper.selectDistDepartmentName(beginDate, endDate, offset, limit, null);
 		for (String departmentName : departmentNames) {
 			//按照部门获取模拟考试总数
 			List<TestingLog> officialList = testingLogMapper.selectByTestPaperIdAndTypeAndSorce(testPaperId, "officialExam", departmentName, beginDate, endDate, score);

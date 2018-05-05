@@ -37,4 +37,5 @@ public interface SysUserMapper {
 
 	List<User> selectByLikeUserName(@Param("userName")String userName, 
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
+	
 }

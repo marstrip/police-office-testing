@@ -107,6 +107,31 @@ public class StaticDataController {
 		result.put("rows", array);
 		return result;
 	}
+	
+	/**
+	 * 按照派出所统计正式考试次数
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("staticDataOfficialExamAndPaperId")
+	@ResponseBody
+	public JSONObject staticDataOfficialExamAndPaperId(HttpServletRequest request){
+		JSONObject result = new JSONObject();
+		String testPaperId = GetEncode.transcode(request.getParameter("testPaperId"));
+		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
+		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
+		Integer excellentSorce = Integer.valueOf(GetEncode.transcode(request.getParameter("excellentSorce")));
+		Integer passSorce = Integer.valueOf(GetEncode.transcode(request.getParameter("passSorce")));
+		List<StaticDataExam> dataSimulateExams = staticDataService.staticDataOfficialExamAndPaperId(testPaperId, offset, limit, excellentSorce, passSorce);
+		long total = staticDataService.staticDataSimulateExamPaperIdGetCount(testPaperId);
+		JSONArray array = JSONArray.fromObject(dataSimulateExams);
+		Integer pageNumber = offset/limit + 1;
+		result.put("page", pageNumber);
+		result.put("total", total);
+		result.put("rows", array);
+		return result;
+	}
+	
 //	/**
 //	 * 按照每次考试统计总人数
 //	 * @param request

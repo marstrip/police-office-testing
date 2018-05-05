@@ -2,6 +2,9 @@ package com.police.testing.service.impl;
 
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -167,5 +170,25 @@ public class UserServiceImpl implements IUserService {
 		}
 		return 0;
 	}
-
+	
+	@Override
+	public boolean updatePassword(String oldPassword, String newPassword) {
+		//用户信息
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		String userId = (String) session.getAttribute("currentUserId");
+		SysUser user = sysUserMapper.findByLoginName(userId, "1");
+		if(user != null){
+			String passsword = user.getPassword();
+			if(passsword.equals(oldPassword)){
+				//更新密码
+				user.setPassword(newPassword);
+				int flag = sysUserMapper.updateByPrimaryKey(user);
+				if(flag > 0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

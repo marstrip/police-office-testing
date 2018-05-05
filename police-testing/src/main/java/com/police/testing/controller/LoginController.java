@@ -123,7 +123,7 @@ public class LoginController {
 	 /** 
      * 用户登出 
      */
-    @RequestMapping("logout")  
+    @RequestMapping("logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){  
          Subject currentUser = SecurityUtils.getSubject();
  		 Session session = currentUser.getSession();

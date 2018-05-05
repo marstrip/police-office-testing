@@ -98,4 +98,6 @@ public interface IUserService {
 	public long getCount(String userName);
 
 	public Integer updateDataRole(String userId, String role);
+	
+	public boolean updatePassword(String oldPassword, String newPassword);
 }

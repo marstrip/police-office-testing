@@ -34,5 +34,9 @@ public interface IStaticDataService {
 	public long TestingCountScoreGetCount();
 
 	public long questionFailGetCount();
+
+	public List<StaticDataExam> staticDataOfficialExamAndPaperId(String testPaperId, Integer offset, Integer limit, Integer excellentSorce, Integer passSorce);
+
+	public long staticDataSimulateExamPaperIdGetCount(String testPaperId);
 }
 

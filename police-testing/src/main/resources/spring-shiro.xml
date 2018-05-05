@@ -6,9 +6,14 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-  <!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的ShiroDbRealm.java -->  
+  	<!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的ShiroDbRealm.java -->  
 	<bean id="myRealm" class="com.police.testing.realm.MyRealm"/>
 	
+	<!--自定义LogoutFilter,退出-->
+    <bean id="logoutFilter" class="com.police.testing.service.filter.SystemLogoutFilter">
+        <property name="redirectUrl" value="/login/page"/>
+    </bean>
+    
 	<!-- Shiro默认会使用Servlet容器的Session,可通过sessionMode属性来指定使用Shiro原生Session -->  
 	<!-- 即<property name="sessionMode" value="native"/>,详细说明见官方文档 -->  
 	<!-- 这里主要是设置自定义的单Realm应用,若有多个Realm,可使用'realms'属性代替 -->  
@@ -23,9 +28,17 @@
 	    <property name="securityManager" ref="securityManager"/>  
 	    <!-- 要求登录时的链接(可根据项目的URL进行替换),非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面   -->  
 	    <property name="loginUrl" value="/login/page"/>
+	    <!--自定义的filter-->
+        <property name="filters">
+            <map>
+                <!-- 将自定义 的FormAuthenticationFilter注入shiroFilter中 -->
+                <entry key="logout" value-ref="logoutFilter"/>
+            </map>
+        </property>
 	    <property name="filterChainDefinitions">  
 	        <value>  
 	        	 /styles/**=anon
+	        	 /logout=logout
 	        	 /login/page/**=anon
 	        	 /login/backgroundSystem/**=anon
 	        	 /login/frontendLogin/**=anon

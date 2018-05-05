@@ -114,16 +114,21 @@ public class TestCreateController {
 		list.addAll(judgeList);
 		//testPaperName试卷名称
 		String testPaperName = GetEncode.transcode(request.getParameter("testPaperName"));
+		String testDate = GetEncode.transcode(request.getParameter("testDate"));
+		String testBeginDate = GetEncode.transcode(request.getParameter("testBeginDate"));
+		//封装jsonarray对象
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		//模拟考试
 		if(StringUtils.isBlank(testPaperName)){
-			testPaperName = "模拟考试临时试卷";
+			result.put("list", jsonArray);
+			result.put("status", 1);
+			return result;
 		}
 		String testTime = GetEncode.transcode(request.getParameter("testTime"));
 		Integer testTimeInt = 60;
 		if(StringUtils.isNotBlank(testTime)){
 			testTimeInt = Integer.valueOf(testTime);
 		}
-		String testDate = GetEncode.transcode(request.getParameter("testDate"));
-		String testBeginDate = GetEncode.transcode(request.getParameter("testBeginDate"));
 		if(StringUtils.isBlank(testDate)){
 			testDate = SystemTools.Time2String(new Date(), "yyyy-MM-dd hh:mm:ss");
 		}
@@ -134,8 +139,6 @@ public class TestCreateController {
 		}
 		//生成待预览试卷
 		String testPaperId = testPaperService.createTempTestPaper(list, "0", testPaperName, testTimeInt, testDate, testBeginDate);
-		//封装jsonarray对象
-		JSONArray jsonArray = JSONArray.fromObject(list);
 		//封装反馈对象
 		result.put("testPaperId", testPaperId);
 		result.put("list", jsonArray);
