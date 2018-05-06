@@ -14,7 +14,6 @@ import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.CommonView;
 import com.police.testing.pojo.InformNotice;
 import com.police.testing.pojo.TestSelf;
-import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;
 import com.police.testing.service.IQaSheetService;
