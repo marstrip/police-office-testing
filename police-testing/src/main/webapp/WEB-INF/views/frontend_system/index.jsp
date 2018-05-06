@@ -73,7 +73,7 @@
 												<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_01.png">
 											</div>
 										</a>
-										<a href="javascript:void(0)">
+										<a href="${pageContext.request.contextPath}/user/pwdJsp">
 											<div class="func-item func-item-btn">
 												<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_02.png">
 											</div>
