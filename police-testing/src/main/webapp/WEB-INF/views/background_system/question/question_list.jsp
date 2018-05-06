@@ -70,6 +70,10 @@
 	<link href="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/css/form-builder-2.css" rel="stylesheet" type="text/css"/>
 	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.eventBinds.js"></script>
 	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.core.js"></script>
+
+	<!-- 组卷核心js -->
+	<script src="${pageContext.request.contextPath}/styles/assets/gen-paper/genPaper.js"></script>
+
 	<style type="text/css">
 		h1{
 			font-family: "微软雅黑";
@@ -708,25 +712,27 @@
 		$btn_view.click(function() {
 			$.ajax({
 				url: '${pageContext.request.contextPath}/question/view',
+				dataType: "JSON",
 				data: {
 					testQuestionsId: getIdSelections()[0],
 				},
-				success: function(d) {
-					var result = $.parseJSON(d);
-					console.log('查询详情成功>>>', d);
-
+				success: function(result) {
 					BootstrapDialog.show({
 						title: '预览',
 						message: function() {
-							return result.info.testQuestionsName + "</br>" + result.info.testQuestionSelects + 
-							"</br>正确答案：" + result.info.correctAnswer;
+							var $message = $('<div></div>');
+							var q = result.info;
+							
+							var $message = $('<div class="psb-here"><div class="psb-content"></div></div>');
+							$message.find('.psb-content').genQuestion(q);
+							
+							// return result.info.testQuestionsName + "</br>" + result.info.testQuestionSelects + "</br>正确答案：" + result.info.correctAnswer;
+							return $message;
 						},
 						draggable: true // <-- Default value is false
 					});
 				},
-				error: function(d) {
-					var result = $.parseJSON(d);
-					console.log('查询详情失败', d);
+				error: function(result) {
 					BootstrapDialog.alert({
 						title: '查看详情失败',
 						message: result.message,
