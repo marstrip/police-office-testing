@@ -138,8 +138,8 @@ public class InfrontendControlller {
 			list = testPaperService.getList(null, offset, limit);
 			total = testPaperService.getCount(null,"1");
 		}else if(switchPage.equals("qa")){
-			list = qaSheetService.getList(null, offset, limit);
-			total = qaSheetService.getCount(null);
+			list = qaSheetService.getList(search, offset, limit);
+			total = qaSheetService.getCount(search);
 		}else if(switchPage.equals("score")){
 			list = sorceService.getSorcesByUserId(offset, limit);
 			total = sorceService.getCount();
