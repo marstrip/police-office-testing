@@ -275,17 +275,17 @@
 					visible: false
 				},
 				{
-					title: '自学名称',			//表的列名
+					title: '课件名称',			//表的列名
 					field: 'testSelfName',	//json数据中rows数组中的属性名
 					align: 'center'		//水平居中
 				},
 				{
-					title: '自学级别',			//表的列名
+					title: '课件级别',			//表的列名
 					field: 'testSelfLevel',	//json数据中rows数组中的属性名
 					align: 'center'		//水平居中
 				},
 				{
-					title: '自学类型',			//表的列名
+					title: '课件类型',			//表的列名
 					field: 'testSelfType',	//json数据中rows数组中的属性名
 					align: 'center'		//水平居中
 				},
