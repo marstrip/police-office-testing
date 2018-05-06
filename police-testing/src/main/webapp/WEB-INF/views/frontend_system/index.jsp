@@ -73,12 +73,16 @@
 												<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_01.png">
 											</div>
 										</a>
-										<div class="func-item func-item-btn">
-											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_02.png">
-										</div>
-										<div class="func-item func-item-btn">
-											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_03.png">
-										</div>
+										<a href="javascript:void(0)">
+											<div class="func-item func-item-btn">
+												<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_02.png">
+											</div>
+										</a>
+										<a href="${pageContext.request.contextPath}/logout">
+											<div class="func-item func-item-btn">
+												<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_03.png">
+											</div>
+										</a>
 									</div>
 								</div>
 							</div>
