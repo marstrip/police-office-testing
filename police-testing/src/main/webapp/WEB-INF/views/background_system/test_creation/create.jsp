@@ -301,9 +301,9 @@
 				<button id="table_11_view" class="btn btn-primary" disabled>
 					<i class="glyphicon glyphicon-eye-open"></i> 预览
 				</button> -->
-				<button id="table_11_upload" class="btn btn-success">
+				<!-- <button id="table_11_upload" class="btn btn-success">
 					<i class="glyphicon glyphicon-upload"></i> 上传
-				</button>
+				</button> -->
 			</div>
 			<span id="table_11_rightHack">
 				<div class="input-group pull-left" style="width: 482px;">
@@ -388,7 +388,7 @@
             forceParse: 0
         });
 
-		var $btn_upload = $('#table_11_upload');
+		// var $btn_upload = $('#table_11_upload');
 		var $btn_selected = $('#btn_selected');
 		var $btn_check = $('#btn_check');
 		var $btn_search = $('#btn_search');
@@ -574,7 +574,7 @@
 			$table.bootstrapTable('refresh', {silent: false});
 		});
 
-
+		/*
 		$btn_upload.click(function() {
 			$btn_upload.prop('disabled', true);
 
@@ -627,6 +627,7 @@
 				}
 			})
 		})
+		*/
 
 		
 		// 异步加载数据

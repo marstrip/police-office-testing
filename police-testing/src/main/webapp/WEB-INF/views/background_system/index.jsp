@@ -37,7 +37,7 @@
 	                <span class="fa fa-codepen fa-2x">
 	                    <!-- <img src="assets/img/logo2.gif" style="height: 50px; width: 50px"/> -->
 	                </span>
-	                <span>管理平台</span>
+	                <span style="padding-left: 10px;">在线考试管理系统</span>
 	            </a>
 	        </div>
 
