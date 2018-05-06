@@ -634,7 +634,8 @@
 											dataType: "json",
 											data: {
 												offset: 0,
-												limit: 5
+												limit: 5,
+												qaStatus : '1'
 											},
 											success: function(d) {
 												var rows = d.rows;

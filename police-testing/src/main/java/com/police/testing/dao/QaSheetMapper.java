@@ -23,7 +23,7 @@ public interface QaSheetMapper {
     int updateByPrimaryKey(QaSheet record);
 
 	List<QaSheetWithBLOBs> selectByLikeQuestionContent(@Param("questionContent")String questionContent, 
-    		@Param("offset") Integer offset, @Param("limit") Integer limit);
+    		@Param("offset") Integer offset, @Param("limit") Integer limit, @Param("qaStatus") String qaStatus);
 	
 	 int updateEnable(@Param("qaId") String qaId);
 }
