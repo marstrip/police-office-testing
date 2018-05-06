@@ -31,6 +31,11 @@ public class UserController {
 	public String jsp(HttpServletRequest request){
 		return "background_system/user/user_list";
 	}
+	
+	@RequestMapping("pwdJsp")
+	public String pwdJsp(HttpServletRequest request){
+		return "frontend_system/system/pwd";
+	}
 	/**
 	 * 提交案例分析
 	 * @param request
