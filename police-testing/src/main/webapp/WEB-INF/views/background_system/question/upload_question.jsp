@@ -340,7 +340,7 @@
 					}
 				});
 			} else {
-				failAlert("清上传文件后缀为.doc的word文件！");
+				failAlert("请上传文件后缀为.doc的word文件！");
 			}
 		});
 	});
