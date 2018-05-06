@@ -95,6 +95,9 @@
 											<li class="testPaper">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper">考试列表</a>
 											</li>
+											<li class="score">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=score">成绩查询</a>
+											</li>
 											<li>
 												<a class="disabled" href="javascript:void(0);" disabled>问卷调查</a>
 											</li>
@@ -134,43 +137,6 @@
 								<div class="panel-body">
 									<div id="table_11_toolbar"></div>
 									<table id="table_11"></table>
-									<!-- <table class="table">
-										<tbody>
-											<tr>
-												<td colspan="2" style="text-align: center;">加载中...</td>
-											</tr>
-											<tr>
-												<td class="fix-text" style="border-top-color: transparent;">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
-												</td>
-												<td style="border-top-color: transparent;">2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-											<tr>
-												<td class="fix-text">
-													<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
-												</td>
-												<td>2005/07/09</td>
-											</tr>
-										</tbody>
-									</table> -->
 								</div>
 							</div>
 
@@ -203,6 +169,7 @@
 			informNotice: '通知公告',
 			staticDataLogin: '系统参与统计',
 			testPaper: '考试列表',
+			score: '成绩查询',
 			staticDataByQuestionFail: '错题集',
 			qa: '答疑互动'
 		}
@@ -339,6 +306,21 @@
 								return opMap[row.flagExam + ''];
 							}
 						}
+					}
+				]
+			},
+			score: {
+				idField: "autoId",				//指定主键列
+				columns: [
+					{
+						title: '考试内容',			//表的列名
+						field: 'testPaperName',		//json数据中rows数组中的属性名
+						align: 'center'
+					},
+					{
+						title: '成绩',
+						field: 'score',
+						align: 'center'
 					}
 				]
 			},

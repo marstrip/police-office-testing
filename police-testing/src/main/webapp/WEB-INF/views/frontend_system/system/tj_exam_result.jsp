@@ -92,6 +92,9 @@
 											<li>
 												<a href="demo-exam-list.html">考试列表</a>
 											</li>
+											<li class="score">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=score">成绩查询</a>
+											</li>
 											<li>
 												<a class="disabled" href="javascript:void(0);" disabled>问卷调查</a>
 											</li>

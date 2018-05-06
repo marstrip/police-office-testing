@@ -68,9 +68,11 @@
 									</div>
 									<!-- 功能 -->
 									<div class="row">
-										<div class="func-item func-item-btn">
-											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_01.png">
-										</div>
+										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=score">
+											<div class="func-item func-item-btn">
+												<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_01.png">
+											</div>
+										</a>
 										<div class="func-item func-item-btn">
 											<img src="${pageContext.request.contextPath}/styles/assets/img/uibtn_02.png">
 										</div>
@@ -229,7 +231,7 @@
 											'<td class="fix-text fix-text-210">' +
 												'{departmentName}' +
 											'</td>' +
-											'<td style="text-align: center;">{loginCount}</td>' +
+											'<td style="text-align: center;">{officialCount}</td>' +
 										'</tr>';
 									$.ajax({
 										method: 'POST',
