@@ -182,6 +182,8 @@
 	var testPaperId = getUrlParam('testPaperId');
 	var type = getUrlParam('type');
 
+	var timer = undefined;
+
 	// 倒计时
 	function countdown_init(MINITE, endCB) {
 		var maxtime = MINITE * 60; //一个小时，按秒计算，自己调整!
@@ -202,94 +204,6 @@
 		timer = setInterval(function() {
 			CountDown();
 		}, 1000);
-	}
-
-	function pureSubmit() {
-		// 禁用提交按钮
-		$('#btn_submit').prop('disabled', true);
-		// 提交数据
-		var formData = {
-			testPaperId: testPaperId,
-			answerList: []
-		};
-
-		var $forms = $('form');
-		$.each($forms, function(idx) {
-			var $form = $($forms[idx]);
-			var fd = $form.serializeJson();
-			console.log('fd', idx, '>>>', fd);
-
-			var $qs = $form.find('input[type=hidden]');
-			$.each($qs, function(_idx) {
-				var $q = $($qs[_idx]);
-
-				var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
-				qData['answer'] = fd[qData.testQuestionsId] || '';
-				if ($.isArray(qData['answer'])) {
-					qData['answer'] = qData['answer'].join('');
-				}
-
-				formData.answerList.push(qData);
-			})
-		});
-
-		console.log('提交的数据>>>', formData);
-		
-		$.ajax({
-			url: '${pageContext.request.contextPath}/testPaper/submitTesting',
-			method: 'POST',
-			dataType: 'JSON',
-			data: { json: JSON.stringify(formData)},
-			success: function(result) {
-				if (result.status == 1) {
-					var qIdInfoMap = {};
-					$.each(result.testingResult, function(idx2) {
-						var tr = result.testingResult[idx2];
-						qIdInfoMap[tr.testQuestionsId] = {
-							correctFlag: tr.correctFlag,
-							rightAnswer: tr.rightAnswer
-						}
-					});
-
-					var $qs = $('input[type=hidden]');
-					$.each($qs, function(idx3) {
-						var $q = $($qs[idx3]);
-						var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
-						var qId = qData.testQuestionsId;
-						var aData = qIdInfoMap[qId];
-						var $checkAnswer = $q.closest('.q-select-answer').find('.check-answer');
-
-						$checkAnswer.html(
-							'<i class="judge fa {judgeClass}"></i>	正确答案: <span>{rightAnswer}</span>'.format({
-								judgeClass: ((!!aData.correctFlag) ? 'right': 'wrong'),
-								rightAnswer: aData.rightAnswer
-							})
-						);
-					});
-
-					// 总分
-					$('#score').append('<span style="color: red;">' + result.score + '</span>/');
-
-				} else {
-					BootstrapDialog.alert({
-						title: '注意',
-						message: '提交数据成功，但是未按照预期反馈状态...',
-						type: BootstrapDialog.TYPE_WARNING
-					});
-				}
-			},
-			error: function(d) {
-				BootstrapDialog.alert({
-					title: '错误',
-					message: '提交数据失败',
-					type: BootstrapDialog.TYPE_DANGER
-				});
-			},
-			complete: function() {
-				// 禁用提交按钮
-				$('#btn_submit').prop('disabled', true);
-			}
-		})
 	}
 
 	// 页面初始化加载数据
@@ -316,8 +230,7 @@
 						}
 						$paperContainer.genPaper(formData, result, false);
 
-						countdown_init(formData.testTime, pureSubmit);
-						// countdown_init(0.5, pureSubmit);
+						countdown_init(formData.testTime, submitPeper);
 					}
 				},
 				error: function() {
@@ -349,8 +262,7 @@
 						}
 						$paperContainer.genPaper(formData, result, false);
 
-						countdown_init(formData.testTime, pureSubmit);
-						// countdown_init(0.5, pureSubmit);
+						countdown_init(formData.testTime, submitPeper);
 					}
 				},
 				error: function() {
@@ -374,104 +286,137 @@
 			btnOKClass: 'btn-warning',
 			callback: function(isYes) {
 				if (isYes) {
-					// 提交数据
-					var formData = {
-						testPaperId: testPaperId,
-						type: type,
-						answerList: []
-					};
-
-					var $forms = $('form');
-					$.each($forms, function(idx) {
-						var $form = $($forms[idx]);
-						var fd = $form.serializeJson();
-						console.log('fd', idx, '>>>', fd);
-
-						var $qs = $form.find('input[type=hidden]');
-						$.each($qs, function(_idx) {
-							var $q = $($qs[_idx]);
-
-							var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
-							qData['answer'] = fd[qData.testQuestionsId] || '';
-							if ($.isArray(qData['answer'])) {
-								qData['answer'] = qData['answer'].join('');
-							}
-
-							formData.answerList.push(qData);
-						})
-					});
-
-					console.log('提交的数据>>>', formData);
-					
-					$.ajax({
-						url: '${pageContext.request.contextPath}/testPaper/submitTesting',
-						method: 'POST',
-						data: { json: JSON.stringify(formData)},
-						success: function(d) {
-							// try {
-								var result = $.parseJSON(d);
-								if (result.status == 1) {
-									// $('body').html('提交成功！请关闭页面');
-
-									var qIdInfoMap = {};
-									$.each(result.testingResult, function(idx2) {
-										var tr = result.testingResult[idx2];
-										qIdInfoMap[tr.testQuestionsId] = {
-											correctFlag: tr.correctFlag,
-											rightAnswer: tr.rightAnswer
-										}
-									});
-
-									var $qs = $('input[type=hidden]');
-									$.each($qs, function(idx3) {
-										var $q = $($qs[idx3]);
-										var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
-										var qId = qData.testQuestionsId;
-										var aData = qIdInfoMap[qId];
-										var $checkAnswer = $q.closest('.q-select-answer').find('.check-answer');
-
-										$checkAnswer.html(
-											'<i class="judge fa {judgeClass}"></i>	正确答案: <span>{rightAnswer}</span>'.format({
-												judgeClass: ((!!aData.correctFlag) ? 'right': 'wrong'),
-												rightAnswer: aData.rightAnswer
-											})
-										);
-									});
-
-									// 总分
-									$('#score').append('<span style="color: red;">' + result.score + '</span>/');
-
-								} else {
-									BootstrapDialog.alert({
-										title: '注意',
-										message: '提交数据成功，但是未按照预期反馈状态...请刷新重试',
-										type: BootstrapDialog.TYPE_WARNING
-									});
-									$this.prop('disabled', false);
-								}
-							// } catch(err) {
-							// 	BootstrapDialog.alert({
-							// 		title: '异常',
-							// 		message: '提交数据成功，但是未按照预期反馈状态...请刷新重试',
-							// 		type: BootstrapDialog.TYPE_WARNING
-							// 	});
-							// 	$this.prop('disabled', false);
-							// }
-						},
-						error: function(d) {
-							BootstrapDialog.alert({
-								title: '错误',
-								message: '提交数据失败',
-								type: BootstrapDialog.TYPE_DANGER
-							});
-							$this.prop('disabled', false);
-						}
-					})
+					submitPeper();
 				} else {
 					$this.prop('disabled', false);
 				}
 			}
 		});
 	});
+
+	// 提交试卷的方法
+	function submitPeper() {
+		$('#btn_submit').prop('disabled', true);
+		$('#btn_submit .icon-description').html('提交中…');
+
+		// 提交数据
+		var formData = {
+			testPaperId: testPaperId,
+			type: type,
+			answerList: []
+		};
+
+		var $forms = $('form');
+		$.each($forms, function(idx) {
+			var $form = $($forms[idx]);
+			var fd = $form.serializeJson();
+			console.log('fd', idx, '>>>', fd);
+
+			var $qs = $form.find('input[type=hidden]');
+			$.each($qs, function(_idx) {
+				var $q = $($qs[_idx]);
+
+				var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
+				qData['answer'] = fd[qData.testQuestionsId] || '';
+				if ($.isArray(qData['answer'])) {
+					qData['answer'] = qData['answer'].join('');
+				}
+
+				formData.answerList.push(qData);
+			})
+		});
+
+		console.log('提交的数据>>>', formData);
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/testPaper/submitTesting',
+			method: 'POST',
+			data: { json: JSON.stringify(formData)},
+			success: function(d) {
+				// try {
+				var result = $.parseJSON(d);
+				if (result.status == 1) {
+					// $('body').html('提交成功！请关闭页面');
+
+					var qIdInfoMap = {};
+					$.each(result.testingResult, function(idx2) {
+						var tr = result.testingResult[idx2];
+						qIdInfoMap[tr.testQuestionsId] = {
+							correctFlag: tr.correctFlag,
+							rightAnswer: tr.rightAnswer
+						}
+					});
+
+					var $qs = $('input[type=hidden]');
+					$.each($qs, function(idx3) {
+						var $q = $($qs[idx3]);
+						var qData = $.parseJSON($q.val().replace(/\'/g, '"'));
+						var qId = qData.testQuestionsId;
+						var aData = qIdInfoMap[qId];
+						var $checkAnswer = $q.closest('.q-select-answer').find('.check-answer');
+
+						$checkAnswer.html(
+							'<i class="judge fa {judgeClass}"></i>	正确答案: <span>{rightAnswer}</span>'.format({
+								judgeClass: ((!!aData.correctFlag) ? 'right': 'wrong'),
+								rightAnswer: aData.rightAnswer
+							})
+						);
+					});
+
+					// 总分
+					$('#score').append('<span style="color: red;">' + result.score + '</span>/');
+
+					// 弹窗提示成绩
+					BootstrapDialog.show({
+						title: '成绩',
+						cssClass: "modal-sp",
+						closable: false,
+						message: function() {
+							var $message = $(
+								'<div class="psb-here"><div class="psb-content">' +
+									'<h1>卷面总分：' + result.score + '</h1>' +
+								'</div></div>');							
+
+							return $message;
+						},
+						buttons: [
+							{
+								label: '确定',
+								action: function(dialogRef, evt) {
+									dialogRef.close();
+								}
+							}
+						],
+						onshown: function(dialogRef) {
+							new PerfectScrollbar('.modal-sp .modal-body');
+						}
+					});
+
+					$('#btn_submit .icon-description').html('提交成功');
+
+				} else {
+					BootstrapDialog.alert({
+						title: '注意',
+						message: '提交数据成功，但是未按照预期反馈状态...请刷新重试',
+						type: BootstrapDialog.TYPE_WARNING
+					});
+					$('#btn_submit').prop('disabled', false);
+					$('#btn_submit .icon-description').html('提交异常');
+				}
+
+				// 停止倒计时
+				clearInterval(timer);
+			},
+			error: function(d) {
+				BootstrapDialog.alert({
+					title: '错误',
+					message: '提交数据失败',
+					type: BootstrapDialog.TYPE_DANGER
+				});
+				$('#btn_submit').prop('disabled', false);
+				$('#btn_submit .icon-description').html('提交');
+			}
+		})
+	}
 </script>
 </html>
