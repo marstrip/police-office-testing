@@ -429,18 +429,36 @@
 			});
 			
 			var $message = $((
-				'<div class="row">' +
-					'<div class="col-xs-12"><strong>问题：</strong></div>' +
-					'<div class="col-xs-12">{questionContent}</div>' +
-					'<div class="col-xs-12"><br /></div>' +
-					'<div class="col-xs-12"><strong>回答：</strong></div>' +
-					'<div class="col-xs-12">{questionAnswer}</div>' +
-				'</div>'
+				'<div class="psb-here"><div class="psb-content">' +
+					'<label>问题：</label>' +
+					'<p class="text-indent-2em">{questionContent}</p>' +
+					'<br />' +
+					'<label>回答：</label>' +
+					'<p class="text-indent-2em">{questionAnswer}</p>' +
+				'</div></div>'
 			).format(q));
 
-			BootstrapDialog.alert({
+			/*BootstrapDialog.alert({
 				title: '问答详情',
 				message: $message[0].outerHTML
+			});*/
+
+			BootstrapDialog.show({
+				title: '题目详情',
+				cssClass: "modal-sp",
+				closable: false,
+				message: $message.html(),
+				buttons: [
+					{
+						label: '确定',
+						action: function(dialogRef, evt) {
+							dialogRef.close();
+						}
+					}
+				],
+				onshown: function(dialogRef) {
+					new PerfectScrollbar('.modal-sp .modal-body');
+				}
 			});
 		}
 
@@ -451,15 +469,31 @@
 					$btn_add.prop('disabled', true);
 					BootstrapDialog.show({
 						title: '请输入您的问题',
+						cssClass: "modal-sp",
+						closable: false,
 						message: function() {
-							var $message = $('<textarea class="form-control" name="qaContent" id="qaContent" style="width: 100%; resize: none;" rows="5"></textarea>');
+							var $message = $('<textarea class="form-control" name="qaContent" id="qaContent" style="width: 100%; resize: none;" rows="13"></textarea>');
+							$message.on('input', function() {
+								if ($('#qaContent').val().trim().length == 0) {
+									$('.btn-ask').prop('disabled', true);
+								} else {
+									$('.btn-ask').prop('disabled', false);
+								}
+							});
 							return $message;
+						},
+						onshown: function() {
+							if ($('#qaContent').val().trim().length == 0) {
+								$('.btn-ask').prop('disabled', true);
+							} else {
+								$('.btn-ask').prop('disabled', false);
+							}
 						},
 						buttons: [{
 							label: '提交',
 							icon: 'glyphicon glyphicon-send',
 							autospin: false,
-							cssClass: "btn-primary",
+							cssClass: "btn-primary btn-ask",
 							action: function(dialog, evt) {
 								var $button = this;
 								$button.spin();
@@ -482,7 +516,7 @@
 											});
 											dialog.close();
 
-											$table.bootstrapTable('refresh');
+											reload_qa();
 										} else {
 											BootstrapDialog.alert({
 												title: '警告',

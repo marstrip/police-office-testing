@@ -733,13 +733,27 @@
 											closable: false,
 											message: function() {
 												var $message = $('<textarea class="form-control" name="qaContent" id="qaContent" style="width: 100%; resize: none;" rows="13"></textarea>');
+												$message.on('input', function() {
+													if ($('#qaContent').val().trim().length == 0) {
+														$('.btn-ask').prop('disabled', true);
+													} else {
+														$('.btn-ask').prop('disabled', false);
+													}
+												});
 												return $message;
+											},
+											onshown: function() {
+												if ($('#qaContent').val().trim().length == 0) {
+													$('.btn-ask').prop('disabled', true);
+												} else {
+													$('.btn-ask').prop('disabled', false);
+												}
 											},
 											buttons: [{
 												label: '提交',
 												icon: 'glyphicon glyphicon-send',
 												autospin: false,
-												cssClass: "btn-primary",
+												cssClass: "btn-primary btn-ask",
 												action: function(dialog, evt) {
 													var $button = this;
 													$button.spin();
