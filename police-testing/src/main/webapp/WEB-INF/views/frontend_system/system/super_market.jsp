@@ -95,7 +95,7 @@
 										课件列表
 									</h3>
 								</div>
-								<div class="panel-body" style="padding-top: 15px;">
+								<div class="panel-body">
 									<div class="notice-list">
 										<table id="table_11"></table>
 										<!-- <table class="table">
@@ -198,6 +198,11 @@
 				text: "党的建设",
 				testSelfLevel: '',
 				testSelfType: '党的建设',
+				href: "#"
+			}, {
+				text: "办案指引",
+				testSelfLevel: '',
+				testSelfType: '办案指引',
 				href: "#"
 			}];
 

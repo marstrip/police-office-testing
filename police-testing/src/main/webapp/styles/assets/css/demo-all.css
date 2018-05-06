@@ -844,3 +844,8 @@ i.td-icon {
 .fixed-table-pagination {
 	padding: 0 20px;
 }
+
+.panel .list-group-item {
+	border-left-width: 0px;
+	border-right-width: 0px;
+}
