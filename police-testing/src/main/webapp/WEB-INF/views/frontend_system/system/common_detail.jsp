@@ -87,13 +87,13 @@
 		var spTextMap = {
 			caseAnalyze: '案例分析',
 			informNotice: '通知公告',
-			staticDataLogin: '系统参与统计',
+			//staticDataLogin: '系统参与排名',
 			testSelf: '课件超市'
 		}
 		var spHrefMap = {
 			caseAnalyze: '${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=caseAnalyze',
 			informNotice: '${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=informNotice',
-			staticDataLogin: '${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin',
+			//staticDataLogin: '${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin',
 			testSelf: '${pageContext.request.contextPath}/infrontend/superMarketJsp'
 		}
 

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf8">
-	<title class="spText">课件超市</title>
+	<title class="spText">loading...</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
@@ -103,16 +103,16 @@
 											</li>
 											<li class="divider"></li>
 											<li class="staticDataSimulateExam">
-												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataSimulateExam">参与自学统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataSimulateExam">参与自学排名</a>
 											</li>
 											<li class="staticDataOfficialExam">
-												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam">累计考试统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam">累计考试排名</a>
 											</li>
 											<li>
-												<a href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp">考试参与统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp">考试参与排名</a>
 											</li>
 											<li class="staticDataLogin">
-												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与排名</a>
 											</li>
 											<li class="divider"></li>
 											<li class="qa">
@@ -167,7 +167,9 @@
 		var spTextMap = {
 			caseAnalyze: '案例分析',
 			informNotice: '通知公告',
-			staticDataLogin: '系统参与统计',
+			staticDataSimulateExam: '参与自学排名',
+			staticDataOfficialExam: '累计考试排名',
+			staticDataLogin: '系统参与排名',
 			testPaper: '考试列表',
 			score: '成绩查询',
 			staticDataByQuestionFail: '错题集',
@@ -262,16 +264,44 @@
 					}
 				]
 			},
-			staticDataLogin: {
-				idField: "departmentId",				//指定主键列
+			staticDataSimulateExam: {
 				columns: [
 					{
-						title: '派出所名',		//表的列名
+						title: '单位',		//表的列名
 						field: 'departmentName',	//json数据中rows数组中的属性名
 						align: 'center'
 					},
 					{
-						title: '使用次数',
+						title: '参与自学次数',
+						field: 'simulateExamCount',
+						align: 'center'
+					}
+				]
+			},
+			staticDataOfficialExam: {
+				columns: [
+					{
+						title: '单位',		//表的列名
+						field: 'departmentName',	//json数据中rows数组中的属性名
+						align: 'center'
+					},
+					{
+						title: '参与考试次数',
+						field: 'officialCount',
+						align: 'center'
+					}
+				]
+			},
+			staticDataLogin: {
+				idField: "departmentId",				//指定主键列
+				columns: [
+					{
+						title: '单位',		//表的列名
+						field: 'departmentName',	//json数据中rows数组中的属性名
+						align: 'center'
+					},
+					{
+						title: '系统登录次数',
 						field: 'loginCount',
 						align: 'center'
 					}

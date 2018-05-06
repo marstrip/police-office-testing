@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-<title>考试参与统计</title>
+<title>考试参与排名</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
@@ -100,16 +100,16 @@
 											</li>
 											<li class="divider"></li>
 											<li>
-												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataSimulateExam">参与自学统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataSimulateExam">参与自学排名</a>
 											</li>
 											<li>
-												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam">累计考试统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataOfficialExam">累计考试排名</a>
 											</li>
 											<li class="active">
-												<a class="active" href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp">考试参与统计</a>
+												<a class="active" href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp">考试参与排名</a>
 											</li>
 											<li class="staticDataLogin">
-												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与统计</a>
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin">系统参与排名</a>
 											</li>
 											<li class="divider"></li>
 											<li class="qa">
@@ -160,7 +160,7 @@
 		</footer>
 	</div>
 	<script>
-		$('.spText').html('考试参与统计');
+		$('.spText').html('考试参与排名');
 
 		var $table = $('#table_11');
 
@@ -266,7 +266,7 @@
 							},
 							{
 								title: '参与人数',		//表的列名
-								field: 'sumCount',	//json数据中rows数组中的属性名
+								field: 'officialCount',	//json数据中rows数组中的属性名
 								align: 'center'
 							},
 							{
