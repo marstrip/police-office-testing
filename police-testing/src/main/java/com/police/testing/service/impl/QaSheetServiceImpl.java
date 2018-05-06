@@ -59,8 +59,8 @@ public class QaSheetServiceImpl implements IQaSheetService{
 	}
 
 	@Override
-	public List<QaSheetWithBLOBs> getList(String questionContent, Integer offset, Integer limit) {
-		return qaSheetMapper.selectByLikeQuestionContent(questionContent, offset, limit);
+	public List<QaSheetWithBLOBs> getList(String questionContent, Integer offset, Integer limit, String qaStatus) {
+		return qaSheetMapper.selectByLikeQuestionContent(questionContent, offset, limit, qaStatus);
 	}
 
 	@Override
@@ -70,8 +70,8 @@ public class QaSheetServiceImpl implements IQaSheetService{
 	}
 
 	@Override
-	public long getCount(String questionContent) {
-		List<QaSheetWithBLOBs> qaSheets = qaSheetMapper.selectByLikeQuestionContent(questionContent, null, null);
+	public long getCount(String questionContent, String qaStatus) {
+		List<QaSheetWithBLOBs> qaSheets = qaSheetMapper.selectByLikeQuestionContent(questionContent, null, null, qaStatus);
 		return qaSheets.size();
 	}
 }

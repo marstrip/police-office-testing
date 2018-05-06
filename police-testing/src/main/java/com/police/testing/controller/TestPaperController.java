@@ -164,8 +164,7 @@ public class TestPaperController {
 		if(receiveObject.containsKey("testPaperId") && receiveObject.containsKey("answerList") && receiveObject.containsKey("type")){
 			String testPaperId = receiveObject.getString("testPaperId");
 			String answerListStr = receiveObject.getString("answerList");
-			String testingType = receiveObject.getString("type");
-			testPaperService.doTesting(testingType, testPaperId);		
+//			testPaperService.doTesting(testingType, testPaperId);		
 			JSONArray answerArray = JSONArray.fromObject(answerListStr);
 			result = testPaperService.submitTesting(answerArray, testPaperId);
 			result.put("status", 1);

@@ -40,6 +40,9 @@
     	 and question_content like '%${questionContent}%'
     </if>
     and enable = '1'
+    <if test="qaStatus != null and qaStatus != ''">
+    	and qa_status = #{qaStatus,jdbcType=VARCHAR}
+    </if>
     <if test="offset != null and limit != null">
      limit ${offset},${limit}
     </if>

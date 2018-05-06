@@ -14,7 +14,6 @@ import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.CommonView;
 import com.police.testing.pojo.InformNotice;
 import com.police.testing.pojo.TestSelf;
-import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;
 import com.police.testing.service.IQaSheetService;
@@ -138,8 +137,8 @@ public class InfrontendControlller {
 			list = testPaperService.getList(null, offset, limit);
 			total = testPaperService.getCount(null,"1");
 		}else if(switchPage.equals("qa")){
-			list = qaSheetService.getList(search, offset, limit);
-			total = qaSheetService.getCount(search);
+			list = qaSheetService.getList(search, offset, limit, "1");
+			total = qaSheetService.getCount(search, "1");
 		}else if(switchPage.equals("score")){
 			list = sorceService.getSorcesByUserId(offset, limit);
 			total = sorceService.getCount();

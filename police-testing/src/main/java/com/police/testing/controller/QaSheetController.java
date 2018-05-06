@@ -102,8 +102,9 @@ public class QaSheetController {
 		Integer offset = Integer.valueOf(GetEncode.transcode(request.getParameter("offset")));
 		Integer limit = Integer.valueOf(GetEncode.transcode(request.getParameter("limit")));
 		String questionContent = GetEncode.transcode(request.getParameter("search"));
-		List<QaSheetWithBLOBs> list = qaSheetService.getList(questionContent, offset, limit);
-		long total = qaSheetService.getCount(questionContent);
+		String qaStatus = GetEncode.transcode(request.getParameter("qaStatus"));
+		List<QaSheetWithBLOBs> list = qaSheetService.getList(questionContent, offset, limit, qaStatus);
+		long total = qaSheetService.getCount(questionContent, qaStatus);
 		JSONArray array = JSONArray.fromObject(list);
 		Integer pageNumber = offset/limit + 1;
 		result.put("page", pageNumber);

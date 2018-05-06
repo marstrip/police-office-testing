@@ -16,10 +16,10 @@ public interface IQaSheetService {
 	
 	public Integer deleteData(String qaId);
 	
-	public List<QaSheetWithBLOBs> getList(String questionContent, Integer offset, Integer limit);
+	public List<QaSheetWithBLOBs> getList(String questionContent, Integer offset, Integer limit, String qaStatus);
 
 	public QaSheetWithBLOBs getContentById(String qaId);
 
-	public long getCount(String questionContent);
+	public long getCount(String questionContent, String qaStatus);
 }
 

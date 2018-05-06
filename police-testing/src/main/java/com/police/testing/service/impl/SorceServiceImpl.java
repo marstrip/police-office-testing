@@ -28,7 +28,7 @@ public class SorceServiceImpl implements ISorceService{
 		Subject currentUser = SecurityUtils.getSubject();
 		Session session = currentUser.getSession();
 		String userId = (String) session.getAttribute("currentUserId");
-		List<TestingLog> testingLogs = testingLogMapper.selectByUserIdAndType(userId, "officialExam", offset, limit);
+		List<TestingLog> testingLogs = testingLogMapper.selectByUserIdAndType(userId, "officalExam", offset, limit);
 		return testingLogs;
 	}
 
@@ -38,7 +38,7 @@ public class SorceServiceImpl implements ISorceService{
 		Subject currentUser = SecurityUtils.getSubject();
 		Session session = currentUser.getSession();
 		String userId = (String) session.getAttribute("currentUserId");
-		List<TestingLog> testingLogs = testingLogMapper.selectByUserIdAndType(userId, "officialExam", null, null);
+		List<TestingLog> testingLogs = testingLogMapper.selectByUserIdAndType(userId, "officalExam", null, null);
 		return testingLogs.size();
 	}
 }
