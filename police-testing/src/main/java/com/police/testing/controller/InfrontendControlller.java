@@ -14,9 +14,11 @@ import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.CommonView;
 import com.police.testing.pojo.InformNotice;
 import com.police.testing.pojo.TestSelf;
+import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.ICaseAnalyzeService;
 import com.police.testing.service.IIFormNoticeService;
 import com.police.testing.service.IQaSheetService;
+import com.police.testing.service.ISorceService;
 import com.police.testing.service.IStaticDataService;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.service.ITestSelfService;
@@ -44,6 +46,8 @@ public class InfrontendControlller {
 	private ITestPaperService testPaperService;
 	@Autowired
 	private IQaSheetService qaSheetService;
+	@Autowired
+	private ISorceService sorceService;
 	/**
 	 * 课件超市
 	 * @param request
@@ -135,8 +139,11 @@ public class InfrontendControlller {
 			total = testPaperService.getCount(null,"1");
 		}else if(switchPage.equals("qa")){
 			list = qaSheetService.getList(null, offset, limit);
-			qaSheetService.getCount(null);
-		} 
+			total = qaSheetService.getCount(null);
+		}else if(switchPage.equals("score")){
+			list = sorceService.getSorcesByUserId(offset, limit);
+			total = sorceService.getCount();
+		}
 		JSONObject result = new JSONObject();
 		JSONArray array = JSONArray.fromObject(list);
 		Integer pageNumber = offset/limit + 1;
