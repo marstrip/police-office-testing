@@ -893,7 +893,7 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										考试参与排名
-										<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=staticDataLogin" class="pull-right">更多</a>
+										<a href="${pageContext.request.contextPath}/infrontend/tjExamResultJsp" class="pull-right">更多</a>
 									</h3>
 								</div>
 								<div class="panel-body">

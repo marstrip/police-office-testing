@@ -233,6 +233,19 @@
 
 		function popDetail(testPaperId) {
 			console.log('POP-DETAIL>>>', testPaperId);
+
+			$.ajax({
+				url: '${pageContext.request.contextPath}/staticData/staticDataOfficialExamAndPaperId',
+				dataType: 'JSON',
+				data: {
+					testPaperId: testPaperId,
+					excellentSorce: 90,
+					passSorce: 60,
+					offset: null,
+					limit: null
+				}
+			});
+
 			// 以下接口调3次，score对应80, 60, 0
 			/*$.ajax({
 				url: '${pageContext.request.contextPath}/infrontend/staticDataByTestingCountAndScore',
