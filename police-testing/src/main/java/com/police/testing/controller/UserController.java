@@ -63,6 +63,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("updatePassword")
+	@ResponseBody
 	public JSONObject updatePassword(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String oldPassword = GetEncode.transcode(request.getParameter("oldPassword"));
