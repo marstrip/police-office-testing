@@ -103,7 +103,7 @@
 		"testBeginDate":{
 			"required": true,
 			"date": true
-		}
+		},
 		"testDate":{
 			"required": true,
 			"date": true

@@ -462,9 +462,9 @@ ul.no-style {
 .fix-text-430 span {
 	width: 430px;
 }
-.fix-text-350 a,
-.fix-text-350 span {
-	width: 350px;
+.fix-text-340 a,
+.fix-text-340 span {
+	width: 340px;
 }
 .fix-text-260 a,
 .fix-text-260 span {
@@ -659,6 +659,11 @@ ul.no-style {
 .bootstrap-table tr.no-records-found {
 	background-color: transparent!important;
 }
+.fixed-table-container thead th:first-child:not([data-not-first-th]) {
+	border-top-left-radius: 0px!important;
+	-webkit-border-top-left-radius: 0px!important;
+	-moz-border-radius-topleft: 0px!important;
+}
 table.table > thead > tr {
 	background-color: #f1f1f1;
 }
@@ -724,8 +729,8 @@ i.td-icon {
 .modal-sp.bootstrap-dialog .modal-dialog {
 	width: 850px;
 	height: 400px;
-    top: calc(50% - 200px);
-    left: calc(50% - 425px);
+	top: calc(50% - 200px);
+	left: calc(50% - 425px);
 }
 .modal-sp.bootstrap-dialog .modal-content {
 	height: 400px;
@@ -754,7 +759,7 @@ i.td-icon {
 	color: #404040!important;
 }
 .modal-sp.bootstrap-dialog .modal-body {
-	padding: 15px 30px!important;
+	padding: 15px 30px;
 	height: 290px;
 	overflow: hidden;
 }
@@ -774,6 +779,14 @@ i.td-icon {
 	height: 40px;
 	padding: 5px 12px;
 }
+
+.modal-sp.modal-table.bootstrap-dialog .modal-body {
+	padding: 0px;
+}
+.modal-sp.modal-table.bootstrap-dialog .bootstrap-dialog-message {
+	font-size: 16px
+}
+
 .text-indent-2em {
 	text-indent: 2em;
 }
@@ -827,6 +840,7 @@ i.td-icon {
 	background-color: transparent!important;
 }*/
 
+.fixed-table-toolbar,
 .fixed-table-pagination {
 	padding: 0 20px;
 }

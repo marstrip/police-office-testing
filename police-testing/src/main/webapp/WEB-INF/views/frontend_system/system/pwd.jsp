@@ -116,7 +116,10 @@
 							BootstrapDialog.alert({
 								title: '成功',
 								message: '更新成功，请重新登录！',
-								type: BootstrapDialog.TYPE_SUCCESS
+								type: BootstrapDialog.TYPE_SUCCESS,
+								callback: function(result) {
+									window.location = "${pageContext.request.contextPath}/logout";
+					            }
 							});
 						}
 						else if (result.status == 2) {

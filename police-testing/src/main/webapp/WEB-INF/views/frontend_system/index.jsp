@@ -22,6 +22,12 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/css/bootstrap-dialog.min.css">
 	<script src="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"></script>
 
+	<!-- bootstrap-table -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap-table/dist/bootstrap-table.min.css">
+	<script src="${pageContext.request.contextPath}/styles/node_modules/bootstrap-table/dist/bootstrap-table.min.js"></script>
+	<script src="${pageContext.request.contextPath}/styles/node_modules/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+
+	<!-- 共通js -->
 	<script src="${pageContext.request.contextPath}/styles/assets/js/demo.js"></script>
 
 	<!-- 组卷核心js -->
@@ -913,24 +919,18 @@
 								<script>
 									var paperRankTmp =
 										'<tr>' +
-											// '<td style="text-align: center;">' +
-											// 	'<span>{idx}</span>' +
-											// '</td>' +
-											'<td class="fix-text fix-text-350">' +
-												'<span>{departmentName}TODO</span>' +
+											'<td class="fix-text fix-text-340">' +
+												// '<span>{testPaperName}</span>' +
+												'<a href="javascript:void(0);" onclick="exam_pop(\'{testPaperId}\', \'{testPaperName}\');">{testPaperName}</a>' +
 											'</td>' +
-											// '<td style="text-align: center;">{loginCount}</td>' +
 										'</tr>';
 									$.ajax({
 										method: 'POST',
-										url: '${pageContext.request.contextPath}/infrontend/commonGetList',
+										url: '${pageContext.request.contextPath}/testPaper/getList',
 										dataType: "json",
 										data: {
 											offset: 0,
-											limit: 5,
-											beginDate: '',
-											endDate: '',
-											switchPage: 'staticDataLogin'
+											limit: 5
 										},
 										success: function(d) {
 											var rows = d.rows;
@@ -965,6 +965,118 @@
 											);
 										}
 									});
+									// 错误题目详情
+									function exam_pop(id, testPaperName) {
+										BootstrapDialog.show({
+											title: '考试详情 - ' + testPaperName,
+											cssClass: "modal-sp modal-table",
+											closable: false,
+											message: function() {
+												var $message = $(
+													'<div class="psb-here"><div class="psb-content">' +
+														'<table id="table_detail"></table>' +
+													'</div></div>');
+												var $table_detail = $message.find('#table_detail');
+
+												// 共通参数
+												var opt_common = {
+													method: 'GET',
+													dataType: "JSON",
+													striped: true,				//设置为 true 会有隔行变色效果  
+													undefinedText: "空",		//当数据为 undefined 时显示的字符  
+													pagination: true,			//分页  
+													// paginationLoop:true,		//设置为 true 启用分页条无限循环的功能。
+													icons: {
+														paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',
+														paginationSwitchUp: 'glyphicon-collapse-up icon-chevron-up',
+														refresh: 'glyphicon-refresh icon-refresh',
+														toggle: 'glyphicon-list-alt icon-list-alt',
+														columns: 'glyphicon-th icon-th',
+														detailOpen: 'glyphicon-plus icon-plus',
+														detailClose: 'glyphicon-minus icon-minus'
+													},
+
+													pageNumber: 1,				//如果设置了分页，首页页码
+													// showPaginationSwitch:true,		//是否显示 数据条数选择框
+													pageSize: 20,				//如果设置了分页，页面数据条数
+													pageList: [3, 5, 10, 20, 50],	//如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。数据不够，不显示
+													paginationPreText: '‹',		//指定分页条中上一页按钮的图标或文字,这里是<
+													paginationNextText: '›',	//指定分页条中下一页按钮的图标或文字,这里是>
+													// singleSelect: false,		//设置True 将禁止多选
+													data_local: "zh-US",		//表格汉化
+													sidePagination: "server",	//服务端处理分页
+													queryParams: function (params) {
+														//自定义参数，这里的参数是传给后台的，我这是是分页用的
+														console.log('params:', params);
+														return {
+															//这里的params是table提供的
+															offset: params.offset,		//从数据库第几条记录开始
+															limit: params.limit,		//找多少条
+															search: params.search//,		//筛选
+															// switchPage: switchPage
+														};
+													}
+												};
+
+												// 表格
+												var _detailOpt = {
+													url: '${pageContext.request.contextPath}/staticData/staticDataOfficialExamAndPaperId',
+													queryParams: function (params) {
+														return {
+															offset: params.offset,		//从数据库第几条记录开始
+															limit: params.limit,		//找多少条
+															testPaperId: id,
+															excellentSorce: 90,
+															passSorce: 60
+														};
+													},
+													pageSize: 10,					//如果设置了分页，页面数据条数
+													pageList: [3, 5, 10, 20, 50],	//如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。数据不够，不显示
+
+													idField: "testPaperId",				//指定主键列
+													columns: [
+														{
+															title: '单位',		//表的列名
+															field: 'departmentName',	//json数据中rows数组中的属性名
+															align: 'center'
+														},
+														{
+															title: '参与人数',		//表的列名
+															field: 'sumCount',	//json数据中rows数组中的属性名
+															align: 'center'
+														},
+														{
+															title: '优秀人数',		//表的列名
+															field: 'excellentCount',	//json数据中rows数组中的属性名
+															align: 'center'
+														},
+														{
+															title: '及格人数',		//表的列名
+															field: 'passCount',	//json数据中rows数组中的属性名
+															align: 'center'
+														}
+													]
+												};
+
+												var detailOpt = $.extend({}, opt_common, _detailOpt);
+
+												$table_detail.bootstrapTable(detailOpt);
+
+												return $message;
+											},
+											buttons: [
+												{
+													label: '确定',
+													action: function(dialogRef, evt) {
+														dialogRef.close();
+													}
+												}
+											],
+											onshown: function(dialogRef) {
+												new PerfectScrollbar('.modal-sp .modal-body');
+											}
+										});
+									}
 								</script>
 							</div>
 

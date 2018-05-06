@@ -131,7 +131,7 @@
 										列表
 									</h3>
 								</div>
-								<div class="panel-body" style="padding-top: 15px;">
+								<div class="panel-body">
 									<table id="table_11"></table>
 								</div>
 							</div>
@@ -164,10 +164,7 @@
 
 		var $table = $('#table_11');
 
-
-		
 		var opt_common = {
-			url: '${pageContext.request.contextPath}/testPaper/getList',	// TODO: 已考试的url
 			method: 'GET',
 			dataType: "JSON",
 			striped: true,				//设置为 true 会有隔行变色效果  
@@ -207,6 +204,7 @@
 		};
 
 		var spOpt = {
+			url: '${pageContext.request.contextPath}/testPaper/getList',
 			idField: "testPaperId",				//指定主键列
 			columns: [
 				{
@@ -214,7 +212,7 @@
 					field: 'testPaperName',	//json数据中rows数组中的属性名
 					align: 'center',		//水平居中
 					formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
-						return '<a href="javascript:void(0);" onclick="popDetail(\'' + row.testPaperId + '\');">' + row.testPaperName + '</a>';
+						return '<a href="javascript:void(0);" onclick="popDetail(\'' + row.testPaperId + '\', \'' + row.testPaperName + '\');">' + row.testPaperName + '</a>';
 					}
 				},
 				{
@@ -231,20 +229,93 @@
 			$table.bootstrapTable(bstOpt);
 		});
 
-		function popDetail(testPaperId) {
-			console.log('POP-DETAIL>>>', testPaperId);
+		// 错误题目详情
+		function popDetail(id, testPaperName) {
+			BootstrapDialog.show({
+				title: '考试详情 - ' + testPaperName,
+				cssClass: "modal-sp modal-table",
+				closable: false,
+				message: function() {
+					var $message = $(
+						'<div class="psb-here"><div class="psb-content">' +
+							'<table id="table_detail"></table>' +
+						'</div></div>');
+					var $table_detail = $message.find('#table_detail');
 
-			$.ajax({
-				url: '${pageContext.request.contextPath}/staticData/staticDataOfficialExamAndPaperId',
-				dataType: 'JSON',
-				data: {
-					testPaperId: testPaperId,
-					excellentSorce: 90,
-					passSorce: 60,
-					offset: null,
-					limit: null
+					// 表格
+					var _detailOpt = {
+						url: '${pageContext.request.contextPath}/staticData/staticDataOfficialExamAndPaperId',
+						queryParams: function (params) {
+							return {
+								offset: params.offset,		//从数据库第几条记录开始
+								limit: params.limit,		//找多少条
+								testPaperId: id,
+								excellentSorce: 90,
+								passSorce: 60
+							};
+						},
+						pageSize: 10,					//如果设置了分页，页面数据条数
+						pageList: [3, 5, 10, 20, 50],	//如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。数据不够，不显示
+
+						idField: "testPaperId",				//指定主键列
+						columns: [
+							{
+								title: '单位',		//表的列名
+								field: 'departmentName',	//json数据中rows数组中的属性名
+								align: 'center'
+							},
+							{
+								title: '参与人数',		//表的列名
+								field: 'sumCount',	//json数据中rows数组中的属性名
+								align: 'center'
+							},
+							{
+								title: '优秀人数',		//表的列名
+								field: 'excellentCount',	//json数据中rows数组中的属性名
+								align: 'center'
+							},
+							{
+								title: '及格人数',		//表的列名
+								field: 'passCount',	//json数据中rows数组中的属性名
+								align: 'center'
+							}
+						]
+					};
+
+					var detailOpt = $.extend({}, opt_common, _detailOpt);
+
+					$table_detail.bootstrapTable(detailOpt);
+
+					return $message;
+				},
+				buttons: [
+					{
+						label: '确定',
+						action: function(dialogRef, evt) {
+							dialogRef.close();
+						}
+					}
+				],
+				onshown: function(dialogRef) {
+					new PerfectScrollbar('.modal-sp .modal-body');
 				}
 			});
+		}
+
+		/*function popDetail(testPaperId) {
+			console.log('POP-DETAIL>>>', testPaperId);
+
+			// $.ajax({
+			// 	url: '${pageContext.request.contextPath}/staticData/staticDataOfficialExamAndPaperId',
+			// 	dataType: 'JSON',
+			// 	data: {
+			// 		testPaperId: testPaperId,
+			// 		excellentSorce: 90,
+			// 		passSorce: 60,
+			// 		offset: 0,
+			// 		limit: null
+			// 	}
+			// });
 
 			// 以下接口调3次，score对应80, 60, 0
 			/*$.ajax({
@@ -256,9 +327,9 @@
 					offset: null,
 					limit: null
 				}
-			})*/
+			})* /
 			// TODO: 弹框显示
-		}
+		}*/
 	</script>
 </body>
 </html>
