@@ -64,6 +64,10 @@
 	<link href="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/css/form-builder-2.css" rel="stylesheet" type="text/css"/>
 	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.eventBinds.js"></script>
 	<script src="${pageContext.request.contextPath}/styles/assets/form-builder-2/src/fb-bs/js/fb.core.js"></script>
+
+	<!-- 组卷核心js -->
+	<script src="${pageContext.request.contextPath}/styles/assets/gen-paper/genPaper.js"></script>
+
 	<style type="text/css">
 		h1{
 			font-family: "微软雅黑";
@@ -446,45 +450,26 @@
 		$btn_view.click(function() {
 			$.ajax({
 				url: '${pageContext.request.contextPath}/testPaper/viewTestPaper',
+				dataType: "JSON",
 				data: {
 					testPaperId: getIdSelections()[0],
 				},
-				success: function(d) {
-					var result = $.parseJSON(d);
-					console.log('提交成功，结果:', d, result);
-
-					console.log('生成试卷预览TODO');
-
-					// TODO ....
-					if (result.status == 1) {
-						//dialog.enableButtons(false);
-						//dialog.setClosable(false);
-						
-						// 弹出预览页面
-						BootstrapDialog.show({
-							title: '试卷预览',
-							cssClass: 'paper-preview-dialog',
-							message: function() {
-								var $message = $('<div></div>');
-								// 渲染试卷方法
-								$message.genPaper(formData, result, true);
-								return $message;
-							},
-							closable: false
-						})
-					} else {
-						BootstrapDialog.alert({
-							title: '结果',
-							message: '生成试卷预览失败。' + result.message,
-							type: BootstrapDialog.TYPE_DANGER
-						});
-						$button.stopSpin();
-						dialog.enableButtons(true);
-					}
+				success: function(result) {
+					BootstrapDialog.show({
+						title: '预览',
+						message: function() {
+							var $message = $('<div></div>');
+							var formData = {
+								testPaperName: result.testPaperName,
+								testTime: result.testTime
+							};
+							$message.genPaper(formData, result, true);
+							return $message;
+						},
+						draggable: true // <-- Default value is false
+					});
 				},
-				error: function(d) {
-					var result = $.parseJSON(d);
-					console.log('查询详情失败', d);
+				error: function(result) {
 					BootstrapDialog.alert({
 						title: '查看详情失败',
 						message: result.message,
