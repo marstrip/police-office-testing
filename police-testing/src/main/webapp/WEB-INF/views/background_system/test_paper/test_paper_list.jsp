@@ -15,7 +15,7 @@
 
 	<!-- jquery.serializeJSON -->
 	<script src="${pageContext.request.contextPath}/styles/vendors/jquery.serializeJSON/jquery.serializejson.min.js"></script>
-	
+		
 	<!-- BS table -->
 	<!-- 基础依赖 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap3/dist/css/bootstrap.min.css">
@@ -445,21 +445,42 @@
 		// 查看详情
 		$btn_view.click(function() {
 			$.ajax({
-				url: '${pageContext.request.contextPath}/informNotice/view',
+				url: '${pageContext.request.contextPath}/testPaper/viewTestPaper',
 				data: {
-					informId: getIdSelections()[0],
+					testPaperId: getIdSelections()[0],
 				},
 				success: function(d) {
 					var result = $.parseJSON(d);
-					console.log('查询详情成功>>>', d);
+					console.log('提交成功，结果:', d, result);
 
-					BootstrapDialog.show({
-						title: '预览',
-						message: function() {
-							return result.info.informContent;
-						},
-						draggable: true // <-- Default value is false
-					});
+					console.log('生成试卷预览TODO');
+
+					// TODO ....
+					if (result.status == 1) {
+						//dialog.enableButtons(false);
+						//dialog.setClosable(false);
+						
+						// 弹出预览页面
+						BootstrapDialog.show({
+							title: '试卷预览',
+							cssClass: 'paper-preview-dialog',
+							message: function() {
+								var $message = $('<div></div>');
+								// 渲染试卷方法
+								$message.genPaper(formData, result, true);
+								return $message;
+							},
+							closable: false
+						})
+					} else {
+						BootstrapDialog.alert({
+							title: '结果',
+							message: '生成试卷预览失败。' + result.message,
+							type: BootstrapDialog.TYPE_DANGER
+						});
+						$button.stopSpin();
+						dialog.enableButtons(true);
+					}
 				},
 				error: function(d) {
 					var result = $.parseJSON(d);
