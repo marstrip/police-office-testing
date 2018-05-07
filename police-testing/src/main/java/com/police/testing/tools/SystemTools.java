@@ -13,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
@@ -334,7 +336,38 @@ public class SystemTools {
 		}
 		return result;
 	}
-	
+	/**
+	 * 判断excel表单元格类型，并获取字段数据
+	 * @param cell0
+	 * @return
+	 */
+	public static String getCellValue(XSSFCell cell0) {
+		String cellValue = "";
+		switch (cell0.getCellType()) {
+		case XSSFCell.CELL_TYPE_STRING:
+			cellValue = cell0.getRichStringCellValue().getString().trim();
+			break;
+		case XSSFCell.CELL_TYPE_NUMERIC:
+    	   if (HSSFDateUtil.isCellDateFormatted(cell0)) {    //判断是日期类型
+               SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-M-dd");
+               Date dt = HSSFDateUtil.getJavaDate(cell0.getNumericCellValue());//获取成DATE类型   
+               cellValue = dateformat.format(dt); 
+    	   }else{
+    		   DecimalFormat df1 = new DecimalFormat("0");  
+        	   cellValue = df1.format(cell0.getNumericCellValue());
+    	   }
+    	   break;
+		case XSSFCell.CELL_TYPE_BOOLEAN:
+			cellValue = String.valueOf(cell0.getBooleanCellValue()).trim();
+			break;
+		case XSSFCell.CELL_TYPE_FORMULA:
+			cellValue = cell0.getCellFormula();
+			break;
+		default:
+			cellValue = "";
+		}
+		return cellValue;
+	}
 	public static void main(String[] args){
 //		String str = "13612345678";
 //		String ss = str.substring(0,str.length()-(str.substring(3)).length())+"****"+str.substring(7);

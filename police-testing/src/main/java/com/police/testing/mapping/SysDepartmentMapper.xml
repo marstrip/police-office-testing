@@ -18,6 +18,20 @@
     from sys_department
     where auto_id = #{autoId,jdbcType=INTEGER}
   </select>
+  
+  <select id="selectByDepartmentName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from sys_department
+    where 
+    1=1
+    <if test="departmentName != null and departmentName != ''">
+    	and department_name = #{departmentName,jdbcType = VARCHAR}
+    </if>
+     and status = '1'
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_department
     where auto_id = #{autoId,jdbcType=INTEGER}

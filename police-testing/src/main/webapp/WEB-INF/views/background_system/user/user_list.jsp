@@ -167,6 +167,33 @@
 			min-width: 800px;
 			width: 90%;
 		}
+		
+		/* 上传文件用 */
+		.fake-file-btn {
+			position: relative;
+			display: inline-block;
+			/*background: #D0EEFF;
+			border: 1px solid #99D3F5;*/
+			border-radius: 4px;
+			padding: 6px 12px;
+			overflow: hidden;
+			/*color: #1E88C7;*/
+			text-decoration: none;
+			text-indent: 0;
+			line-height: 20px;
+		}
+		.fake-file-btn:active {
+			box-shadow: 0 1px 5px 1px rgba(0, 255, 255, 0.3) inset;
+		}
+		.fake-file-btn input[type=file] {
+			position: absolute;
+			font-size: 100px;
+			right: 0;
+			top: 0;
+			opacity: 0;
+			filter: alpha(opacity=0);
+			cursor: pointer
+		}
 	</style>
 </head>
 <body>
@@ -211,7 +238,7 @@ $(".fake-file-btn").on("change", "input[type='file']", function() {
 	
 	// 对文件格式进行校验
 	var d1 = /\.[^\.]+$/.exec(fileName);
-	if (d1 == ".doc") {
+	if (d1 == ".xlsx") {
 		var formData = new FormData();
 		//追加文件数据
 		var file = document.getElementById('uploadFile').files;
@@ -229,7 +256,7 @@ $(".fake-file-btn").on("change", "input[type='file']", function() {
 				if(data.status == -1){
 					failAlert(data.message);
 				} else {
-					successAlert("上传题目总数：" + data.sum + "<br />");
+					successAlert(data.message);
 					$table.bootstrapTable('refresh', {silent: false});
 				}
 			},
@@ -238,9 +265,8 @@ $(".fake-file-btn").on("change", "input[type='file']", function() {
 			}
 		});
 	} else {
-		failAlert("请上传文件后缀为.doc的word文件！");
+		failAlert("请上传文件后缀为.xlsx的excel文件！");
 	}
-});
 });
 
 function failAlert(msg) {

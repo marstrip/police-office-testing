@@ -80,14 +80,6 @@ public class UserController {
             return result;  
         }
         result = userService.uploadUser(file, fileName);
-//        //查看文件名是否被上传过
-//        boolean isExistFlag = uploadLogService.isExistFileName(fileName);
-//        if(isExistFlag){
-//        	result.put("status", -1);
-//        	result.put("message", "存在文件名为“" + fileName +"”的文件存在上传记录，请修改文件名再次上传！");
-//            return result;  
-//        }
-//        result = questionService.saveQuestionByWord(file, fileName);
 		return result;
 	}
 	/**
