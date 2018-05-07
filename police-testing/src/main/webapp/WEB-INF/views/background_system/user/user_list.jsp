@@ -174,9 +174,10 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div id="table_11_toolbar">
-				<!-- <button id="table_11_add" class="btn btn-success">
-					<i class="glyphicon glyphicon-plus"></i> 新增
-				</button> -->
+				<span id="table_11_upload" class="btn btn-success fake-file-btn">
+					<i class="glyphicon glyphicon-upload"></i> 上传
+					<input type="file" id="uploadFile" accept="application/msword">
+				</span>
 				<button id="table_11_edit" class="btn btn-warning" disabled>
 					<i class="glyphicon glyphicon-edit"></i> 设置管理员
 				</button>
@@ -202,7 +203,64 @@
   </table> -->
 </body>
 <script type="text/javascript">
+	
+//上传按钮事件绑定
+$(".fake-file-btn").on("change", "input[type='file']", function() {
+	// 得到上传文件的全路径
+	var fileName = $("#uploadFile").val();
+	
+	// 对文件格式进行校验
+	var d1 = /\.[^\.]+$/.exec(fileName);
+	if (d1 == ".doc") {
+		var formData = new FormData();
+		//追加文件数据
+		var file = document.getElementById('uploadFile').files;
+		formData.append("uploadFile", file[(file.length - 1)]);
 
+		$.ajax({
+			url: "${pageContext.request.contextPath}/user/uploadUser",
+			type: 'POST',
+			dataType : 'JSON',
+			timeout: 30 * 1000,
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				if(data.status == -1){
+					failAlert(data.message);
+				} else {
+					successAlert("上传题目总数：" + data.sum + "<br />");
+					$table.bootstrapTable('refresh', {silent: false});
+				}
+			},
+			error: function(data) {
+				failAlert("上传失败，请联系管理员！")
+			}
+		});
+	} else {
+		failAlert("请上传文件后缀为.doc的word文件！");
+	}
+});
+});
+
+function failAlert(msg) {
+BootstrapDialog.alert({
+	title: '上传失败',
+	message: function() {
+		return msg;
+	},
+	type: BootstrapDialog.TYPE_DANGER
+});
+}
+function successAlert(msg) {
+BootstrapDialog.alert({
+	title: '上传成功',
+	message: function() {
+		return msg;
+	},
+	type: BootstrapDialog.TYPE_SUCCESS
+});
+}
 	$(document).ready(function(){
 		var $btn_add = $('#table_11_add');
 		var $btn_edit = $('#table_11_edit');

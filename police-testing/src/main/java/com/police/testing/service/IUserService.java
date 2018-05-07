@@ -2,9 +2,13 @@ package com.police.testing.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.police.testing.pojo.SysMenu;
 import com.police.testing.pojo.SysUser;
 import com.police.testing.pojo.User;
+
+import net.sf.json.JSONObject;
 
 public interface IUserService {
 	
@@ -100,4 +104,6 @@ public interface IUserService {
 	public Integer updateDataRole(String userId, String role);
 	
 	public boolean updatePassword(String oldPassword, String newPassword);
+
+	public JSONObject uploadUser(MultipartFile file, String fileName);
 }

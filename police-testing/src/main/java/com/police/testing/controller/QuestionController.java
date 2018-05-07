@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.service.IQuestionService;
 import com.police.testing.service.IUploadLogService;

@@ -212,7 +212,6 @@
 		</div>
 
 		<table id="table_11"></table>
-		
 	</div>	
 </div>
 <script type="text/javascript">

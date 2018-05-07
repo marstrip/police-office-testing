@@ -7,6 +7,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.police.testing.dao.RolePermissionMapper;
 import com.police.testing.dao.SysUserMapper;
@@ -18,6 +19,8 @@ import com.police.testing.pojo.User;
 import com.police.testing.pojo.UserRole;
 import com.police.testing.pojo.UserRoleKey;
 import com.police.testing.service.IUserService;
+
+import net.sf.json.JSONObject;
 @Service("userService")
 public class UserServiceImpl implements IUserService {
 
@@ -190,5 +193,10 @@ public class UserServiceImpl implements IUserService {
 			}
 		}
 		return false;
+	}
+	@Override
+	public JSONObject uploadUser(MultipartFile file, String fileName) {
+		
+		return null;
 	}
 }
