@@ -231,62 +231,68 @@
 </body>
 <script type="text/javascript">
 	
-//上传按钮事件绑定
-$(".fake-file-btn").on("change", "input[type='file']", function() {
-	// 得到上传文件的全路径
-	var fileName = $("#uploadFile").val();
-	
-	// 对文件格式进行校验
-	var d1 = /\.[^\.]+$/.exec(fileName);
-	if (d1 == ".xlsx") {
-		var formData = new FormData();
-		//追加文件数据
-		var file = document.getElementById('uploadFile').files;
-		formData.append("uploadFile", file[(file.length - 1)]);
+	//上传按钮事件绑定
+	$(".fake-file-btn").on("change", "input[type='file']", function() {
+		// 得到上传文件的全路径
+		var fileName = $("#uploadFile").val();
+		
+		// 对文件格式进行校验
+		var d1 = /\.[^\.]+$/.exec(fileName);
+		if (d1 == ".xlsx") {
+			var formData = new FormData();
+			//追加文件数据
+			var file = document.getElementById('uploadFile').files;
+			formData.append("uploadFile", file[(file.length - 1)]);
 
-		$.ajax({
-			url: "${pageContext.request.contextPath}/user/uploadUser",
-			type: 'POST',
-			dataType : 'JSON',
-			timeout: 30 * 1000,
-			data: formData,
-			processData: false,
-			contentType: false,
-			success: function(data) {
-				if(data.status == -1){
-					failAlert(data.message);
-				} else {
-					successAlert(data.message);
-					$table.bootstrapTable('refresh', {silent: false});
+			$.ajax({
+				url: "${pageContext.request.contextPath}/user/uploadUser",
+				type: 'POST',
+				dataType : 'JSON',
+				timeout: 30 * 1000,
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					if(data.status == -1){
+						failAlert(data.message);
+					} else {
+						successAlert(data.message);
+						$table.bootstrapTable('refresh', {silent: false});
+					}
+				},
+				error: function(data) {
+					failAlert("上传失败，请联系管理员！")
+				},
+				complete: function() {
+					$("#uploadFile").val('');	// 删掉已选文件
 				}
-			},
-			error: function(data) {
-				failAlert("上传失败，请联系管理员！")
-			}
-		});
-	} else {
-		failAlert("请上传文件后缀为.xlsx的excel文件！");
-	}
-});
+			});
+		} else {
+			failAlert("请上传文件后缀为.xlsx的excel文件！");
+			$("#uploadFile").val('');	// 删掉已选文件
+		}
+	});
 
-function failAlert(msg) {
-BootstrapDialog.alert({
-	title: '上传失败',
-	message: function() {
-		return msg;
-	},
-	type: BootstrapDialog.TYPE_DANGER
-});
-}
-function successAlert(msg) {
-BootstrapDialog.alert({
-	title: '上传成功',
-	message: function() {
-		return msg;
-	},
-	type: BootstrapDialog.TYPE_SUCCESS
-});
-}
+	function failAlert(msg) {
+		BootstrapDialog.alert({
+			title: '上传失败',
+			message: function() {
+				return msg;
+			},
+			type: BootstrapDialog.TYPE_DANGER
+		});
+	}
+	
+	function successAlert(msg) {
+		BootstrapDialog.alert({
+			title: '上传成功',
+			message: function() {
+				return msg;
+			},
+			type: BootstrapDialog.TYPE_SUCCESS
+		});
+	}
+
 	$(document).ready(function(){
 		var $btn_add = $('#table_11_add');
 		var $btn_edit = $('#table_11_edit');

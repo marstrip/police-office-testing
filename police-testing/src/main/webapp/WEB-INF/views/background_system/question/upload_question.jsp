@@ -336,10 +336,14 @@
 					},
 					error: function(data) {
 						failAlert("上传失败，请联系管理员！")
+					},
+					complete: function() {
+						$("#uploadFile").val('');	// 删掉已选文件
 					}
 				});
 			} else {
 				failAlert("请上传文件后缀为.doc的word文件！");
+				$("#uploadFile").val('');	// 删掉已选文件
 			}
 		});
 	});
