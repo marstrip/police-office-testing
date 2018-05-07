@@ -3,7 +3,7 @@
 	"type": "form",
 	"items": [
 		{
-			"label": "自学名称",
+			"label": "课件名称",
 			"type": "form-group",
 			"groupId": "group0",
 
@@ -15,12 +15,12 @@
 				{
 					"name": "testSelfName",
 					"type": "text",
-					"placeholder": "提问内容"
+					"placeholder": "标题"
 				}
 			]
 		},
 		{
-			"label": "自学分类",
+			"label": "课件分类",
 			"type": "form-group",
 			"groupId": "group0",
 
@@ -84,7 +84,7 @@
 			]
 		},
 		{
-			"label": "自学内容",
+			"label": "课件内容",
 			"type": "form-group",
 			"groupId": "group0",
 
