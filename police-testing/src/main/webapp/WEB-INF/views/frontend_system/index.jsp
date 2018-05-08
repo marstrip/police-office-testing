@@ -980,7 +980,7 @@
 											);
 										}
 									});
-									// 错误题目详情
+									// 考试参与详情
 									function exam_pop(id, testPaperName) {
 										BootstrapDialog.show({
 											title: '考试详情 - ' + testPaperName,
@@ -1057,7 +1057,7 @@
 														},
 														{
 															title: '参与人数',		//表的列名
-															field: 'sumCount',	//json数据中rows数组中的属性名
+															field: 'officialCount',	//json数据中rows数组中的属性名
 															align: 'center'
 														},
 														{
