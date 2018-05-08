@@ -15,7 +15,7 @@
 
 	<!-- jquery.serializeJSON -->
 	<script src="${pageContext.request.contextPath}/styles/vendors/jquery.serializeJSON/jquery.serializejson.min.js"></script>
-		
+
 	<!-- BS table -->
 	<!-- 基础依赖 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap3/dist/css/bootstrap.min.css">

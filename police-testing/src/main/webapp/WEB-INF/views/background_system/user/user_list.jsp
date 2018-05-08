@@ -15,6 +15,9 @@
 
 	<!-- jquery.serializeJSON -->
 	<script src="${pageContext.request.contextPath}/styles/vendors/jquery.serializeJSON/jquery.serializejson.min.js"></script>
+
+	<!-- layer.js -->
+	<script src="${pageContext.request.contextPath}/styles/vendors/layui/dist/layer.js"></script>
 	
 	<!-- BS table -->
 	<!-- 基础依赖 -->
@@ -251,7 +254,18 @@
 				timeout: 30 * 1000,
 				data: formData,
 				processData: false,
-				contentType: false,
+				contentType: false,,
+				beforeSend: function() {
+					// loading层
+					window.layerLoading = layer.msg(
+						'上传中',
+						{
+							icon: 16,		// 带图标号
+							shade: 0.5,		// 遮罩半透明度
+							time: 0			// 自动关闭毫秒，0=不自动关闭
+						}
+					);
+				},
 				success: function(data) {
 					if(data.status == -1){
 						failAlert(data.message);
@@ -260,10 +274,17 @@
 						$table.bootstrapTable('refresh', {silent: false});
 					}
 				},
-				error: function(data) {
-					failAlert("上传失败，请联系管理员！")
+				error: function(err) {
+					if (err.statusText == "timeout") {
+						failAlert("上传超时！请在网络环境更好的情况下上传，或者减小文件大小。");
+					} else {
+						console.error('上传失败>>>', err);
+						failAlert("上传失败，请联系管理员！");
+					}
 				},
 				complete: function() {
+					// 关闭弹出层
+					layer.close(window.layerLoading);
 					$("#uploadFile").val('');	// 删掉已选文件
 				}
 			});
