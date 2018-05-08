@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 	<meta charset="UTF-8">
@@ -16,34 +16,41 @@
 	<!-- 本站自用css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/assets/css/mysite.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/styles/js/jquery-3.3.1.min.js"></script>
+
+	<style>
+		.sidebar-tabs {
+			margin-right: 105px;
+		}
+	</style>
 </head>
 <body>
 	<div class="base-container">
 
 		<!-- 上方导航条部分 -->
 		<nav class="navbar navbar-default no-radius no-margin" role="navigation">
-	        <div class="navbar-header">
-	        	<!-- 小屏幕按钮 -->
-	        	<div class="pull-left menu-container">
-	        		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sideme">
-		                <!-- <span class="sr-only">切换导航</span> -->
-		                <span class="bar"></span>
-		                <span class="bar"></span>
-		                <span class="bar"></span>
-		            </button>
-		        </div>
-	            
-	            <a class="navbar-brand v-middle title-block" href="#">
-	                <span class="fa fa-codepen fa-2x">
-	                    <!-- <img src="assets/img/logo2.gif" style="height: 50px; width: 50px"/> -->
-	                </span>
-	                <span style="padding-left: 10px;">在线考试管理系统</span>
-	            </a>
-	        </div>
+			<div class="navbar-header">
+				<!-- 小屏幕按钮 -->
+				<div class="pull-left menu-container">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sideme">
+						<!-- <span class="sr-only">切换导航</span> -->
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="bar"></span>
+					</button>
+				</div>
+				
+				<a class="navbar-brand v-middle title-block" href="#">
+					<span class="fa fa-codepen fa-2x">
+						<!-- <img src="assets/img/logo2.gif" style="height: 50px; width: 50px"/> -->
+					</span>
+					<span style="padding-left: 10px;">在线考试管理系统</span>
+				</a>
+			</div>
 
-	        <div class="navbar-body" id="myTab">
-	        </div>
-	    </nav>
+			<div class="navbar-body" id="myTab">
+				<a href="${pageContext.request.contextPath}/logout" class="btn btn-warning pull-right" style="margin: 8px 15px;"><i class="glyphicon glyphicon-log-out"></i> 退出</a>
+			</div>
+		</nav>
 		
 		<!-- 左侧小屏用菜单 -->
 		<div class="sidebar sidebar-left sidebar-animate sidebar-md-show side-menu collapse hide-out-xs" id="sideme">
@@ -69,47 +76,20 @@
 	<script>
 	$(document).ready(function(){
 		$.ajax({
-			type : "post",
-		    url : "${pageContext.request.contextPath}/getMenu",
-            dataType : "json",
-            success: function(data){
-            	console.log(data);
-            	 $('.side-menu').sidebar({
+			type: "post",
+			url: "${pageContext.request.contextPath}/getMenu",
+			dataType : "json",
+			success: function(data){
+				console.log(data);
+				 $('.side-menu').sidebar({
 						// "iframeId": "mainFrame",
 						"tabsId": "myTab",					// 放置标签的容器id
 						"tabsContentId": "myTabContent",	// 放置标签页内容的容器id
 						"data": data
 					});
-           	}
-          });
-	});
-	
-	/* $('.side-menu').sidebar({
-		"iframeId": "mainFrame",
-		"data": [
-			{
-				"text": "着陆页",
-				"href": "landpage.html"
-			},
-			{
-				"text": "可展开菜单",
-				"href": "#",
-				"children": [
-					{
-						"text": "百度",
-						"href": "http://www.baidu.com"
-					}, {
-						"text": "新浪",
-						"href": "http://www.sina.com"
-					}
-				]
-			},
-			{
-				"text": "谷歌",
-				"href": "page-a.html"
 			}
-		],
-	}); */
+		});
+	});
 	</script>
 </body>
 </html>
