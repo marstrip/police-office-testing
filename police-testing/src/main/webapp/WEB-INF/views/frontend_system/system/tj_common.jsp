@@ -317,9 +317,20 @@
 						align: 'center'
 					},
 					{
+						title: '开始时间',
+						field: 'beginDate',
+						align: 'center',
+						formatter: function(value, row, index) {
+							return value.split(' ')[0] ? value.split(' ')[0] : '未设置'
+						}
+					},
+					{
 						title: '结束时间',
 						field: 'testDate',
-						align: 'center'
+						align: 'center',
+						formatter: function(value, row, index) {
+							return value.split(' ')[0] ? value.split(' ')[0] : '未设置'
+						}
 					},
 					{
 						title: '操作',			//表的列名
@@ -328,12 +339,13 @@
 						formatter: function (value, row, index) {//自定义显示，这三个参数分别是：value该行的属性，row该行记录，index该行下标
 							var opMap = {
 								'1': '参加考试',
-								'0': '已结束'
+								'0': '已结束',
+								'2': '未开始'
 							};
 							if ((row.flagExam + '') == '1') {
 								return '<a href="${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + row.testPaperId + '&type=officialExam">' + opMap[row.flagExam + ''] + '</a>';
 							} else {
-								return opMap[row.flagExam + ''];
+								return '<a href="javascript:void(0);" onclick="testPaper_pop(\'' + row.flagExam + '\');">' + opMap[row.flagExam + ''] + '</a>';
 							}
 						}
 					}
@@ -387,6 +399,24 @@
 						}
 					}
 				]
+			}
+		}
+
+		// 考试列表详情
+		function testPaper_pop(flagExam) {
+			switch(flagExam) {
+				case '0':
+					BootstrapDialog.alert({
+						title: '提示',
+						message: '当前考试已结束'
+					});
+					break;
+				case '2':
+					BootstrapDialog.alert({
+						title: '提示',
+						message: '当前考试未开始'
+					});
+					break;
 			}
 		}
 

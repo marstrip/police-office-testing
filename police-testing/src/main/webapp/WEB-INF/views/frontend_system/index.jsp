@@ -358,8 +358,8 @@
 
 												var rdata = $.extend({}, rows[idx], {
 													op: opMap[rows[idx].flagExam],
-													testDate: rows[idx].testDate.split(' ')[0],
-													beginDate: rows[idx].beginDate ? rows[idx].beginDate.split(' ')[0] : 'undefined'
+													testDate: rows[idx].testDate.split(' ')[0] ? rows[idx].testDate.split(' ')[0] : '未设置',
+													beginDate: rows[idx].beginDate ? rows[idx].beginDate.split(' ')[0] : '未设置'
 												});
 												var $item = $(examTmp.format(rdata));
 												$item.find('a').data('idx', idx);
