@@ -152,7 +152,7 @@ public class StaticDataServiceImpl implements IStaticDataService{
 		List<StaticDataExam> simulateExams = new ArrayList<>();
 		for (String departmentName : departmentNames) {
 			//按照部门获取模拟考试总数
-			List<TestingLog> officialList = testingLogMapper.selectByDepartmentNameAndType(departmentName, "officalExam", null, null);
+			List<TestingLog> officialList = testingLogMapper.selectByDepartmentTypeAndPaperId(departmentName, "officalExam", testPaperId);
 			Integer officialCount = officialList.size();
 			Integer excellentCount = 0;
 			Integer passCount = 0;

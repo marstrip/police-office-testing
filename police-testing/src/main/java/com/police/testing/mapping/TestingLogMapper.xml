@@ -54,6 +54,20 @@
   	</if>
   </select>
   
+  <select id="selectByDepartmentTypeAndPaperId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from testing_log
+    where 1=1 
+    	and department_name = #{departmentName,jdbcType=VARCHAR}
+  	<if test="testingType != null and testingType != ''">
+  		and testing_type = #{testingType,jdbcType=VARCHAR}
+  	</if>
+  	<if test="testPaperId != null and testPaperId != ''">
+  		and test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  
   <select id="selectByTestPaperIdAndUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
   	select 
     <include refid="Base_Column_List" />
