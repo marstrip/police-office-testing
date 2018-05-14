@@ -159,7 +159,7 @@
 											'<td class="fix-text fix-text-210">' +
 												'{departmentName}' +
 											'</td>' +
-											'<td style="text-align: center;">{simulateExamCount}</td>' +
+											'<td style="text-align: center;">{viewExamCount}</td>' +
 										'</tr>';
 									$.ajax({
 										method: 'POST',

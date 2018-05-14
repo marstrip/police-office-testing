@@ -273,7 +273,7 @@
 					},
 					{
 						title: '参与自学次数',
-						field: 'simulateExamCount',
+						field: 'viewExamCount',
 						align: 'center'
 					}
 				]

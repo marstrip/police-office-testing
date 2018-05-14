@@ -21,6 +21,7 @@ import com.police.testing.service.ISorceService;
 import com.police.testing.service.IStaticDataService;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.service.ITestSelfService;
+import com.police.testing.service.ITestingLogService;
 import com.police.testing.tools.GetEncode;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -47,6 +48,9 @@ public class InfrontendControlller {
 	private IQaSheetService qaSheetService;
 	@Autowired
 	private ISorceService sorceService;
+	@Autowired
+	private ITestingLogService testingLogService;
+	
 	/**
 	 * 课件超市
 	 * @param request
@@ -179,6 +183,8 @@ public class InfrontendControlller {
 			commonView.setCreateDate(informNotice.getCreateDate());
 		}else if(switchPage.equals("testSelf")){
 			TestSelf testSelf = testSelfService.getContentById(id);
+			//保存自学
+			testingLogService.saveTestingLog("viewExam");
 			commonView.setId(id);
 			commonView.setContent(testSelf.getTestSelfContent());
 			commonView.setName(testSelf.getTestSelfName());
