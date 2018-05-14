@@ -111,6 +111,7 @@ public class LoginController {
         	SysUser user = userService.findByLoginName(loginId);
         	request.setAttribute("userName", user.getUserName());
         	request.setAttribute("userId", user.getUserId());
+        	SecurityUtils.getSubject().getSession().setTimeout(14400000);//14400000 4小时
         	lastUrl = "frontend_system/index";
         }catch(AuthenticationException ae){  
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
