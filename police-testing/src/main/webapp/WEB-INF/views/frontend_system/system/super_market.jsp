@@ -63,7 +63,7 @@
 				</div>
 
 				<div class="thin-body mastbody-pre">
-					<div class="mastbody" style="">
+					<div class="mastbody">
 						<ol class="breadcrumb">
 	                        <li>
 	                            <a href="${pageContext.request.contextPath}/login/frontendIndex">首页</a>
@@ -98,69 +98,31 @@
 								<div class="panel-body">
 									<div class="notice-list">
 										<table id="table_11"></table>
-										<!-- <table class="table">
-											<tbody>
-												<tr>
-													<td colspan="2" style="text-align: center;">加载中...</td>
-												</tr>
-												<tr>
-													<td class="fix-text" style="border-top-color: transparent;">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示关于上级领导的指示</a>
-													</td>
-													<td style="border-top-color: transparent;">2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！发票清算。</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！关于上级领导的指示关于上级领导的指示</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-												<tr>
-													<td class="fix-text">
-														<a href="" onclick="return false;">2008年奥运会将在北京举行！</a>
-													</td>
-													<td>2005/07/09</td>
-												</tr>
-											</tbody>
-										</table> -->
 									</div><!-- end of .notice-list -->
 								</div>
 							</div>
-
 						</div>
 
 						<br>	
 					</div>
-
 				</div>
+
+				<footer class="footer">
+					<div class="row">
+						<ul class="text-center no-style">
+							<li>
+								<span>北京市公安局东城分局</span>
+							</li>
+							<li>
+								<span>建议使用Chrome浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
+							</li>
+						</ul>
+					</div>
+				</footer>
 
 			</div>
 		</div>
-
-		<footer class="footer">
-			<div class="row">
-				<ul class="text-center no-style">
-					<li>
-						<span>北京市公安局东城分局</span>
-					</li>
-					<li>
-						<span>建议使用Chrome浏览器 &nbsp; 推荐分辨率：1366&times;768</span>
-					</li>
-				</ul>
-			</div>
-		</footer>
+		
 	</div>
 	<script>
 		var $table = $('#table_11');
@@ -300,6 +262,13 @@
 					align: 'center'
 				}
 			]
+		});
+
+		// 加载数据成功
+		$table.on('load-success.bs.table', function() {
+			// 重置footer，更新gpsb高度
+			resetFooter();
+			window.gpsb.update();
 		});
 	</script>
 </body>

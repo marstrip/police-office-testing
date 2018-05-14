@@ -39,7 +39,8 @@
                             </li>
                         </ol>
 
-                        <div>
+                        <!-- 左右留白 -->
+                        <div style="padding: 0px 20px;">
                             <h1 style="text-align: center;" id="name">
                                 标题
                             </h1>
@@ -121,7 +122,12 @@
 			},
 			error: function() {
 				document.write('请关闭页面，从列表页进入');
-			}
+			},
+            complete: function() {
+                // 完成选然后，重置footer，更新gpsb高度
+                resetFooter();
+                window.gpsb.update();
+            }
 		});
     </script>
 </body>
