@@ -28,10 +28,14 @@
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
   </select>
   
-  <select id="sumQuestionFailCount" resultType="java.lang.Integer" parameterType="java.lang.String" >
-  	select 
-  		sum(tpq.fail_count)
-  	from test_paper_question tpq WHERE tpq.test_questions_id = #{testQuestionId,jdbcType=VARCHAR}
+  <select id="sumQuestionFailCount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	SELECT SUM(t.fail_count) as failCount, 
+  	t.test_questions_id as testQuestionsId
+  	FROM test_paper_question t GROUP BY t.test_questions_id ORDER BY 
+  	SUM(t.fail_count) DESC
+  	<if test="offset != null and limit != null">
+    	limit ${offset},${limit}
+     </if>
   </select>
   
   <select id="sumQuestionRightCount" resultType="java.lang.Integer" parameterType="java.lang.String" >

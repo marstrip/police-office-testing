@@ -17,6 +17,7 @@ import com.police.testing.pojo.StaticDataTestPaper;
 import com.police.testing.pojo.StaticDataExam;
 import com.police.testing.pojo.SysLoginLog;
 import com.police.testing.pojo.TestPaper;
+import com.police.testing.pojo.TestPaperQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.IStaticDataService;
@@ -151,7 +152,7 @@ public class StaticDataServiceImpl implements IStaticDataService{
 		List<StaticDataExam> simulateExams = new ArrayList<>();
 		for (String departmentName : departmentNames) {
 			//按照部门获取模拟考试总数
-			List<TestingLog> officialList = testingLogMapper.selectByDepartmentNameAndType(departmentName, "officalExam", null, null);
+			List<TestingLog> officialList = testingLogMapper.selectByDepartmentTypeAndPaperId(departmentName, "officalExam", testPaperId);
 			Integer officialCount = officialList.size();
 			Integer excellentCount = 0;
 			Integer passCount = 0;
@@ -237,56 +238,60 @@ public class StaticDataServiceImpl implements IStaticDataService{
 
 	@Override
 	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType, Integer offset, Integer limit) {
-		List<TestQuestionWithBLOBs> questions = testQuestionMapper.selectByTestQuestionIds(null, offset, limit);
+//		List<TestQuestionWithBLOBs> questions = testQuestionMapper.selectByTestQuestionIds(null, offset, limit);
 		List<StaticDataQusetion> dataQusetions = new ArrayList<>();
-		for (TestQuestionWithBLOBs testQuestion : questions) {
-			String testQuestionId = testQuestion.getTestQuestionsId();
-			Integer failCount = testPaperQuestionMapper.sumQuestionFailCount(testQuestionId);
-			if(failCount == null){
-				failCount = 0;
+//		for (TestQuestionWithBLOBs testQuestion : questions) {
+//			String testQuestionId = testQuestion.getTestQuestionsId();
+//			Integer failCount = testPaperQuestionMapper.sumQuestionFailCount(testQuestionId);
+//			if(failCount == null){
+//				failCount = 0;
+//			}
+			List<TestPaperQuestion> paperQuestions = testPaperQuestionMapper.sumQuestionFailCount(offset, limit);
+			for (TestPaperQuestion testPaperQuestion : paperQuestions) {
+				String testQuestionId = testPaperQuestion.getTestQuestionsId();
+				TestQuestionWithBLOBs testQuestion = testQuestionMapper.selectByPrimaryKey(testQuestionId);
+				StaticDataQusetion dataQusetion = new StaticDataQusetion();
+				dataQusetion.setFailCount(testPaperQuestion.getFailCount());
+//				dataQusetion.setRightCount(rightCount);
+				dataQusetion.setQuestionId(testQuestionId);
+				dataQusetion.setQuestionName(testQuestion.getTestQuestionsName());
+				dataQusetions.add(dataQusetion);
 			}
-			Integer rightCount = testPaperQuestionMapper.sumQuestionRightCount(testQuestionId);
-			if(rightCount == null){
-				rightCount = 0;
-			}
-			StaticDataQusetion dataQusetion = new StaticDataQusetion();
-			dataQusetion.setFailCount(failCount);
-			dataQusetion.setRightCount(rightCount);
-			dataQusetion.setQuestionId(testQuestionId);
-			dataQusetion.setQuestionName(testQuestion.getTestQuestionsName());
-			dataQusetions.add(dataQusetion);
-		}
-		if(answerType.equals("right")){
-			// 按点击数倒序
-	        Collections.sort(dataQusetions, new Comparator<StaticDataQusetion>() {
-	            public int compare(StaticDataQusetion arg0, StaticDataQusetion arg1) {
-	                int hits0 = arg0.getRightCount();
-	                int hits1 = arg1.getRightCount();
-	                if (hits1 > hits0) {
-	                    return 1;
-	                } else if (hits1 == hits0) {
-	                    return 0;
-	                } else {
-	                    return -1;
-	                }
-	            }
-	        });
-		}else if(answerType.equals("fail")){
-			// 按点击数倒序
-	        Collections.sort(dataQusetions, new Comparator<StaticDataQusetion>() {
-	            public int compare(StaticDataQusetion arg0, StaticDataQusetion arg1) {
-	                int hits0 = arg0.getFailCount();
-	                int hits1 = arg1.getFailCount();
-	                if (hits1 > hits0) {
-	                    return 1;
-	                } else if (hits1 == hits0) {
-	                    return 0;
-	                } else {
-	                    return -1;
-	                }
-	            }
-	        });
-		}
+//			if(rightCount == null){
+//				rightCount = 0;
+//			}
+//		}
+//		if(answerType.equals("right")){
+//			// 按点击数倒序
+//	        Collections.sort(dataQusetions, new Comparator<StaticDataQusetion>() {
+//	            public int compare(StaticDataQusetion arg0, StaticDataQusetion arg1) {
+//	                int hits0 = arg0.getRightCount();
+//	                int hits1 = arg1.getRightCount();
+//	                if (hits1 > hits0) {
+//	                    return 1;
+//	                } else if (hits1 == hits0) {
+//	                    return 0;
+//	                } else {
+//	                    return -1;
+//	                }
+//	            }
+//	        });
+//		}else if(answerType.equals("fail")){
+//			// 按点击数倒序
+//	        Collections.sort(dataQusetions, new Comparator<StaticDataQusetion>() {
+//	            public int compare(StaticDataQusetion arg0, StaticDataQusetion arg1) {
+//	                int hits0 = arg0.getFailCount();
+//	                int hits1 = arg1.getFailCount();
+//	                if (hits1 > hits0) {
+//	                    return 1;
+//	                } else if (hits1 == hits0) {
+//	                    return 0;
+//	                } else {
+//	                    return -1;
+//	                }
+//	            }
+//	        });
+//		}
 		return dataQusetions;
 	}
 

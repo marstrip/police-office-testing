@@ -27,9 +27,9 @@ public interface TestPaperQuestionMapper {
      */
     List<TestPaperQuestion> selectByTestPaperId(@Param("testPaperId") String testPaperId);
 
-	Integer sumQuestionFailCount(@Param("testQuestionId") String testQuestionId);
+    List<TestPaperQuestion> sumQuestionFailCount(@Param("offset") Integer offset, @Param("limit") Integer limit);
 
-	Integer sumQuestionRightCount(@Param("testQuestionId") String testQuestionId);
+    Integer sumQuestionRightCount(@Param("testQuestionId") String testQuestionId);
 
 	void updateRightCount(@Param("testPaperId") String testPaperId, @Param("testQuestionsId") String testQuestionsId);
 
