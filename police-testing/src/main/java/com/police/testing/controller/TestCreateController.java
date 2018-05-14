@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.service.IQuestionService;
 import com.police.testing.service.ITestPaperService;
+import com.police.testing.service.ITestingLogService;
 import com.police.testing.tools.GetEncode;
 import com.police.testing.tools.SystemTools;
 
@@ -28,6 +29,8 @@ public class TestCreateController {
 	private IQuestionService questionService;
 	@Autowired
 	private ITestPaperService testPaperService;
+	@Autowired
+	private ITestingLogService testingLogService;
 	
 	/**
 	 * 跳转组题页面
@@ -120,6 +123,7 @@ public class TestCreateController {
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		//模拟考试
 		if(StringUtils.isBlank(testPaperName)){
+			testingLogService.saveTestingLog("simulateExam");
 			result.put("list", jsonArray);
 			result.put("status", 1);
 			return result;
