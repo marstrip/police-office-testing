@@ -193,9 +193,9 @@
 				<!-- <button id="table_11_edit" class="form-control-static btn btn-warning" disabled>
 					<i class="glyphicon glyphicon-edit"></i> 编辑
 				</button> -->
-				<!-- <button id="table_11_delete" class="form-control-static btn btn-danger" disabled>
+				<button id="table_11_delete" class="form-control-static btn btn-danger" disabled>
 					<i class="glyphicon glyphicon-remove"></i> 删除
-				</button> -->
+				</button>
 				<button id="table_11_view" class="form-control-static btn btn-primary" disabled>
 					<i class="glyphicon glyphicon-eye-open"></i> 预览
 				</button>
@@ -649,7 +649,7 @@
 			$btn_edit.prop('disabled', false);
 		});*/
 		
-		/* // 删
+		// 删
 		$btn_delete.click(function() {
 			// 确认框
 			var cfm = BootstrapDialog.confirm({
@@ -706,7 +706,7 @@
 				}
 			});
 			cfm.$modalDialog.css('width', '300px');
-		}); */
+		});
 
 		// 查看详情
 		$btn_view.click(function() {

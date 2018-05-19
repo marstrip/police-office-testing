@@ -21,8 +21,11 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.police.testing.dao.TestPaperQuestionMapper;
 import com.police.testing.dao.TestQuestionMapper;
 import com.police.testing.dao.UploadFileLogMapper;
+import com.police.testing.pojo.TestPaperQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.pojo.UploadFileLog;
 import com.police.testing.service.IQuestionService;
@@ -35,6 +38,8 @@ public class QuestionServiceImpl implements IQuestionService{
 	private TestQuestionMapper testQuestionMapper;
 	@Autowired
 	private UploadFileLogMapper uploadFileLogMapper;
+	@Autowired
+	private TestPaperQuestionMapper testPaperQuestionMapper;
 	
 	/**
 	 * 回车符ASCII码
@@ -406,6 +411,25 @@ public class QuestionServiceImpl implements IQuestionService{
 	}
 	@Override
 	public Integer deleteData(String testQuestionsId) {
+		//通过试题id获取试题对象
+		TestQuestionWithBLOBs testQuestion = testQuestionMapper.selectByPrimaryKey(testQuestionsId);
+		if(testQuestion != null){
+			//获取当前试题类型
+			String questionType = testQuestion.getTestQuestionType();
+			List<TestQuestionWithBLOBs> list = testQuestionMapper.selectRandomByQuestionTypeAndNumber(null, null, null, questionType, 1);
+			if(list.size() > 0){
+				//获取替换试题对象
+				TestQuestionWithBLOBs newQuestion = list.get(0);
+				//获取试题试卷关系表中所有原试题集合
+				List<TestPaperQuestion> testPaperQuestions = testPaperQuestionMapper.selectByQuestionId(testQuestionsId);
+				for (TestPaperQuestion testPaperQuestion : testPaperQuestions) {
+					testPaperQuestion.setAnswerCount(0);
+					testPaperQuestion.setFailCount(0);
+					testPaperQuestion.setTestQuestionsId(newQuestion.getTestQuestionsId());
+					testPaperQuestionMapper.updateByPrimaryKey(testPaperQuestion);
+				}
+			}
+		}
 		return testQuestionMapper.updateEnable(testQuestionsId);
 	}
 }

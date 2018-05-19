@@ -34,4 +34,6 @@ public interface TestPaperQuestionMapper {
 	void updateRightCount(@Param("testPaperId") String testPaperId, @Param("testQuestionsId") String testQuestionsId);
 
 	void updateFailCount(@Param("testPaperId") String testPaperId, @Param("testQuestionsId") String testQuestionsId);
+
+	List<TestPaperQuestion> selectByQuestionId(@Param("testQuestionsId") String testQuestionsId);
 }
