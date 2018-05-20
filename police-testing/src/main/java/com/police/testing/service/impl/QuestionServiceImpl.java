@@ -213,7 +213,7 @@ public class QuestionServiceImpl implements IQuestionService{
 		List<TestQuestionWithBLOBs> questions = new ArrayList<>();
 		/*********** 试卷基础数据赋值 *********************/
 		for (int i = 0; i < ws.length; i++) {
-			String rowWord = ws[i].toString().replaceAll("</?[^>]+>", "").trim();// 去除html
+			String rowWord = ws[i].toString().replaceAll("</?[^>]+>", "").trim();// 去除html，获取当前本行内容
 			String lastSelects = null;
 			String lastQuestionAnswer = null;
 			TestQuestionWithBLOBs lastQuestion = null;
@@ -223,11 +223,11 @@ public class QuestionServiceImpl implements IQuestionService{
 				lastSelects = lastQuestion.getTestQuestionSelects();
 				lastQuestionAnswer = lastQuestion.getCorrectAnswer();
 			}
-			//每行前两个字符为数字和顿号则为题干
+			//每行前两个字符为数字和顿号则为题干，并反馈数字和顿号的位置
 			Map<String, Object> numberFlag = isDigit2(rowWord);
 			//判断每行第一个字符
 			String firstWord = rowWord.substring(0, 1);
-			// 如果前两个字符为大写字母.则为选项
+			// 如果前两个字符为大写字母和.字符则为选项
 			boolean selectFlag = answerFlag(firstWord, rowWord.substring(1, 2));
 			if ((boolean)numberFlag.get("status")) {//此行为题干
 				/**
@@ -264,7 +264,12 @@ public class QuestionServiceImpl implements IQuestionService{
 						answer = rowWord.substring(rowWord.indexOf("】") + 1, rowWord.length());//正确答案
 						if(lastQuestion != null){
 							if (StringUtils.isBlank(lastQuestion.getTestQuestionSelects())) {
-								lastQuestion.setTestQuestionType("3");//判断题
+								lastQuestion.setTestQuestionType("3");//到正确答案行时，上一题的选项为空，则为判断题
+								//判断答案描述是否为“Yes”或者“No”
+								if(!answer.equals("Yes") && !answer.equals("No")){
+									//删除当前最后的试题
+									questions.remove(lastQuestion);
+								}
 							}else {
 								Integer answerLength = answer.length();
 								if(answerLength == 1){//单选题
