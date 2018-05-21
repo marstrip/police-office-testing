@@ -233,67 +233,6 @@
   </table> -->
 </body>
 <script type="text/javascript">
-	
-	//上传按钮事件绑定
-	$(".fake-file-btn").on("change", "input[type='file']", function() {
-		// 得到上传文件的全路径
-		var fileName = $("#uploadFile").val();
-		
-		// 对文件格式进行校验
-		var d1 = /\.[^\.]+$/.exec(fileName);
-		if (d1 == ".xlsx") {
-			var formData = new FormData();
-			//追加文件数据
-			var file = document.getElementById('uploadFile').files;
-			formData.append("uploadFile", file[(file.length - 1)]);
-
-			$.ajax({
-				url: "${pageContext.request.contextPath}/user/uploadUser",
-				type: 'POST',
-				dataType : 'JSON',
-				timeout: 30 * 1000,
-				data: formData,
-				processData: false,
-				contentType: false,
-				/* beforeSend: function() {
-					// loading层
-					window.layerLoading = layer.msg(
-						'上传中',
-						{
-							icon: 16,		// 带图标号
-							shade: 0.5,		// 遮罩半透明度
-							time: 0			// 自动关闭毫秒，0=不自动关闭
-						}
-					);
-				}, */
-				success: function(data) {
-					if(data.status == -1){
-						failAlert(data.message);
-					} else {
-						successAlert(data.message);
-						//$table.bootstrapTable('refresh', {silent: false});
-					}
-				},
-				error: function(err) {
-					if (err.statusText == "timeout") {
-						failAlert("上传超时！请在网络环境更好的情况下上传，或者减小文件大小。");
-					} else {
-						console.error('上传失败>>>', err);
-						failAlert("上传失败，请联系管理员！");
-					}
-				},
-				complete: function() {
-					// 关闭弹出层
-					layer.close(window.layerLoading);
-					$("#uploadFile").val('');	// 删掉已选文件
-				}
-			});
-		} else {
-			failAlert("请上传文件后缀为.xlsx的excel文件！");
-			$("#uploadFile").val('');	// 删掉已选文件
-		}
-	});
-
 	function failAlert(msg) {
 		BootstrapDialog.alert({
 			title: '上传失败',
@@ -318,7 +257,6 @@
 		var $btn_add = $('#table_11_add');
 		var $btn_edit = $('#table_11_edit');
 		var $btn_delete = $('#table_11_delete');
-		var $btn_view = $('#table_11_view');
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -437,7 +375,6 @@
 
 			$btn_delete.prop('disabled', !selections.length);
 			$btn_edit.prop('disabled', selections.length !== 1);
-			$btn_view.prop('disabled', selections.length !== 1);
 		});
 		// 设置管理员
 		$btn_edit.click(function() {
@@ -558,35 +495,64 @@
 			cfm.$modalDialog.css('width', '300px');
 		});
 
-		// 查看详情
-		$btn_view.click(function() {
-			$.ajax({
-				url: '${pageContext.request.contextPath}/informNotice/view',
-				data: {
-					informId: getIdSelections()[0],
-				},
-				success: function(d) {
-					var result = $.parseJSON(d);
-					console.log('查询详情成功>>>', d);
+		//上传按钮事件绑定
+		$(".fake-file-btn").on("change", "input[type='file']", function() {
+			// 得到上传文件的全路径
+			var fileName = $("#uploadFile").val();
+			
+			// 对文件格式进行校验
+			var d1 = /\.[^\.]+$/.exec(fileName);
+			if (d1 == ".xlsx") {
+				var formData = new FormData();
+				//追加文件数据
+				var file = document.getElementById('uploadFile').files;
+				formData.append("uploadFile", file[(file.length - 1)]);
 
-					BootstrapDialog.show({
-						title: '预览',
-						message: function() {
-							return result.info.informContent;
-						},
-						draggable: true // <-- Default value is false
-					});
-				},
-				error: function(d) {
-					var result = $.parseJSON(d);
-					console.log('查询详情失败', d);
-					BootstrapDialog.alert({
-						title: '查看详情失败',
-						message: result.message,
-						type: BootstrapDialog.TYPE_DANGER
-					});
-				}
-			});
+				$.ajax({
+					url: "${pageContext.request.contextPath}/user/uploadUser",
+					type: 'POST',
+					dataType : 'JSON',
+					timeout: 30 * 1000,
+					data: formData,
+					processData: false,
+					contentType: false,
+					beforeSend: function() {
+						// loading层
+						window.layerLoading = layer.msg(
+							'上传中',
+							{
+								icon: 16,		// 带图标号
+								shade: 0.5,		// 遮罩半透明度
+								time: 0			// 自动关闭毫秒，0=不自动关闭
+							}
+						);
+					},
+					success: function(data) {
+						if(data.status == -1){
+							failAlert(data.message);
+						} else {
+							successAlert(data.message);
+							$table.bootstrapTable('refresh', {silent: false});
+						}
+					},
+					error: function(err) {
+						if (err.statusText == "timeout") {
+							failAlert("上传超时！请在网络环境更好的情况下上传，或者减小文件大小。");
+						} else {
+							console.error('上传失败>>>', err);
+							failAlert("上传失败，请联系管理员！");
+						}
+					},
+					complete: function() {
+						// 关闭弹出层
+						layer.close(window.layerLoading);
+						$("#uploadFile").val('');	// 删掉已选文件
+					}
+				});
+			} else {
+				failAlert("请上传文件后缀为.xlsx的excel文件！");
+				$("#uploadFile").val('');	// 删掉已选文件
+			}
 		});
 	});
   </script>
