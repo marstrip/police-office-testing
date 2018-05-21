@@ -21,6 +21,10 @@
 		.sidebar-tabs {
 			margin-right: 105px;
 		}
+		.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+			border-bottom-color: white;
+			z-index: 99999999;
+		}
 	</style>
 </head>
 <body>
