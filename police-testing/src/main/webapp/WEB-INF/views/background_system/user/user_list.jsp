@@ -254,8 +254,8 @@
 				timeout: 30 * 1000,
 				data: formData,
 				processData: false,
-				contentType: false,,
-				beforeSend: function() {
+				contentType: false,
+				/* beforeSend: function() {
 					// loading层
 					window.layerLoading = layer.msg(
 						'上传中',
@@ -265,13 +265,13 @@
 							time: 0			// 自动关闭毫秒，0=不自动关闭
 						}
 					);
-				},
+				}, */
 				success: function(data) {
 					if(data.status == -1){
 						failAlert(data.message);
 					} else {
 						successAlert(data.message);
-						$table.bootstrapTable('refresh', {silent: false});
+						//$table.bootstrapTable('refresh', {silent: false});
 					}
 				},
 				error: function(err) {
