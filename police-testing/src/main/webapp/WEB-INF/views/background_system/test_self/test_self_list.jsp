@@ -691,9 +691,14 @@
 		// 查看详情
 		$btn_view.click(function() {
 			$.ajax({
-				url: '${pageContext.request.contextPath}/informNotice/view',
+				// url: '${pageContext.request.contextPath}/informNotice/view',
+				// data: {
+				// 	informId: getIdSelections()[0],
+				// },
+				url: '${pageContext.request.contextPath}/infrontend/commonView',
 				data: {
-					informId: getIdSelections()[0],
+					switchPage: 'testSelf',
+					id: getIdSelections()[0]
 				},
 				success: function(d) {
 					var result = $.parseJSON(d);
@@ -702,7 +707,8 @@
 					BootstrapDialog.show({
 						title: '预览',
 						message: function() {
-							return result.info.informContent;
+							// return result.info.informContent;
+							return result.info.content;
 						},
 						draggable: true // <-- Default value is false
 					});
