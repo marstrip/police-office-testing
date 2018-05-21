@@ -328,6 +328,18 @@
 			$btn_edit.prop('disabled', selections.length !== 1);
 			$btn_view.prop('disabled', selections.length !== 1);
 		});
+
+		// 刷新时，清空所有已选项
+		$table.on('refresh.bs.table', function(params) {
+			// save your data, here just save the current page
+			selections = [];
+			console.log('selections:', selections);
+			// push or splice the selections if you want to save all data selections
+
+			$btn_delete.prop('disabled', !selections.length);
+			$btn_edit.prop('disabled', selections.length !== 1);
+			$btn_view.prop('disabled', selections.length !== 1);
+		});
 		
 		// 异步加载数据
 		$.ajax({

@@ -526,6 +526,32 @@
 			}
 		});
 
+		// 刷新时，清空所有已选项
+		$table.on('refresh.bs.table', function(params) {
+			// save your data, here just save the current page
+			selections = [];
+			console.log('selections:', selections);
+			// push or splice the selections if you want to save all data selections
+
+			$btn_check.prop('disabled', selections.length < 1);
+
+			$checked.html('未检查');
+			$btn_next.prop('disabled', true).removeClass('btn-success').addClass('btn-default');	// 每次改变，都需要重新检查
+
+			$btn_selected.html('');
+			$.map($table.bootstrapTable('getSelections'), function (row) {
+				$btn_selected.append(
+					'<div class="form-control-static">' +
+						'<div class="col-sm-8">' + row.fileName + '</div>' +
+						'<div class="col-sm-4">' + row.createDate + '</div>' +
+					'</div>'
+				);
+			});
+			if (selections.length == 0) {
+				$btn_selected.html('无选中');
+			}
+		});
+
 		$btn_check.click(function() {
 			$btn_check.prop('disabled', true);
 			$checked.html('检查中...');
