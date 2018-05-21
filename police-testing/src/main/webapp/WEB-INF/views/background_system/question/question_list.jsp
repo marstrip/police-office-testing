@@ -322,7 +322,11 @@
 			]
 		});
 		// 刷新按钮细节补全
-		$('button[name=refresh]').addClass('form-control-static');
+		$('button[name=refresh]').addClass('form-control-static').css({
+			"margin-left": "10px",
+			"border-top-left-radius": "4px",
+			"border-bottom-left-radius": "4px"
+		});
 
 		// 获取选中的ids
 		function getIdSelections() {
