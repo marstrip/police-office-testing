@@ -303,7 +303,11 @@
 			]
 		});
 		// 刷新按钮细节补全
-		$('button[name=refresh]').addClass('form-control-static');
+		$('button[name=refresh]').addClass('form-control-static').css({
+			"margin-left": "10px",
+			"border-top-left-radius": "4px",
+			"border-bottom-left-radius": "4px"
+		});
 
 		// 获取选中的ids
 		function getIdSelections() {
@@ -321,6 +325,18 @@
 		$table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
 			// save your data, here just save the current page
 			selections = getIdSelections();
+			console.log('selections:', selections);
+			// push or splice the selections if you want to save all data selections
+
+			$btn_delete.prop('disabled', !selections.length);
+			$btn_edit.prop('disabled', selections.length !== 1);
+			$btn_view.prop('disabled', selections.length !== 1);
+		});
+
+		// 刷新时，清空所有已选项
+		$table.on('refresh.bs.table', function(params) {
+			// save your data, here just save the current page
+			selections = [];
 			console.log('selections:', selections);
 			// push or splice the selections if you want to save all data selections
 
