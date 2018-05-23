@@ -271,7 +271,7 @@
 						failAlert(data.message);
 					} else {
 						successAlert(data.message);
-						//$table.bootstrapTable('refresh', {silent: false});
+						$table.bootstrapTable('refresh', {silent: false});
 					}
 				},
 				error: function(err) {
