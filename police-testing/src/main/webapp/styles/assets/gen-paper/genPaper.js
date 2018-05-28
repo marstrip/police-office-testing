@@ -46,6 +46,7 @@
 					}
 					.q-container {
 						display: inline-block;
+						width: 100%;
 					}
 					.q-name {
 						font-size: 18px;
@@ -165,19 +166,37 @@
 				</div>
 			</div>
 		`;
-		var examTemplate_singleSelectItem = `
+
+		// 单选样式替换 --START--
+		/*var examTemplate_singleSelectItem = `
 			<li>
 				<input type="radio" name="{testQuestionsId}" value="{value}" />
 				{testQuestionSelectItem}
 			</li>
-		`;
-		var examTemplate_multiSelectItem = `
+		`;*/
+		var examTemplate_singleSelectItem = 
+			'<div class="radio clip-radio radio-primary">' +
+				'<input type="radio" name="{testQuestionsId}" value="{value}" id="{itemId}">' +
+				'<label for="{itemId}">{testQuestionSelectItem}</label>' +
+			'</div>';
+		// 单选样式替换 --END--
+
+		// 多选样式替换 --START--
+		/*var examTemplate_multiSelectItem = `
 			<li>
 				<input type="checkbox" name="{testQuestionsId}" value="{value}" />
 				{testQuestionSelectItem}
 			</li>
-		`;
-		var examTemplate_judge = `
+		`;*/
+		var examTemplate_multiSelectItem =
+			'<div class="checkbox clip-check check-primary">' +
+				'<input type="checkbox" name="{testQuestionsId}" value="{value}" id="{itemId}">' +
+				'<label for="{itemId}">{testQuestionSelectItem}</label>' +
+			'</div>';
+		// 多选样式替换 --END--
+
+		// 判断样式替换 --START--
+		/*var examTemplate_judge = `
 			<div class="col-sm-12 q-group">
 				<p class="q-name">{idx}、{testQuestionsName}</p>
 				<div class="q-select-answer">
@@ -188,7 +207,28 @@
 					<div class="check-answer"></div>
 				</div>
 			</div>
+		`;*/
+		var examTemplate_judge = `
+			<div class="col-sm-12 q-group">
+				<p class="q-name">{idx}、{testQuestionsName}</p>
+				<div class="q-select-answer">
+					<input type="hidden" value="{'testQuestionsId':'{testQuestionsId}','testQuestionType':'{testQuestionType}'}" />
+					<div class="radio clip-radio radio-primary radio-inline">
+						<input type="radio" name="{testQuestionsId}" value="Yes" id="{testQuestionsId}_yes">
+						<label for="{testQuestionsId}_yes">是</label>
+					</div>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="radio clip-radio radio-primary radio-inline">
+						<input type="radio" name="{testQuestionsId}" value="No" id="{testQuestionsId}_no">
+						<label for="{testQuestionsId}_no">否</label>
+					</div>
+					<div class="check-answer"></div>
+				</div>
+			</div>
 		`;
+
+		// 判断样式替换 --END--
+
 		var singleIdx = 0;
 		var multiIdx = 0;
 		var judgeIdx = 0;
@@ -269,11 +309,13 @@
 
 						var options = q.testQuestionSelects.replace(/\&[^\&\;]*\;/g, '').split(';');
 						$.each(options, function(_idx) {
-							$q.find('.q-select-items').append($(examTemplate_singleSelectItem.format({
+							var $optionItem = $(examTemplate_singleSelectItem.format({
 								testQuestionSelectItem: options[_idx],
 								testQuestionsId: q.testQuestionsId,
-								value: options[_idx][0]
-							})));
+								value: options[_idx][0],
+								itemId: q.testQuestionsId + '_' + _idx
+							}));
+							$q.find('.q-select-items').append($optionItem);
 						});
 
 						$singleContainer.append($q);
@@ -291,11 +333,13 @@
 
 						var options = q.testQuestionSelects.replace(/\&[^\&\;]*\;/g, '').split(';');
 						$.each(options, function(_idx) {
-							$q.find('.q-select-items').append($(examTemplate_multiSelectItem.format({
+							var $optionItem = $(examTemplate_multiSelectItem.format({
 								testQuestionSelectItem: options[_idx],
 								testQuestionsId: q.testQuestionsId,
-								value: options[_idx][0]
-							})));
+								value: options[_idx][0],
+								itemId: q.testQuestionsId + '_' + _idx
+							}));
+							$q.find('.q-select-items').append($optionItem);
 						});
 
 						$multiContainer.append($q);

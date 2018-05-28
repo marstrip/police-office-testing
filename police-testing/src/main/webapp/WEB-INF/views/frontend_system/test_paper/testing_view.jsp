@@ -39,6 +39,9 @@
 	<!-- 组卷核心js -->
 	<script src="${pageContext.request.contextPath}/styles/assets/gen-paper/genPaper.js"></script>
 
+	<!-- 特殊radio和checkbox样式特效 -->
+	<link href="${pageContext.request.contextPath}/styles/assets/gen-paper/styles-radio-checkbox.css" rel="stylesheet" media="screen">
+
 	<style>
 		/*.datetimepicker {
 			z-index: 9999!important;
@@ -70,6 +73,18 @@
 		.judge.fa.wrong:after {
 			content: "\f00d";
 			color: red;
+		}
+		/* 特殊radio和checkbox样式 */
+		.clip-radio label,
+		.clip-check label {
+			font-size: 18px;
+		}
+		.clip-radio label:hover,
+		.clip-check label:hover {
+			color: #69f;
+		}
+		.clip-radio label {
+			margin-right: 0px;
 		}
 	</style>
 
