@@ -48,6 +48,7 @@
     	and test_self_Type = #{testSelfType,jdbcType=VARCHAR}
     </if>
   	and enable = '1'
+  	order by create_date DESC
     <if test="offset != null and limit != null">
      limit ${offset},${limit}
     </if>
