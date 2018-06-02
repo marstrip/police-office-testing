@@ -68,7 +68,7 @@
 													<i><img src="${pageContext.request.contextPath}/styles/assets/img/smile.png" style="vertical-align: text-bottom;"></i>
 												</li>
 												<li class="police-info police-name">${userName}</li>
-												<li class="police-info police-id">${userId}</li>
+												<li style="width: 200px" class="police-info police-id">${userId}</li>
 											</ul>
 										</div>
 									</div>
