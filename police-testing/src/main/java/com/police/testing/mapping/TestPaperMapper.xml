@@ -52,6 +52,7 @@
     <if test="enable != null and enable != ''">
 		and enable = #{enable,jdbcType=VARCHAR}   
     </if>
+    order by create_date DESC
     <if test="offset != null and limit != null">
      limit ${offset},${limit}
     </if>
