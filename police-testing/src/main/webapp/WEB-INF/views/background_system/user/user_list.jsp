@@ -206,7 +206,7 @@
 			<div id="table_11_toolbar">
 				<span id="table_11_upload" class="btn btn-success fake-file-btn">
 					<i class="glyphicon glyphicon-upload"></i> 上传
-					<input type="file" id="uploadFile" accept="application/msword">
+					<input type="file" id="uploadFile" accept=".xlsx">
 				</span>
 				<button id="table_11_edit" class="form-control-static btn btn-warning" disabled>
 					<i class="glyphicon glyphicon-edit"></i> 设置管理员
@@ -463,7 +463,7 @@
 			// 确认框
 			var cfm = BootstrapDialog.confirm({
 				title: '确认',
-				message: '请确认是否禁用？',
+				message: '请确认是否禁用/启用？',
 				type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
 				// closable: true, // <-- Default value is false
 				draggable: true, // <-- Default value is false
@@ -488,7 +488,6 @@
 								if (result.status == 1) {
 									var alt = BootstrapDialog.alert({
 										title: '成功',
-										message: result.message,
 										type: BootstrapDialog.TYPE_SUCCESS
 									});
 									alt.$modalDialog.css('width', '100px');
