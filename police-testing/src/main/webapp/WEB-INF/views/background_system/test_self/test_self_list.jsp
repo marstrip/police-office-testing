@@ -399,6 +399,22 @@
 					];
 					weditor.create();
 
+					// 打印富文本内容大小
+					$('#dataForm').find('div[id^="text-elem"]').on('paste', function(e){
+						var len = event.clipboardData.getData('text/html').length;
+						var tlen = event.clipboardData.getData('text/plain').length;
+
+						console.log('html-size:', len, '=', (len / 1024).toFixed(2) + 'Kb', '=', (len / 1024 / 1024).toFixed(2) + 'Mb');
+						console.log('text-size:', tlen, '=', (tlen / 1024).toFixed(2) + 'Kb', '=', (tlen / 1024 / 1024).toFixed(2) + 'Mb');
+
+						if (len > 65535) {
+							console.log('剪贴板过大！！');
+							return false;
+						}
+						else {
+							console.log('剪贴板OK');
+						}
+					});
 				},
 				buttons: [{
 					label: '提交',
