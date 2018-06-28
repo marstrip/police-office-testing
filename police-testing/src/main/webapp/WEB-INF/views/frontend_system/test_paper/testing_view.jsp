@@ -86,11 +86,68 @@
 		.clip-radio label {
 			margin-right: 0px;
 		}
+
+		.warn-msg {
+			width: 960px;
+			margin: 0px;
+			margin-left: calc(50% - 480px);
+			white-space: initial;
+			padding: 10px 20px 10px;
+			font-size: 18px;
+		}
+		.warn-msg strong {
+			color: red;
+		}
+		td {
+			vertical-align: middle;
+			/*padding-left: 30px;*/
+		}
+		td.warning-mark {
+			/*border-right: 1px solid red;*/
+			/*padding-left: 0px;*/
+			padding-right: 30px;
+			color: red;
+		}
 	</style>
 
 </head>
 <body style="background: transparent;">
-	
+	<!-- 注意信息 -->
+	<div class="warn-msg">
+		<h3><strong><!-- <i class="fa fa-warning"></i>  -->请注意：</strong></h3>
+		<ul>
+			<li>试卷没有提交前，请<strong>不要关闭浏览器或窗口</strong></li>
+			<li>正式考试，<strong>只允许提交一次</strong>，请慎重操作</li>
+			<li>时间到会有提示，请务必按照提示，<strong>确认交卷成功后</strong>再进行其他操作</li>
+		</ul>
+		<!-- <hr>
+		<table style="width: 720px; margin-left: 120px;">
+			<tr>
+				<td class="warning-mark" rowspan="4">
+					<i class="fa fa-warning" style="font-size: 118px;"></i>
+				</td>
+				<td>
+					<h3 style="margin-top: 10px;"><strong>请注意：</strong></h3>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>试卷没有提交前，请<strong>不要关闭浏览器或窗口</strong></p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>正式考试，<strong>只允许提交一次</strong>，请慎重操作</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>时间到会有提示，请务必按照提示，<strong>确认交卷成功后</strong>再进行其他操作</p>
+				</td>
+			</tr>
+		</table> -->
+	</div>
+
 	<div class="mastbody" style="background: transparent;">
 		<!-- 面板区域 -->
 		<div style="width: 90px; margin-right: 25px; float: right; position: fixed; right: calc(50% - 600px);">
