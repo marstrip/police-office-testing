@@ -120,6 +120,9 @@
 			<li>正式考试，<strong>只允许提交一次</strong>，请慎重操作</li>
 			<li>时间到会有提示，请务必按照提示，<strong>确认交卷成功后</strong>再进行其他操作</li>
 		</ul>
+		<div style="text-align: center;">
+			<button class="btn btn-default" disabled>试卷加载中，请稍后...</button>
+		</div>
 		<!-- <hr>
 		<table style="width: 720px; margin-left: 120px;">
 			<tr>
@@ -407,6 +410,7 @@
 			success: function(d) {
 				// try {
 				var result = $.parseJSON(d);
+				// 成功提交
 				if (result.status == 1) {
 					// $('body').html('提交成功！请关闭页面');
 
@@ -460,16 +464,28 @@
 							}
 						],
 						onshown: function(dialogRef) {
-							new PerfectScrollbar('.modal-sp .modal-body');
+							// new PerfectScrollbar('.modal-sp .modal-body');
 						}
 					});
 
 					$('#btn_submit .icon-description').html('提交成功');
 
-				} else {
+				}
+				// 重复提交
+				else if (result.status == -1 && result.code == 501) {
+					BootstrapDialog.alert({
+						title: '重复提交',
+						message: result.message,
+						type: BootstrapDialog.TYPE_DANGER
+					});
+					$('#btn_submit').removeClass('btn-success').addClass('btn-danger');
+					$('#btn_submit .icon-description').html('重复提交');
+				}
+				// 其他异常
+				else {
 					BootstrapDialog.alert({
 						title: '注意',
-						message: '提交数据成功，但是未按照预期反馈状态...请刷新重试',
+						message: '提交数据成功，但是未按照预期反馈状态...请联系管理员',
 						type: BootstrapDialog.TYPE_WARNING
 					});
 					$('#btn_submit').prop('disabled', false);
