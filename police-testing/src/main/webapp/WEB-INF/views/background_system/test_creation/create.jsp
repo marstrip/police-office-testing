@@ -28,6 +28,9 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/css/bootstrap-dialog.min.css">
 	<script src="${pageContext.request.contextPath}/styles/node_modules/bootstrap-dialog/dist/js/bootstrap-dialog.min.js"></script>
 
+	<!-- font-awesome -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/vendors/font-awesome/css/font-awesome.min.css">
+
 	<!-- 日期选择控件 -->
 	<link href="${pageContext.request.contextPath}/styles/vendors/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 	<script src="${pageContext.request.contextPath}/styles/vendors/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
@@ -163,6 +166,10 @@
 			-webkit-box-shadow: none;
 			-moz-box-shadow: none;
 			box-shadow: none;
+		}
+
+		.feedback-fix {
+			top: 9px;
 		}
 	</style>
 
@@ -680,8 +687,10 @@
 					return $message;
 				},
 				buttons: [{
-					label: '生成预览',
-					icon: 'glyphicon glyphicon-send',
+					// label: '生成预览',
+					label: '保存试卷',
+					// icon: 'glyphicon glyphicon-send',
+					icon: 'fa fa-save',
 					autospin: false,
 					cssClass: "btn-primary",
 					action: function(dialog, evt) {
@@ -701,14 +710,32 @@
 								endDate: $('#endDate').val().trim()
 							}, formData);
 							console.log('save formData', formData);
-							$('#dataForm').find(':input').prop('disabled', true);
+							$('#dataForm').find(':input').prop('disabled', true);	// 提交时禁用修改
 
+							// 提交保存数据
 							$.ajax({
-								url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
+								// url: '${pageContext.request.contextPath}/testCreate/randomGenerationTestPaper',
+								url: '${pageContext.request.contextPath}/testCreate/saveTestPaper',
 								method: "POST",
 								data: formData,
-								success: function(d) {
-									var result = $.parseJSON(d);
+								dataType: 'json',
+								success: function(result) {
+									if (result.status == 1) {
+										dialog.close();
+										BootstrapDialog.alert({
+											title: '结果',
+											message: '保存成功',
+											type: BootstrapDialog.TYPE_SUCCESS
+										});
+									} else {
+										BootstrapDialog.alert({
+											title: '结果',
+											message: '保存失败。' + result.message,
+											type: BootstrapDialog.TYPE_DANGER
+										});
+									}
+
+									/*var result = $.parseJSON(d);
 									console.log('提交成功，结果:', d, result);
 
 									console.log('生成试卷预览TODO');
@@ -869,12 +896,13 @@
 										});
 										$button.stopSpin();
 										dialog.enableButtons(true);
-									}
+									}*/
 								},
 								error: function(d) {
 									BootstrapDialog.alert({
 										title: '错误',
-										message: '上传失败',
+										// message: '上传失败',
+										message: '保存错误, ' + d.status + ' ' +  d.statusText,
 										type: BootstrapDialog.TYPE_DANGER
 									});
 								},
