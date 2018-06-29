@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -105,9 +106,9 @@ public class TestPaperController {
 	public JSONObject viewTestPaper(HttpServletRequest request){
 		JSONObject result = new JSONObject();
 		String testPaperId = GetEncode.transcode(request.getParameter("testPaperId"));
-		result = testPaperService.getTestPaperById(testPaperId);
-		String[] uploadFileIds = (String[]) result.get("uploadFileIds");
-		TestPaper testPaper = (TestPaper) result.get("testPaper");
+		Map<String, Object> map = testPaperService.getTestPaperById(testPaperId);
+		String[] uploadFileIds = (String[]) map.get("uploadFileIds");
+		TestPaper testPaper = (TestPaper) map.get("testPaper");
 		List<TestQuestionWithBLOBs> list = new ArrayList<>();
 		//获取不同类型题目个数
 		//单选题个数
@@ -131,6 +132,8 @@ public class TestPaperController {
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		//封装反馈对象
 		result.put("testPaperId", testPaperId);
+		result.put("testPaperName", testPaper.getTestPaperName());
+		result.put("testTime", testPaper.getTestTime());
 		result.put("list", jsonArray);
 		result.put("status", 1);
 		result.put("message", "成功！");

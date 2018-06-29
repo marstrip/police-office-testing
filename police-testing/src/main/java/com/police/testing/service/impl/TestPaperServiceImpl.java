@@ -3,7 +3,9 @@ package com.police.testing.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
@@ -113,19 +115,18 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		return testPapers;
 	}
 
-	@SuppressWarnings("null")
 	@Override
-	public JSONObject getTestPaperById(String testPaperId) {
+	public Map<String, Object> getTestPaperById(String testPaperId) {
 		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
 		List<TestPaperUpload> testPaperUploads = testPaperUploadMapper.selectUploadIdsByTestPaperId(testPaperId);
-		String[] uploadFileIds = null;
+		String[] uploadFileIds = new String[testPaperUploads.size()];
 		for (int i=0; i<testPaperUploads.size(); i++) {
 			TestPaperUpload testPaperUpload = testPaperUploads.get(i);
 			String uploadFileId = testPaperUpload.getUploadFileId();
 			uploadFileIds[i] = uploadFileId;
 			
 		}
-		JSONObject result = new JSONObject();
+		Map<String, Object> result = new HashMap<>();
 		result.put("uploadFileIds", uploadFileIds);
 		result.put("testPaper", testPaper);
 		return result;
@@ -341,7 +342,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		Date now = new Date();
 		//待预览为0，生成为1
 		testPaper.setTestPaperType("1");
-		testPaper.setEnable("0");
+		testPaper.setEnable("1");
 		testPaper.setCreateDate(now);
 		testPaper.setUpdateDate(now);
 		testPaper.setCreatorId(userId);

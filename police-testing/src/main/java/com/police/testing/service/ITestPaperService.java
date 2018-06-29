@@ -1,6 +1,7 @@
 package com.police.testing.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
@@ -44,7 +45,7 @@ public interface ITestPaperService {
 	 * @param testPaperId
 	 * @return
 	 */
-	public JSONObject getTestPaperById(String testPaperId);
+	public Map<String, Object> getTestPaperById(String testPaperId);
 	/**
 	 * 开始考试（模拟、正式）
 	 * @param testingType

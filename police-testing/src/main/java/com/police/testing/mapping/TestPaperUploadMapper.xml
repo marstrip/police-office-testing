@@ -18,7 +18,7 @@
     where auto_id = #{autoId,jdbcType=INTEGER}
   </select>
   
-  <select id="selectUploadIdsByTestPaperId" >
+  <select id="selectUploadIdsByTestPaperId" resultMap="BaseResultMap" parameterType="java.lang.String" >
    select 
     <include refid="Base_Column_List" />
     from test_paper_upload
