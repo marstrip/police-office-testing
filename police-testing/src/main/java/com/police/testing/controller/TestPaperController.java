@@ -206,7 +206,6 @@ public class TestPaperController {
 //			testPaperService.doTesting(testingType, testPaperId);		
 			JSONArray answerArray = JSONArray.fromObject(answerListStr);
 			result = testPaperService.submitTesting(answerArray, testPaperId, ip);
-			result.put("status", 1);
 		}else {
 			result.put("status", -1);
 		}
