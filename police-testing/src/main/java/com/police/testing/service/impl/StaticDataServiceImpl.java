@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.police.testing.dao.SysLoginLogMapper;
 import com.police.testing.dao.TestPaperMapper;
-import com.police.testing.dao.TestPaperQuestionMapper;
 import com.police.testing.dao.TestQuestionMapper;
 import com.police.testing.dao.TestingLogMapper;
 import com.police.testing.pojo.StaticDataLogin;
@@ -17,7 +16,6 @@ import com.police.testing.pojo.StaticDataTestPaper;
 import com.police.testing.pojo.StaticDataExam;
 import com.police.testing.pojo.SysLoginLog;
 import com.police.testing.pojo.TestPaper;
-import com.police.testing.pojo.TestPaperQuestion;
 import com.police.testing.pojo.TestQuestionWithBLOBs;
 import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.IStaticDataService;
@@ -37,8 +35,6 @@ public class StaticDataServiceImpl implements IStaticDataService{
 	private TestPaperMapper testPaperMapper;
 	@Autowired
 	private TestQuestionMapper testQuestionMapper;
-	@Autowired
-	private TestPaperQuestionMapper testPaperQuestionMapper;
 	
 	@Override
 	public List<StaticDataLogin> staticDataLogin(String beginDate, String endDate, Integer offset, Integer limit) {
@@ -238,61 +234,17 @@ public class StaticDataServiceImpl implements IStaticDataService{
 
 	@Override
 	public List<StaticDataQusetion> staticDataByQuestionFail(String answerType, Integer offset, Integer limit) {
-//		List<TestQuestionWithBLOBs> questions = testQuestionMapper.selectByTestQuestionIds(null, offset, limit);
-		List<StaticDataQusetion> dataQusetions = new ArrayList<>();
-//		for (TestQuestionWithBLOBs testQuestion : questions) {
-//			String testQuestionId = testQuestion.getTestQuestionsId();
-//			Integer failCount = testPaperQuestionMapper.sumQuestionFailCount(testQuestionId);
-//			if(failCount == null){
-//				failCount = 0;
-//			}
-			List<TestPaperQuestion> paperQuestions = testPaperQuestionMapper.sumQuestionFailCount(offset, limit);
-			for (TestPaperQuestion testPaperQuestion : paperQuestions) {
-				String testQuestionId = testPaperQuestion.getTestQuestionsId();
-				TestQuestionWithBLOBs testQuestion = testQuestionMapper.selectByPrimaryKey(testQuestionId);
-				StaticDataQusetion dataQusetion = new StaticDataQusetion();
-				dataQusetion.setFailCount(testPaperQuestion.getFailCount());
-//				dataQusetion.setRightCount(rightCount);
-				dataQusetion.setQuestionId(testQuestionId);
-				dataQusetion.setQuestionName(testQuestion.getTestQuestionsName());
-				dataQusetions.add(dataQusetion);
-			}
-//			if(rightCount == null){
-//				rightCount = 0;
-//			}
-//		}
-//		if(answerType.equals("right")){
-//			// 按点击数倒序
-//	        Collections.sort(dataQusetions, new Comparator<StaticDataQusetion>() {
-//	            public int compare(StaticDataQusetion arg0, StaticDataQusetion arg1) {
-//	                int hits0 = arg0.getRightCount();
-//	                int hits1 = arg1.getRightCount();
-//	                if (hits1 > hits0) {
-//	                    return 1;
-//	                } else if (hits1 == hits0) {
-//	                    return 0;
-//	                } else {
-//	                    return -1;
-//	                }
-//	            }
-//	        });
-//		}else if(answerType.equals("fail")){
-//			// 按点击数倒序
-//	        Collections.sort(dataQusetions, new Comparator<StaticDataQusetion>() {
-//	            public int compare(StaticDataQusetion arg0, StaticDataQusetion arg1) {
-//	                int hits0 = arg0.getFailCount();
-//	                int hits1 = arg1.getFailCount();
-//	                if (hits1 > hits0) {
-//	                    return 1;
-//	                } else if (hits1 == hits0) {
-//	                    return 0;
-//	                } else {
-//	                    return -1;
-//	                }
-//	            }
-//	        });
-//		}
-		return dataQusetions;
+	  List<StaticDataQusetion> dataQusetions = new ArrayList<>();
+	  List<TestQuestionWithBLOBs> testQuestionWithBLOBs = testQuestionMapper.sumQuestionFailCount(offset,limit);
+	  for (int i = 0; i < testQuestionWithBLOBs.size(); i++) {
+		TestQuestionWithBLOBs testQuestion = testQuestionWithBLOBs.get(i);
+		StaticDataQusetion staticDataQusetion = new StaticDataQusetion();
+		staticDataQusetion.setFailCount(testQuestion.getFailCount());
+		staticDataQusetion.setQuestionId(testQuestion.getTestQuestionsId());
+		staticDataQusetion.setQuestionName(testQuestion.getTestQuestionsName());
+		dataQusetions.add(staticDataQusetion);
+	}
+	  return dataQusetions;
 	}
 
 	@Override

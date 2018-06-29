@@ -11,6 +11,8 @@
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="enable" property="enable" jdbcType="VARCHAR" />
+    <result column="answer_count" property="answerCount" jdbcType="INTEGER" />
+    <result column="fail_count" property="failCount" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.police.testing.pojo.TestQuestionWithBLOBs" extends="BaseResultMap" >
     <result column="test_questions_name" property="testQuestionsName" jdbcType="LONGVARCHAR" />
@@ -18,7 +20,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     test_questions_id, correct_answer, upload_file_id, test_question_type, creator_id, creator_name, 
-    create_date, update_date, enable
+    create_date, update_date, enable, answer_count, fail_count
   </sql>
   <sql id="Blob_Column_List" >
     test_questions_name, test_question_selects
@@ -104,6 +106,18 @@
 		</foreach>
     </if>
     <if test="offset != null and limit != null">
+     	limit ${offset},${limit}
+    </if>
+  </select>
+  
+  <select id="sumQuestionFailCount" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  	 select
+  	 <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from test_question
+	order by fail_count DESC
+	<if test="offset != null and limit != null">
      	limit ${offset},${limit}
     </if>
   </select>
@@ -267,5 +281,17 @@
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       enable = #{enable,jdbcType=VARCHAR}
     where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateRightCount" parameterType="java.lang.String">
+  	update test_question
+  	set answer_count = answer_count +1
+  	where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
+  </update>
+  
+   <update id="updateFailCount" parameterType="java.lang.String">
+  	update test_question
+  	set fail_count = fail_count +1
+  	where test_questions_id = #{testQuestionsId,jdbcType=VARCHAR}
   </update>
 </mapper>

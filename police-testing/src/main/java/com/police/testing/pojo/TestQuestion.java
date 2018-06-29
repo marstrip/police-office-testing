@@ -25,6 +25,10 @@ public class TestQuestion {
 
     private Integer number;
     
+    private Integer answerCount;
+    
+    private Integer failCount;
+    
     public String getTestQuestionsId() {
 		return testQuestionsId;
 	}
@@ -105,5 +109,21 @@ public class TestQuestion {
 
 	public void setNumber(Integer number) {
 		this.number = number;
+	}
+
+	public Integer getAnswerCount() {
+		return answerCount;
+	}
+
+	public void setAnswerCount(Integer answerCount) {
+		this.answerCount = answerCount;
+	}
+
+	public Integer getFailCount() {
+		return failCount;
+	}
+
+	public void setFailCount(Integer failCount) {
+		this.failCount = failCount;
 	}
 }

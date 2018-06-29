@@ -56,4 +56,10 @@ public interface TestQuestionMapper {
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
 
 	Integer updateEnable(@Param("testQuestionsId") String testQuestionsId);
+
+	void updateRightCount(@Param("testQuestionsId") String testQuestionsId);
+	
+	void updateFailCount(@Param("testQuestionsId") String testQuestionsId);
+
+	List<TestQuestionWithBLOBs> sumQuestionFailCount(@Param("offset") Integer offset, @Param("limit") Integer limit);
 }

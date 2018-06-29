@@ -245,7 +245,8 @@ public class TestPaperServiceImpl implements ITestPaperService {
 				//判断答案是否一致
 				if(StringUtils.isNotBlank(rightAnswer) && userAnswer.equals(rightAnswer)){
 					//做题正确，在试卷试题关系表中记录正确一次用于统计分析
-					testPaperQuestionMapper.updateRightCount(testPaperId, testQuestionsId);
+					testQuestionMapper.updateRightCount(testQuestionsId);
+//					testPaperQuestionMapper.updateRightCount(testPaperId, testQuestionsId);
 					testingResult.setCorrectFlag(1);
 					if(StringUtils.isNotBlank(questionType)){
 						if(questionType.equals("1")){//单选题
@@ -258,7 +259,8 @@ public class TestPaperServiceImpl implements ITestPaperService {
 					}
 				}else {
 					//做题错误，在试题试卷关系表中记录错误一次用于统计分析
-					testPaperQuestionMapper.updateFailCount(testPaperId, testQuestionsId);
+					testQuestionMapper.updateFailCount(testQuestionsId);
+//					testPaperQuestionMapper.updateFailCount(testPaperId, testQuestionsId);
 					testingResult.setCorrectFlag(0);
 				}
 			}

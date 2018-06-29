@@ -1,8 +1,6 @@
 package com.police.testing.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -206,6 +204,7 @@ public class TestPaperController {
 //			testPaperService.doTesting(testingType, testPaperId);		
 			JSONArray answerArray = JSONArray.fromObject(answerListStr);
 			result = testPaperService.submitTesting(answerArray, testPaperId, ip);
+			result.put("status", 1);
 		}else {
 			result.put("status", -1);
 		}
