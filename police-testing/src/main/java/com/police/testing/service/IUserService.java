@@ -106,4 +106,10 @@ public interface IUserService {
 	public boolean updatePassword(String oldPassword, String newPassword);
 
 	public JSONObject uploadUser(MultipartFile file, String fileName);
+	/**
+	 * 重置密码
+	 * @param userId
+	 * @return
+	 */
+	public boolean resetPassword(String userId);
 }

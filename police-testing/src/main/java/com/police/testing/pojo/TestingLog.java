@@ -25,6 +25,8 @@ public class TestingLog {
 
     private Integer score;
 
+    private String ip;
+    
     public Integer getAutoId() {
         return autoId;
     }
@@ -105,4 +107,12 @@ public class TestingLog {
     public void setScore(Integer score) {
         this.score = score;
     }
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 }

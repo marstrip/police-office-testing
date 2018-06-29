@@ -1,15 +1,21 @@
 package com.police.testing.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.police.testing.pojo.TestPaper;
+import com.police.testing.pojo.TestQuestionWithBLOBs;
+import com.police.testing.service.IQuestionService;
 import com.police.testing.service.ITestPaperService;
 import com.police.testing.tools.GetEncode;
 
@@ -22,6 +28,8 @@ public class TestPaperController {
 
 	@Autowired
 	private ITestPaperService testPaperService;
+	@Autowired
+	private IQuestionService questionService;
 	/**
 	 * 跳转后台试卷管理页面
 	 * @param request
@@ -98,6 +106,32 @@ public class TestPaperController {
 		JSONObject result = new JSONObject();
 		String testPaperId = GetEncode.transcode(request.getParameter("testPaperId"));
 		result = testPaperService.getTestPaperById(testPaperId);
+		String[] uploadFileIds = (String[]) result.get("uploadFileIds");
+		TestPaper testPaper = (TestPaper) result.get("testPaper");
+		List<TestQuestionWithBLOBs> list = new ArrayList<>();
+		//获取不同类型题目个数
+		//单选题个数
+		Integer singleSelectCount = 15;
+		List<TestQuestionWithBLOBs> singleSelectList = questionService.getListByQuestionTypeAndNumber(null, null, uploadFileIds, singleSelectCount, "1");
+		//多选题个数
+		Integer manySelectCount = 20;
+		List<TestQuestionWithBLOBs> manySelectList = questionService.getListByQuestionTypeAndNumber(null, null, uploadFileIds, manySelectCount, "2");
+		//判断题个数
+		Integer judgeCount = 10;
+		List<TestQuestionWithBLOBs> judgeList = questionService.getListByQuestionTypeAndNumber(null, null, uploadFileIds, judgeCount, "3");
+		//合并集合
+		list.addAll(singleSelectList);
+		list.addAll(manySelectList);
+		list.addAll(judgeList);
+		for (int i=0; i<list.size(); i++) {
+			TestQuestionWithBLOBs testQuestionWithBLOBs = list.get(i);
+			testQuestionWithBLOBs.setNumber(i);
+		}
+		//封装jsonarray对象
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		//封装反馈对象
+		result.put("testPaperId", testPaperId);
+		result.put("list", jsonArray);
 		result.put("status", 1);
 		result.put("message", "成功！");
 		return result;
@@ -158,6 +192,8 @@ public class TestPaperController {
 	@RequestMapping("submitTesting")
 	@ResponseBody
 	public JSONObject submitTesting(HttpServletRequest request){
+		//获取ip
+		String ip = getIp2(request);
 		JSONObject result = new JSONObject();
 		String jsonStr = GetEncode.transcode(request.getParameter("json"));
 		JSONObject receiveObject = JSONObject.fromObject(jsonStr);
@@ -166,11 +202,30 @@ public class TestPaperController {
 			String answerListStr = receiveObject.getString("answerList");
 //			testPaperService.doTesting(testingType, testPaperId);		
 			JSONArray answerArray = JSONArray.fromObject(answerListStr);
-			result = testPaperService.submitTesting(answerArray, testPaperId);
+			result = testPaperService.submitTesting(answerArray, testPaperId, ip);
 			result.put("status", 1);
 		}else {
 			result.put("status", -1);
 		}
 		return result;
 	}
+	
+	
+	public static String getIp2(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+            //多次反向代理后会有多个ip值，第一个ip才是真实ip
+            int index = ip.indexOf(",");
+            if(index != -1){
+                return ip.substring(0,index);
+            }else{
+                return ip;
+            }
+        }
+        ip = request.getHeader("X-Real-IP");
+        if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+            return ip;
+        }
+        return request.getRemoteAddr();
+    }
 }

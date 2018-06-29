@@ -37,5 +37,7 @@ public interface SysUserMapper {
 
 	List<User> selectByLikeUserName(@Param("userName")String userName, 
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
+
+	Integer resetPassword(@Param("userId") String userId, @Param("password") String password);
 	
 }

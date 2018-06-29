@@ -354,6 +354,7 @@
       company_name = #{companyName,jdbcType=VARCHAR}
     where auto_id = #{autoId,jdbcType=INTEGER}
   </update>
+  
   <update id="updateUserByUserId" parameterType="java.lang.String">
   	update sys_user set 
   	user_status = #{userStatus,jdbcType=VARCHAR}

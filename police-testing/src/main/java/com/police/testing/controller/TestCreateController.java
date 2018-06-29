@@ -171,4 +171,28 @@ public class TestCreateController {
 		}
 		return result;
 	}
+	
+	//=======================================保存选择的上传文件和生成试题的关系=============================
+	/**
+	 * 保存试卷和试卷与上传文件对应关系
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("saveTestPaper")
+	@ResponseBody
+	public JSONObject saveTestPaper(HttpServletRequest request){
+		//获取题库范围
+		String uploadLogIds = GetEncode.transcode(request.getParameter("uploadFileIds"));
+		String[] uploadFileIds = null;
+		if(StringUtils.isNotBlank(uploadLogIds)){
+			uploadFileIds = uploadLogIds.split(",");
+		}
+		String testDate = GetEncode.transcode(request.getParameter("testDate"));
+		String testPaperName = GetEncode.transcode(request.getParameter("testPaperName"));
+		Integer testTime = Integer.valueOf(GetEncode.transcode(request.getParameter("testTime")));
+		String testBeginDate = GetEncode.transcode(request.getParameter("testBeginDate"));
+		JSONObject result = testPaperService.savePaper(uploadFileIds, testDate, testPaperName, testTime, testBeginDate);
+		return result;
+	}
+	
 }

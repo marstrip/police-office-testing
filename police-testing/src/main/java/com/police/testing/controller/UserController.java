@@ -114,6 +114,31 @@ public class UserController {
 		return result;
 	}
 	/**
+	 * 重置密码
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("resetPassword")
+	@ResponseBody
+	public JSONObject resetPassword(HttpServletRequest request){
+		String userId = GetEncode.transcode(request.getParameter("userId"));
+		JSONObject result = new JSONObject();
+		if(StringUtils.isNotBlank(userId)){
+			boolean flag = userService.resetPassword(userId);
+			if(flag){
+				result.put("status", 1);
+				result.put("message", "重置成功！");
+			}else {
+				result.put("status", 0);
+				result.put("message", "重置失败！");
+			}
+		}else {
+			result.put("status", -1);
+			result.put("message", "用户异常！");
+		}
+		return result;
+	}
+	/**
 	 * 设置管理员
 	 * @param request
 	 * @return

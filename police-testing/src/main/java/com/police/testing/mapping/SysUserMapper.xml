@@ -193,4 +193,11 @@
       password = #{password,jdbcType=VARCHAR}
     where auto_id = #{autoId,jdbcType=INTEGER}
   </update>
+  
+   
+  <update id="resetPassword"  parameterType="java.lang.String">
+  	update sys_user set password = #{password,jdbcType=VARCHAR}
+  	where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  
 </mapper>

@@ -57,9 +57,20 @@ public interface ITestPaperService {
 	
 	public TestPaper getTestPaperObjectById(String testPaperId);
 
-	public JSONObject submitTesting(JSONArray answerArray, String testPaperId);
+	public JSONObject submitTesting(JSONArray answerArray, String testPaperId, String ip);
 
 	public Integer deleteData(String testPaperId, String enable);
 
 	public List<TestPaper> getListByUser(String testName, Integer offset, Integer limit);
+	/**
+	 * 保存试卷和题库的对应关系
+	 * @param uploadFileIds
+	 * @param testDate
+	 * @param testPaperName
+	 * @param testTime
+	 * @param testBeginDate
+	 * @return
+	 */
+	public JSONObject savePaper(String[] uploadFileIds, String testDate, String testPaperName, Integer testTime,
+			String testBeginDate);
 }

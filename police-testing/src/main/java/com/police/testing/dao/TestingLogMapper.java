@@ -31,7 +31,7 @@ public interface TestingLogMapper {
 			
     		@Param("beginDate") String beginDate, @Param("endDate") String endDate, @Param("score") Integer score);
 
-	List<TestingLog> selectByTestPaperIdAndUserId(@Param("testPaperId") String testPaperId, @Param("userId") String userId);
+	List<TestingLog> selectByTestPaperIdAndUserId(@Param("testPaperId") String testPaperId, @Param("userId") String userId, @Param("testingType") String testingType);
 
 	List<TestingLog> selectByUserIdAndType(@Param("userId") String userId, @Param("testingType") String testingType,
 			@Param("offset") Integer offset,@Param("limit") Integer limit);

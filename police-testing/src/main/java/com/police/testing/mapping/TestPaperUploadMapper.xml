@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.police.testing.dao.testPaperUploadMapper" >
+  <resultMap id="BaseResultMap" type="com.police.testing.pojo.testPaperUpload" >
+    <id column="auto_id" property="autoId" jdbcType="INTEGER" />
+    <result column="test_paper_id" property="testPaperId" jdbcType="VARCHAR" />
+    <result column="test_paper_name" property="testPaperName" jdbcType="VARCHAR" />
+    <result column="upload_file_id" property="uploadFileId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    auto_id, test_paper_id, test_paper_name, upload_file_id, create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from test_paper_upload
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectUploadIdsByTestPaperId" >
+   select 
+    <include refid="Base_Column_List" />
+    from test_paper_upload
+    where 1=1
+    <if test="testPaperId != null">
+    	and test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from test_paper_upload
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.police.testing.pojo.testPaperUpload" >
+    insert into test_paper_upload (auto_id, test_paper_id, test_paper_name, 
+      upload_file_id, create_date)
+    values (#{autoId,jdbcType=INTEGER}, #{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR}, 
+      #{uploadFileId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.police.testing.pojo.testPaperUpload" >
+    insert into test_paper_upload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="autoId != null" >
+        auto_id,
+      </if>
+      <if test="testPaperId != null" >
+        test_paper_id,
+      </if>
+      <if test="testPaperName != null" >
+        test_paper_name,
+      </if>
+      <if test="uploadFileId != null" >
+        upload_file_id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="autoId != null" >
+        #{autoId,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperId != null" >
+        #{testPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperName != null" >
+        #{testPaperName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadFileId != null" >
+        #{uploadFileId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.police.testing.pojo.testPaperUpload" >
+    update test_paper_upload
+    <set >
+      <if test="testPaperId != null" >
+        test_paper_id = #{testPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperName != null" >
+        test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadFileId != null" >
+        upload_file_id = #{uploadFileId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.police.testing.pojo.testPaperUpload" >
+    update test_paper_upload
+    set test_paper_id = #{testPaperId,jdbcType=VARCHAR},
+      test_paper_name = #{testPaperName,jdbcType=VARCHAR},
+      upload_file_id = #{uploadFileId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where auto_id = #{autoId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

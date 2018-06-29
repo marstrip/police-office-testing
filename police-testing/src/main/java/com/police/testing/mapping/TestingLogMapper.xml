@@ -12,10 +12,11 @@
     <result column="test_paper_name" property="testPaperName" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     auto_id, user_id, user_name, department_name, department_id, testing_type, test_paper_id, test_paper_name,
-    create_date, score
+    create_date, score, ip
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -79,6 +80,9 @@
   	<if test="userId != null and userId != ''">
   		and user_id = #{userId,jdbcType=VARCHAR}
   	</if>
+  	<if test="testingType != null and testingType != ''">
+  		and testing_type = #{testingType,jdbcType=VARCHAR}
+  	</if>
   </select>
   
   <select id="selectByTestPaperIdAndTypeAndSorce" resultMap="BaseResultMap">
@@ -125,11 +129,12 @@
   <insert id="insert" parameterType="com.police.testing.pojo.TestingLog" >
     insert into testing_log (auto_id, user_id, user_name, 
       department_name, department_id, testing_type, 
-      test_paper_id, test_paper_name, create_date, score
+      test_paper_id, test_paper_name, create_date, score,ip
       )
     values (#{autoId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{departmentName,jdbcType=VARCHAR}, #{departmentId,jdbcType=VARCHAR}, #{testingType,jdbcType=VARCHAR}, 
-      #{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}
+      #{testPaperId,jdbcType=VARCHAR}, #{testPaperName,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},
+      #{score,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.police.testing.pojo.TestingLog" >
@@ -165,6 +170,9 @@
       <if test="score != null" >
         score,
       </if>
+      <if test="ip != null" >
+        ip,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="autoId != null" >
@@ -196,6 +204,9 @@
       </if>
       <if test="score != null" >
         #{score,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{score,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -229,6 +240,9 @@
       <if test="score != null" >
         score = #{score,jdbcType=INTEGER},
       </if>
+       <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
     </set>
     where auto_id = #{autoId,jdbcType=INTEGER}
   </update>
@@ -242,7 +256,8 @@
       test_paper_id = #{testPaperId,jdbcType=VARCHAR},
       test_paper_name = #{testPaperName,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
-      score = #{score,jdbcType=INTEGER}
+      score = #{score,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR}
     where auto_id = #{autoId,jdbcType=INTEGER}
   </update>
 </mapper>
