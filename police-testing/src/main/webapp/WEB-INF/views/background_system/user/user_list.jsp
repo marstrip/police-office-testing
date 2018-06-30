@@ -214,6 +214,9 @@
 				<button id="table_11_delete" class="form-control-static btn btn-danger" disabled>
 					<i class="glyphicon glyphicon-remove"></i> 禁用/启用
 				</button>
+				<button id="table_11_reset" class="form-control-static btn btn-danger" disabled>
+					<i class="glyphicon glyphicon-repeat"></i> 重置密码
+				</button>
 			</div>
 			<table id="table_11"></table>
 		</div>
@@ -257,6 +260,7 @@
 		var $btn_add = $('#table_11_add');
 		var $btn_edit = $('#table_11_edit');
 		var $btn_delete = $('#table_11_delete');
+		var $btn_reset = $('#table_11_reset');
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -381,6 +385,7 @@
 			// push or splice the selections if you want to save all data selections
 
 			$btn_delete.prop('disabled', !selections.length);
+			$btn_reset.prop('disabled', !selections.length);
 			$btn_edit.prop('disabled', selections.length !== 1);
 		});
 
@@ -392,6 +397,7 @@
 			// push or splice the selections if you want to save all data selections
 
 			$btn_delete.prop('disabled', !selections.length);
+			$btn_reset.prop('disabled', !selections.length);
 			$btn_edit.prop('disabled', selections.length !== 1);
 		});
 
@@ -488,6 +494,7 @@
 								if (result.status == 1) {
 									var alt = BootstrapDialog.alert({
 										title: '成功',
+										message: '禁用/启用成功',
 										type: BootstrapDialog.TYPE_SUCCESS
 									});
 									alt.$modalDialog.css('width', '100px');
@@ -495,6 +502,67 @@
 								} else {
 									var alt = BootstrapDialog.alert({
 										title: '失败',
+										message: result.message,
+										type: BootstrapDialog.TYPE_DANGER
+									});
+									alt.$modalDialog.css('width', '100px');
+									$table.bootstrapTable('refresh', {silent: false});
+								}
+							},
+							error: function(d) {
+								BootstrapDialog.alert('提交请求失败');
+							}
+						});
+					}
+					
+				}
+			});
+			cfm.$modalDialog.css('width', '300px');
+		});
+
+		// 重置密码
+		$btn_reset.click(function() {
+			// 确认框
+			var cfm = BootstrapDialog.confirm({
+				title: '确认',
+				message: '请确认是否重置密码为"111111"？',
+				type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+				// closable: true, // <-- Default value is false
+				draggable: true, // <-- Default value is false
+				btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+				btnOKLabel: '确认', // <-- Default value is 'OK',
+				btnOKClass: 'btn-danger', // <-- If you didn't specify it, dialog type will be used,
+				callback: function(isYes) {
+					if (isYes) {
+						// 整合数据
+						var formData = {
+							userId: getIdSelections()[0]
+						};
+
+						$.ajax({
+							url: '${pageContext.request.contextPath}/user/resetPassword',
+							data : formData,
+							dataType: "json",
+							success: function(result) {
+								if (result.status == 1) {
+									var alt = BootstrapDialog.alert({
+										title: '成功',
+										message: result.message,
+										type: BootstrapDialog.TYPE_SUCCESS
+									});
+									alt.$modalDialog.css('width', '100px');
+									$table.bootstrapTable('refresh', {silent: false});
+								} else if (result.status == 0) {
+									var alt = BootstrapDialog.alert({
+										title: '失败',
+										message: result.message,
+										type: BootstrapDialog.TYPE_DANGER
+									});
+									alt.$modalDialog.css('width', '100px');
+									$table.bootstrapTable('refresh', {silent: false});
+								} else {
+									var alt = BootstrapDialog.alert({
+										title: '错误',
 										message: result.message,
 										type: BootstrapDialog.TYPE_DANGER
 									});
