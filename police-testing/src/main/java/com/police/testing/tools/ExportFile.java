@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -117,12 +119,17 @@ public class ExportFile {
 				String sorce = String.valueOf(testingLog.getScore());
 				cellDataSorce.setCellValue(sorce.toString());
 				valueNumber++;
-				//分数
+				//IP
 				sheet.setColumnWidth(valueNumber, 5000);
 				XSSFCell cellDataIp = valuerow.createCell(valueNumber,0);
 				cellDataIp.setCellStyle(cellStyle);
-				String ip = String.valueOf(testingLog.getScore());
-				cellDataIp.setCellValue(ip.toString());
+				String ip = null;
+				if(StringUtils.isBlank(testingLog.getIp())){
+					ip = "";
+				}else {
+					ip = testingLog.getIp();
+				}
+				cellDataIp.setCellValue(ip);
 				valueNumber++;
 			}
 			/***
