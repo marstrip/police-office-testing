@@ -266,7 +266,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			}
 			testingResults.add(testingResult);
 		}
-		if(StringUtils.isNotBlank(testPaperId)){
+		if(StringUtils.isNotBlank(testPaperId) && !testPaperId.equals("null")){
 			//---------------------------------------保存分数-----------------------------
 			TestingLog testingLog = new TestingLog();
 			testingLog.setCreateDate(new Date());
