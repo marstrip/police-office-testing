@@ -266,24 +266,26 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			}
 			testingResults.add(testingResult);
 		}
-		//---------------------------------------保存分数-----------------------------
-		TestingLog testingLog = new TestingLog();
-		testingLog.setCreateDate(new Date());
-		testingLog.setDepartmentId(departmentId);
-		testingLog.setDepartmentName(departmentName);
-		testingLog.setScore(score);
-		testingLog.setTestingType("officalExam");
-		testingLog.setIp(ip);
-		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
-		String testPaperName = null;
-		if(testPaper != null){
-			testPaperName = testPaper.getTestPaperName();
+		if(StringUtils.isNotBlank(testPaperId)){
+			//---------------------------------------保存分数-----------------------------
+			TestingLog testingLog = new TestingLog();
+			testingLog.setCreateDate(new Date());
+			testingLog.setDepartmentId(departmentId);
+			testingLog.setDepartmentName(departmentName);
+			testingLog.setScore(score);
+			testingLog.setTestingType("officalExam");
+			testingLog.setIp(ip);
+			TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperId);
+			String testPaperName = null;
+			if(testPaper != null){
+				testPaperName = testPaper.getTestPaperName();
+			}
+			testingLog.setTestPaperId(testPaperId);
+			testingLog.setTestPaperName(testPaperName);
+			testingLog.setUserId(userId);
+			testingLog.setUserName(userName);
+			testingLogMapper.insert(testingLog);
 		}
-		testingLog.setTestPaperId(testPaperId);
-		testingLog.setTestPaperName(testPaperName);
-		testingLog.setUserId(userId);
-		testingLog.setUserName(userName);
-		testingLogMapper.insert(testingLog);
 		result.put("status", 1);
 		result.put("score", score);
 		result.put("testingResult", testingResults);
