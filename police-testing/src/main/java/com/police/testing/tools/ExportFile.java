@@ -1,6 +1,5 @@
 package com.police.testing.tools;
 
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -71,6 +70,12 @@ public class ExportFile {
 			cellConnetProbability.setCellStyle(cellStyle);
 			cellConnetProbability.setCellValue("分数");
 			titleColumnNubmer ++;
+			//IP
+			sheet.setColumnWidth(titleColumnNubmer, 5000);
+			XSSFCell cellIp = titleRow.createCell(titleColumnNubmer,0);
+			cellIp.setCellStyle(cellStyle);
+			cellIp.setCellValue("ip");
+			titleColumnNubmer ++;
 			//给数据表添加数据
 			for (int i = 0; i< list.size(); i++) {
 				TestingLog testingLog = list.get(i);
@@ -111,6 +116,13 @@ public class ExportFile {
 				cellDataSorce.setCellStyle(cellStyle);
 				String sorce = String.valueOf(testingLog.getScore());
 				cellDataSorce.setCellValue(sorce.toString());
+				valueNumber++;
+				//分数
+				sheet.setColumnWidth(valueNumber, 5000);
+				XSSFCell cellDataIp = valuerow.createCell(valueNumber,0);
+				cellDataIp.setCellStyle(cellStyle);
+				String ip = String.valueOf(testingLog.getScore());
+				cellDataIp.setCellValue(ip.toString());
 				valueNumber++;
 			}
 			/***

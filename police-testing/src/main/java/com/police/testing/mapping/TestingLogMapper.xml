@@ -25,6 +25,21 @@
     where auto_id = #{autoId,jdbcType=INTEGER}
   </select>
   
+  <select id="selectByLikeUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+    <include refid="Base_Column_List" />
+    from testing_log
+    where 1=1 
+    <if test="userId != null and userId != ''">
+    	 and user_id like '%${userId}%'
+    </if>
+    and testing_type = 'officalExam'
+    order by create_date DESC
+    <if test="offset != null and limit != null">
+     limit ${offset},${limit}
+    </if>
+  </select>
+  
   <select id="selectDistDepartmentName" resultType="java.lang.String" parameterType="java.lang.String" >
   	select 
   	DISTINCT(department_name)
@@ -260,4 +275,9 @@
       ip = #{ip,jdbcType=VARCHAR}
     where auto_id = #{autoId,jdbcType=INTEGER}
   </update>
+  
+  <delete id="deleteByTestPaperIdAndUserId" parameterType="java.lang.String">
+  	delete from testing_log where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
+  	AND user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
 </mapper>

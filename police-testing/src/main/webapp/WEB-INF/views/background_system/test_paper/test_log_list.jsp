@@ -154,7 +154,7 @@
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
-			url: '${pageContext.request.contextPath}/XXX',
+			url: '${pageContext.request.contextPath}/testingLog/getList',
 			method: 'GET',
 			dataType: "json",
 			striped: true,				//设置为 true 会有隔行变色效果  
@@ -317,7 +317,7 @@
 						};
 
 						$.ajax({
-							url: '${pageContext.request.contextPath}/YYY',
+							url: '${pageContext.request.contextPath}/testingLog/delete',
 							data : formData,
 							success: function(d) {
 								var result = $.parseJSON(d);

@@ -35,4 +35,8 @@ public interface TestingLogMapper {
 
 	List<TestingLog> selectByUserIdAndType(@Param("userId") String userId, @Param("testingType") String testingType,
 			@Param("offset") Integer offset,@Param("limit") Integer limit);
+
+	Integer deleteByTestPaperIdAndUserId(@Param("testPaperId") String testPaperId, @Param("userId") String userId);
+
+	List<TestingLog> selectByLikeUserId(@Param("userId") String  userId, @Param("offset") Integer offset,@Param("limit") Integer limit);
 }

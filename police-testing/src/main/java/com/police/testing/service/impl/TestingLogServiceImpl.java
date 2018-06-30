@@ -1,6 +1,7 @@
 package com.police.testing.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 import com.police.testing.dao.SysUserMapper;
 import com.police.testing.dao.TestingLogMapper;
+import com.police.testing.pojo.CaseAnalyze;
 import com.police.testing.pojo.SysUser;
-import com.police.testing.pojo.TestPaper;
 import com.police.testing.pojo.TestingLog;
 import com.police.testing.service.ITestingLogService;
 
@@ -58,6 +59,23 @@ public class TestingLogServiceImpl implements ITestingLogService{
 		testingLog.setUserId(userId);
 		testingLog.setUserName(userName);
 		return testingLogMapper.insert(testingLog);
+	}
+	 
+	@Override
+	public List<TestingLog> getList(String userId, Integer offset, Integer limit) {
+		List<TestingLog> list = testingLogMapper.selectByLikeUserId(userId, offset, limit);
+		return list;
+	}
+	@Override
+	public long getCount(String userId) {
+		List<TestingLog> list = testingLogMapper.selectByLikeUserId(userId, null, null);
+		return list.size();
+	}
+	@Override
+	public Integer deleteData(String autoIdStr) {
+		Integer autoId = Integer.valueOf(autoIdStr);
+		return testingLogMapper.deleteByPrimaryKey(autoId);
+//		return testingLogMapper.deleteByTestPaperIdAndUserId(testPaperId, userId);
 	}
 
 }
