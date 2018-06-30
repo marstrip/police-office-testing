@@ -121,7 +121,7 @@
 			<li>时间到会有提示，请务必按照提示，<strong>确认交卷成功后</strong>再进行其他操作</li>
 		</ul>
 		<div style="text-align: center;">
-			<button class="btn btn-default" disabled>试卷加载中，请稍后...</button>
+			<button class="btn btn-default" id="startBtn" disabled>试卷加载中，请稍后...</button>
 		</div>
 		<!-- <hr>
 		<table style="width: 720px; margin-left: 120px;">
@@ -151,7 +151,7 @@
 		</table> -->
 	</div>
 
-	<div class="mastbody" style="background: transparent;">
+	<div class="mastbody" id="paperBody" style="background: transparent; display: none;">
 		<!-- 面板区域 -->
 		<div style="width: 90px; margin-right: 25px; float: right; position: fixed; right: calc(50% - 600px);">
 			<div class="panel panel-white" style="display: block; position: relative; overflow: hidden;">
@@ -283,6 +283,11 @@
 
 	// 页面初始化加载数据
 	$(document).ready(function() {
+		// 开始考试按钮
+		var $startBtn = $('#startBtn');
+		// 试卷本体
+		var $paperBody = $('#paperBody');
+
 		// 正式考试
 		if (type == 'officialExam') {
 			console.log('类型:', type);
@@ -304,12 +309,21 @@
 							testTime: result.testTime
 						}
 						$paperContainer.genPaper(formData, result, false);
+						$startBtn.on('click', function() {
+							$paperBody.show();
+							countdown_init(formData.testTime, submitPeper);
+							$(this).remove();
+						});
+						$startBtn.prop('disabled', false)
+								.removeClass('btn-default')
+								.addClass('btn-success')
+								.html('开始考试');
 
-						countdown_init(formData.testTime, submitPeper);
 					}
 				},
 				error: function() {
 					alert('发生异常！无法发送请求！！请刷新浏览器重试！！');
+					$startBtn.html('发生错误，请刷新重试或联系管理员');
 				}
 			});
 		}
@@ -336,12 +350,21 @@
 							testTime: 60
 						}
 						$paperContainer.genPaper(formData, result, false);
+						$startBtn.on('click', function() {
+							$paperBody.show();
+							countdown_init(formData.testTime, submitPeper);
+							$(this).remove();
+						});
+						$startBtn.prop('disabled', false)
+								.removeClass('btn-default')
+								.addClass('btn-success')
+								.html('开始考试');
 
-						countdown_init(formData.testTime, submitPeper);
 					}
 				},
 				error: function() {
 					alert('发生异常！无法发送请求！！请刷新浏览器重试！！');
+					$startBtn.html('发生错误，请刷新重试或联系管理员');
 				}
 			});
 		}

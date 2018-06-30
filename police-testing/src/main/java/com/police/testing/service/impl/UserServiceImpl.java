@@ -222,7 +222,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public boolean resetPassword(String userId) {
 		Integer flag = sysUserMapper.resetPassword(userId, "111111");
-		if(flag == 1){
+		if(flag > 0){
 			return true;
 		}
 		return false;
