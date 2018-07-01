@@ -1,0 +1,19 @@
+
+ALTER TABLE testing_log ADD COLUMN ip VARCHAR(200) COMMENT '用户ip';
+
+CREATE TABLE `test_paper_upload` (
+  `auto_id` int(11) NOT NULL AUTO_INCREMENT,
+  `test_paper_id` varchar(200) DEFAULT NULL,
+  `test_paper_name` varchar(200) DEFAULT NULL,
+  `upload_file_id` varchar(100) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`auto_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+ALTER TABLE test_question ADD COLUMN answer_count int(11) COMMENT '答对次数';
+
+ALTER TABLE test_question ADD COLUMN fail_count int(11) COMMENT '答错次数';
+
+update test_question set answer_count = 0,fail_count = 0;
+
+INSERT INTO `police_testing`.`sys_menu` (`id`, `name`, `parentid`, `sequence`, `iconCls`, `url`, `enable`) VALUES ('305', '考试记录管理', '3', '5', '', '/testingLog/jsp', '1');
