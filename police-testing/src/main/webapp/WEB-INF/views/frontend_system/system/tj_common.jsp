@@ -343,7 +343,7 @@
 								'2': '未开始'
 							};
 							if ((row.flagExam + '') == '1') {
-								return '<a href="${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + row.testPaperId + '&type=officialExam">' + opMap[row.flagExam + ''] + '</a>';
+								return '<a href="${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + row.testPaperId + '&type=officalExam">' + opMap[row.flagExam + ''] + '</a>';
 							} else {
 								return '<a href="javascript:void(0);" onclick="testPaper_pop(\'' + row.flagExam + '\');">' + opMap[row.flagExam + ''] + '</a>';
 							}
