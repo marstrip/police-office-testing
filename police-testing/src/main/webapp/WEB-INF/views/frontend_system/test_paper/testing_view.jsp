@@ -289,7 +289,7 @@
 		var $paperBody = $('#paperBody');
 
 		// 正式考试
-		if (type == 'officialExam') {
+		if (type == 'officalExam') {
 			console.log('类型:', type);
 			$.ajax({
 				url: '${pageContext.request.contextPath}/testPaper/viewTestPaper',

@@ -370,7 +370,7 @@
 													console.log('>>>', _idx, rows[idx].testPaperId);
 													switch(rows[idx].flagExam) {
 														case '1':
-															window.open('${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + rows[idx].testPaperId + '&type=officialExam');
+															window.open('${pageContext.request.contextPath}/testPaper/fronendJsp?testPaperId=' + rows[idx].testPaperId + '&type=officalExam');
 															break;
 														case '0':
 															BootstrapDialog.alert({
