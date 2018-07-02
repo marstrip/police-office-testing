@@ -51,13 +51,13 @@
 					"placeholder": "",
 					"dtp_setting": {
 		                "language": "zh-CN",
-		                "format": "yyyy-mm-dd 00:00:00",
+		                "format": "yyyy-mm-dd hh:ii:00",
 		                "weekStart": 1,
 		                "todayBtn":  1,
 		                "autoclose": 1,
 		                "todayHighlight": 1,
 		                "startView": 2,
-		                "minView": 2,
+		                "minView": 0,
 		                "forceParse": 0
 		            }
 				}
@@ -79,13 +79,13 @@
 					"placeholder": "",
 					"dtp_setting": {
 		                "language": "zh-CN",
-		                "format": "yyyy-mm-dd 23:59:59",
+		                "format": "yyyy-mm-dd hh:ii:00",
 		                "weekStart": 1,
 		                "todayBtn":  1,
 		                "autoclose": 1,
 		                "todayHighlight": 1,
 		                "startView": 2,
-		                "minView": 2,
+		                "minView": 0,
 		                "forceParse": 0
 		            }
 				}

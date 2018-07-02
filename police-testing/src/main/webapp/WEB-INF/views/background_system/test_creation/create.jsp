@@ -666,6 +666,7 @@
 		// 异步加载数据
 		$.ajax({
 			url: '${pageContext.request.contextPath}/styles/fb_data/makePaper_form.json',
+			cache: false,
 			success: function(d) {
 				window.paperFormConf = d;
 			},
