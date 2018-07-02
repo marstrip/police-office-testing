@@ -200,7 +200,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 	}
 
 	@Override
-	public JSONObject submitTesting(JSONArray answerArray, String testPaperId, String ip) {
+	public JSONObject submitTesting(JSONArray answerArray, String testPaperId, String ip, String type) {
 		//用户信息
 		Subject currentUser = SecurityUtils.getSubject();
 		Session session = currentUser.getSession();
@@ -215,13 +215,15 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			userName = user.getUserName();
 		}
 		JSONObject result = new JSONObject();
-		//判断本次考试是否提交过答案
-		List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndUserId(testPaperId, userId, "officalExam");
-		if(testingLogs.size() > 0){
-			result.put("status", -1);
-			result.put("code", 501);
-			result.put("message", "已提交过答案，请勿再次提交！");
-			return result;
+		if(type.equals("officalExam")){
+			//判断本次考试是否提交过答案
+			List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndUserId(testPaperId, userId, "officalExam");
+			if(testingLogs.size() > 0){
+				result.put("status", -1);
+				result.put("code", 501);
+				result.put("message", "已提交过答案，请勿再次提交！");
+				return result;
+			}
 		}
 		//初始分数为0
 		Integer score = 0;

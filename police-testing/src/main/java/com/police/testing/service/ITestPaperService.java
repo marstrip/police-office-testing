@@ -58,7 +58,7 @@ public interface ITestPaperService {
 	
 	public TestPaper getTestPaperObjectById(String testPaperId);
 
-	public JSONObject submitTesting(JSONArray answerArray, String testPaperId, String ip);
+	public JSONObject submitTesting(JSONArray answerArray, String testPaperId, String ip, String type);
 
 	public Integer deleteData(String testPaperId, String enable);
 

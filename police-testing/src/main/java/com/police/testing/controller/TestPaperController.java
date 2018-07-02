@@ -200,10 +200,13 @@ public class TestPaperController {
 		JSONObject receiveObject = JSONObject.fromObject(jsonStr);
 		if(receiveObject.containsKey("testPaperId") && receiveObject.containsKey("answerList") && receiveObject.containsKey("type")){
 			String testPaperId = receiveObject.getString("testPaperId");
+			if(testPaperId.equals("null")){
+				testPaperId = null;
+			}
 			String answerListStr = receiveObject.getString("answerList");
+			String type = receiveObject.getString("type");
 			JSONArray answerArray = JSONArray.fromObject(answerListStr);
-			result = testPaperService.submitTesting(answerArray, testPaperId, ip);
-			result.put("status", 1);
+			result = testPaperService.submitTesting(answerArray, testPaperId, ip, type);
 		}else {
 			result.put("status", -1);
 		}
