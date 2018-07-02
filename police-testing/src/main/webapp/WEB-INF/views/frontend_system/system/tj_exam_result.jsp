@@ -89,8 +89,8 @@
 											<li class="caseAnalyze">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=caseAnalyze">案例评析</a>
 											</li>
-											<li>
-												<a href="demo-exam-list.html">考试列表</a>
+											<li class="testPaper">
+												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=testPaper">考试列表</a>
 											</li>
 											<li class="score">
 												<a href="${pageContext.request.contextPath}/infrontend/bjCommonJsp?switchPage=score">成绩查询</a>
