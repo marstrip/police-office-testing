@@ -284,6 +284,16 @@
 					align: 'center'		//水平居中
 				},
 				{
+					title: '考试开始时间',			//表的列名
+					field: 'beginDate',	//json数据中rows数组中的属性名
+					align: 'center'		//水平居中
+				},
+				{
+					title: '考试结束时间',			//表的列名
+					field: 'testDate',	//json数据中rows数组中的属性名
+					align: 'center'		//水平居中
+				},
+				{
 					//EMAIL
 					title: '创建时间',
 					field: 'createDate',
