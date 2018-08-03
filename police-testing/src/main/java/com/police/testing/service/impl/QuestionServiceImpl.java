@@ -134,6 +134,7 @@ public class QuestionServiceImpl implements IQuestionService{
 			String message = null;
 			for (int i=0; i < questions.size(); i++) {
 				TestQuestionWithBLOBs question = questions.get(i);
+				System.out.println("index:" + i);
 				String questionType = question.getTestQuestionType();
 				if(questionType.equals("1")){
 					singleSelectCount ++;
@@ -214,6 +215,7 @@ public class QuestionServiceImpl implements IQuestionService{
 		/*********** 试卷基础数据赋值 *********************/
 		for (int i = 0; i < ws.length; i++) {
 			String rowWord = ws[i].toString().replaceAll("</?[^>]+>", "").trim();// 去除html，获取当前本行内容
+			rowWord = rowWord.replaceAll("null", "");
 			String lastSelects = null;
 			String lastQuestionAnswer = null;
 			TestQuestionWithBLOBs lastQuestion = null;
