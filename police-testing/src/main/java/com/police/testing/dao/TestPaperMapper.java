@@ -29,11 +29,17 @@ public interface TestPaperMapper {
     		@Param("offset") Integer offset, @Param("limit") Integer limit);
     /**
      * 根据试卷名称获取数据集合
-     * @param enableFlag 
      * @return
      */
     List<TestPaper> selectByLikeTestPapaerName(@Param("testPaperName") String testPaperName, 
     		@Param("enable") String enable, @Param("offset") Integer offset, @Param("limit") Integer limit);
     
     int updateEnable(@Param("testPaperId") String testPaperId, @Param("enable") String enable);
+
+    /**
+     * 更新考试开始时间，立即开始考试
+     * @param beginDate
+     * @param testPaperId
+     */
+    int updateBeginDate(@Param("beginDate") String beginDate, @Param("testDate")String testDate, @Param("testPaperId") String testPaperId);
 }

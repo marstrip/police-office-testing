@@ -368,6 +368,15 @@ public class SystemTools {
 		}
 		return cellValue;
 	}
+
+
+	public static Date subDay(Date date, int number){
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(date);
+	    calendar.add(Calendar.DATE, number);
+	    return calendar.getTime();
+    }
+
 	public static void main(String[] args){
 //		String str = "13612345678";
 //		String ss = str.substring(0,str.length()-(str.substring(3)).length())+"****"+str.substring(7);

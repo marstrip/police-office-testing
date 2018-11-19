@@ -26,6 +26,46 @@
 			z-index: 99999999;
 		}
 	</style>
+    <script type="text/javascript">
+        //从服务器上获取初始时间
+        var currentDate = new Date(<%=new java.util.Date().getTime()%>);
+        function run()
+        {
+            currentDate.setSeconds(currentDate.getSeconds()+1);
+            var time = "";
+            var year = currentDate.getFullYear();
+            var month = currentDate.getMonth() + 1;
+            var day = currentDate.getDate();
+            var hour = currentDate.getHours();
+            var minute = currentDate.getMinutes();
+            var second = currentDate.getSeconds();
+            if(hour < 10){
+                time += "0" + hour;
+            }else{
+                time += hour;
+            }
+            time += ":";
+            if(minute < 10){
+                time += "0" + minute;
+            }else{
+                time += minute;
+            }
+            time += ":";
+            if(second < 10){
+                time += "0" + second;
+            }else{
+                time += second;
+            }
+            document.getElementById("time").innerHTML = year+"年"+month+"月"+day+"日" + time;
+        }
+        window.setInterval("run();", 1000);
+
+    function checkTime(i){
+            if (i<10)
+            {i="0" + i}
+            return i
+        }
+    </script>
 </head>
 <body>
 	<div class="base-container">
@@ -53,7 +93,8 @@
 
 			<div class="navbar-body" id="myTab">
 				<a href="${pageContext.request.contextPath}/logout" class="btn btn-warning pull-right" style="margin: 8px 15px;"><i class="glyphicon glyphicon-log-out"></i> 退出</a>
-			</div>
+                <label class="pull-right" style="margin: 14px 15px;" id="time"></label>
+            </div>
 		</nav>
 		
 		<!-- 左侧小屏用菜单 -->

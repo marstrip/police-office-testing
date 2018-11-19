@@ -111,7 +111,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 
 	@Override
 	public List<TestPaper> getList(String testPaperName, Integer offset, Integer limit) {
-		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, "1", offset, limit);
+		List<TestPaper> testPapers = testPaperMapper.selectByLikeTestPapaerName(testPaperName, null, offset, limit);
 		return testPapers;
 	}
 
@@ -317,7 +317,7 @@ public class TestPaperServiceImpl implements ITestPaperService {
 			Date now = new Date();
 			List<TestingLog> testingLogs = testingLogMapper.selectByTestPaperIdAndUserId(testPaperId, userId, null);
 			if(testingLogs.size() > 0){//试卷被考试过
-				testPaper.setFlagExam("0");
+				testPaper.setFlagExam("3");
 			}else if(testDate.getTime() < now.getTime()){
 				testPaper.setFlagExam("0");
 			}else if(testBeginDate.getTime() > now.getTime()){
@@ -369,5 +369,41 @@ public class TestPaperServiceImpl implements ITestPaperService {
 		result.put("message", "保存成功！");
 		return result;
 	}
-	
+
+    @Override
+    public JSONObject immediatelyTest(String testPaperId) {
+        JSONObject result = new JSONObject();
+        String beginDateStr = SystemTools.Time2String(new Date(), "yyyy-MM-dd 00:00:00");
+        System.out.printf("当前设置的开始时间：" + beginDateStr);
+        String endDateStr = SystemTools.Time2String(new Date(), "yyyy-MM-dd 23:59:59");
+        System.out.printf("当前设置的结束时间：" + endDateStr);
+        int flag = testPaperMapper.updateBeginDate(beginDateStr, endDateStr, testPaperId);
+        if (flag == 1){
+            result.put("status", 1);
+            result.put("message", "设置成功，当前系统时间为" + SystemTools.Time2String(new Date()));
+        }else {
+            result.put("status", -1);
+            result.put("message", "设置失败，当前系统时间为" + SystemTools.Time2String(new Date()));
+        }
+	    return result;
+    }
+
+    @Override
+    public JSONObject stopTest(String testPaperId) {
+        JSONObject result = new JSONObject();
+        Date yesterday = SystemTools.subDay(new Date(), -1);
+        String beginDateStr = SystemTools.Time2String(yesterday, "yyyy-MM-dd 00:00:00");
+        System.out.printf("当前设置的开始时间：" + beginDateStr);
+        String endDateStr = SystemTools.Time2String(yesterday, "yyyy-MM-dd 23:59:59");
+        System.out.printf("当前设置的结束时间：" + endDateStr);
+        int flag = testPaperMapper.updateBeginDate(beginDateStr, endDateStr, testPaperId);
+        if (flag == 1){
+            result.put("status", 1);
+            result.put("message", "设置成功，当前系统时间为" + SystemTools.Time2String(new Date()));
+        }else {
+            result.put("status", -1);
+            result.put("message", "设置失败，当前系统时间为" + SystemTools.Time2String(new Date()));
+        }
+        return result;
+    }
 }

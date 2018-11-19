@@ -74,4 +74,18 @@ public interface ITestPaperService {
 	 */
 	public JSONObject savePaper(String[] uploadFileIds, String testDate, String testPaperName, Integer testTime,
 			String testBeginDate);
+
+    /**
+     * 立即开始考试
+     * @param testPaperId
+     * @return
+     */
+    JSONObject immediatelyTest(String testPaperId);
+
+    /**
+     * 停止当前考试
+     * @param testPaperId
+     * @return
+     */
+    JSONObject stopTest(String testPaperId);
 }

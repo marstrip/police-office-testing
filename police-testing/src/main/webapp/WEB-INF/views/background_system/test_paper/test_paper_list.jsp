@@ -190,6 +190,13 @@
 				<button id="table_11_view" class="form-control-static btn btn-primary" disabled>
 					<i class="glyphicon glyphicon-eye-open"></i> 预览
 				</button>
+                <button id="table_11_test" class="form-control-static btn btn-danger" disabled>
+                    <i class="glyphicon glyphicon-eye-open"></i> 开始考试
+                </button>
+                <button id="table_11_stoptest" class="form-control-static btn btn-danger" disabled>
+                    <i class="glyphicon glyphicon-eye-open"></i> 考试结束
+                </button>
+
 			</div>
 			<table id="table_11"></table>
 		</div>
@@ -215,6 +222,10 @@
 		var $btn_edit = $('#table_11_edit');
 		var $btn_delete = $('#table_11_delete');
 		var $btn_view = $('#table_11_view');
+		//立即考试按钮
+		var $btn_test = $('#table_11_test');
+		var $btn_stoptest = $('#table_11_stoptest');
+
 		var $table = $('#table_11');
 		var selections = [];
 		$table.bootstrapTable({
@@ -347,6 +358,9 @@
 			$btn_delete.prop('disabled', !selections.length);
 			$btn_edit.prop('disabled', selections.length !== 1);
 			$btn_view.prop('disabled', selections.length !== 1);
+			//立即考试
+			$btn_test.prop('disabled', selections.length !== 1);
+            $btn_stoptest.prop('disabled', selections.length !== 1);
 		});
 
 		// 刷新时，清空所有已选项
@@ -359,6 +373,8 @@
 			$btn_delete.prop('disabled', !selections.length);
 			$btn_edit.prop('disabled', selections.length !== 1);
 			$btn_view.prop('disabled', selections.length !== 1);
+            $btn_test.prop('disabled', selections.length !== 1);
+            $btn_stoptest.prop('disabled', selections.length !== 1);
 		});
 		
 
@@ -424,7 +440,7 @@
 			// 确认框
 			var cfm = BootstrapDialog.confirm({
 				title: '确认',
-				message: '请确认是否设置？',
+				message: '请确认是否重置？（如果当前状态为：“可用”，则修改为“不可用”。如果当前状态为“不可用”，则修改为“可用”）',
 				type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
 				// closable: true, // <-- Default value is false
 				draggable: true, // <-- Default value is false
@@ -507,6 +523,116 @@
 				}
 			});
 		});
+
+        // 立即考试
+        $btn_test.click(function() {
+            // 确认框
+            var cfm = BootstrapDialog.confirm({
+                title: '确认',
+                message: '请确认是否立即开始考试？',
+                type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                // closable: true, // <-- Default value is false
+                draggable: true, // <-- Default value is false
+                btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+                btnOKLabel: '确认', // <-- Default value is 'OK',
+                btnOKClass: 'btn-danger', // <-- If you didn't specify it, dialog type will be used,
+                callback: function(isYes) {
+                    if (isYes) {
+                        // 整合数据
+                        var formData = {
+                            testPaperId: getIdSelections()[0],
+                        };
+
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/testPaper/immediatelyTest',
+                            data : formData,
+                            success: function(d) {
+                                var result = $.parseJSON(d);
+                                console.log('提交', d, result.message, result.status);
+
+                                if (result.status == 1) {
+                                    var alt = BootstrapDialog.alert({
+                                        title: '成功',
+                                        message: result.message,
+                                        type: BootstrapDialog.TYPE_SUCCESS
+                                    });
+                                    alt.$modalDialog.css('width', '100px');
+                                    $table.bootstrapTable('refresh', {silent: false});
+                                } else {
+                                    var alt = BootstrapDialog.alert({
+                                        title: '失败',
+                                        message: result.message,
+                                        type: BootstrapDialog.TYPE_DANGER
+                                    });
+                                    alt.$modalDialog.css('width', '100px');
+                                    $table.bootstrapTable('refresh', {silent: false});
+                                }
+                            },
+                            error: function(d) {
+                                BootstrapDialog.alert('提交删除请求失败');
+                            }
+                        });
+                    }
+
+                }
+            });
+            cfm.$modalDialog.css('width', '300px');
+        });
+
+        // 立即停止考试
+        $btn_stoptest.click(function() {
+            // 确认框
+            var cfm = BootstrapDialog.confirm({
+                title: '确认',
+                message: '请确认是否将考试状态设置为结束？',
+                type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                // closable: true, // <-- Default value is false
+                draggable: true, // <-- Default value is false
+                btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+                btnOKLabel: '确认', // <-- Default value is 'OK',
+                btnOKClass: 'btn-danger', // <-- If you didn't specify it, dialog type will be used,
+                callback: function(isYes) {
+                    if (isYes) {
+                        // 整合数据
+                        var formData = {
+                            testPaperId: getIdSelections()[0],
+                        };
+
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/testPaper/stopTest',
+                            data : formData,
+                            success: function(d) {
+                                var result = $.parseJSON(d);
+                                console.log('提交', d, result.message, result.status);
+
+                                if (result.status == 1) {
+                                    var alt = BootstrapDialog.alert({
+                                        title: '成功',
+                                        message: result.message,
+                                        type: BootstrapDialog.TYPE_SUCCESS
+                                    });
+                                    alt.$modalDialog.css('width', '100px');
+                                    $table.bootstrapTable('refresh', {silent: false});
+                                } else {
+                                    var alt = BootstrapDialog.alert({
+                                        title: '失败',
+                                        message: result.message,
+                                        type: BootstrapDialog.TYPE_DANGER
+                                    });
+                                    alt.$modalDialog.css('width', '100px');
+                                    $table.bootstrapTable('refresh', {silent: false});
+                                }
+                            },
+                            error: function(d) {
+                                BootstrapDialog.alert('提交删除请求失败');
+                            }
+                        });
+                    }
+
+                }
+            });
+            cfm.$modalDialog.css('width', '300px');
+        });
 	});
   </script>
 </html>

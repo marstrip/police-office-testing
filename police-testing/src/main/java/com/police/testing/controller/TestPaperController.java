@@ -157,10 +157,10 @@ public class TestPaperController {
 		Integer flag = testPaperService.deleteData(testPaperId, enable);
 		if(flag == 1){
 			result.put("status", flag);
-			result.put("message", "删除成功");
+			result.put("message", "成功");
 		}else {
 			result.put("status", flag);
-			result.put("message", "删除失败");
+			result.put("message", "失败");
 		}
 		return result;
 	}
@@ -212,8 +212,42 @@ public class TestPaperController {
 		}
 		return result;
 	}
-	
-	
+
+	@RequestMapping("immediatelyTest")
+    @ResponseBody
+	public JSONObject immediatelyTest(HttpServletRequest request){
+	    JSONObject result = new JSONObject();
+        //获取试卷ID
+        String testPaperId = request.getParameter("testPaperId");
+        if (StringUtils.isBlank(testPaperId)){
+            result.put("status",-1);
+            result.put("message", "fail");
+            return result;
+        }
+        result = testPaperService.immediatelyTest(testPaperId);
+        return result;
+    }
+
+    /**
+     * 停止考试
+     * @param request
+     * @return
+     */
+    @RequestMapping("stopTest")
+    @ResponseBody
+    public JSONObject stopTest(HttpServletRequest request){
+	    JSONObject result = new JSONObject();
+        //获取试卷ID
+        String testPaperId = request.getParameter("testPaperId");
+        if (StringUtils.isBlank(testPaperId)){
+            result.put("status",-1);
+            result.put("message", "fail");
+            return result;
+        }
+        result = testPaperService.stopTest(testPaperId);
+        return result;
+    }
+
 	public static String getIp2(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
         if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){

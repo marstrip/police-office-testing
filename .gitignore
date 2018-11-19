@@ -1,1 +1,3 @@
 *.settings*
+/police-testing/.idea
+/police-testing/*.iml

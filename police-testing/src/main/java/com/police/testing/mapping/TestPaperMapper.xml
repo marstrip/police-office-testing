@@ -214,4 +214,12 @@
       enable = #{enable,jdbcType=VARCHAR}
     where test_paper_id = #{testPaperId,jdbcType=VARCHAR}
   </update>
+
+
+    <update id="updateBeginDate" parameterType="java.lang.String">
+        update test_paper
+        set begin_date = #{beginDate,jdbcType=TIMESTAMP},
+          test_date = #{testDate,jdbcType=TIMESTAMP}
+        where test_paper_id = #{testPaperId, jdbcType=VARCHAR}
+    </update>
 </mapper>
