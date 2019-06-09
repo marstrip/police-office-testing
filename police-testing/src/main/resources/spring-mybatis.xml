@@ -94,4 +94,5 @@
   <!-- 事务注解驱动，标注@Transactional的类和方法将具有事务性 -->
   <tx:annotation-driven transaction-manager="txManager" />
   <!-- 事务管理器 -->
+    <import resource="spring-mvc.xml"></import>
 </beans>  
